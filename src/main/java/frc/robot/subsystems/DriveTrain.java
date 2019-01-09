@@ -11,10 +11,8 @@ import frc.robot.Addresses;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
-import edu.wpi.first.wpilibj.Talon;
 
-
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 /**
  * Add your docs here.
@@ -24,18 +22,17 @@ public class DriveTrain extends Subsystem {
   // here. Call these from Commands.
 
   private static DriveTrain _instance = null;
-	private Talon _leftFrontMotor, _leftBackMotor, _rightFrontMotor, _rightBackMotor;
+	private WPI_TalonSRX _leftFrontMotor, _leftBackMotor, _rightFrontMotor, _rightBackMotor;
+
+  private MecanumDrive _mDrive;
 
   private DriveTrain() {
-    _leftFrontMotor = new Talon(Addresses.LEFT_FRONT_MOTOR);
-    _leftBackMotor = new Talon(Addresses.LEFT_BACK_MOTOR);
-    _rightFrontMotor = new Talon(Addresses.RIGHT_FRONT_MOTOR);
-    _rightBackMotor = new Talon(Addresses.RIGHT_BACK_MOTOR);
+    _leftFrontMotor = new WPI_TalonSRX(Addresses.LEFT_FRONT_MOTOR);
+    _leftBackMotor = new WPI_TalonSRX(Addresses.LEFT_BACK_MOTOR);
+    _rightFrontMotor = new WPI_TalonSRX(Addresses.RIGHT_FRONT_MOTOR);
+    _rightBackMotor = new WPI_TalonSRX(Addresses.RIGHT_BACK_MOTOR);
   
-  }
-
-  public void MecanumDrive(_leftFrontMotor, _leftBackMotor, _rightFrontMotor, _rightBackMotor) {
-    
+    _mDrive = new MecanumDrive(_leftFrontMotor, _leftBackMotor, _rightFrontMotor, _rightBackMotor);
   }
 
   public static DriveTrain getInstance() {
