@@ -7,16 +7,16 @@
 
 package frc.robot;
 
-/**
- * Add your docs here.
- */
 public class Addresses {
 
+    // Drivestation
     public static final int LEFT_JOYSTICK = 0;
     public static final int RIGHT_JOYSTICK = 1;
 
-    public static final int LEFT_FRONT_MOTOR = 1;
-    public static final int LEFT_BACK_MOTOR = 2;
-    public static final int RIGHT_FRONT_MOTOR = 3;
-    public static final int RIGHT_BACK_MOTOR = 4;
+    // DriveTrain
+    public static final int DRIVETRAIN_LEFT_FRONT_MOTOR = 1;
+    public static final int DRIVETRAIN_LEFT_BACK_MOTOR = 2;
+    public static final int DRIVETRAIN_RIGHT_FRONT_MOTOR = 3;
+    public static final int DRIVETRAIN_RIGHT_BACK_MOTOR = 4;
+
 }
