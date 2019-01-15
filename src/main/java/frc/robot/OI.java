@@ -15,8 +15,7 @@ public class OI {
 
     private static OI _instance;
 
-    private Joystick _leftJoystick;
-    private Joystick _rightJoystick;
+    private Joystick _controller;
 
     private double _xSpeed = 0, _ySpeed = 0, _zRotation = 0;
 
@@ -26,8 +25,7 @@ public class OI {
     private boolean _headed = true;
 
     private OI() {
-        _leftJoystick = new Joystick(Addresses.LEFT_JOYSTICK);
-        _rightJoystick = new Joystick(Addresses.RIGHT_JOYSTICK);
+      _controller = new Joystick(Addresses.CONTROLLER);
     }
 
     public static OI getInstance() {
@@ -50,15 +48,15 @@ public class OI {
 
     private void headedDrive() {
         // Deadband is initialized in subsystem DriveTrain with the mecanum drive constructor.
-        _xSpeed = _leftJoystick.getX();
-        _ySpeed = _leftJoystick.getY();
-        _zRotation = _leftJoystick.getZ();
+        _xSpeed = -_controller.getRawAxis(0);
+        _ySpeed = _controller.getRawAxis(1);
+        _zRotation = -_controller.getRawAxis(4);
     }
 
     private void headlessDrive() {
-        _xSpeed = _leftJoystick.getX();
-        _ySpeed = _leftJoystick.getY();
-        _zRotation = _leftJoystick.getZ();
+        _xSpeed = -_controller.getRawAxis(0);
+        _ySpeed = _controller.getRawAxis(1);
+        _zRotation = -_controller.getRawAxis(4);
         //_gyroAngle = 
     }
 
