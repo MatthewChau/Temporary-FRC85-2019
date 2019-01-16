@@ -18,4 +18,10 @@ public class Addresses {
     public static final int DRIVETRAIN_RIGHT_FRONT_MOTOR = 3;
     public static final int DRIVETRAIN_RIGHT_BACK_MOTOR = 4;
 
+    // Intake
+    public static final int INTAKE_FLIPPER = 9;
+    public static final int INTAKE_PUSHER = 10;
+    public static final int INTAKE_SUCC1 = 11;
+    public static final int INTAKE_SUCC2 = 12;
+
 }
