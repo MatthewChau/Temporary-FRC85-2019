@@ -21,7 +21,7 @@ public class Addresses {
     // Intake
     public static final int INTAKE_FLIPPER = 9;
     public static final int INTAKE_PUSHER = 10;
-    public static final int INTAKE_SUCC1 = 11;
-    public static final int INTAKE_SUCC2 = 12;
+    public static final int INTAKE_ROLLER1 = 11;
+    public static final int INTAKE_ROLLER2 = 12;
 
 }

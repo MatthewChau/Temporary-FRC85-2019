@@ -20,7 +20,7 @@ public class Intake extends Subsystem {
   private static Intake _instance = null;
   private Solenoid _flipper;
   private Solenoid _pusher;
-  private TalonSRX _succ1, _succ2;
+  private TalonSRX _roller1, _roller2;
   
   @Override
   public void initDefaultCommand() {
@@ -31,8 +31,8 @@ public class Intake extends Subsystem {
   private void Intake() {
     _flipper = new Solenoid(Addresses.INTAKE_FLIPPER);
     _pusher = new Solenoid(Addresses.INTAKE_PUSHER);
-    _succ1 = new TalonSRX(Addresses.INTAKE_SUCC1);
-    _succ2 = new TalonSRX(Addresses.INTAKE_SUCC2);
+    _roller1 = new TalonSRX(Addresses.INTAKE_ROLLER1);
+    _roller2 = new TalonSRX(Addresses.INTAKE_ROLLER2);
   }
 
   public static Intake getInstance() {
@@ -59,7 +59,7 @@ public class Intake extends Subsystem {
   }
 
   public void intakeCargo(double speed) {
-    _succ1.set(ControlMode.PercentOutput, speed);
-    _succ2.set(ControlMode.PercentOutput, -speed);
+    _roller1.set(ControlMode.PercentOutput, speed);
+    _roller2.set(ControlMode.PercentOutput, -speed);
   }
 }
