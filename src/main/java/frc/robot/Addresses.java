@@ -18,4 +18,6 @@ public class Addresses {
     public static final int DRIVETRAIN_RIGHT_FRONT_MOTOR = 3;
     public static final int DRIVETRAIN_RIGHT_BACK_MOTOR = 4;
 
+    // IMU
+    public static final int IMUTalon = 0;
 }
