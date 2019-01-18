@@ -7,7 +7,13 @@
 
 package frc.robot.subsystems;
 
+import frc.robot.Addresses;
+import frc.robot.sensors.ProxSensors;
+
 import edu.wpi.first.wpilibj.command.Subsystem;
+
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 /**
  * Add your docs here.
@@ -17,8 +23,12 @@ public class Lift extends Subsystem {
   // here. Call these from Commands.
 
   private static Lift _instance = null;
+  private TalonSRX _motor;
+  private double _speed;
 
   private Lift() {
+    _motor = new TalonSRX(Addresses.LIFT_MOTOR);
+
   }
 
   public static Lift getInstance() {
@@ -31,6 +41,31 @@ public class Lift extends Subsystem {
   @Override
   public void initDefaultCommand() {
     // Set the default command for a subsystem here.
-    // setDefaultCommand(new MySpecialCommand());
+    // setDefaultCommand(LiftWithJoystick or something);
   }
+
+  public double getMotorPercent() {
+    return _motor.getMotorOutputPercent();
+  }
+
+  public void setMotorSpeed(double speed) {
+    _motor.set(ControlMode.PercentOutput, speed);
+    _speed = speed;
+  }
+
+  /**
+   * checks limits,
+   * then false = don't drive;
+   */
+  public boolean checkLift() {
+    if (ProxSensors.getInstance().getTopLimit() && _speed > 0) {
+      return false;
+    } else if (ProxSensors.getInstance().getBottomLimit() && _speed < 0) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+
 }
