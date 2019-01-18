@@ -9,7 +9,9 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Joystick.AxisType;
-import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import frc.robot.commands.lift.VerticalShift;
+import frc.robot.commands.lift.HorizontalShift;
 
 public class OI {
 
@@ -17,6 +19,7 @@ public class OI {
 
     private Joystick _leftJoystick;
     private Joystick _rightJoystick;
+    private JoystickButton _operatorLeftBumper, _operatorRightBumper, _driverLeftBumper, _driverRightBumper;
 
     private double _xSpeed = 0, _ySpeed = 0, _zRotation = 0;
 
@@ -28,6 +31,17 @@ public class OI {
     private OI() {
         _leftJoystick = new Joystick(Addresses.LEFT_JOYSTICK);
         _rightJoystick = new Joystick(Addresses.RIGHT_JOYSTICK);
+
+        _operatorLeftBumper = new JoystickButton(_rightJoystick, 1); //Change values if needed
+        _operatorRightBumper = new JoystickButton(_rightJoystick, 2); //Change values if needed
+        _driverLeftBumper = new JoystickButton(_leftJoystick, 1);
+        _driverRightBumper = new JoystickButton(_leftJoystick, 2);
+
+        _operatorLeftBumper.whenPressed(new VerticalShift(-1)); // -1 means lift down one phase, if possible
+        _operatorRightBumper.whenPressed(new VerticalShift(1)); // 1 means lift up one phase, if possible
+
+        _driverLeftBumper.whenActive(new HorizontalShift(-1)); //-1 means to go right (or forward)
+        _driverRightBumper.whenActive(new HorizontalShift(1)); //1 means to go left (or backward)
     }
 
     public static OI getInstance() {
