@@ -19,7 +19,7 @@ public class OI {
 
     private Joystick _leftJoystick;
     private Joystick _rightJoystick;
-    private JoystickButton _operatorLeftBumper, _operatorRightBumper, _driverLeftBumper, _driverRightBumper;
+    private JoystickButton _operatorPhaseZero, _operatorPhaseOne, _operatorPhaseTwo, _operatorPhaseThree, _driverLeftBumper, _driverRightBumper;
 
     private double _xSpeed = 0, _ySpeed = 0, _zRotation = 0;
 
@@ -32,16 +32,21 @@ public class OI {
         _leftJoystick = new Joystick(Addresses.LEFT_JOYSTICK);
         _rightJoystick = new Joystick(Addresses.RIGHT_JOYSTICK);
 
-        _operatorLeftBumper = new JoystickButton(_rightJoystick, 1); //Change values if needed
-        _operatorRightBumper = new JoystickButton(_rightJoystick, 2); //Change values if needed
+        _operatorPhaseZero = new JoystickButton(_rightJoystick, 1); //Change values if needed
+        _operatorPhaseOne = new JoystickButton(_rightJoystick, 2); //Change values if needed
+        _operatorPhaseTwo = new JoystickButton(_rightJoystick, 3); //Change values if needed
+        _operatorPhaseThree = new JoystickButton(_rightJoystick, 4); //Change values if needed
+
         _driverLeftBumper = new JoystickButton(_leftJoystick, 1);
         _driverRightBumper = new JoystickButton(_leftJoystick, 2);
 
-        _operatorLeftBumper.whenPressed(new VerticalShift(-1)); // -1 means lift down one phase, if possible
-        _operatorRightBumper.whenPressed(new VerticalShift(1)); // 1 means lift up one phase, if possible
+        _operatorPhaseZero.whenPressed(new VerticalShift(0, 1)); //go to phase 0
+        _operatorPhaseOne.whenPressed(new VerticalShift(1, 1)); //go to phase 1
+        _operatorPhaseTwo.whenPressed(new VerticalShift(2, 1)); //go to phase 2
+        _operatorPhaseThree.whenPressed(new VerticalShift(3, 1)); //go to phase 3
 
-        _driverLeftBumper.whenActive(new HorizontalShift(-1)); //-1 means to go right (or forward)
-        _driverRightBumper.whenActive(new HorizontalShift(1)); //1 means to go left (or backward)
+        _driverLeftBumper.whenActive(new HorizontalShift(0, 1)); //1 means to go left (or backward) hopefully
+        _driverRightBumper.whenActive(new HorizontalShift(1, -1)); //-1 means to go right (or forward) hopefully
     }
 
     public static OI getInstance() {

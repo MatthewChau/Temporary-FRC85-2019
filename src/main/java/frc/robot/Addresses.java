@@ -22,9 +22,9 @@ public class Addresses {
     //Lift (addresses are placeholders for now)
     public static final int LIFT_LEFT_MOTOR = 5;
     public static final int LIFT_RIGHT_MOTOR = 6;
-    public static final int CIM_MOTOR = 7;
-    public static final int LIFT_PHASE_0 = 0; //The encoder value for the position at phase 0
-    public static final int LIFT_PHASE_1 = 3; //The encoder value for the position at phase 1
-    public static final int LIFT_PHASE_2 = 6; //The encoder value for the position at phase 2
-    public static final int LIFT_PHASE_3 = 9; //The encoder value for the position at phase 3
+    public static final int LIFT_CIM_MOTOR = 7;
+
+    //Encoders (addresses are placeholders for now)
+    //public static final int LIFT_LEFT_ENCODER = 8;
+    //public static final int LIFT_CIM_ENCODER = 9;
 }

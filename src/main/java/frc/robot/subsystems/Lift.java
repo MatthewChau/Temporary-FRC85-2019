@@ -17,12 +17,16 @@ import frc.robot.Addresses;
 public class Lift extends Subsystem {
     private static Lift _instance = null;
     private TalonSRX _liftLeft, _liftRight, _cim;
-    private Encoder _leftEncoder;
-    private int _phase = 0; //0 is ground level, 1 is bottom (of rocket), 2 is middle, 3 is top
+    private Encoder _leftEncoder, _cimEncoder;
+
+    
+    private int[] phaseValues = {0, 3000, 6000, 9000}; //get phase based on index
+    private int[] horizontalValues = {0, 3000}; //get preset values based on index
     
     public Lift() {
         _liftLeft = new TalonSRX(Addresses.LIFT_LEFT_MOTOR);
         _liftRight = new TalonSRX(Addresses.LIFT_RIGHT_MOTOR);
+        _cim = new TalonSRX(Addresses.LIFT_CIM_MOTOR);
     }
 
     @Override
@@ -37,11 +41,6 @@ public class Lift extends Subsystem {
         return _instance;
     }
 
-    public void verticalShift(int speed) {
-        _liftLeft.set(ControlMode.PercentOutput, speed);
-        _liftRight.set(ControlMode.PercentOutput, -speed); //Since the motors are gonna be facing different directions. If going wrong direction, make the top line -speed and the bottom one speed.
-    }
-
     public void horizontalShift(int speed) {
         _cim.set(ControlMode.PercentOutput, speed);
     }
@@ -50,17 +49,21 @@ public class Lift extends Subsystem {
         return _leftEncoder.getDistance();
     }
 
-    public int getPhase() {
-        return _phase;
+    public double getCimEncoderValue() {
+        return _cimEncoder.getDistance();
     }
 
-    public void changePhase(int value)
+    public void verticalShift(int speed)
     {
-        if (value > 0 && _phase < 3) { //if value is positive
-            _phase += value;
-        }
-        else if (value < 0 && _phase > 0) { //if value is negative
-            _phase += value;
-        }
+        _liftLeft.set(ControlMode.PercentOutput, speed);
+        _liftRight.set(ControlMode.PercentOutput, -speed); //Since the motors are gonna be facing different directions. If going wrong direction, make the top line -speed and the bottom one speed.
+    }
+
+    public int getPhaseValue(int phase) {
+        return phaseValues[phase];
+    }
+
+    public int getHorizontalPhase(int phase) {
+        return horizontalValues[phase];
     }
 }

@@ -6,10 +6,11 @@ import frc.robot.subsystems.Lift;
 //UNFINISHED (maybe)
 
 public class HorizontalShift extends Command {
-    private int _direction;
-    public HorizontalShift(int direction) {
+    private int _direction, _targetPhase;
+    public HorizontalShift(int phase, int direction) {
         requires(Lift.getInstance());
         _direction = direction;
+        _targetPhase = phase;
     }
 
     @Override
@@ -26,7 +27,7 @@ public class HorizontalShift extends Command {
 
     @Override
     protected boolean isFinished() {
-        return false;
+        return (Lift.getInstance().getCimEncoderValue() == Lift.getInstance().getHorizontalPhase(_targetPhase));
     }
 
     @Override
