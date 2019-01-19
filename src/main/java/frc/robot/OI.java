@@ -10,6 +10,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Joystick.AxisType;
 import edu.wpi.first.wpilibj.command.Command;
+import frc.robot.sensors.IMU;
 
 public class OI {
 
@@ -42,7 +43,7 @@ public class OI {
             return new double[] {1, _xSpeed, _ySpeed, _zRotation};
         } else {
             headlessDrive();
-            return new double[] {0, _xSpeed, _ySpeed, _zRotation}; //_gryoAngle};
+            return new double[] {0, _xSpeed, _ySpeed, _zRotation, _gyroAngle};
         }
     }
 
@@ -57,7 +58,7 @@ public class OI {
         _xSpeed = -_controller.getRawAxis(0);
         _ySpeed = _controller.getRawAxis(1);
         _zRotation = -_controller.getRawAxis(4);
-        //_gyroAngle = 
+        _gyroAngle = IMU.getInstance().getFusedHeading();
     }
 
 }
