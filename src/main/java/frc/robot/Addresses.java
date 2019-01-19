@@ -25,8 +25,8 @@ public class Addresses {
     // LiftProximitySensors DigitalInputs
     public static final int LIFT_TOP_LIMIT = 0;
     public static final int LIFT_BOTTOM_LIMIT = 1;
-    public static final int LIFT_LIMIT = 2;
-    public static final int LIFT_OTRA_LIMIT = 3;
+    public static final int LIFT_LEFT_LIMIT = 2;
+    public static final int LIFT_RIGHT_LIMIT = 3;
     
     // Lift (addresses are placeholders for now)
     public static final int LIFT_LEFT_MOTOR = 5;

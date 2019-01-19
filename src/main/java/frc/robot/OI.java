@@ -90,12 +90,19 @@ public class OI {
      * Called in commands to return the joystick axis which is converted into the set speed of the motor
      */
     public double getVerticalLift() {
-        if (!Lift.getInstance().checkLift()) {
+        if (!Lift.getInstance().checkVerticalLift(_operatorController.getRawAxis(1))) {
             return _liftSpeed = 0;
         } else {
             return _liftSpeed = _operatorController.getRawAxis(1);
         }
+    }
 
+    public double getHorizontalLift() {
+        if (!Lift.getInstance().checkHorizontalLift(_operatorController.getRawAxis(0))) {
+            return _liftSpeed = 0;
+        } else {
+            return _liftSpeed = _operatorController.getRawAxis(0);
+        }
     }
 
 }

@@ -11,8 +11,8 @@ import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.OI;
 import frc.robot.subsystems.Lift;
 
-public class VerticalWithJoystick extends Command {
-  public VerticalWithJoystick() {
+public class LiftWithJoystick extends Command {
+  public LiftWithJoystick() {
     // Use requires() here to declare subsystem dependencies
     requires(Lift.getInstance());
   }
@@ -26,6 +26,7 @@ public class VerticalWithJoystick extends Command {
   @Override
   protected void execute() {
     Lift.getInstance().verticalShift(OI.getInstance().getVerticalLift());
+    Lift.getInstance().horizontalShift(OI.getInstance().getHorizontalLift());
   }
 
   // Make this return true when this Command no longer needs to run execute()

@@ -10,8 +10,7 @@ package frc.robot.subsystems;
 
 import frc.robot.Addresses;
 import frc.robot.sensors.ProxSensors;
-
-import frc.robot.commands.lift.VerticalWithJoystick;
+import frc.robot.commands.lift.LiftWithJoystick;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 
@@ -37,7 +36,8 @@ public class Lift extends Subsystem {
   // Horizontal
   private TalonSRX _cim; 
 
-  private double _speed;
+  private double _verticalSpeed;
+  private double _horizontalSpeed;
 
   // Move to variables class later
   private int[] phaseValues = {0, 3000, 6000, 9000}; //get phase based on index
@@ -62,7 +62,7 @@ public class Lift extends Subsystem {
     @Override
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
-        setDefaultCommand(new VerticalWithJoystick());
+        setDefaultCommand(new LiftWithJoystick());
     }
 
     public void verticalShift(double speed) {
@@ -77,10 +77,16 @@ public class Lift extends Subsystem {
     /**
      * Checks the lift's proximity sensors, a false = do not drive
      */
-    public boolean checkLift() {
-        if (ProxSensors.getInstance().getTopLimit() && _speed > 0) {
+    public boolean checkVerticalLift(double speed) {
+        if ((ProxSensors.getInstance().getTopLimit() && speed > 0) || (ProxSensors.getInstance().getBottomLimit() && speed < 0)) {
             return false;
-        } else if (ProxSensors.getInstance().getBottomLimit() && _speed < 0) {
+        } else {
+            return true;
+        }
+    }
+
+    public boolean checkHorizontalLift(double speed) {
+        if ((ProxSensors.getInstance().getLeftLimit() && speed > 0) || (ProxSensors.getInstance().getRightlimit() && speed < 0)) {
             return false;
         } else {
             return true;

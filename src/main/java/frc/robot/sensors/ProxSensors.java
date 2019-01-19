@@ -20,15 +20,15 @@ public class ProxSensors extends Subsystem {
   // here. Call these from Commands.
 
   private static ProxSensors _instance = null;
-  private DigitalInput _topLimit, _botLimit, _limit, _otraLimit;
+  private DigitalInput _liftTopLimit, _liftBotLimit, _liftLeftLimit, _liftRightLimit;
 
   private ProxSensors() {
-    _topLimit = new DigitalInput(Addresses.LIFT_TOP_LIMIT);
-    _botLimit = new DigitalInput(Addresses.LIFT_BOTTOM_LIMIT);
+    _liftTopLimit = new DigitalInput(Addresses.LIFT_TOP_LIMIT);
+    _liftBotLimit = new DigitalInput(Addresses.LIFT_BOTTOM_LIMIT);
 
     // Dunno what these are for, but they're on the lift, might be sideways
-    _limit = new DigitalInput(Addresses.LIFT_LIMIT);
-    _otraLimit = new DigitalInput(Addresses.LIFT_OTRA_LIMIT);
+    _liftLeftLimit= new DigitalInput(Addresses.LIFT_LEFT_LIMIT);
+    _liftRightLimit = new DigitalInput(Addresses.LIFT_RIGHT_LIMIT);
 
   }
 
@@ -46,19 +46,19 @@ public class ProxSensors extends Subsystem {
   }
 
   public boolean getTopLimit() {
-    return _topLimit.get();
+    return _liftTopLimit.get();
   }
 
   public boolean getBottomLimit() {
-    return _botLimit.get();
+    return _liftBotLimit.get();
   }
 
-  public boolean getLimit() {
-    return _limit.get();
+  public boolean getLeftLimit() {
+    return _liftLeftLimit.get();
   }
 
-  public boolean getOtraLimit() {
-    return _otraLimit.get();
+  public boolean getRightlimit() {
+    return _liftRightLimit.get();
   }
   
 }
