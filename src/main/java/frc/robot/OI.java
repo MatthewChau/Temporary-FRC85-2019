@@ -61,4 +61,12 @@ public class OI {
         _gyroAngle = IMU.getInstance().getFusedHeading();
     }
 
+    private double VerticalLift() {
+        //init joy stick and get axis
+        //&& check lift
+        //return joystick
+        //if false, then return zero
+
+    }
+
 }

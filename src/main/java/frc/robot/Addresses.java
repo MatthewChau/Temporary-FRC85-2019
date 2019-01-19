@@ -20,4 +20,14 @@ public class Addresses {
 
     // IMU
     public static final int IMUTalon = 0;
+    
+    // Lift
+    public static final int LIFT_MOTOR = 11;
+
+    // LiftProximitySensors DigitalInputs
+    public static final int LIFT_TOP_LIMIT = 0;
+    public static final int LIFT_BOTTOM_LIMIT = 1;
+    public static final int LIFT_LIMIT = 2;
+    public static final int LIFT_OTRA_LIMIT = 3;
+    
 }
