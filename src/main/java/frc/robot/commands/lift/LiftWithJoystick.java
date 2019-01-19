@@ -39,6 +39,7 @@ public class LiftWithJoystick extends Command {
   @Override
   protected void end() {
     Lift.getInstance().verticalShift(0);
+    Lift.getInstance().horizontalShift(0);
   }
 
   // Called when another command which requires one or more of the same
