@@ -4,6 +4,7 @@ import frc.robot.subsystems.Lift;
 
 public class VerticalShift extends Command {
     private int _speed, _targetPhase; //positive means going up, negative means going down
+    private double _liftTolerance = 10; //the motors have to be within 10 encoder ticks in order for the command to stop
 
     public VerticalShift(int phase, int speed) {
         requires(Lift.getInstance());
@@ -24,7 +25,7 @@ public class VerticalShift extends Command {
 
     @Override
     protected boolean isFinished() {
-        return (Lift.getInstance().getLeftEncoderValue() == Lift.getInstance().getPhaseValue(_targetPhase));
+        return (Math.abs(Lift.getInstance().getLeftEncoderValue() - Lift.getInstance().getPhaseValue(_targetPhase)) <= _liftTolerance);
     }
 
     @Override
