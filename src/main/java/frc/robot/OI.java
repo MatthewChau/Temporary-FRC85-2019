@@ -23,7 +23,9 @@ public class OI {
 
     private Joystick _driverController;
     private Joystick _operatorController;
-    private JoystickButton _operatorPhaseZero, _operatorPhaseOne, _operatorPhaseTwo, _operatorPhaseThree, _driverLeftBumper, _driverRightBumper;
+
+    private JoystickButton _driverLeftBumper;
+    private JoystickButton _operatorPhaseZero, _operatorPhaseOne, _operatorPhaseTwo, _operatorPhaseThree, _operatorLeftBumper, _operatorRightBumper;
 
     private double _xSpeed = 0, _ySpeed = 0, _zRotation = 0;
     private double _liftSpeed = 0;
@@ -31,7 +33,6 @@ public class OI {
     private double _gyroAngle;
 
     // Toggable value to change whether the robot drives headed or headless
-    private boolean _headed = true;
 
     private OI() {
         _driverController = new Joystick(Addresses.CONTROLLER_DRIVER);
@@ -42,16 +43,16 @@ public class OI {
         _operatorPhaseTwo = new JoystickButton(_operatorController, 3); //Change values if needed
         _operatorPhaseThree = new JoystickButton(_operatorController, 4); //Change values if needed
 
-        _driverLeftBumper = new JoystickButton(_operatorController, 1);
-        _driverRightBumper = new JoystickButton(_operatorController, 2);
+        _operatorLeftBumper = new JoystickButton(_operatorController, 1);
+        _operatorRightBumper = new JoystickButton(_operatorController, 2);
 
         _operatorPhaseZero.whenPressed(new VerticalShift(0, 1)); //go to phase 0
         _operatorPhaseOne.whenPressed(new VerticalShift(1, 1)); //go to phase 1
         _operatorPhaseTwo.whenPressed(new VerticalShift(2, 1)); //go to phase 2
         _operatorPhaseThree.whenPressed(new VerticalShift(3, 1)); //go to phase 3
 
-        _driverLeftBumper.whenActive(new HorizontalShift(0, 1)); //1 means to go left (or backward) hopefully
-        _driverRightBumper.whenActive(new HorizontalShift(1, -1)); //-1 means to go right (or forward) hopefully
+        _operatorLeftBumper.whenActive(new HorizontalShift(0, 1)); //1 means to go left (or backward) hopefully
+        _operatorRightBumper.whenActive(new HorizontalShift(1, -1)); //-1 means to go right (or forward) hopefully
     }
 
     public static OI getInstance() {
@@ -62,13 +63,13 @@ public class OI {
     }
     
     public double[] getJoystickInput() {
-        if (_headed) {
-            headedDrive();
-            // 1 or 0 is passed to identify whether the array is headless or headed drive.
-            return new double[] {1, _xSpeed, _ySpeed, _zRotation};
-        } else {
+        if (isHeadless()) {
             headlessDrive();
+            // 1 or 0 is passed to identify whether the array is headless or headed drive.
             return new double[] {0, _xSpeed, _ySpeed, _zRotation, _gyroAngle};
+        } else {
+            headedDrive();
+            return new double[] {1, _xSpeed, _ySpeed, _zRotation};
         }
     }
 
@@ -103,6 +104,10 @@ public class OI {
         } else {
             return _liftSpeed = _operatorController.getRawAxis(0);
         }
+    }
+
+    public boolean isHeadless() {
+        return _driverController.getRawButton(1);
     }
 
 }
