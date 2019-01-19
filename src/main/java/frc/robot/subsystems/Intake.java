@@ -17,6 +17,7 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
  * The intake subsystem
  */
 public class Intake extends Subsystem {
+  
   private static Intake _instance = null;
   private Solenoid _flipper;
   private Solenoid _pusher;
@@ -62,4 +63,5 @@ public class Intake extends Subsystem {
     _roller1.set(ControlMode.PercentOutput, speed);
     _roller2.set(ControlMode.PercentOutput, -speed);
   }
+
 }

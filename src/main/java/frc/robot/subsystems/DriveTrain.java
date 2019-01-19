@@ -13,6 +13,7 @@ import frc.robot.commands.drivetrain.DriveWithJoystick;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
 
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 /**
@@ -29,10 +30,14 @@ public class DriveTrain extends Subsystem {
 
   private DriveTrain() {
     _leftFrontMotor = new WPI_TalonSRX(Addresses.DRIVETRAIN_LEFT_FRONT_MOTOR);
+    _leftFrontMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
     _leftBackMotor = new WPI_TalonSRX(Addresses.DRIVETRAIN_LEFT_BACK_MOTOR);
+    _leftBackMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
     _rightFrontMotor = new WPI_TalonSRX(Addresses.DRIVETRAIN_RIGHT_FRONT_MOTOR);
+    _rightFrontMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
     _rightBackMotor = new WPI_TalonSRX(Addresses.DRIVETRAIN_RIGHT_BACK_MOTOR);
-  
+    _rightBackMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
+
     // Mecanum Drive constructor
     _mDrive = new MecanumDrive(_leftFrontMotor, _leftBackMotor, _rightFrontMotor, _rightBackMotor);
     _mDrive.setDeadband(.1);
@@ -74,6 +79,26 @@ public class DriveTrain extends Subsystem {
     } else { // Headed
       _mDrive.driveCartesian(speed[1], speed[2], speed[3]);
     }
+  }
+
+  /**
+   * Returns the selected motor's encoder position (count)
+   * 1 Rotation = 4096 counts
+   */
+  public double getLeftFrontPosition() {
+    return _leftFrontMotor.getSelectedSensorPosition();
+  }
+
+  public double getLeftBackPosition() {
+    return _leftBackMotor.getSelectedSensorPosition();
+  }
+
+  public double getRightFrontPosition() {
+    return _rightFrontMotor.getSelectedSensorPosition();
+  }
+
+  public double getRightBackPosition() {
+    return _rightBackMotor.getSelectedSensorPosition();
   }
 
   /**
