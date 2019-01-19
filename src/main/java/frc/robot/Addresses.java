@@ -27,7 +27,7 @@ public class Addresses {
     public static final int LIFT_BOTTOM_LIMIT = 1;
     public static final int LIFT_LEFT_LIMIT = 2;
     public static final int LIFT_RIGHT_LIMIT = 3;
-    
+
     // Lift (addresses are placeholders for now)
     public static final int LIFT_LEFT_MOTOR = 5;
     public static final int LIFT_RIGHT_MOTOR = 6;

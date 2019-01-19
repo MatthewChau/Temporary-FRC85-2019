@@ -32,7 +32,7 @@ public class ProxSensors extends Subsystem {
 
     public static ProxSensors getInstance() {
         if (_instance == null) {
-          _instance = new ProxSensors();
+            _instance = new ProxSensors();
         }
         return _instance;
     }
@@ -58,5 +58,5 @@ public class ProxSensors extends Subsystem {
     public boolean getRightlimit() {
         return _liftRightLimit.get();
     }
-  
+
 }

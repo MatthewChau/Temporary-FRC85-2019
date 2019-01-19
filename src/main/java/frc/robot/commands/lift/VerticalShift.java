@@ -1,4 +1,5 @@
 package frc.robot.commands.lift;
+
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.subsystems.Lift;
 
@@ -34,5 +35,5 @@ public class VerticalShift extends Command {
         super.end();
         Lift.getInstance().verticalShift(0);
     }
-    
+
 }

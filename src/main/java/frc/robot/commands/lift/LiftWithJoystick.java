@@ -47,5 +47,5 @@ public class LiftWithJoystick extends Command {
     @Override
     protected void interrupted() {
     }
-    
+
 }

@@ -1,4 +1,3 @@
-
 /*----------------------------------------------------------------------------*/
 /* Copyright (c) 2018 FIRST. All Rights Reserved.                             */
 /* Open Source Software - may be modified and shared by FRC teams. The code   */
@@ -26,22 +25,22 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
  * 2 motors on lift for lift, 1 CIM for 7-inch shift
  */
 public class Lift extends Subsystem {
-  // Put methods for controlling this subsystem
-  // here. Call these from Commands.
+    // Put methods for controlling this subsystem
+    // here. Call these from Commands.
 
-  private static Lift _instance = null;
+    private static Lift _instance = null;
 
-  // Vertical
-  private TalonSRX _liftLeft, _liftRight; 
-  // Horizontal
-  private TalonSRX _cim; 
+    // Vertical
+    private TalonSRX _liftLeft, _liftRight;
+    // Horizontal
+    private TalonSRX _cim;
 
-  private double _verticalSpeed;
-  private double _horizontalSpeed;
+    private double _verticalSpeed;
+    private double _horizontalSpeed;
 
-  // Move to variables class later
-  private int[] phaseValues = {0, 3000, 6000, 9000}; //get phase based on index
-  private int[] horizontalValues = {0, 3000}; //get preset values based on index
+    // Move to variables class later
+    private int[] phaseValues = {0, 3000, 6000, 9000}; //get phase based on index
+    private int[] horizontalValues = {0, 3000}; //get preset values based on index
 
     public Lift() {
         _liftLeft = new TalonSRX(Addresses.LIFT_LEFT_MOTOR);
@@ -58,7 +57,7 @@ public class Lift extends Subsystem {
         }
         return _instance;
     }
-  
+
     @Override
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
@@ -111,5 +110,3 @@ public class Lift extends Subsystem {
     }
 
 }
-
-

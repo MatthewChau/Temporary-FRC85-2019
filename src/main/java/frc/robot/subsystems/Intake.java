@@ -17,18 +17,18 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
  * The intake subsystem
  */
 public class Intake extends Subsystem {
-  
+
     private static Intake _instance = null;
     private Solenoid _flipper;
     private Solenoid _pusher;
     private TalonSRX _roller1, _roller2;
-  
+
     @Override
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
         // setDefaultCommand(new MySpecialCommand());
     }
-  
+
     private void Intake() {
         _flipper = new Solenoid(Addresses.INTAKE_FLIPPER);
         _pusher = new Solenoid(Addresses.INTAKE_PUSHER);
