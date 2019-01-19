@@ -13,38 +13,38 @@ import frc.robot.subsystems.DriveTrain;
 import edu.wpi.first.wpilibj.command.Command;
 
 public class DriveWithJoystick extends Command {
-  public DriveWithJoystick() {
+	public DriveWithJoystick() {
     // Use requires() here to declare subsystem dependencies
-    requires(DriveTrain.getInstance());
-  }
+        requires(DriveTrain.getInstance());
+	}
 
-  // Called just before this Command runs the first time
-  @Override
-  protected void initialize() {
-  }
+	// Called just before this Command runs the first time
+	@Override
+	protected void initialize() {
+	}
 
-  // Called repeatedly when this Command is scheduled to run
-  @Override
-  protected void execute() {
-    DriveTrain.getInstance().mDrive(OI.getInstance().getJoystickInput());
-  }
+	// Called repeatedly when this Command is scheduled to run
+	@Override
+	protected void execute() {
+		DriveTrain.getInstance().mDrive(OI.getInstance().getJoystickInput());
+	}
 
-  // Make this return true when this Command no longer needs to run execute()
-  @Override
-  protected boolean isFinished() {
-    return false;
-  }
+  	// Make this return true when this Command no longer needs to run execute()
+  	@Override
+  	protected boolean isFinished() {
+    	return false;
+  	}
 
-  // Called once after isFinished returns true
-  @Override
-  protected void end() {
-    DriveTrain.getInstance().mDrive(0, 0, 0);
-  }
+ 	// Called once after isFinished returns true
+  	@Override
+  	protected void end() {
+    	DriveTrain.getInstance().mDrive(0, 0, 0);
+  	}
 
-  // Called when another command which requires one or more of the same
-  // subsystems is scheduled to run
-  @Override
-  protected void interrupted() {
-  }
+  	// Called when another command which requires one or more of the same
+  	// subsystems is scheduled to run
+  	@Override
+  	protected void interrupted() {
+  	}
 
 }

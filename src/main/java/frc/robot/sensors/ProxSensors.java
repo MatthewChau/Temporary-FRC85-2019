@@ -16,49 +16,47 @@ import frc.robot.Addresses;
  * Add your docs here.
  */
 public class ProxSensors extends Subsystem {
-  // Put methods for controlling this subsystem
-  // here. Call these from Commands.
+    // Put methods for controlling this subsystem
+    // here. Call these from Commands.
 
-  private static ProxSensors _instance = null;
-  private DigitalInput _liftTopLimit, _liftBotLimit, _liftLeftLimit, _liftRightLimit;
+    private static ProxSensors _instance = null;
+    private DigitalInput _liftTopLimit, _liftBotLimit, _liftLeftLimit, _liftRightLimit;
 
-  private ProxSensors() {
-    _liftTopLimit = new DigitalInput(Addresses.LIFT_TOP_LIMIT);
-    _liftBotLimit = new DigitalInput(Addresses.LIFT_BOTTOM_LIMIT);
+    private ProxSensors() {
+        _liftTopLimit = new DigitalInput(Addresses.LIFT_TOP_LIMIT);
+        _liftBotLimit = new DigitalInput(Addresses.LIFT_BOTTOM_LIMIT);
 
-    // Dunno what these are for, but they're on the lift, might be sideways
-    _liftLeftLimit= new DigitalInput(Addresses.LIFT_LEFT_LIMIT);
-    _liftRightLimit = new DigitalInput(Addresses.LIFT_RIGHT_LIMIT);
-
-  }
-
-  public static ProxSensors getInstance() {
-    if (_instance == null) {
-      _instance = new ProxSensors();
+        _liftLeftLimit= new DigitalInput(Addresses.LIFT_LEFT_LIMIT);
+        _liftRightLimit = new DigitalInput(Addresses.LIFT_RIGHT_LIMIT);
     }
-    return _instance;
-  }
 
-  @Override
-  public void initDefaultCommand() {
-    // Set the default command for a subsystem here.
-    // setDefaultCommand(new MySpecialCommand());
-  }
+    public static ProxSensors getInstance() {
+        if (_instance == null) {
+          _instance = new ProxSensors();
+        }
+        return _instance;
+    }
 
-  public boolean getTopLimit() {
-    return _liftTopLimit.get();
-  }
+    @Override
+    public void initDefaultCommand() {
+        // Set the default command for a subsystem here.
+        // setDefaultCommand(new MySpecialCommand());
+    }
 
-  public boolean getBottomLimit() {
-    return _liftBotLimit.get();
-  }
+    public boolean getTopLimit() {
+        return _liftTopLimit.get();
+    }
 
-  public boolean getLeftLimit() {
-    return _liftLeftLimit.get();
-  }
+    public boolean getBottomLimit() {
+        return _liftBotLimit.get();
+    }
 
-  public boolean getRightlimit() {
-    return _liftRightLimit.get();
-  }
+    public boolean getLeftLimit() {
+        return _liftLeftLimit.get();
+    }
+
+    public boolean getRightlimit() {
+        return _liftRightLimit.get();
+    }
   
 }

@@ -20,104 +20,104 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
  * Add your docs here.
  */
 public class DriveTrain extends Subsystem {
-  // Put methods for controlling this subsystem
-  // here. Call these from Commands.
+    // Put methods for controlling this subsystem
+    // here. Call these from Commands.
 
-  private static DriveTrain _instance = null;
+    private static DriveTrain _instance = null;
 	private WPI_TalonSRX _leftFrontMotor, _leftBackMotor, _rightFrontMotor, _rightBackMotor;
 
-  private MecanumDrive _mDrive;
+    private MecanumDrive _mDrive;
 
-  private DriveTrain() {
-    _leftFrontMotor = new WPI_TalonSRX(Addresses.DRIVETRAIN_LEFT_FRONT_MOTOR);
-    _leftFrontMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
-    _leftBackMotor = new WPI_TalonSRX(Addresses.DRIVETRAIN_LEFT_BACK_MOTOR);
-    _leftBackMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
-    _rightFrontMotor = new WPI_TalonSRX(Addresses.DRIVETRAIN_RIGHT_FRONT_MOTOR);
-    _rightFrontMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
-    _rightBackMotor = new WPI_TalonSRX(Addresses.DRIVETRAIN_RIGHT_BACK_MOTOR);
-    _rightBackMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
+    private DriveTrain() {
+        _leftFrontMotor = new WPI_TalonSRX(Addresses.DRIVETRAIN_LEFT_FRONT_MOTOR);
+        _leftFrontMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
+        _leftBackMotor = new WPI_TalonSRX(Addresses.DRIVETRAIN_LEFT_BACK_MOTOR);
+        _leftBackMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
+        _rightFrontMotor = new WPI_TalonSRX(Addresses.DRIVETRAIN_RIGHT_FRONT_MOTOR);
+        _rightFrontMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
+        _rightBackMotor = new WPI_TalonSRX(Addresses.DRIVETRAIN_RIGHT_BACK_MOTOR);
+        _rightBackMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
 
-    // Mecanum Drive constructor
-    _mDrive = new MecanumDrive(_leftFrontMotor, _leftBackMotor, _rightFrontMotor, _rightBackMotor);
-    _mDrive.setDeadband(.1);
-  }
-
-  public static DriveTrain getInstance() {
-    if (_instance == null) {
-      _instance = new DriveTrain();
+        // Mecanum Drive constructor
+        _mDrive = new MecanumDrive(_leftFrontMotor, _leftBackMotor, _rightFrontMotor, _rightBackMotor);
+        _mDrive.setDeadband(.1);
     }
-    return _instance;
-  }
 
-  @Override
-  public void initDefaultCommand() {
-    // Set the default command for a subsystem here.
-    setDefaultCommand(new DriveWithJoystick());
-  }
-
-  /**
-   * Headed Mecanum Drive
-   */
-  public void mDrive(double xSpeed, double ySpeed, double zRotation) {
-    _mDrive.driveCartesian(ySpeed, xSpeed, zRotation);
-  }
-
-  /**
-   * Headless Mecanum Drive
-   */
-  public void mDrive(double xSpeed, double ySpeed, double zRotation, double gyroAngle) {
-    _mDrive.driveCartesian(ySpeed, xSpeed, zRotation, gyroAngle);
-  }
-
-  /**
-   * Headed or headless depending on array classification (speed[0] is 0 or 1)
-   */
-  public void mDrive(double[] speed) {
-    if (speed[0] == 0) { //Headless
-      _mDrive.driveCartesian(speed[1], speed[2], speed[3], speed[4]);
-    } else { // Headed
-      _mDrive.driveCartesian(speed[1], speed[2], speed[3]);
+    public static DriveTrain getInstance() {
+        if (_instance == null) {
+        _instance = new DriveTrain();
+        }
+        return _instance;
     }
-  }
 
-  /**
-   * Returns the selected motor's encoder position (count)
-   * 1 Rotation = 4096 counts
-   */
-  public double getLeftFrontPosition() {
-    return _leftFrontMotor.getSelectedSensorPosition();
-  }
+    @Override
+    public void initDefaultCommand() {
+        // Set the default command for a subsystem here.
+        setDefaultCommand(new DriveWithJoystick());
+    }
 
-  public double getLeftBackPosition() {
-    return _leftBackMotor.getSelectedSensorPosition();
-  }
+    /**
+     * Headed Mecanum Drive
+     */
+    public void mDrive(double xSpeed, double ySpeed, double zRotation) {
+        _mDrive.driveCartesian(ySpeed, xSpeed, zRotation);
+    }
 
-  public double getRightFrontPosition() {
-    return _rightFrontMotor.getSelectedSensorPosition();
-  }
+    /**
+     * Headless Mecanum Drive
+     */
+    public void mDrive(double xSpeed, double ySpeed, double zRotation, double gyroAngle) {
+        _mDrive.driveCartesian(ySpeed, xSpeed, zRotation, gyroAngle);
+    }
 
-  public double getRightBackPosition() {
-    return _rightBackMotor.getSelectedSensorPosition();
-  }
+    /**
+     * Headed or headless depending on array classification (speed[0] is 0 or 1)
+     */
+    public void mDrive(double[] speed) {
+        if (speed[0] == 0) { //Headless
+            _mDrive.driveCartesian(speed[1], speed[2], speed[3], speed[4]);
+        } else { // Headed
+            _mDrive.driveCartesian(speed[1], speed[2], speed[3]);
+        }
+    }
 
-  /**
-   * Returns a value of (-1.0,1.0)
-   */
-  public double getLeftFrontPercent() {
-    return _leftFrontMotor.get();
-  }
+    /**
+     * Returns the selected motor's encoder position (count)
+     * 1 Rotation = 4096 counts
+     */
+    public double getLeftFrontPosition() {
+        return _leftFrontMotor.getSelectedSensorPosition();
+    }
 
-  public double getLeftBackPercent() {
-    return _leftBackMotor.get();
-  }
+    public double getLeftBackPosition() {
+        return _leftBackMotor.getSelectedSensorPosition();
+    }
 
-  public double getRightFrontPercent() {
-    return _rightFrontMotor.get();
-  }
+    public double getRightFrontPosition() {
+        return _rightFrontMotor.getSelectedSensorPosition();
+    }
 
-  public double getRightBackPercent() {
-    return _rightBackMotor.get();
-  }
+    public double getRightBackPosition() {
+        return _rightBackMotor.getSelectedSensorPosition();
+    }
+
+    /**
+     * Returns a value of (-1.0,1.0)
+     */
+    public double getLeftFrontPercent() {
+        return _leftFrontMotor.get();
+    }
+
+    public double getLeftBackPercent() {
+        return _leftBackMotor.get();
+    }
+
+    public double getRightFrontPercent() {
+        return _rightFrontMotor.get();
+    }
+
+    public double getRightBackPercent() {
+        return _rightBackMotor.get();
+    }
 
 }

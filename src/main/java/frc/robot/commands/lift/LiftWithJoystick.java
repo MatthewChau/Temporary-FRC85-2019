@@ -12,39 +12,40 @@ import frc.robot.OI;
 import frc.robot.subsystems.Lift;
 
 public class LiftWithJoystick extends Command {
-  public LiftWithJoystick() {
-    // Use requires() here to declare subsystem dependencies
-    requires(Lift.getInstance());
-  }
+    public LiftWithJoystick() {
+        // Use requires() here to declare subsystem dependencies
+        requires(Lift.getInstance());
+    }
 
-  // Called just before this Command runs the first time
-  @Override
-  protected void initialize() {
-  }
+    // Called just before this Command runs the first time
+    @Override
+    protected void initialize() {
+    }
 
-  // Called repeatedly when this Command is scheduled to run
-  @Override
-  protected void execute() {
-    Lift.getInstance().verticalShift(OI.getInstance().getVerticalLift());
-    Lift.getInstance().horizontalShift(OI.getInstance().getHorizontalLift());
-  }
+    // Called repeatedly when this Command is scheduled to run
+    @Override
+    protected void execute() {
+        Lift.getInstance().verticalShift(OI.getInstance().getVerticalLift());
+        Lift.getInstance().horizontalShift(OI.getInstance().getHorizontalLift());
+    }
 
-  // Make this return true when this Command no longer needs to run execute()
-  @Override
-  protected boolean isFinished() {
-    return false;
-  }
+    // Make this return true when this Command no longer needs to run execute()
+    @Override
+    protected boolean isFinished() {
+        return false;
+    }
 
-  // Called once after isFinished returns true
-  @Override
-  protected void end() {
-    Lift.getInstance().verticalShift(0);
-    Lift.getInstance().horizontalShift(0);
-  }
+    // Called once after isFinished returns true
+    @Override
+    protected void end() {
+        Lift.getInstance().verticalShift(0);
+        Lift.getInstance().horizontalShift(0);
+    }
 
-  // Called when another command which requires one or more of the same
-  // subsystems is scheduled to run
-  @Override
-  protected void interrupted() {
-  }
+    // Called when another command which requires one or more of the same
+    // subsystems is scheduled to run
+    @Override
+    protected void interrupted() {
+    }
+    
 }
