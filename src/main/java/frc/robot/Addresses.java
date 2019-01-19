@@ -10,7 +10,8 @@ package frc.robot;
 public class Addresses {
 
     // Drivestation
-    public static final int CONTROLLER = 0;
+    public static final int CONTROLLER_DRIVER = 0;
+    public static final int CONTROLLER_OPERATOR = 1;
 
     // DriveTrain
     public static final int DRIVETRAIN_LEFT_FRONT_MOTOR = 1;
@@ -20,9 +21,6 @@ public class Addresses {
 
     // IMU
     public static final int IMUTalon = 0;
-    
-    // Lift
-    public static final int LIFT_MOTOR = 11;
 
     // LiftProximitySensors DigitalInputs
     public static final int LIFT_TOP_LIMIT = 0;
@@ -30,4 +28,13 @@ public class Addresses {
     public static final int LIFT_LIMIT = 2;
     public static final int LIFT_OTRA_LIMIT = 3;
     
+    // Lift (addresses are placeholders for now)
+    public static final int LIFT_LEFT_MOTOR = 5;
+    public static final int LIFT_RIGHT_MOTOR = 6;
+    public static final int LIFT_CIM_MOTOR = 7;
+
+    //Encoders (addresses are placeholders for now)
+    //public static final int LIFT_LEFT_ENCODER = 8;
+    //public static final int LIFT_CIM_ENCODER = 9;
+
 }

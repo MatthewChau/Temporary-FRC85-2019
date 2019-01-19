@@ -7,18 +7,26 @@
 
 package frc.robot;
 
+import frc.robot.sensors.IMU;
+import frc.robot.subsystems.Lift;
+import frc.robot.commands.lift.VerticalShift;
+import frc.robot.commands.lift.HorizontalShift;
+
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Joystick.AxisType;
 import edu.wpi.first.wpilibj.command.Command;
-import frc.robot.sensors.IMU;
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
 public class OI {
 
     private static OI _instance;
 
-    private Joystick _controller;
+    private Joystick _driverController;
+    private Joystick _operatorController;
+    private JoystickButton _operatorPhaseZero, _operatorPhaseOne, _operatorPhaseTwo, _operatorPhaseThree, _driverLeftBumper, _driverRightBumper;
 
     private double _xSpeed = 0, _ySpeed = 0, _zRotation = 0;
+    private double _liftSpeed = 0;
 
     private double _gyroAngle;
 
@@ -26,7 +34,24 @@ public class OI {
     private boolean _headed = true;
 
     private OI() {
-      _controller = new Joystick(Addresses.CONTROLLER);
+        _driverController = new Joystick(Addresses.CONTROLLER_DRIVER);
+        _operatorController = new Joystick(Addresses.CONTROLLER_OPERATOR);
+
+        _operatorPhaseZero = new JoystickButton(_operatorController, 1); //Change values if needed
+        _operatorPhaseOne = new JoystickButton(_operatorController, 2); //Change values if needed
+        _operatorPhaseTwo = new JoystickButton(_operatorController, 3); //Change values if needed
+        _operatorPhaseThree = new JoystickButton(_operatorController, 4); //Change values if needed
+
+        _driverLeftBumper = new JoystickButton(_operatorController, 1);
+        _driverRightBumper = new JoystickButton(_operatorController, 2);
+
+        _operatorPhaseZero.whenPressed(new VerticalShift(0, 1)); //go to phase 0
+        _operatorPhaseOne.whenPressed(new VerticalShift(1, 1)); //go to phase 1
+        _operatorPhaseTwo.whenPressed(new VerticalShift(2, 1)); //go to phase 2
+        _operatorPhaseThree.whenPressed(new VerticalShift(3, 1)); //go to phase 3
+
+        _driverLeftBumper.whenActive(new HorizontalShift(0, 1)); //1 means to go left (or backward) hopefully
+        _driverRightBumper.whenActive(new HorizontalShift(1, -1)); //-1 means to go right (or forward) hopefully
     }
 
     public static OI getInstance() {
@@ -49,23 +74,27 @@ public class OI {
 
     private void headedDrive() {
         // Deadband is initialized in subsystem DriveTrain with the mecanum drive constructor.
-        _xSpeed = -_controller.getRawAxis(0);
-        _ySpeed = _controller.getRawAxis(1);
-        _zRotation = -_controller.getRawAxis(4);
+        _xSpeed = -_driverController.getRawAxis(0);
+        _ySpeed = _driverController.getRawAxis(1);
+        _zRotation = -_driverController.getRawAxis(4);
     }
 
     private void headlessDrive() {
-        _xSpeed = -_controller.getRawAxis(0);
-        _ySpeed = _controller.getRawAxis(1);
-        _zRotation = -_controller.getRawAxis(4);
+        _xSpeed = -_driverController.getRawAxis(0);
+        _ySpeed = _driverController.getRawAxis(1);
+        _zRotation = -_driverController.getRawAxis(4);
         _gyroAngle = IMU.getInstance().getFusedHeading();
     }
 
-    private double VerticalLift() {
-        //init joy stick and get axis
-        //&& check lift
-        //return joystick
-        //if false, then return zero
+    /**
+     * Called in commands to return the joystick axis which is converted into the set speed of the motor
+     */
+    public double getVerticalLift() {
+        if (!Lift.getInstance().checkLift()) {
+            return _liftSpeed = 0;
+        } else {
+            return _liftSpeed = _operatorController.getRawAxis(1);
+        }
 
     }
 
