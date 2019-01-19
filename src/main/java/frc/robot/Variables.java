@@ -7,6 +7,7 @@
 
 package frc.robot;
 
+import frc.robot.sensors.IMU;
 import frc.robot.subsystems.DriveTrain;
 
 import edu.wpi.first.wpilibj.DriverStation;
@@ -32,6 +33,7 @@ public class Variables {
         SmartDashboard.putNumber("Left Back Percent", DriveTrain.getInstance().getLeftBackPercent());
         SmartDashboard.putNumber("Right Front Percent", DriveTrain.getInstance().getRightFrontPercent());
         SmartDashboard.putNumber("Right Back Percent", DriveTrain.getInstance().getRightBackPercent());
+        SmartDashboard.putNumber("Angle", IMU.getInstance().getYaw());
     }
 
 }
