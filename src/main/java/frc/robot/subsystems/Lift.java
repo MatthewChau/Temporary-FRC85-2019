@@ -11,6 +11,8 @@ package frc.robot.subsystems;
 import frc.robot.Addresses;
 import frc.robot.sensors.ProxSensors;
 
+import frc.robot.commands.lift.VerticalWithJoystick;
+
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
@@ -60,7 +62,7 @@ public class Lift extends Subsystem {
     @Override
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
-        // setDefaultCommand(LiftWithJoystick or something);
+        setDefaultCommand(new VerticalWithJoystick());
     }
 
     public void verticalShift(double speed) {
