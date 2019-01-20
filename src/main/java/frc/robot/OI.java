@@ -11,7 +11,9 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Joystick.AxisType;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import frc.robot.commands.lift.VerticalShift;
+import frc.robot.subsystems.DriveTrain;
 import frc.robot.commands.lift.HorizontalShift;
+import frc.robot.commands.drivetrain.FollowTarget;
 
 public class OI {
 
@@ -19,7 +21,7 @@ public class OI {
 
     private Joystick _leftJoystick;
     private Joystick _rightJoystick;
-    private JoystickButton _operatorPhaseZero, _operatorPhaseOne, _operatorPhaseTwo, _operatorPhaseThree, _driverLeftBumper, _driverRightBumper;
+    private JoystickButton _operatorPhaseZero, _operatorPhaseOne, _operatorPhaseTwo, _operatorPhaseThree, _driverLeftBumper, _driverRightBumper, _driverA;
 
     private double _xSpeed = 0, _ySpeed = 0, _zRotation = 0;
 
@@ -37,8 +39,9 @@ public class OI {
         _operatorPhaseTwo = new JoystickButton(_rightJoystick, 3); //Change values if needed
         _operatorPhaseThree = new JoystickButton(_rightJoystick, 4); //Change values if needed
 
-        _driverLeftBumper = new JoystickButton(_leftJoystick, 1);
-        _driverRightBumper = new JoystickButton(_leftJoystick, 2);
+        _driverLeftBumper = new JoystickButton(_leftJoystick, 1);//Change values if needed
+        _driverRightBumper = new JoystickButton(_leftJoystick, 2);//Change values if needed
+        _driverA = new JoystickButton(_leftJoystick, 3);//Change values if needed
 
         _operatorPhaseZero.whenPressed(new VerticalShift(0, 1)); //go to phase 0
         _operatorPhaseOne.whenPressed(new VerticalShift(1, 1)); //go to phase 1
@@ -47,6 +50,7 @@ public class OI {
 
         _driverLeftBumper.whenActive(new HorizontalShift(0, 1)); //1 means to go left (or backward) hopefully
         _driverRightBumper.whenActive(new HorizontalShift(1, -1)); //-1 means to go right (or forward) hopefully
+        _driverA.whenActive(new FollowTarget()); //starts the FollowTarget command whenever the button becomes active
     }
 
     public static OI getInstance() {

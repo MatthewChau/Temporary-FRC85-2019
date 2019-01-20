@@ -9,6 +9,7 @@ package frc.robot.subsystems;
 
 import frc.robot.Addresses;
 import frc.robot.commands.drivetrain.DriveWithJoystick;
+import frc.robot.commands.drivetrain.FollowTarget;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
@@ -48,8 +49,14 @@ public class DriveTrain extends Subsystem {
   @Override
   public void initDefaultCommand() {
     // Set the default command for a subsystem here.
-    setDefaultCommand(new DriveWithJoystick());
+    //setDefaultCommand(new DriveWithJoystick());
+    setDefaultCommand(new FollowTarget());
   }
+
+  public void followTarget(){
+    //CODE FOR MAKING ROBOT FOLLOW THE TARGET GOES HERE, ANY OTHER COMANDS NEED THEIR OWN METHOD. THIS WILL PROBABLY NEED TO HAPPEN
+  }
+
 
   /**
    * Headed Mecanum Drive
