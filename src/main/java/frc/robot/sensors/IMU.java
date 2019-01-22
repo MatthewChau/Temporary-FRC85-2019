@@ -28,7 +28,7 @@ public class IMU {
     private double[] _initialYPR = new double[3];
 
     private IMU() {
-        _pigeon = new PigeonIMU(Addresses.IMUTalon);
+        _pigeon = new PigeonIMU(Addresses.DRIVETRAIN_LEFT_BACK_MOTOR);
     }
 
     public static IMU getInstance() {

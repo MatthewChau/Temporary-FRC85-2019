@@ -10,6 +10,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.command.Scheduler;
+import frc.robot.sensors.IMU;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Lift;
 
@@ -31,6 +32,10 @@ public class Robot extends TimedRobot {
     public void robotInit() {
         DriveTrain.getInstance();
         Lift.getInstance();
+        OI.getInstance();
+        IMU.getInstance();
+
+        IMU.getInstance().setInitialYPR();
     }
 
     /**

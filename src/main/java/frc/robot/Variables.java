@@ -33,7 +33,9 @@ public class Variables {
         SmartDashboard.putNumber("Left Back Percent", DriveTrain.getInstance().getLeftBackPercent());
         SmartDashboard.putNumber("Right Front Percent", DriveTrain.getInstance().getRightFrontPercent());
         SmartDashboard.putNumber("Right Back Percent", DriveTrain.getInstance().getRightBackPercent());
-        SmartDashboard.putNumber("Angle", IMU.getInstance().getYaw());
+//        SmartDashboard.putNumber("Horizontal Angle", IMU.getInstance().getFusedHeading());
+//        SmartDashboard.putNumber("Vertical Angle", IMU.getInstance().getPitch());
+//        SmartDashboard.putNumber("Roll", IMU.getInstance().getRoll());
     }
 
 }

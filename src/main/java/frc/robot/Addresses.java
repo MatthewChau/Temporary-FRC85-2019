@@ -20,7 +20,7 @@ public class Addresses {
     public static final int DRIVETRAIN_RIGHT_BACK_MOTOR = 4;
 
     // IMU
-    public static final int IMUTalon = 4;
+    // public static final int IMUTalon = 2;
 
     // LiftProximitySensors DigitalInputs
     public static final int LIFT_TOP_LIMIT = 0;
