@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import frc.robot.subsystems.DriveTrain;
+import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Lift;
 
 /**
@@ -29,6 +30,7 @@ public class Robot extends TimedRobot {
     @Override
     public void robotInit() {
         DriveTrain.getInstance();
+        Intake.getInstance();
         Lift.getInstance();
     }
 
