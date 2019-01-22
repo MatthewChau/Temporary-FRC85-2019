@@ -8,6 +8,7 @@
 package frc.robot.sensors;
 
 import frc.robot.Addresses;
+import frc.robot.subsystems.DriveTrain;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -28,7 +29,7 @@ public class IMU {
     private double[] _initialYPR = new double[3];
 
     private IMU() {
-        _pigeon = new PigeonIMU(Addresses.DRIVETRAIN_LEFT_BACK_MOTOR);
+        _pigeon = new PigeonIMU(DriveTrain.getInstance().getIMUTalon());
     }
 
     public static IMU getInstance() {

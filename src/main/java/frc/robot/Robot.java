@@ -34,8 +34,6 @@ public class Robot extends TimedRobot {
         Lift.getInstance();
         OI.getInstance();
         IMU.getInstance();
-
-        IMU.getInstance().setInitialYPR();
     }
 
     /**

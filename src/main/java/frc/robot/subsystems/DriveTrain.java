@@ -120,4 +120,8 @@ public class DriveTrain extends Subsystem {
         return _rightBackMotor.get();
     }
 
+    public WPI_TalonSRX getIMUTalon() {
+        return _leftBackMotor;
+    }
+
 }
