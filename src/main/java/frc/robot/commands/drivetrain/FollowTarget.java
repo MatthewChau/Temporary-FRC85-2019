@@ -20,7 +20,7 @@ public class FollowTarget extends Command{
 
 
     protected boolean isFinished(){ 
-        return (Vision.centerX() < 10);//Ends command if within a certain range of error
+        return (false);//Ends command if within a certain range of error
     }
 
     protected void end(){

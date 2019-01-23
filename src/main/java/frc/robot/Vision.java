@@ -1,5 +1,6 @@
 package frc.robot;
 
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -7,7 +8,9 @@ public class Vision {
 	
     public static double xCenterOfTarget = 0;
     public static double yCenterOfTarget = 0;
-    public static double yError,xError;
+	public static double yError,xError;
+	
+	public static double distance;
 	
 	public static double centerX() {
 		
@@ -28,6 +31,23 @@ public class Vision {
 		SmartDashboard.putNumber("x_error", xError);
 		
 		return xError;		
-    }
+	}
+
+	
+
+	public static double distance(){
+
+		double[] widthArray = null;
+
+		NetworkTable _table;
+		_table = NetworkTable.getTable("GRIP/myContoursReport");
+		widthArray = _table.getNumberArray("width", widthArray);
+		double width = widthArray[0];
+
+		distance = 14.5*1280/(2*width*Math.tan(0.3927));
+
+
+		return width;
+	}
 
 }

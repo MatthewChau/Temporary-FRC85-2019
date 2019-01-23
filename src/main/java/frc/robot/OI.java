@@ -50,7 +50,7 @@ public class OI {
 
         _driverLeftBumper.whenActive(new HorizontalShift(0, 1)); //1 means to go left (or backward) hopefully
         _driverRightBumper.whenActive(new HorizontalShift(1, -1)); //-1 means to go right (or forward) hopefully
-        _driverA.whenActive(new FollowTarget()); //starts the FollowTarget command whenever the button becomes active
+        //_driverA.whenActive(new FollowTarget()); //starts the FollowTarget command whenever the button becomes active
     }
 
     public static OI getInstance() {
