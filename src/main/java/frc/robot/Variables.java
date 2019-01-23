@@ -18,6 +18,8 @@ public class Variables {
 
     private static Variables _instance;
 
+    public final double DEADBAND = 0.1;
+
     private Variables() {
 
     }
