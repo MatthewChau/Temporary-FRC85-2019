@@ -51,7 +51,7 @@ public class Diagnostics {
             String time = Integer.toString(_placeHolder);
             String matchTime = Double.toString(DriverStation.getInstance().getMatchTime());
 
-            //plus otros gets
+            //plus oth get values
 
             out.append(time + "," + matchTime);
 
