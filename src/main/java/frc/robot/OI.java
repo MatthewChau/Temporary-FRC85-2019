@@ -85,7 +85,7 @@ public class OI {
         _xSpeed = -_driverController.getRawAxis(0);
         _ySpeed = _driverController.getRawAxis(1);
         _zRotation = -_driverController.getRawAxis(4);
-        _gyroAngle = IMU.getInstance().getFusedHeading();
+        _gyroAngle = IMU.getInstance().getYaw();
     }
 
     /**
@@ -108,6 +108,7 @@ public class OI {
     }
 
     public boolean isHeadless() {
+        SmartDashboard.putBoolean("Headless", _driverController.getRawButton(1));
         return _driverController.getRawButton(1);
     }
 

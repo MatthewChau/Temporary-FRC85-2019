@@ -34,7 +34,8 @@ public class Variables {
         SmartDashboard.putNumber("Left Back Percent", DriveTrain.getInstance().getLeftBackPercent());
         SmartDashboard.putNumber("Right Front Percent", DriveTrain.getInstance().getRightFrontPercent());
         SmartDashboard.putNumber("Right Back Percent", DriveTrain.getInstance().getRightBackPercent());
-        SmartDashboard.putNumber("Yaw", IMU.getInstance().getFusedHeading());
+        SmartDashboard.putNumber("Fused", IMU.getInstance().getFusedHeading());
+        SmartDashboard.putNumber("Yaw", IMU.getInstance().getYaw());
         SmartDashboard.putNumber("Pitch", IMU.getInstance().getPitch());
         SmartDashboard.putNumber("Roll", IMU.getInstance().getRoll());
 //        SmartDashboard.putBoolean("Prox me OwO", ProxSensors.getInstance().getTopLimit());

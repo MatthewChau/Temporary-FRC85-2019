@@ -61,6 +61,7 @@ public class Robot extends TimedRobot {
 
     @Override
     public void teleopInit() {
+        IMU.getInstance().setInitialYPR();
         super.teleopInit();
     }
 
