@@ -33,6 +33,9 @@ public class Variables {
         SmartDashboard.putNumber("Right Front Percent", DriveTrain.getInstance().getRightFrontPercent());
         SmartDashboard.putNumber("Right Back Percent", DriveTrain.getInstance().getRightBackPercent());
         SmartDashboard.putNumber("Width", Vision.distance());
+        //SmartDashboard.putNumber("Width2", Vision.distance()[1]);
+        //SmartDashboard.putNumber("Width3", Vision.distance()[2]);
+        //SmartDashboard.putNumber("Width4", Vision.distance()[3]);
 
     }
 
