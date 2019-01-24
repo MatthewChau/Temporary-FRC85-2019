@@ -50,7 +50,7 @@ public class IMU {
     }
 
     public void setInitialYPR() {
-        _initialYPR = getYPR();
+        _initialYPR = IMU.getInstance().getYPR();
     }
 
     public double[] getInitialYPR() {
@@ -69,6 +69,9 @@ public class IMU {
         return _initialYPR[2];
     }
 
+    public void setFusedHeading(double ang) {
+        _pigeon.setFusedHeading(ang);
+    }
     public double getFusedHeading() {
         return _pigeon.getFusedHeading();
     }

@@ -10,6 +10,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.sensors.IMU;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Lift;
@@ -61,7 +62,7 @@ public class Robot extends TimedRobot {
 
     @Override
     public void teleopInit() {
-        IMU.getInstance().setInitialYPR();
+        IMU.getInstance().setFusedHeading(0);
         super.teleopInit();
     }
 
