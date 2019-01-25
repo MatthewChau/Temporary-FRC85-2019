@@ -13,6 +13,9 @@ import frc.robot.subsystems.DriveTrain;
 import edu.wpi.first.wpilibj.command.Command;
 
 public class DriveWithJoystick extends Command {
+
+    double _inputs[];
+
     public DriveWithJoystick() {
     // Use requires() here to declare subsystem dependencies
         requires(DriveTrain.getInstance());
@@ -26,7 +29,8 @@ public class DriveWithJoystick extends Command {
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
-        DriveTrain.getInstance().mDrive(OI.getInstance().getJoystickInput());
+        _inputs = OI.getInstance().getJoystickInput();
+        DriveTrain.getInstance().cartDrive(_inputs);
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -38,7 +42,8 @@ public class DriveWithJoystick extends Command {
     // Called once after isFinished returns true
     @Override
     protected void end() {
-        DriveTrain.getInstance().mDrive(0, 0, 0);
+        double[] zero = {0, 0, 0, 0};
+        DriveTrain.getInstance().cartDrive(zero);
     }
 
     // Called when another command which requires one or more of the same

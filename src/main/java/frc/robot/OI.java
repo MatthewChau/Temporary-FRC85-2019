@@ -67,10 +67,10 @@ public class OI {
         if (isHeadless()) {
             headlessDrive();
             // 1 or 0 is passed to identify whether the array is headless or headed drive.
-            return new double[] {0, _xSpeed, _ySpeed, _zRotation, _gyroAngle};
+            return new double[] {1, _xSpeed, _ySpeed, _zRotation, _gyroAngle};
         } else {
             headedDrive();
-            return new double[] {1, _xSpeed, _ySpeed, _zRotation};
+            return new double[] {0, _xSpeed, _ySpeed, _zRotation, 0};
         }
     }
 
@@ -79,6 +79,7 @@ public class OI {
         _xSpeed = -_driverController.getRawAxis(0);
         _ySpeed = _driverController.getRawAxis(1);
         _zRotation = -_driverController.getRawAxis(4);
+        //_gyroAngle = 0.0;
     }
 
     private void headlessDrive() {
