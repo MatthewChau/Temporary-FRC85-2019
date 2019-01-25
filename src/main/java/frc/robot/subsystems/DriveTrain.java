@@ -8,13 +8,10 @@
 package frc.robot.subsystems;
 
 import frc.robot.Addresses;
-import frc.robot.Vision;
 import frc.robot.commands.drivetrain.DriveWithJoystick;
-import frc.robot.commands.drivetrain.FollowTarget;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
@@ -26,7 +23,7 @@ public class DriveTrain extends Subsystem {
   // here. Call these from Commands.
 
   private static DriveTrain _instance = null;
-	private WPI_TalonSRX _leftFrontMotor, _leftBackMotor, _rightFrontMotor, _rightBackMotor;
+  private WPI_TalonSRX _leftFrontMotor, _leftBackMotor, _rightFrontMotor, _rightBackMotor;
 
   private MecanumDrive _mDrive;
 
@@ -51,15 +48,8 @@ public class DriveTrain extends Subsystem {
   @Override
   public void initDefaultCommand() {
     // Set the default command for a subsystem here.
-    //setDefaultCommand(new DriveWithJoystick());
-    setDefaultCommand(new FollowTarget());
+    setDefaultCommand(new DriveWithJoystick());
   }
-
-  public void followTarget(){
-    //CODE FOR MAKING ROBOT FOLLOW THE TARGET GOES HERE, ANY OTHER COMANDS NEED THEIR OWN METHOD. THIS WILL PROBABLY NEED TO HAPPEN
-
-  }
-
 
   /**
    * Headed Mecanum Drive

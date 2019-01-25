@@ -12,8 +12,8 @@ import edu.wpi.first.wpilibj.Joystick.AxisType;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import frc.robot.commands.lift.VerticalShift;
 import frc.robot.subsystems.DriveTrain;
-import frc.robot.commands.lift.HorizontalShift;
 import frc.robot.commands.drivetrain.FollowTarget;
+import frc.robot.commands.lift.HorizontalShift;
 
 public class OI {
 
@@ -21,7 +21,7 @@ public class OI {
 
     private Joystick _leftJoystick;
     private Joystick _rightJoystick;
-    private JoystickButton _operatorPhaseZero, _operatorPhaseOne, _operatorPhaseTwo, _operatorPhaseThree, _driverLeftBumper, _driverRightBumper, _driverA;
+    private JoystickButton _operatorPhaseZero, _operatorPhaseOne, _operatorPhaseTwo, _operatorPhaseThree, _driverLeftBumper, _driverRightBumper, _driverA, _driverB;
 
     private double _xSpeed = 0, _ySpeed = 0, _zRotation = 0;
 
@@ -50,7 +50,10 @@ public class OI {
 
         _driverLeftBumper.whenActive(new HorizontalShift(0, 1)); //1 means to go left (or backward) hopefully
         _driverRightBumper.whenActive(new HorizontalShift(1, -1)); //-1 means to go right (or forward) hopefully
-        //_driverA.whenActive(new FollowTarget()); //starts the FollowTarget command whenever the button becomes active
+        
+        FollowTarget followTarget;
+        _driverA.whenPressed(followTarget = new FollowTarget()); //follows when pressed
+        _driverB.cancelWhenPressed(followTarget); //cancels following when pressed
     }
 
     public static OI getInstance() {
