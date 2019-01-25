@@ -68,30 +68,18 @@ public class DriveTrain extends Subsystem {
      */
 
     public void cartDrive(double[] inputs) {
-        /*if (inputs[1] <= Variables.getInstance().DEADBAND 
-            && inputs[2] <= Variables.getInstance().DEADBAND 
-            && inputs[3] <= Variables.getInstance().DEADBAND) {
-            _leftFrontMotor.set(0);
-            _rightFrontMotor.set(0);
-            _leftBackMotor.set(0);
-            _rightBackMotor.set(0);
-        } else */if (Math.abs(inputs[1]) > Variables.getInstance().DEADBAND 
+        int i;
+
+        if (Math.abs(inputs[1]) > Variables.getInstance().DEADBAND 
             || Math.abs(inputs[2]) > Variables.getInstance().DEADBAND
             || Math.abs(inputs[3]) > Variables.getInstance().DEADBAND) {
-            if (inputs[1] > 1.0) {
-                inputs[1] = 1.0;
-            } else if (inputs[1] < -1.0) {
-                inputs[1] = -1.0;
+            for (i = 0; i < 3; i++) {
+                if (inputs[i] > 1.0) { inputs[i] = 1.0; }
+                else if (inputs[i] < -1.0) { inputs[i] = -1.0; }
             }
-            if (inputs[2] > 1.0) {
-                inputs[2] = 1.0;
-            } else if (inputs[2] < -1.0) {
-                inputs[2] = -1.0;
-            }
+
             Vector2d vector = new Vector2d(inputs[2], inputs[1]);
-            if (inputs[0] == 1) { // if headless
-                vector.rotate(-inputs[4]);
-            }
+            if (inputs[0] == 1) { vector.rotate(-inputs[4]); } // if headless, account for it
 
             double[] wheelSpeeds = new double[4];
             wheelSpeeds[0] = vector.x + vector.y + inputs[3];
@@ -156,7 +144,7 @@ public class DriveTrain extends Subsystem {
         int i;
         for (i = 0; i < 3; i++) {
             if (Math.abs(speeds[i]) > maxMagnitude) {
-                maxMagnitude = speeds[i];
+                maxMagnitude = Math.abs(speeds[i]);
             }
         }
         if (maxMagnitude > 1.0) {

@@ -33,8 +33,6 @@ public class OI {
 
     private double _gyroAngle;
 
-    // Toggable value to change whether the robot drives headed or headless
-
     private OI() {
         _driverController = new Joystick(Addresses.CONTROLLER_DRIVER);
         _operatorController = new Joystick(Addresses.CONTROLLER_OPERATOR);
