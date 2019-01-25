@@ -35,18 +35,22 @@ public class Vision {
 
 	
 
-	public static double distance(){
+	public static String distance() {
 		
-		double[] widthArray = null;
+		double[] heightArray = null;
 
 		NetworkTable _table;
 		_table = NetworkTable.getTable("GRIP/myContoursReport");
-		widthArray = _table.getNumberArray("width", widthArray);
-		double width = widthArray[0];
+		heightArray = _table.getNumberArray("height", heightArray);
+		try{
+		double height = heightArray[0];
 
-		distance = (0.0033707969*(Math.pow((width), 4))) + (-0.2609546004*(Math.pow((width), 3))) + (7.5147768862*(Math.pow((width), 2))) + (-98.23654097*width) + (534.8078762);
-
-		return distance;
+		String output = Double.toString(height);
+		//distance = (0.0033707969*(Math.pow((height), 4))) + (-0.2609546004*(Math.pow((height), 3))) + (7.5147768862*(Math.pow((height), 2))) + (-98.23654097*height) + (534.8078762);
+		return output;
+		}catch(Exception e){
+			return "Error";
+		}
 	}
 
 }
