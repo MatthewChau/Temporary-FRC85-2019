@@ -36,7 +36,7 @@ public class Vision {
 	
 
 	public static double distance(){
-
+		
 		double[] widthArray = null;
 
 		NetworkTable _table;
@@ -44,10 +44,9 @@ public class Vision {
 		widthArray = _table.getNumberArray("width", widthArray);
 		double width = widthArray[0];
 
-		distance = 14.5*1280/(2*width*Math.tan(0.3927));
+		distance = (0.0033707969*(Math.pow((width), 4))) + (-0.2609546004*(Math.pow((width), 3))) + (7.5147768862*(Math.pow((width), 2))) + (-98.23654097*width) + (534.8078762);
 
-
-		return width;
+		return distance;
 	}
 
 }
