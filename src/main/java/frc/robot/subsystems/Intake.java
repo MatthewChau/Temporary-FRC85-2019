@@ -8,10 +8,14 @@
 package frc.robot.subsystems;
 
 import frc.robot.Addresses;
+import frc.robot.Robot;
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.LimitSwitchNormal;
+import com.ctre.phoenix.motorcontrol.LimitSwitchSource;
 
 /**
  * The intake subsystem
@@ -19,9 +23,19 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 public class Intake extends Subsystem {
 
     private static Intake _instance = null;
-    private Solenoid _flipper;
-    private Solenoid _pusher;
-    private TalonSRX _roller1, _roller2;
+    private TalonSRX _flipper;
+    private TalonSRX _roller;
+    private Encoder _intakePos;
+    private LimitSwitchNormal _test;
+    private LimitSwitchSource _test2;
+
+    private int _loadStationPos = 0; // placeholder
+    private int _pickUpPos = 90; // placeholder
+    private int _lowerPickUpPos = 95; // placeholder
+
+    private ControlMode mode = ControlMode.PercentOutput;
+    private double flipperSpeed = 0.1;
+    private double intakeTolerance = 1;
 
     @Override
     public void initDefaultCommand() {
@@ -30,10 +44,9 @@ public class Intake extends Subsystem {
     }
 
     private void Intake() {
-        _flipper = new Solenoid(Addresses.INTAKE_FLIPPER);
-        _pusher = new Solenoid(Addresses.INTAKE_PUSHER);
-        _roller1 = new TalonSRX(Addresses.INTAKE_ROLLER1);
-        _roller2 = new TalonSRX(Addresses.INTAKE_ROLLER2);
+        _flipper = new TalonSRX(Addresses.INTAKE_FLIPPER);
+        _roller = new TalonSRX(Addresses.INTAKE_ROLLER);
+        _intakePos = new Encoder(Addresses.INTAKE_ENCODER_A, Addresses.INTAKE_ENCODER_B);
     }
 
     public static Intake getInstance() {
@@ -43,25 +56,47 @@ public class Intake extends Subsystem {
         return _instance;
     }
 
-    public boolean getIntakePosition() {
-        return _flipper.get();
+    public double getIntakePos() {
+        return _intakePos.get();
     }
 
-    public void flipIntake() {
-        if (getIntakePosition()) {
-            _flipper.set(false);
+    /**
+     * Sets the intake to vertical position
+     */
+    public boolean setLoadStation() {
+        boolean isThere = false;
+        if (getIntakePos() > _loadStationPos) {
+            if (!Robot.overrideLimits) {
+				_flipper.set(mode, flipperSpeed);
+            }
         } else {
-            _flipper.set(true);
+
         }
+
+        if (Math.abs(getIntakePos() - _loadStationPos) < intakeTolerance) {
+            isThere = true;
+        }
+
+        return isThere;
     }
 
-    public void hatchPusher(boolean state) {
-        _pusher.set(state);
+    /**
+     * Sets the intake to horizontal position
+     */
+    public void setPickUp() {
+
     }
 
     public void intakeCargo(double speed) {
-        _roller1.set(ControlMode.PercentOutput, speed);
-        _roller2.set(ControlMode.PercentOutput, -speed);
+        _roller.set(mode, speed);
+    }
+
+    public void shootCargo(double speed) {
+        _roller.set(mode, -speed);)
+    }
+
+    public void stopRoller() {
+        _roller.set(mode, 0);
     }
 
 }
