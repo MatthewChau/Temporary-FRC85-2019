@@ -50,7 +50,7 @@ public class IMU {
     }
 
     public void setInitialYPR() {
-        _initialYPR = getYPR();
+        _initialYPR = IMU.getInstance().getYPR();
     }
 
     public double[] getInitialYPR() {
@@ -62,13 +62,16 @@ public class IMU {
     }
 
     public double getInitialPitch() {
-        return _initialYPR[2];
-    }
-
-    public double getInitialRoll() {
         return _initialYPR[1];
     }
 
+    public double getInitialRoll() {
+        return _initialYPR[2];
+    }
+
+    public void setFusedHeading(double ang) {
+        _pigeon.setFusedHeading(ang);
+    }
     public double getFusedHeading() {
         return _pigeon.getFusedHeading();
     }
@@ -92,12 +95,12 @@ public class IMU {
 
     public double getPitch() {
         _ypr = getYPR();
-        return _ypr[2] - _initialYPR[2];
+        return _ypr[1] - _initialYPR[1];
     }
 
     public double getRoll() {
         _ypr = getYPR();
-        return _ypr[1] - _initialYPR[1];
+        return _ypr[2] - _initialYPR[2];
     }
 
     public short[] getXYZ() { // Accelerometer

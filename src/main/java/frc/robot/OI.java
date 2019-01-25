@@ -109,6 +109,7 @@ public class OI {
     }
 
     public boolean isHeadless() {
+        SmartDashboard.putBoolean("Headless", _driverController.getRawButton(1));
         return _driverController.getRawButton(1);
     }
 
