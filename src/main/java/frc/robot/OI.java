@@ -29,7 +29,7 @@ public class OI {
     private Joystick _driverController;
     private Joystick _operatorController;
 
-    private JoystickButton _driverLeftBumper;
+    private JoystickButton _driverLeftBumper, _driverAButton, _driverBButton;
     private JoystickButton _operatorPhaseZero, _operatorPhaseOne, _operatorPhaseTwo, _operatorPhaseThree, _operatorLeftBumper, _operatorRightBumper;
 
     private double _xSpeed = 0, _ySpeed = 0, _zRotation = 0;
@@ -49,6 +49,9 @@ public class OI {
         _operatorLeftBumper = new JoystickButton(_operatorController, 1);
         _operatorRightBumper = new JoystickButton(_operatorController, 2);
 
+        _driverAButton = new JoystickButton(_driverController, 4); // Change to A button
+        _driverAButton = new JoystickButton(_driverController, 5); // Change to B button
+
         _operatorPhaseZero.whenPressed(new VerticalShift(0, 1)); //go to phase 0
         _operatorPhaseOne.whenPressed(new VerticalShift(1, 1)); //go to phase 1
         _operatorPhaseTwo.whenPressed(new VerticalShift(2, 1)); //go to phase 2
@@ -58,8 +61,8 @@ public class OI {
         _operatorRightBumper.whenActive(new HorizontalShift(1, -1)); //-1 means to go right (or forward) hopefully
 
         FollowTarget followTarget;
-        //_driverA.whenPressed(followTarget = new FollowTarget()); //follows when pressed
-        //_driverB.cancelWhenPressed(followTarget); //cancels following when pressed
+        _driverAButton.whenPressed(followTarget = new FollowTarget()); //follows when pressed
+        _driverBButton.cancelWhenPressed(followTarget); //cancels following when pressed
     }
 
     public static OI getInstance() {
