@@ -10,7 +10,7 @@ public class Vision {
     public static double yCenterOfTarget = 0;
 	public static double yError,xError;
 	
-	public static double distance;
+	public static double distance = 0;
 	
 	public static double centerX() {
 		
@@ -35,21 +35,45 @@ public class Vision {
 
 	
 
-	public static String distance() {
+	public static double distance() {
 		
 		double[] heightArray = null;
+		double[] widthArray = null;
+		double[] centerXArray = null;
 
 		NetworkTable _table;
 		_table = NetworkTable.getTable("GRIP/myContoursReport");
 		heightArray = _table.getNumberArray("height", heightArray);
-		try{
-		double height = heightArray[0];
+		widthArray = _table.getNumberArray("width", heightArray);
+		centerXArray = _table.getNumberArray("centerX", centerXArray);
 
-		String output = Double.toString(height);
-		//distance = (0.0033707969*(Math.pow((height), 4))) + (-0.2609546004*(Math.pow((height), 3))) + (7.5147768862*(Math.pow((height), 2))) + (-98.23654097*height) + (534.8078762);
-		return output;
+		try{
+			if(widthArray.length == 2 && heightArray.length == 2 ){
+				double height1 = heightArray[0];
+				double height2 = heightArray[1];
+				double width1 = widthArray[0];
+				double width2 = widthArray[1];
+
+				double centerX1 = centerXArray[0];
+				double centerX2 = centerXArray[1];
+
+				if(Math.abs(height1 - height2) < 10 && Math.abs(width1 - width2) < 10){
+
+					double centerDistance = Math.abs(centerX1 - centerX2);
+
+					distance = 14.5*640/(2*centerDistance*Math.tan(0.3927));
+
+					return distance;
+				}else{
+					return distance;
+				}
+
+			}else{
+				return distance;
+			}
+
 		}catch(Exception e){
-			return "Error";
+			return distance;
 		}
 	}
 
