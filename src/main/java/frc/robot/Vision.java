@@ -11,6 +11,7 @@ public class Vision {
 	public static double yError,xError;
 	
 	public static double distance = 0;
+	public static double centerDistance = 0;
 	
 	public static double centerX() {
 		
@@ -59,9 +60,9 @@ public class Vision {
 
 				if(Math.abs(height1 - height2) < 10 && Math.abs(width1 - width2) < 10){
 
-					double centerDistance = Math.abs(centerX1 - centerX2);
+					centerDistance = Math.abs(centerX1 - centerX2);
 
-					distance = 14.5*640/(2*centerDistance*Math.tan(0.3927));
+					distance = 10.8*160/(2*centerDistance*Math.tan(Math.toRadians(20.854)));
 
 					return distance;
 				}else{
@@ -73,6 +74,7 @@ public class Vision {
 			}
 
 		}catch(Exception e){
+			//System.out.println(e.toString());
 			return distance;
 		}
 	}
