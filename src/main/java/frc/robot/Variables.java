@@ -24,7 +24,7 @@ public class Variables {
 
     public static Variables getInstance() {
         if (_instance == null) {
-			_instance = new Variables();
+            _instance = new Variables();
         }
         return _instance;
     }

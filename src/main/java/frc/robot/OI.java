@@ -58,11 +58,11 @@ public class OI {
 
     public static OI getInstance() {
         if (_instance == null) {
-			_instance = new OI();
-		}
-		return _instance;
+            _instance = new OI();
+        }
+        return _instance;
     }
-    
+
     public double[] getJoystickInput() {
         if (isHeadless()) {
             headlessDrive();

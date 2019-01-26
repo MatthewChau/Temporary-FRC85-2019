@@ -18,7 +18,7 @@ import com.ctre.phoenix.sensors.PigeonIMU;
 public class IMU {
 
     private static IMU _instance;
-    
+
     private PigeonIMU _pigeon;
 
     private PigeonIMU.GeneralStatus _genStatus = new PigeonIMU.GeneralStatus();
@@ -125,4 +125,3 @@ public class IMU {
     }
 
 }
-

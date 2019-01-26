@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.sensors.IMU;
 import frc.robot.subsystems.DriveTrain;
+import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Lift;
 
 /**
@@ -24,7 +25,7 @@ import frc.robot.subsystems.Lift;
  */
 public class Robot extends TimedRobot {
 
-
+    public static boolean overrideLimits = false;
     /**
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
@@ -32,6 +33,7 @@ public class Robot extends TimedRobot {
     @Override
     public void robotInit() {
         DriveTrain.getInstance();
+        Intake.getInstance();
         Lift.getInstance();
         OI.getInstance();
         IMU.getInstance();

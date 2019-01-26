@@ -27,7 +27,7 @@ public class Addresses {
     public static final int LIFT_BOTTOM_LIMIT = 1;
     public static final int LIFT_LEFT_LIMIT = 2;
     public static final int LIFT_RIGHT_LIMIT = 3;
-    
+
     // Lift (addresses are placeholders for now)
     public static final int LIFT_LEFT_MOTOR = 5;
     public static final int LIFT_RIGHT_MOTOR = 6;
@@ -36,11 +36,16 @@ public class Addresses {
     // Intake (addresses are placeholders for now)
     public static final int INTAKE_FLIPPER = 9;
     public static final int INTAKE_PUSHER = 10;
-    public static final int INTAKE_ROLLER1 = 11;
-    public static final int INTAKE_ROLLER2 = 12;
+    public static final int INTAKE_ROLLER = 11;
 
+    // Intake Limits (addresses are placeholders for now)
+    public static final int INTAKE_UPPER_LIMIT = 12;
+    public static final int INTAKE_LOWER_LIMIT = 13;
+    
     //Encoders (addresses are placeholders for now)
     //public static final int LIFT_LEFT_ENCODER = 8;
     //public static final int LIFT_CIM_ENCODER = 9;
+    public static final int INTAKE_ENCODER_A = 14;
+    public static final int INTAKE_ENCODER_B = 15;
 
 }

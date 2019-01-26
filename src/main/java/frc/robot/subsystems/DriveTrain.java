@@ -24,7 +24,7 @@ public class DriveTrain extends Subsystem {
     // here. Call these from Commands.
 
     private static DriveTrain _instance = null;
-	private WPI_TalonSRX _leftFrontMotor, _leftBackMotor, _rightFrontMotor, _rightBackMotor;
+    private WPI_TalonSRX _leftFrontMotor, _leftBackMotor, _rightFrontMotor, _rightBackMotor;
 
     private MecanumDrive _mDrive;
 
