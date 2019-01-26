@@ -6,8 +6,10 @@ import frc.robot.subsystems.Lift;
 //UNFINISHED (maybe)
 
 public class HorizontalShift extends Command {
+
     private int _direction, _targetPhase;
-    private int _tolerance = 10; //tolerance for the vertical shift of the lift
+    private int _tolerance;
+
     public HorizontalShift(int phase, int direction) {
         requires(Lift.getInstance());
         _direction = direction;

@@ -16,13 +16,13 @@ public class FollowTarget extends Command {
     protected void execute() {
         super.execute();
         if (Vision.distance() <= (_distanceWanted - _tolerance)) {
-            DriveTrain.getInstance().mDrive(0.5, 0.5, 0); //assuming backwards is positive
+            //DriveTrain.getInstance().mDrive(0.5, 0.5, 0); //assuming backwards is positive
         }
         else if (Vision.distance() >= (_distanceWanted + _tolerance)) {
-            DriveTrain.getInstance().mDrive(-0.5, -0.5, 0); //assuming forwards is negative
+            //DriveTrain.getInstance().mDrive(-0.5, -0.5, 0); //assuming forwards is negative
         }
         else {
-            DriveTrain.getInstance().mDrive(0, 0, 0);
+            //DriveTrain.getInstance().mDrive(0, 0, 0);
         }
     }
 
@@ -34,12 +34,12 @@ public class FollowTarget extends Command {
     @Override
     public synchronized void cancel() { //I think that this is called when the command is cancelled
         super.cancel();
-        DriveTrain.getInstance().mDrive(0, 0, 0);
+        //DriveTrain.getInstance().mDrive(0, 0, 0);
     }
 
     @Override
     protected void end() {
         super.end();
-        DriveTrain.getInstance().mDrive(0, 0, 0);
+        //DriveTrain.getInstance().mDrive(0, 0, 0);
     }
 }

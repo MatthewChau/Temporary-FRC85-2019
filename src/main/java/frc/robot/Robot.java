@@ -13,6 +13,8 @@ import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.vision.VisionThread;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.sensors.IMU;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Lift;
 
@@ -25,65 +27,66 @@ import frc.robot.subsystems.Lift;
  */
 public class Robot extends TimedRobot {
 
-  
-  /**
-   * This function is run when the robot is first started up and should be
-   * used for any initialization code.
-   */
-  @Override
-  public void robotInit() {
-    DriveTrain.getInstance();
-    Lift.getInstance();
-  }
 
-  /**
-   * This function is called every robot packet, no matter the mode. Use
-   * this for items like diagnostics that you want ran during disabled,
-   * autonomous, teleoperated and test.
-   *
-   * <p>This runs after the mode specific periodic functions, but before
-   * LiveWindow and SmartDashboard integrated updating.
-   */
-  @Override
-  public void robotPeriodic() {
-  }
+    /**
+     * This function is run when the robot is first started up and should be
+     * used for any initialization code.
+     */
+    @Override
+    public void robotInit() {
+        DriveTrain.getInstance();
+        Lift.getInstance();
+        OI.getInstance();
+        IMU.getInstance();
+    }
 
-  @Override
-  public void autonomousInit() {
-  }
+    /**
+     * This function is called every robot packet, no matter the mode. Use
+     * this for items like diagnostics that you want ran during disabled,
+     * autonomous, teleoperated and test.
+     *
+     * <p>This runs after the mode specific periodic functions, but before
+     * LiveWindow and SmartDashboard integrated updating.
+     */
+    @Override
+    public void robotPeriodic() {
+    }
 
-  /**
-   * This function is called periodically during ̶a̶u̶t̶o̶n̶o̶m̶o̶u̶s̶  sandstorm.
-   */
-  @Override
-  public void autonomousPeriodic() {
-  
-  }
+    @Override
+    public void autonomousInit() {
+    }
 
-  @Override
-  public void teleopInit() {
-    super.teleopInit();
-  }
+    /**
+     * This function is called periodically during ̶a̶u̶t̶o̶n̶o̶m̶o̶u̶s̶  sandstorm.
+     */
+    @Override
+    public void autonomousPeriodic() {
+    }
 
-  /**
-   * This function is called periodically during operator control.
-   */
-  @Override
-  public void teleopPeriodic() {
-    Scheduler.getInstance().run();
-    Variables.getInstance().outputVariables();
+    @Override
+    public void teleopInit() {
+        IMU.getInstance().setFusedHeading(0);
+        super.teleopInit();
+    }
 
-  }
+    /**
+     * This function is called periodically during operator control.
+     */
+    @Override
+    public void teleopPeriodic() {
+        Scheduler.getInstance().run();
+        Variables.getInstance().outputVariables();
+    }
 
-  /**
-   * This function is called periodically during test mode.
-   */
-  @Override
-  public void testPeriodic() {
-  }
+    /**
+     * This function is called periodically during test mode.
+     */
+    @Override
+    public void testPeriodic() {
+    }
 
-  @Override
-  public void disabledPeriodic() {
-  }
+    @Override
+    public void disabledPeriodic() {
+    }
 
 }

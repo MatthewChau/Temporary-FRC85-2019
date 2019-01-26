@@ -5,20 +5,16 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.drivetrain;
-
-import frc.robot.OI;
-import frc.robot.subsystems.DriveTrain;
+package frc.robot.commands.lift;
 
 import edu.wpi.first.wpilibj.command.Command;
+import frc.robot.OI;
+import frc.robot.subsystems.Lift;
 
-public class DriveWithJoystick extends Command {
-
-    double _inputs[];
-
-    public DriveWithJoystick() {
-    // Use requires() here to declare subsystem dependencies
-        requires(DriveTrain.getInstance());
+public class LiftWithJoystick extends Command {
+    public LiftWithJoystick() {
+        // Use requires() here to declare subsystem dependencies
+        requires(Lift.getInstance());
     }
 
     // Called just before this Command runs the first time
@@ -29,8 +25,8 @@ public class DriveWithJoystick extends Command {
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
-        _inputs = OI.getInstance().getJoystickInput();
-        DriveTrain.getInstance().cartDrive(_inputs);
+        Lift.getInstance().verticalShift(OI.getInstance().getVerticalLift());
+        Lift.getInstance().horizontalShift(OI.getInstance().getHorizontalLift());
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -42,8 +38,8 @@ public class DriveWithJoystick extends Command {
     // Called once after isFinished returns true
     @Override
     protected void end() {
-        double[] zero = {0, 0, 0, 0};
-        DriveTrain.getInstance().cartDrive(zero);
+        Lift.getInstance().verticalShift(0);
+        Lift.getInstance().horizontalShift(0);
     }
 
     // Called when another command which requires one or more of the same
@@ -51,5 +47,5 @@ public class DriveWithJoystick extends Command {
     @Override
     protected void interrupted() {
     }
-
+    
 }

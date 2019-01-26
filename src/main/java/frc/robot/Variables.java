@@ -7,6 +7,8 @@
 
 package frc.robot;
 
+import frc.robot.sensors.IMU;
+import frc.robot.sensors.ProxSensors;
 import frc.robot.subsystems.DriveTrain;
 
 import edu.wpi.first.wpilibj.DriverStation;
@@ -15,6 +17,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Variables {
 
     private static Variables _instance;
+
+    public final double DEADBAND = 0.05;
 
     private Variables() {
 
@@ -32,11 +36,14 @@ public class Variables {
         SmartDashboard.putNumber("Left Back Percent", DriveTrain.getInstance().getLeftBackPercent());
         SmartDashboard.putNumber("Right Front Percent", DriveTrain.getInstance().getRightFrontPercent());
         SmartDashboard.putNumber("Right Back Percent", DriveTrain.getInstance().getRightBackPercent());
-        SmartDashboard.putNumber("Distance", Vision.distance());
-        //SmartDashboard.putNumber("Width2", Vision.distance()[1]);
-        //SmartDashboard.putNumber("Width3", Vision.distance()[2]);
-        //SmartDashboard.putNumber("Width4", Vision.distance()[3]);
 
+        SmartDashboard.putNumber("Distance", Vision.distance());
+
+        SmartDashboard.putNumber("Fused", IMU.getInstance().getFusedHeading());
+        SmartDashboard.putNumber("Yaw", IMU.getInstance().getYaw());
+        SmartDashboard.putNumber("Pitch", IMU.getInstance().getPitch());
+        SmartDashboard.putNumber("Roll", IMU.getInstance().getRoll());
+//        SmartDashboard.putBoolean("Prox me OwO", ProxSensors.getInstance().getTopLimit());
     }
 
 }
