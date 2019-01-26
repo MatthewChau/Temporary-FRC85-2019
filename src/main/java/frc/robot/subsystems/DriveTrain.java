@@ -79,7 +79,7 @@ public class DriveTrain extends Subsystem {
             }
 
             Vector2d vector = new Vector2d(inputs[2], inputs[1]);
-            if (inputs[0] == 1) { vector.rotate(-inputs[4]); } // if headless, account for it
+            if (inputs[0] == 1) { vector.rotate(inputs[4]); } // if headless, account for it
 
             double[] wheelSpeeds = new double[4];
             wheelSpeeds[0] = vector.x + vector.y + inputs[3];
