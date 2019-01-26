@@ -7,9 +7,10 @@
 
 package frc.robot.commands.lift;
 
-import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.OI;
 import frc.robot.subsystems.Lift;
+
+import edu.wpi.first.wpilibj.command.Command;
 
 public class LiftWithJoystick extends Command {
     public LiftWithJoystick() {

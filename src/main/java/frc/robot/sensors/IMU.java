@@ -39,8 +39,19 @@ public class IMU {
         return _instance;
     }
 
+    public PigeonIMU getIMU() {
+        return _pigeon;
+    }
+
     public ErrorCode getStatus() {
         return _pigeon.getGeneralStatus(_genStatus);
+    }
+
+    public void setFusedHeading(double ang) {
+        _pigeon.setFusedHeading(ang);
+    }
+    public double getFusedHeading() {
+        return _pigeon.getFusedHeading();
     }
 
     public double[] getYPR() {
@@ -50,11 +61,7 @@ public class IMU {
     }
 
     public void setInitialYPR() {
-        _initialYPR = IMU.getInstance().getYPR();
-    }
-
-    public double[] getInitialYPR() {
-        return _initialYPR;
+        _initialYPR = getYPR();
     }
 
     public double getInitialYaw() {
@@ -67,25 +74,6 @@ public class IMU {
 
     public double getInitialRoll() {
         return _initialYPR[2];
-    }
-
-    public void setFusedHeading(double ang) {
-        _pigeon.setFusedHeading(ang);
-    }
-    public double getFusedHeading() {
-        return _pigeon.getFusedHeading();
-    }
-
-    public PigeonIMU getIMU() {
-        return _pigeon;
-    }
-
-    public void setInitialHeading() {
-        _initialHeading = getFusedHeading();
-    }
-
-    public double getInitialHeading() {
-        return _initialHeading;
     }
 
     public double getYaw() {
@@ -101,27 +89,6 @@ public class IMU {
     public double getRoll() {
         _ypr = getYPR();
         return _ypr[2] - _initialYPR[2];
-    }
-
-    public short[] getXYZ() { // Accelerometer
-        ErrorCode error = _pigeon.getBiasedAccelerometer(_xyz);
-        SmartDashboard.putString("IMU Error Code", error.toString());
-        return _xyz;
-    }
-
-    public double getX() {
-        _xyz = getXYZ();
-        return _xyz[0];
-    }
-
-    public double getY() {
-        _xyz = getXYZ();
-        return _xyz[1];
-    }
-
-    public double getZ() {
-        _xyz = getXYZ();
-        return _xyz[2];
     }
 
 }

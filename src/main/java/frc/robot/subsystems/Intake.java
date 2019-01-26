@@ -9,9 +9,11 @@ package frc.robot.subsystems;
 
 import frc.robot.Addresses;
 import frc.robot.Robot;
+
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
+
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.LimitSwitchNormal;
@@ -92,7 +94,7 @@ public class Intake extends Subsystem {
     }
 
     public void shootCargo(double speed) {
-        _roller.set(mode, -speed);)
+        _roller.set(mode, -speed);
     }
 
     public void stopRoller() {
