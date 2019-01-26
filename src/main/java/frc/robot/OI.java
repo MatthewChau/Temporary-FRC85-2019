@@ -53,7 +53,7 @@ public class OI {
         
         FollowTarget followTarget;
         _driverA.whenPressed(followTarget = new FollowTarget()); //follows when pressed
-        _driverB.cancelWhenPressed(followTarget); //cancels following when pressed
+        //_driverB.cancelWhenPressed(followTarget); //cancels following when pressed
     }
 
     public static OI getInstance() {
