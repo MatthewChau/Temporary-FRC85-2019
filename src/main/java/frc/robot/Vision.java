@@ -1,6 +1,5 @@
 package frc.robot;
 
-import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -74,7 +73,6 @@ public class Vision {
 			}
 
 		}catch(Exception e){
-			//System.out.println(e.toString());
 			return distance;
 		}
 	}
