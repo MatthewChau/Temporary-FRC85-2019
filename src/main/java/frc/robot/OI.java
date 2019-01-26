@@ -87,6 +87,14 @@ public class OI {
         _gyroAngle = IMU.getInstance().getFusedHeading();
     }
 
+    public double getXInput() {
+        return _driverController.getRawAxis(0);
+    }
+
+    public double getYInput() {
+        return _driverController.getRawAxis(1);
+    }
+
     /**
      * Called in commands to return the joystick axis which is converted into the set speed of the motor
      */
@@ -107,8 +115,8 @@ public class OI {
     }
 
     public boolean isHeadless() {
-        SmartDashboard.putBoolean("Headless", _driverController.getRawButton(1));
-        return _driverController.getRawButton(1);
+        SmartDashboard.putBoolean("Headless", _driverController.getRawButton(6));
+        return _driverController.getRawButton(6);
     }
 
 }

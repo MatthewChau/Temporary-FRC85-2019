@@ -8,12 +8,18 @@
 package frc.robot.subsystems;
 
 import frc.robot.Addresses;
+import frc.robot.OI;
 import frc.robot.commands.drivetrain.DriveWithJoystick;
+import frc.robot.sensors.IMU;
 import frc.robot.Variables;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
 import edu.wpi.first.wpilibj.drive.Vector2d;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.PIDController;
+import edu.wpi.first.wpilibj.PIDSource;
+import edu.wpi.first.wpilibj.PIDSourceType;
 
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
@@ -24,6 +30,10 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 public class DriveTrain extends Subsystem {
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
+
+    private double kP = 0.1, kI = 0.0, kD = 0.0;
+    private double currAngle = 0.0;
+    private double[] wheelSpeeds = new double[4];
 
     private static DriveTrain _instance = null;
 	private WPI_TalonSRX _leftFrontMotor, _leftBackMotor, _rightFrontMotor, _rightBackMotor;
@@ -74,14 +84,22 @@ public class DriveTrain extends Subsystem {
             || Math.abs(inputs[2]) > Variables.getInstance().DEADBAND
             || Math.abs(inputs[3]) > Variables.getInstance().DEADBAND) {
             for (i = 0; i < 3; i++) {
-                if (inputs[i] > 1.0) { inputs[i] = 1.0; }
-                else if (inputs[i] < -1.0) { inputs[i] = -1.0; }
+                if (inputs[i] > 1.0) {
+                    inputs[i] = 1.0;
+                } else if (inputs[i] < -1.0) {
+                    inputs[i] = -1.0; 
+                }
             }
 
             Vector2d vector = new Vector2d(inputs[2], inputs[1]);
-            if (inputs[0] == 1) { vector.rotate(inputs[4]); } // if headless, account for it
+            if (inputs[0] == 1) { // if headless, account for it
+                vector.rotate(inputs[4]);
+            }
 
-            double[] wheelSpeeds = new double[4];
+            if (Math.ab(inputs[3]) < Variables.getInstance().DEADBAND || inputs[0] == 0) { // will deal with headless later
+                inputs[3] = applyPID(inputs[3], getTargetAngle(vector));
+            }
+
             wheelSpeeds[0] = vector.x + vector.y + inputs[3];
             wheelSpeeds[1] = vector.x - vector.y - inputs[3];
             wheelSpeeds[2] = vector.x - vector.y + inputs[3];
@@ -152,6 +170,24 @@ public class DriveTrain extends Subsystem {
                 speeds[i] = speeds[i] / maxMagnitude;
             }
         }
+    }
+
+    public double applyPID(double currAngle, double targetAngle) {
+        double newRot;
+        double error = targetAngle - IMU.getInstance().getFusedHeading();
+
+        newRot = kP * error;
+
+        SmartDashboard.putNumber("Angle Error", newRot);
+
+        return newRot;
+    }
+
+    public double getTargetAngle(Vector2d vector) {
+        double targetAngle;
+        targetAngle = Math.atan(OI.getInstance().getYInput() / OI.getInstance().getXInput());
+
+        return targetAngle;
     }
 
 }
