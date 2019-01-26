@@ -31,9 +31,9 @@ public class Lift extends Subsystem {
     private static Lift _instance = null;
 
     // Vertical
-    private TalonSRX _liftLeft, _liftRight;
+    private TalonSRX _liftLeftMotor, _liftRightMotor;
     // Horizontal
-    private TalonSRX _cim;
+    private TalonSRX _liftRearMotor;
 
     private double _verticalSpeed;
     private double _horizontalSpeed;
@@ -43,12 +43,12 @@ public class Lift extends Subsystem {
     private int[] horizontalValues = {0, 3000}; //get preset values based on index
 
     public Lift() {
-        _liftLeft = new TalonSRX(Addresses.LIFT_LEFT_MOTOR);
-        _liftLeft.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
-        _liftRight = new TalonSRX(Addresses.LIFT_RIGHT_MOTOR);
+        _liftLeftMotor = new TalonSRX(Addresses.LIFT_LEFT_MOTOR);
+        _liftLeftMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
+        _liftRightMotor = new TalonSRX(Addresses.LIFT_RIGHT_MOTOR);
 
-        _cim = new TalonSRX(Addresses.LIFT_CIM_MOTOR);
-        _cim.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
+        _liftRearMotor = new TalonSRX(Addresses.LIFT_CIM_MOTOR);
+        _liftRearMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
     }
 
     public static Lift getInstance() {
@@ -65,19 +65,40 @@ public class Lift extends Subsystem {
     }
 
     public void verticalShift(double speed) {
-        _liftLeft.set(ControlMode.PercentOutput, speed);
-        _liftRight.set(ControlMode.PercentOutput, -speed); //Since the motors are gonna be facing different directions. If going wrong direction, make the top line -speed and the bottom one speed.
+        _liftLeftMotor.set(ControlMode.PercentOutput, speed);
+        _liftRightMotor.set(ControlMode.PercentOutput, -speed);
+    }
+
+    public void verticalShift(int position, double speed) {
+        if (position > getVerticalPosition()) {
+
+        } else if (position < getVerticalPosition()) {
+
+        }
+
+        _liftLeftMotor.set(ControlMode.PercentOutput, speed);
+        _liftRightMotor.set(ControlMode.PercentOutput, -speed); //Guess, since the motors are gonna be facing different directions. 
     }
 
     public void horizontalShift(double speed) {
-        _cim.set(ControlMode.PercentOutput, speed);
+        _liftRearMotor.set(ControlMode.PercentOutput, speed);
+    }
+
+    public void horizontalShift(int position, double speed) {
+        if (position > getHorizontalPosition()) {
+
+        } else if (position > getHorizontalPosition()) {
+            
+        }
+
+        _liftRearMotor.set(ControlMode.PercentOutput, speed);
     }
 
     /**
      * Checks the lift's proximity sensors, a false = do not drive
      */
     public boolean checkVerticalLift(double speed) {
-        if ((ProxSensors.getInstance().getTopLimit() && speed > 0) || (ProxSensors.getInstance().getBottomLimit() && speed < 0)) {
+        if ((ProxSensors.getInstance().getLiftTopLimit() && speed > 0) || (ProxSensors.getInstance().getLiftBottomLimit() && speed < 0)) {
             return false;
         } else {
             return true;
@@ -85,19 +106,19 @@ public class Lift extends Subsystem {
     }
 
     public boolean checkHorizontalLift(double speed) {
-        if ((ProxSensors.getInstance().getLeftLimit() && speed > 0) || (ProxSensors.getInstance().getRightlimit() && speed < 0)) {
+        if ((ProxSensors.getInstance().getLiftFrontLimit() && speed > 0) || (ProxSensors.getInstance().getLiftRearLimit() && speed < 0)) {
             return false;
         } else {
             return true;
         }
     }
 
-    public double getLeftEncoderValue() {
-        return _liftLeft.getSelectedSensorPosition();
+    public int getVerticalPosition() {
+        return _liftLeftMotor.getSelectedSensorPosition();
     }
 
-    public double getCimEncoderValue() {
-        return _cim.getSelectedSensorPosition();
+    public int getHorizontalPosition() {
+        return _liftRearMotor.getSelectedSensorPosition();
     }
 
     // Move to variables class

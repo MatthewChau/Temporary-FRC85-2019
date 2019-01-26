@@ -39,8 +39,8 @@ public class Addresses {
     public static final int INTAKE_ROLLER = 11;
 
     // Intake Limits (addresses are placeholders for now)
-    public static final int INTAKE_UPPER_LIMIT = 12;
-    public static final int INTAKE_LOWER_LIMIT = 13;
+    public static final int INTAKE_TOP_LIMIT = 12;
+    public static final int INTAKE_BOTTOM_LIMIT = 13;
     
     //Encoders (addresses are placeholders for now)
     //public static final int LIFT_LEFT_ENCODER = 8;
