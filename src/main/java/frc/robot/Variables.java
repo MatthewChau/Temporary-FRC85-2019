@@ -8,6 +8,8 @@
 package frc.robot;
 
 import frc.robot.subsystems.DriveTrain;
+import frc.robot.sensors.ProxSensors;
+import frc.robot.sensors.IMU;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -62,6 +64,18 @@ public class Variables {
         SmartDashboard.putNumber("Left Back Percent", DriveTrain.getInstance().getLeftBackPercent());
         SmartDashboard.putNumber("Right Front Percent", DriveTrain.getInstance().getRightFrontPercent());
         SmartDashboard.putNumber("Right Back Percent", DriveTrain.getInstance().getRightBackPercent());
+        
+        SmartDashboard.putNumber("Fused", IMU.getInstance().getFusedHeading());
+
+        SmartDashboard.putNumber("Initial Yaw", IMU.getInstance().getInitialYaw());
+        SmartDashboard.putNumber("Yaw", IMU.getInstance().getYaw());
+
+        SmartDashboard.putNumber("Initial Pitch", IMU.getInstance().getInitialPitch());
+        SmartDashboard.putNumber("Pitch", IMU.getInstance().getPitch());
+
+        SmartDashboard.putNumber("Initial Roll", IMU.getInstance().getInitialRoll());
+        SmartDashboard.putNumber("Roll", IMU.getInstance().getRoll());
+//        SmartDashboard.putBoolean("Prox me OwO", ProxSensors.getInstance().getTopLimit());
     }
 
 }

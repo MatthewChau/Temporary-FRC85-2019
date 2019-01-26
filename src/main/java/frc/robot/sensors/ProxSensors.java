@@ -20,14 +20,19 @@ public class ProxSensors extends Subsystem {
     // here. Call these from Commands.
 
     private static ProxSensors _instance = null;
-    private DigitalInput _liftTopLimit, _liftBotLimit, _liftLeftLimit, _liftRightLimit;
+    private DigitalInput _liftTopLimit, _liftBottomLimit, _liftFrontLimit, _liftRearLimit;
+
+    private DigitalInput _intakeTopLimit, _intakeBottomLimit;
 
     private ProxSensors() {
         _liftTopLimit = new DigitalInput(Addresses.LIFT_TOP_LIMIT);
-        _liftBotLimit = new DigitalInput(Addresses.LIFT_BOTTOM_LIMIT);
+        _liftBottomLimit = new DigitalInput(Addresses.LIFT_BOTTOM_LIMIT);
 
-        _liftLeftLimit= new DigitalInput(Addresses.LIFT_LEFT_LIMIT);
-        _liftRightLimit = new DigitalInput(Addresses.LIFT_RIGHT_LIMIT);
+        _liftFrontLimit= new DigitalInput(Addresses.LIFT_LEFT_LIMIT);
+        _liftRearLimit = new DigitalInput(Addresses.LIFT_RIGHT_LIMIT);
+
+        _intakeTopLimit = new DigitalInput(Addresses.INTAKE_TOP_LIMIT);
+        _intakeBottomLimit = new DigitalInput(Addresses.INTAKE_BOTTOM_LIMIT);
     }
 
     public static ProxSensors getInstance() {
@@ -43,20 +48,28 @@ public class ProxSensors extends Subsystem {
         // setDefaultCommand(new MySpecialCommand());
     }
 
-    public boolean getTopLimit() {
+    public boolean getLiftTopLimit() {
         return _liftTopLimit.get();
     }
 
-    public boolean getBottomLimit() {
-        return _liftBotLimit.get();
+    public boolean getLiftBottomLimit() {
+        return _liftBottomLimit.get();
     }
 
-    public boolean getLeftLimit() {
-        return _liftLeftLimit.get();
+    public boolean getLiftFrontLimit() {
+        return _liftFrontLimit.get();
     }
 
-    public boolean getRightlimit() {
-        return _liftRightLimit.get();
+    public boolean getLiftRearLimit() {
+        return _liftRearLimit.get();
+    }
+
+    public boolean getIntakeTopLimit() {
+        return _intakeTopLimit.get();
+    }
+
+    public boolean getIntakeBottomLimit() {
+        return _intakeBottomLimit.get();
     }
 
 }
