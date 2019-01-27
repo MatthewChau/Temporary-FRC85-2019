@@ -19,6 +19,8 @@ public class Variables {
     private static Variables _instance;
 
     public final double DEADBAND = 0.05;
+    public final double TOLERANCE_ANGLE = 10.0;
+    public final int MAX_TURNS = 5; // if we go over 1800 degrees in either direction in one match then help.
 
     private Variables() {
 

@@ -24,6 +24,8 @@ import edu.wpi.first.wpilibj.PIDSourceType;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
+import java.util.Arrays;
+
 /**
  * Add your docs here.
  */
@@ -31,8 +33,10 @@ public class DriveTrain extends Subsystem {
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
 
-    private double kP = 0.1, kI = 0.0, kD = 0.0;
-    private double currAngle = 0.0;
+    private double kPRot = 0.1, kIRot = 0.0, kDRot = 0.0;
+    //private double kPForwardOnly = 0.0, kIForwardOnly = 0.0, kDForwardOnly = 0.0; // might end up only using Rot constants
+    //private double baseJoystickAngle = 0.0; // don't think we need this for what we are doing yet
+    private double targetAngle = 0.0;
     private double[] wheelSpeeds = new double[4];
 
     private static DriveTrain _instance = null;
@@ -96,8 +100,14 @@ public class DriveTrain extends Subsystem {
                 vector.rotate(inputs[4]);
             }
 
-            if (Math.abs(inputs[3]) < Variables.getInstance().DEADBAND || inputs[0] == 0) { // will deal with headless later
-                inputs[3] = applyPID(inputs[3], getTargetAngle(vector));
+            if (Math.abs(inputs[3]) < Variables.getInstance().DEADBAND && inputs[0] == 0) { // will deal with headless later
+                if (OI.getInstance().forwardOnly() && Math.abs(inputs[4]) < (Variables.getInstance().MAX_TURNS * 360)) { // if we go over the max amount of turns then don't even bother
+                    setForwardOnlyTargetAngle();
+                    targetAngle = fixTargetAngle(inputs[4]);
+                } else {
+                    setTargetAngle(inputs[4]);
+                }
+                inputs[3] = OI.getInstance().applyPID(OI.getInstance().ROT_SYSTEM, inputs[4], targetAngle, kPRot, kIRot, kDRot);
             }
 
             wheelSpeeds[0] = vector.x + vector.y + inputs[3];
@@ -105,7 +115,7 @@ public class DriveTrain extends Subsystem {
             wheelSpeeds[2] = vector.x - vector.y + inputs[3];
             wheelSpeeds[3] = vector.x + vector.y - inputs[3];
 
-            limitSpeeds(wheelSpeeds); // set anything over 1 to 1 and adjust proportionally
+            limitSpeeds(wheelSpeeds);
 
             _leftFrontMotor.set(wheelSpeeds[0]);
             _rightFrontMotor.set(-wheelSpeeds[1]);
@@ -157,7 +167,30 @@ public class DriveTrain extends Subsystem {
         return _leftBackMotor;
     }
 
-    public void limitSpeeds(double[] speeds) {
+    private void setTargetAngle(double gyroAngle) { // if necessary, change the target angle
+        if (Math.abs(Math.abs(gyroAngle) - Math.abs(targetAngle)) > Variables.getInstance().TOLERANCE_ANGLE) {
+            targetAngle = gyroAngle;
+        }
+    }
+
+    /*
+    okay let's do some math explanations & why i thought this was a good idea
+    the goal is to get the angle with left from the y axis being positive going counter-clockwise (because that's how gyro goes)
+    so we absolute value the whole thing to keep it within range of arctan's use
+    joystick angle formula thus becomes:
+    arctan(|X / Y|)
+    then we fix it using the method in OI to adjust it so that we can use it (i.e. arctan doesn't always return 0-90!), commented there
+    note that this is if you want the robot to go FORWARD facing this angle
+    */
+    private void setForwardOnlyTargetAngle() {
+        double joystickAngle = Math.toDegrees(Math.atan(Math.abs(OI.getInstance().getXInput() / OI.getInstance().getYInput()))); // get angle from the top, left being positive
+        joystickAngle = OI.getInstance().fixArcTangent(joystickAngle, -OI.getInstance().getXInput(), OI.getInstance().getYInput()); // x is inverted here to make sure that the atan result is matched w positive x
+        if (Math.abs((Math.abs(targetAngle) % 360) - Math.abs(joystickAngle)) > Variables.getInstance().TOLERANCE_ANGLE) { // if the new angle differs "significantly"
+            targetAngle = joystickAngle;
+        }
+    }
+
+    private void limitSpeeds(double[] speeds) { // take the highest speed & then adjust everything else proportionally if it is over 1
         double maxMagnitude = Math.abs(speeds[0]);
         int i;
         for (i = 0; i < 3; i++) {
@@ -172,22 +205,18 @@ public class DriveTrain extends Subsystem {
         }
     }
 
-    public double applyPID(double currAngle, double targetAngle) {
-        double newRot;
-        double error = targetAngle - IMU.getInstance().getFusedHeading();
-
-        newRot = kP * error;
-
-        SmartDashboard.putNumber("Angle Error", newRot);
-
-        return newRot;
-    }
-
-    public double getTargetAngle(Vector2d vector) {
-        double targetAngle;
-        targetAngle = Math.atan(OI.getInstance().getYInput() / OI.getInstance().getXInput());
-
-        return targetAngle;
+    private double fixTargetAngle(double gyroAngle) { // adjust target angle to the closest possible so we don't get stuck rotating for 9 years
+        double minDiff = 180.0;
+        double newTargetAngle = 0.0;
+        int i;
+        
+        for (i = -Variables.getInstance().MAX_TURNS; i < Variables.getInstance().MAX_TURNS; i++) {
+            if ((targetAngle + 360 * i - gyroAngle) < minDiff) {
+                minDiff = (targetAngle + 360 * i - gyroAngle);
+                newTargetAngle = (targetAngle + 360 * i);
+            }
+        }
+        return newTargetAngle;
     }
 
 }

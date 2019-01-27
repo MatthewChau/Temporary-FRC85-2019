@@ -11,16 +11,18 @@ import frc.robot.sensors.IMU;
 import frc.robot.subsystems.Lift;
 import frc.robot.commands.lift.VerticalShift;
 import frc.robot.commands.lift.HorizontalShift;
+import frc.robot.commands.lift.VerticalShift;
+import frc.robot.subsystems.DriveTrain;
+import frc.robot.commands.drivetrain.FollowTarget;
+import frc.robot.commands.lift.HorizontalShift;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Joystick.AxisType;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
-import frc.robot.commands.lift.VerticalShift;
-import frc.robot.subsystems.DriveTrain;
-import frc.robot.commands.drivetrain.FollowTarget;
-import frc.robot.commands.lift.HorizontalShift;
+
+import java.util.Arrays;
 
 public class OI {
 
@@ -36,6 +38,16 @@ public class OI {
     private double _liftSpeed = 0;
 
     private double _gyroAngle;
+
+    public int ROT_SYSTEM = 0;
+    public int LIFT_UPDOWN_SYSTEM = 1;
+    public int LIFT_FRONTBACK_SYSTEM = 2;
+    public int INTAKE_SYSTEM = 3;
+
+    private boolean[] firstRun = new boolean[INTAKE_SYSTEM];
+    private double[] errorSum = new double[INTAKE_SYSTEM];
+    private double[] lastOutput = new double[INTAKE_SYSTEM];
+    private double[] lastActual = new double[INTAKE_SYSTEM];
 
     private OI() {
         _driverController = new Joystick(Addresses.CONTROLLER_DRIVER);
@@ -60,9 +72,16 @@ public class OI {
         _operatorLeftBumper.whenActive(new HorizontalShift(0, 1)); //1 means to go left (or backward) hopefully
         _operatorRightBumper.whenActive(new HorizontalShift(1, -1)); //-1 means to go right (or forward) hopefully
 
-        FollowTarget followTarget;
-        _driverAButton.whenPressed(followTarget = new FollowTarget()); //follows when pressed
-        _driverBButton.cancelWhenPressed(followTarget); //cancels following when pressed
+        //FollowTarget followTarget;
+        //_driverAButton.whenPressed(followTarget = new FollowTarget()); //follows when pressed
+        //_driverBButton.cancelWhenPressed(followTarget); //cancels following when pressed
+
+        // init the pid stuffs
+
+        Arrays.fill(firstRun, true);
+        Arrays.fill(errorSum, 0.0);
+        Arrays.fill(lastOutput, 0.0);
+        Arrays.fill(lastActual, 0.0);
     }
 
     public static OI getInstance() {
@@ -130,4 +149,64 @@ public class OI {
         return _driverController.getRawButton(6);
     }
 
+    public boolean forwardOnly() {
+        SmartDashboard.putBoolean("Forward Only", _driverController.getRawButton(1));
+        return _driverController.getRawButton(1);
+    }
+
+    public double fixArcTangent(double angle, double x, double y) { // fix an angle output by arctan, it will always be in the top left otherwise
+        if (x > 0.0 && y < 0.0) {
+            angle += 90.0; // add 90 to place the angle in the bottom left, where it should be
+        } else if (x < 0.0 && y > 0.0) {
+            angle -= 90.0; // subtract 90 to place the angle in the top right, where it should be
+        } else if (x < 0.0 && y < 0.0) {
+            angle += 180.0; // completely invert the angle so that it is in the bottom right, where it should be
+        }
+        // do nothing if both the x- & y-values are positive
+        return angle;
+    }
+
+    /*
+    formula for output at time t (o(t)), based on error at time t (e(t)):
+    o(t) = (kP * e(t)) + (kI * ∫e(t)dt) - (kD * (de(t) / dt))
+    or, because we can't do symbolic integration or derivation:
+    o(t) = kP(instant error) + kI(total error) - kD(instant change in error)
+    */
+    public double applyPID(int system, double current, double target, double kP, double kI, double kD) {
+        double output;
+        double termP, termI, termD;
+        double error = target - current;
+
+        SmartDashboard.putNumber("Error", error);
+
+        // the proportional stuff just kinda exists, the initial correction
+        termP = kP * error;
+
+        if (firstRun[system]) {
+            lastActual[system] = current;
+            lastOutput[system] = termP;
+            firstRun[system] = false;
+        }
+
+        // slow down correction if it's doing the right thing (in an effort to prevent major overshooting)
+        // formula:  -kD * change in read, "change in read" being the instant derivative at that point in time
+        termD = -kD * (current - lastActual[system]);
+        lastActual[system] = current;
+
+        // because the I term is the area under the curve, it gets a higher weight if it's been going on for a longer time, hence the errorSum
+        // formula:  kI * errorSum (sum of all previous errors)
+        termI = kI * errorSum[system];
+        // we can limit this if we find it to be necessary, apparently it can build up
+
+        output = termP + termI + termD;
+
+        // figure out a basis to reset the error sum here
+
+        errorSum[system] += error;
+
+        lastOutput[system] = output;
+
+        return output;
+    }
+    
 }
