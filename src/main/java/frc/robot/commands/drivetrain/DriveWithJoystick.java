@@ -29,8 +29,7 @@ public class DriveWithJoystick extends Command {
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
-        _inputs = OI.getInstance().getJoystickInput();
-        DriveTrain.getInstance().cartDrive(_inputs);
+        DriveTrain.getInstance().cartDrive(OI.getInstance().getJoystickInput());
     }
 
     // Make this return true when this Command no longer needs to run execute()
