@@ -39,8 +39,6 @@ public class DriveTrain extends Subsystem {
     private static DriveTrain _instance = null;
     private TalonSRX _leftFrontMotor, _leftBackMotor, _rightFrontMotor, _rightBackMotor;
 
-    private MecanumDrive _mDrive;
-
     private DriveTrain() {
         _leftFrontMotor = new TalonSRX(Addresses.DRIVETRAIN_LEFT_FRONT_MOTOR);
         _leftFrontMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
@@ -73,7 +71,6 @@ public class DriveTrain extends Subsystem {
      * 3 - zRotation
      * 4 - gyroAngle (0 if not really using)
      */
-
     public void cartDrive(double[] inputs) {
         int i;
 
