@@ -7,7 +7,7 @@
 
 package frc.robot.commands.lift;
 
-import frc.robot.subsystems.Lift;
+import frc.robot.subsystems.LiftHorizontal;
 
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -17,7 +17,7 @@ public class HorizontalShift extends Command {
     private int _tolerance;
 
     public HorizontalShift(int position, int speed) {
-        requires(Lift.getInstance());
+        requires(LiftHorizontal.getInstance());
         _speed = speed;
         _targetPosition = position;
     }
@@ -25,8 +25,8 @@ public class HorizontalShift extends Command {
     @Override
     protected void initialize() {
         super.initialize();
-        Lift.getInstance().horizontalShift(_targetPosition, _speed);
-        //Change to "Lift.getInstance().horizontalShift(_direction * OI.getInstance().getRawAxis)" 
+        LiftHorizontal.getInstance().horizontalShift(_targetPosition, _speed);
+        //Change to "LiftHorizontal.getInstance().horizontalShift(_direction * OI.getInstance().getRawAxis)" 
         //or something like that if you wish to manipulate based on joystick axis.
     }
 
@@ -37,12 +37,12 @@ public class HorizontalShift extends Command {
 
     @Override
     protected boolean isFinished() {
-        return (Math.abs(Lift.getInstance().getHorizontalPosition() - _targetPosition) <= _tolerance);
+        return (Math.abs(LiftHorizontal.getInstance().getHorizontalPosition() - _targetPosition) <= _tolerance);
     }
 
     @Override
     protected void end() {
         super.end();
-        Lift.getInstance().horizontalShift(0);
+        LiftHorizontal.getInstance().horizontalShift(0);
     }
 }

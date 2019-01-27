@@ -9,7 +9,7 @@ package frc.robot.subsystems;
 
 import frc.robot.Addresses;
 import frc.robot.sensors.ProxSensors;
-import frc.robot.commands.lift.LiftWithJoystick;
+import frc.robot.commands.lift.LiftHorizontalWithJoystick;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 
@@ -33,12 +33,7 @@ public class LiftHorizontal extends Subsystem {
 
     private double _horizontalSpeed;
 
-    // Move to variables class later
-    private int[] phaseValues = { 0, 3000, 6000, 9000 }; // get phase based on index
-    private int[] horizontalValues = { 0, 3000 }; // get preset values based on index
-
     private LiftHorizontal() {
-
         _liftRearMotor = new TalonSRX(Addresses.LIFT_CIM_MOTOR);
         _liftRearMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
     }
@@ -53,7 +48,7 @@ public class LiftHorizontal extends Subsystem {
     @Override
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
-        setDefaultCommand(new LiftWithJoystick());
+        setDefaultCommand(new LiftHorizontalWithJoystick());
     }
 
     public void horizontalShift(double speed) {
@@ -63,7 +58,7 @@ public class LiftHorizontal extends Subsystem {
     public void horizontalShift(int position, double speed) {
         if (position > getHorizontalPosition()) {
 
-        } else if (position > getHorizontalPosition()) {
+        } else if (position < getHorizontalPosition()) {
 
         }
 
@@ -81,15 +76,6 @@ public class LiftHorizontal extends Subsystem {
 
     public int getHorizontalPosition() {
         return _liftRearMotor.getSelectedSensorPosition();
-    }
-
-    // Move to variables class
-    public int getPhaseValue(int phase) {
-        return phaseValues[phase];
-    }
-
-    public int getHorizontalPhase(int phase) {
-        return horizontalValues[phase];
     }
 
 }

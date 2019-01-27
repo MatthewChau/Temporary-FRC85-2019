@@ -45,7 +45,7 @@ public class Intake extends Subsystem {
         // setDefaultCommand(new MySpecialCommand());
     }
 
-    private void Intake() {
+    private Intake() {
         _flipper = new TalonSRX(Addresses.INTAKE_FLIPPER);
         _roller = new TalonSRX(Addresses.INTAKE_ROLLER);
         _intakePos = new Encoder(Addresses.INTAKE_ENCODER_A, Addresses.INTAKE_ENCODER_B);

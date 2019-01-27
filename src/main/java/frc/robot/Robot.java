@@ -14,7 +14,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.sensors.IMU;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Intake;
-import frc.robot.subsystems.Lift;
+import frc.robot.subsystems.LiftVertical;
+import frc.robot.subsystems.LiftHorizontal;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -34,7 +35,8 @@ public class Robot extends TimedRobot {
     public void robotInit() {
         DriveTrain.getInstance();
         Intake.getInstance();
-        Lift.getInstance();
+        LiftVertical.getInstance();
+        LiftHorizontal.getInstance();
         OI.getInstance();
         IMU.getInstance();
     }

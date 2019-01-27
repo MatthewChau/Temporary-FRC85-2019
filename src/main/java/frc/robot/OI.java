@@ -8,7 +8,8 @@
 package frc.robot;
 
 import frc.robot.sensors.IMU;
-import frc.robot.subsystems.Lift;
+import frc.robot.subsystems.LiftVertical;
+import frc.robot.subsystems.LiftHorizontal;
 import frc.robot.commands.lift.VerticalShift;
 import frc.robot.commands.lift.HorizontalShift;
 
@@ -91,19 +92,19 @@ public class OI {
     /**
      * Called in commands to return the joystick axis which is converted into the set speed of the motor
      */
-    public double getVerticalLift() {
-        if (!Lift.getInstance().checkVerticalLift(_operatorController.getRawAxis(1))) {
+    public double getLiftVertical() {
+        if (!LiftVertical.getInstance().checkVerticalLift(_operatorController.getRawAxis(1))) {
             return _liftSpeed = 0;
         } else {
-            return _liftSpeed = _operatorController.getRawAxis(1);
+            return _liftSpeed = _operatorController.getRawAxis(1) * 0.5;
         }
     }
 
-    public double getHorizontalLift() {
-        if (!Lift.getInstance().checkHorizontalLift(_operatorController.getRawAxis(0))) {
+    public double getLiftHorizontal() {
+        if (!LiftHorizontal.getInstance().checkHorizontalLift(_operatorController.getRawAxis(0))) {
             return _liftSpeed = 0;
         } else {
-            return _liftSpeed = _operatorController.getRawAxis(0);
+            return _liftSpeed = _operatorController.getRawAxis(0) * 0.5;
         }
     }
 
