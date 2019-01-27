@@ -47,6 +47,8 @@ public class Variables {
 
     private static Variables _instance;
 
+    public final double DEADBAND = 0.05;
+
     private Variables() {
 
 
@@ -64,7 +66,9 @@ public class Variables {
         SmartDashboard.putNumber("Left Back Percent", DriveTrain.getInstance().getLeftBackPercent());
         SmartDashboard.putNumber("Right Front Percent", DriveTrain.getInstance().getRightFrontPercent());
         SmartDashboard.putNumber("Right Back Percent", DriveTrain.getInstance().getRightBackPercent());
-        
+
+        SmartDashboard.putNumber("Distance", Vision.distance());
+
         SmartDashboard.putNumber("Fused", IMU.getInstance().getFusedHeading());
 
         SmartDashboard.putNumber("Initial Yaw", IMU.getInstance().getInitialYaw());

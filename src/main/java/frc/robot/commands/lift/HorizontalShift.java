@@ -14,7 +14,7 @@ import edu.wpi.first.wpilibj.command.Command;
 public class HorizontalShift extends Command {
 
     private int _speed, _targetPosition;
-    private int _tolerance;
+    private int _tolerance = 10;
 
     public HorizontalShift(int position, int speed) {
         requires(LiftHorizontal.getInstance());
