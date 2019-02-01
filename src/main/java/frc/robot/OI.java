@@ -97,8 +97,8 @@ public class OI {
             // 1 or 0 is passed to identify whether the array is headless or headed drive.
             return new double[] {1, _xSpeed, _ySpeed, _zRotation, _gyroAngle};
         } else {
-            headedDrive();
-            return new double[] {0, _xSpeed, _ySpeed, _zRotation, 0};
+            headlessDrive();
+            return new double[] {0, _xSpeed, _ySpeed, _zRotation, _gyroAngle};
         }
     }
 
@@ -154,16 +154,29 @@ public class OI {
         return _driverController.getRawButton(1);
     }
 
+/*    public boolean[] turn90() {
+        boolean[] outputs = new boolean[1];
+        outputs[0] = _driverController.getRawButton();
+        outputs[1] = _driverController.getRawButton();
+        SmartDashboard.putBoolean("Left 90", _driverController.getRawButton());
+        SmartDashboard.putBoolean("Right 90", _driverController.getRawButton());
+        return outputs;
+    }*/
+
     public double fixArcTangent(double angle, double x, double y) { // fix an angle output by arctan, it will always be in the top left otherwise
-        if (x > 0.0 && y < 0.0) {
-            angle += 90.0; // add 90 to place the angle in the bottom left, where it should be
-        } else if (x < 0.0 && y > 0.0) {
-            angle -= 90.0; // subtract 90 to place the angle in the top right, where it should be
+        if (x > 0.0 && y > 0.0) {
+            angle *= -1.0; // multiply the angle by -1 to place it in the correct quadrant
+        } else if (x > 0.0 && y < 0.0) {
+            angle += 90.0; // subtract 90 to place the angle in the top right, where it should be
         } else if (x < 0.0 && y < 0.0) {
-            angle += 180.0; // completely invert the angle so that it is in the bottom right, where it should be
+            angle = (180.0 - angle); // completely invert the angle so that it is in the bottom right, where it should be
         }
-        // do nothing if both the x- & y-values are positive
+        // do nothing if x is less than 0 & y is positive
         return angle;
+    }
+
+    public double applyPID(int system, double current, double target, double kP, double kI, double kD) {
+        return applyPID(system, current, target, kP, kI, kD, 0.0, 0.0);
     }
 
     /*
@@ -172,12 +185,13 @@ public class OI {
     or, because we can't do symbolic integration or derivation:
     o(t) = kP(instant error) + kI(total error) - kD(instant change in error)
     */
-    public double applyPID(int system, double current, double target, double kP, double kI, double kD) {
+    public double applyPID(int system, double current, double target, double kP, double kI, double kD, double outputMax, double outputMin) {
         double output;
         double termP, termI, termD;
         double error = target - current;
 
-        SmartDashboard.putNumber("Error", error);
+        SmartDashboard.putNumber("PID Target", target);
+        SmartDashboard.putNumber("PID Error", error);
 
         // the proportional stuff just kinda exists, the initial correction
         termP = kP * error;
@@ -191,16 +205,27 @@ public class OI {
         // slow down correction if it's doing the right thing (in an effort to prevent major overshooting)
         // formula:  -kD * change in read, "change in read" being the instant derivative at that point in time
         termD = -kD * (current - lastActual[system]);
-        lastActual[system] = current;
+        //lastActual[system] = current;
 
         // because the I term is the area under the curve, it gets a higher weight if it's been going on for a longer time, hence the errorSum
         // formula:  kI * errorSum (sum of all previous errors)
-        termI = kI * errorSum[system];
-        // we can limit this if we find it to be necessary, apparently it can build up
+        termI = 0;//kI * errorSum[system];
+        // we can limit this if we find it to be necessary, it can build up
 
         output = termP + termI + termD;
 
+        if (outputMax != outputMin) { // if we decide to use mins/maxes on outputs, then we can
+            if (output > outputMax) {
+                output = outputMax;
+            } else if (output < outputMin) {
+                output = outputMin;
+            }
+        }
+
+        SmartDashboard.putNumber("PID Output", output);
+
         // figure out a basis to reset the error sum here
+        // what mason did last year was just make it so that it had like zero influence while assigning higher precedence to the D term
 
         errorSum[system] += error;
 

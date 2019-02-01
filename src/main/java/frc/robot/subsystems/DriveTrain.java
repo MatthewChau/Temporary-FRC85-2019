@@ -33,7 +33,8 @@ public class DriveTrain extends Subsystem {
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
 
-    private double kPRot = 0.1, kIRot = 0.0, kDRot = 0.0;
+    private double kPRot = 0.05, kIRot = 0.0, kDRot = 0.0;
+    private double kMaxOuputRot = 0.5, kMinOuputRot = -0.5;
     //private double kPForwardOnly = 0.0, kIForwardOnly = 0.0, kDForwardOnly = 0.0; // might end up only using Rot constants
     //private double baseJoystickAngle = 0.0; // don't think we need this for what we are doing yet
     private double targetAngle = 0.0;
@@ -96,19 +97,39 @@ public class DriveTrain extends Subsystem {
             }
 
             Vector2d vector = new Vector2d(inputs[2], inputs[1]);
-            if (inputs[0] == 1) { // if headless, account for it
+            if (inputs[0] == 1 || OI.getInstance().forwardOnly()) { // if headless, account for it
                 vector.rotate(inputs[4]);
             }
 
-            if (Math.abs(inputs[3]) < Variables.getInstance().DEADBAND && inputs[0] == 0) { // will deal with headless later
-                if (OI.getInstance().forwardOnly() && Math.abs(inputs[4]) < (Variables.getInstance().MAX_TURNS * 360)) { // if we go over the max amount of turns then don't even bother
+            SmartDashboard.putNumber("inputs[0]", inputs[0]);
+            SmartDashboard.putNumber("inputs[3]", inputs[3]);
+            SmartDashboard.putNumber("inputs[4]", inputs[4]);
+
+            /*if (Math.abs(inputs[3]) < Variables.getInstance().DEADBAND && inputs[0] == 0) { // note that all of this stuff only runs if headless is NOT activated; if it is, you on your own mon amie
+                if (OI.getInstance().forwardOnly() && Math.abs(inputs[4]) < (Variables.getInstance().MAX_TURNS * 360.0)) { // if we go over the max amount of turns then don't even bother
                     setForwardOnlyTargetAngle();
                     targetAngle = fixTargetAngle(inputs[4]);
-                } else {
-                    setTargetAngle(inputs[4]);
+                } else if ((OI.getInstance().turn90()[0] || OI.getInstance().turn90()[1]) 
+                           && (Math.abs(inputs[4]) < Variables.getInstance().MAX_TURNS * 360.0)
+                           && (isTurnProgressComplete())) {
+                    setTurn90TargetAngle(OI.getInstance().turn90());
+                    targetAngle = fixTargetAngle(inputs[4]);
+                } else { // straight driving without rotation
+                    setTargetAngleMoving(inputs[4]); // note that this only changes it if necessary (it's a large enough change)
                 }
                 inputs[3] = OI.getInstance().applyPID(OI.getInstance().ROT_SYSTEM, inputs[4], targetAngle, kPRot, kIRot, kDRot);
+            }*/
+
+            if (Math.abs(inputs[3]) < Variables.getInstance().DEADBAND && inputs[0] == 0) { // we will deal with headless later ahaha
+                if (OI.getInstance().forwardOnly()) {
+                    setForwardOnlyTargetAngle();
+                    inputs[3] = OI.getInstance().applyPID(OI.getInstance().ROT_SYSTEM, inputs[4], targetAngle, kPRot, kIRot, kDRot, kMaxOuputRot, kMinOuputRot);
+                } else {
+                    setTargetAngleMoving(inputs[4]);
+                    inputs[3] = OI.getInstance().applyPID(OI.getInstance().ROT_SYSTEM, inputs[4], targetAngle, kPRot, kIRot, kDRot);
+                }
             }
+
 
             wheelSpeeds[0] = vector.x + vector.y + inputs[3];
             wheelSpeeds[1] = vector.x - vector.y - inputs[3];
@@ -167,7 +188,7 @@ public class DriveTrain extends Subsystem {
         return _leftBackMotor;
     }
 
-    private void setTargetAngle(double gyroAngle) { // if necessary, change the target angle
+    private void setTargetAngleMoving(double gyroAngle) { // if necessary, change the target angle
         if (Math.abs(Math.abs(gyroAngle) - Math.abs(targetAngle)) > Variables.getInstance().TOLERANCE_ANGLE) {
             targetAngle = gyroAngle;
         }
@@ -181,13 +202,18 @@ public class DriveTrain extends Subsystem {
     arctan(|X / Y|)
     then we fix it using the method in OI to adjust it so that we can use it (i.e. arctan doesn't always return 0-90!), commented there
     note that this is if you want the robot to go FORWARD facing this angle
+    
     */
     private void setForwardOnlyTargetAngle() {
-        double joystickAngle = Math.toDegrees(Math.atan(Math.abs(OI.getInstance().getXInput() / OI.getInstance().getYInput()))); // get angle from the top, left being positive
-        joystickAngle = OI.getInstance().fixArcTangent(joystickAngle, -OI.getInstance().getXInput(), OI.getInstance().getYInput()); // x is inverted here to make sure that the atan result is matched w positive x
+        double joystickAngle = Math.toDegrees(Math.atan(Math.abs(OI.getInstance().getXInput() / OI.getInstance().getYInput()))); // get angle from the top
+        joystickAngle = OI.getInstance().fixArcTangent(joystickAngle, OI.getInstance().getXInput(), OI.getInstance().getYInput()); // x is inverted here to make sure that the atan result is matched w positive x
         if (Math.abs((Math.abs(targetAngle) % 360) - Math.abs(joystickAngle)) > Variables.getInstance().TOLERANCE_ANGLE) { // if the new angle differs "significantly"
             targetAngle = joystickAngle;
         }
+    }
+
+    private void setTurn90TargetAngle(boolean[] directions) {
+
     }
 
     private void limitSpeeds(double[] speeds) { // take the highest speed & then adjust everything else proportionally if it is over 1
@@ -205,18 +231,16 @@ public class DriveTrain extends Subsystem {
         }
     }
 
-    private double fixTargetAngle(double gyroAngle) { // adjust target angle to the closest possible so we don't get stuck rotating for 9 years
+    private void fixTargetAngle(double gyroAngle) { // adjust target angle to the closest possible so we don't get stuck rotating for 9 years
         double minDiff = 180.0;
-        double newTargetAngle = 0.0;
         int i;
         
         for (i = -Variables.getInstance().MAX_TURNS; i < Variables.getInstance().MAX_TURNS; i++) {
             if ((targetAngle + 360 * i - gyroAngle) < minDiff) {
                 minDiff = (targetAngle + 360 * i - gyroAngle);
-                newTargetAngle = (targetAngle + 360 * i);
+                targetAngle = (targetAngle + 360 * i);
             }
         }
-        return newTargetAngle;
     }
 
 }
