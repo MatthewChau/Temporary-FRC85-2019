@@ -21,8 +21,9 @@ import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDSource;
 import edu.wpi.first.wpilibj.PIDSourceType;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import java.util.Arrays;
 
@@ -41,23 +42,17 @@ public class DriveTrain extends Subsystem {
     private double[] wheelSpeeds = new double[4];
 
     private static DriveTrain _instance = null;
-    private WPI_TalonSRX _leftFrontMotor, _leftBackMotor, _rightFrontMotor, _rightBackMotor;
-
-    private MecanumDrive _mDrive;
+    private TalonSRX _leftFrontMotor, _leftBackMotor, _rightFrontMotor, _rightBackMotor;
 
     private DriveTrain() {
-        _leftFrontMotor = new WPI_TalonSRX(Addresses.DRIVETRAIN_LEFT_FRONT_MOTOR);
+        _leftFrontMotor = new TalonSRX(Addresses.DRIVETRAIN_LEFT_FRONT_MOTOR);
         _leftFrontMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
-        _leftBackMotor = new WPI_TalonSRX(Addresses.DRIVETRAIN_LEFT_BACK_MOTOR);
+        _leftBackMotor = new TalonSRX(Addresses.DRIVETRAIN_LEFT_BACK_MOTOR);
         _leftBackMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
-        _rightFrontMotor = new WPI_TalonSRX(Addresses.DRIVETRAIN_RIGHT_FRONT_MOTOR);
+        _rightFrontMotor = new TalonSRX(Addresses.DRIVETRAIN_RIGHT_FRONT_MOTOR);
         _rightFrontMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
-        _rightBackMotor = new WPI_TalonSRX(Addresses.DRIVETRAIN_RIGHT_BACK_MOTOR);
+        _rightBackMotor = new TalonSRX(Addresses.DRIVETRAIN_RIGHT_BACK_MOTOR);
         _rightBackMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
-
-        // Mecanum Drive constructor
-        _mDrive = new MecanumDrive(_leftFrontMotor, _leftBackMotor, _rightFrontMotor, _rightBackMotor);
-        _mDrive.setDeadband(.1);
     }
 
     public static DriveTrain getInstance() {
@@ -81,7 +76,6 @@ public class DriveTrain extends Subsystem {
      * 3 - zRotation
      * 4 - gyroAngle (0 if not really using)
      */
-
     public void cartDrive(double[] inputs) {
         int i;
 
@@ -139,11 +133,18 @@ public class DriveTrain extends Subsystem {
 
             limitSpeeds(wheelSpeeds);
 
-            _leftFrontMotor.set(wheelSpeeds[0]);
-            _rightFrontMotor.set(-wheelSpeeds[1]);
-            _leftBackMotor.set(wheelSpeeds[2]);
-            _rightBackMotor.set(-wheelSpeeds[3]);
+            _leftFrontMotor.set(ControlMode.PercentOutput, wheelSpeeds[0]);
+            _rightFrontMotor.set(ControlMode.PercentOutput, -wheelSpeeds[1]);
+            _leftBackMotor.set(ControlMode.PercentOutput, wheelSpeeds[2]);
+            _rightBackMotor.set(ControlMode.PercentOutput, -wheelSpeeds[3]);
         }
+    }
+
+    public double getTargetAngle(Vector2d vector) {
+        double targetAngle;
+        targetAngle = Math.atan(OI.getInstance().getYInput() / OI.getInstance().getXInput());
+
+        return targetAngle;
     }
 
     /**
@@ -170,22 +171,22 @@ public class DriveTrain extends Subsystem {
      * Returns a value of (-1.0,1.0)
      */
     public double getLeftFrontPercent() {
-        return _leftFrontMotor.get();
+        return _leftFrontMotor.getMotorOutputPercent();
     }
 
     public double getLeftBackPercent() {
-        return _leftBackMotor.get();
+        return _leftBackMotor.getMotorOutputPercent();
     }
 
     public double getRightFrontPercent() {
-        return _rightFrontMotor.get();
+        return _rightFrontMotor.getMotorOutputPercent();
     }
 
     public double getRightBackPercent() {
-        return _rightBackMotor.get();
+        return _rightBackMotor.getMotorOutputPercent();
     }
 
-    public WPI_TalonSRX getIMUTalon() {
+    public TalonSRX getIMUTalon() {
         return _leftBackMotor;
     }
 
@@ -203,8 +204,8 @@ public class DriveTrain extends Subsystem {
     arctan(|X / Y|)
     then we fix it using the method in OI to adjust it so that we can use it (i.e. arctan doesn't always return 0-90!), commented there
     note that this is if you want the robot to go FORWARD facing this angle
-    
     */
+    
     private void setForwardOnlyTargetAngle() {
         double joystickAngle = Math.toDegrees(Math.atan(-OI.getInstance().getXInput() / Math.abs(OI.getInstance().getYInput()))); // get angle from the top, making left positive
         joystickAngle = OI.getInstance().fixArcTangent(joystickAngle, OI.getInstance().getXInput(), OI.getInstance().getYInput()); // fix the arctan angle so that we get a full 360 degrees
@@ -245,5 +246,4 @@ public class DriveTrain extends Subsystem {
         }
         targetAngle = newTargetAngle;
     }
-
 }
