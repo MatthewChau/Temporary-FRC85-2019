@@ -41,7 +41,7 @@ public class DriveTrain extends Subsystem {
     private double[] wheelSpeeds = new double[4];
 
     private static DriveTrain _instance = null;
-	private WPI_TalonSRX _leftFrontMotor, _leftBackMotor, _rightFrontMotor, _rightBackMotor;
+    private WPI_TalonSRX _leftFrontMotor, _leftBackMotor, _rightFrontMotor, _rightBackMotor;
 
     private MecanumDrive _mDrive;
 

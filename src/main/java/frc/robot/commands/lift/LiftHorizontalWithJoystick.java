@@ -7,14 +7,15 @@
 
 package frc.robot.commands.lift;
 
-import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.OI;
-import frc.robot.subsystems.Lift;
+import frc.robot.subsystems.LiftHorizontal;
 
-public class LiftWithJoystick extends Command {
-    public LiftWithJoystick() {
+import edu.wpi.first.wpilibj.command.Command;
+
+public class LiftHorizontalWithJoystick extends Command {
+    public LiftHorizontalWithJoystick() {
         // Use requires() here to declare subsystem dependencies
-        requires(Lift.getInstance());
+        requires(LiftHorizontal.getInstance());
     }
 
     // Called just before this Command runs the first time
@@ -25,8 +26,8 @@ public class LiftWithJoystick extends Command {
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
-        Lift.getInstance().verticalShift(OI.getInstance().getVerticalLift());
-        Lift.getInstance().horizontalShift(OI.getInstance().getHorizontalLift());
+        LiftHorizontal.getInstance().horizontalShift(OI.getInstance().getLiftHorizontal());
+
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -38,8 +39,7 @@ public class LiftWithJoystick extends Command {
     // Called once after isFinished returns true
     @Override
     protected void end() {
-        Lift.getInstance().verticalShift(0);
-        Lift.getInstance().horizontalShift(0);
+        LiftHorizontal.getInstance().horizontalShift(0);
     }
 
     // Called when another command which requires one or more of the same
@@ -47,5 +47,5 @@ public class LiftWithJoystick extends Command {
     @Override
     protected void interrupted() {
     }
-    
+
 }

@@ -7,41 +7,45 @@
 
 package frc.robot.commands.lift;
 
+import frc.robot.OI;
 import frc.robot.subsystems.LiftVertical;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class VerticalShift extends Command {
-
-    private int _speed, _targetPosition; //positive means going up, negative means going down
-    private double _liftTolerance = 10.0; //the motors have to be within 10 encoder ticks in order for the command to stop
-
-    public VerticalShift(int position, int speed) {
+public class LiftVerticalWithJoystick extends Command {
+    public LiftVerticalWithJoystick() {
+        // Use requires() here to declare subsystem dependencies
         requires(LiftVertical.getInstance());
-        _targetPosition = position;
-        _speed = speed;
     }
 
+    // Called just before this Command runs the first time
     @Override
     protected void initialize() {
-        super.initialize();
-        LiftVertical.getInstance().verticalShift(_targetPosition, _speed);
     }
 
+    // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
-        super.execute();
+        LiftVertical.getInstance().verticalShift(OI.getInstance().getLiftVertical());
+
     }
 
+    // Make this return true when this Command no longer needs to run execute()
     @Override
     protected boolean isFinished() {
-        return (Math.abs(LiftVertical.getInstance().getVerticalPosition() - _targetPosition) <= _liftTolerance);
+        return false;
     }
 
+    // Called once after isFinished returns true
     @Override
     protected void end() {
-        super.end();
-        LiftVertical.getInstance().verticalShift(0,0);
+        LiftVertical.getInstance().verticalShift(0);
+    }
+
+    // Called when another command which requires one or more of the same
+    // subsystems is scheduled to run
+    @Override
+    protected void interrupted() {
     }
 
 }
