@@ -163,15 +163,15 @@ public class OI {
         return outputs;
     }*/
 
-    public double fixArcTangent(double angle, double x, double y) { // fix an angle output by arctan, it will always be in the top left otherwise
-        if (x > 0.0 && y > 0.0) {
-            angle *= -1.0; // multiply the angle by -1 to place it in the correct quadrant
-        } else if (x > 0.0 && y < 0.0) {
-            angle += 90.0; // subtract 90 to place the angle in the top right, where it should be
-        } else if (x < 0.0 && y < 0.0) {
-            angle = (180.0 - angle); // completely invert the angle so that it is in the bottom right, where it should be
+    public double fixArcTangent(double angle, double x, double y) { // fix an angle output by arctan
+        if (y >= 0) {
+            if (x >= 0) {
+                angle -= 180;
+            } else {
+                angle = 180 - angle;
+            }
         }
-        // do nothing if x is less than 0 & y is positive
+        // if y is above 0, there should be no need to change anything; the range goes from -90 to 90
         return angle;
     }
 

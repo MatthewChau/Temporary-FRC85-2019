@@ -34,7 +34,7 @@ public class DriveTrain extends Subsystem {
     // here. Call these from Commands.
 
     private double kPRot = 0.05, kIRot = 0.0, kDRot = 0.0;
-    private double kMaxOuputRot = 0.5, kMinOuputRot = -0.5;
+    private double kMaxOuputRot = 1.0, kMinOuputRot = -1.0;
     //private double kPForwardOnly = 0.0, kIForwardOnly = 0.0, kDForwardOnly = 0.0; // might end up only using Rot constants
     //private double baseJoystickAngle = 0.0; // don't think we need this for what we are doing yet
     private double targetAngle = 0.0;
@@ -123,6 +123,7 @@ public class DriveTrain extends Subsystem {
             if (Math.abs(inputs[3]) < Variables.getInstance().DEADBAND && inputs[0] == 0) { // we will deal with headless later ahaha
                 if (OI.getInstance().forwardOnly()) {
                     setForwardOnlyTargetAngle();
+                    fixAngles(inputs[4]);
                     inputs[3] = OI.getInstance().applyPID(OI.getInstance().ROT_SYSTEM, inputs[4], targetAngle, kPRot, kIRot, kDRot, kMaxOuputRot, kMinOuputRot);
                 } else {
                     setTargetAngleMoving(inputs[4]);
@@ -205,8 +206,8 @@ public class DriveTrain extends Subsystem {
     
     */
     private void setForwardOnlyTargetAngle() {
-        double joystickAngle = Math.toDegrees(Math.atan(Math.abs(OI.getInstance().getXInput() / OI.getInstance().getYInput()))); // get angle from the top
-        joystickAngle = OI.getInstance().fixArcTangent(joystickAngle, OI.getInstance().getXInput(), OI.getInstance().getYInput()); // x is inverted here to make sure that the atan result is matched w positive x
+        double joystickAngle = Math.toDegrees(Math.atan(-OI.getInstance().getXInput() / Math.abs(OI.getInstance().getYInput()))); // get angle from the top, making left positive
+        joystickAngle = OI.getInstance().fixArcTangent(joystickAngle, OI.getInstance().getXInput(), OI.getInstance().getYInput()); // fix the arctan angle so that we get a full 360 degrees
         if (Math.abs((Math.abs(targetAngle) % 360) - Math.abs(joystickAngle)) > Variables.getInstance().TOLERANCE_ANGLE) { // if the new angle differs "significantly"
             targetAngle = joystickAngle;
         }
@@ -231,16 +232,18 @@ public class DriveTrain extends Subsystem {
         }
     }
 
-    private void fixTargetAngle(double gyroAngle) { // adjust target angle to the closest possible so we don't get stuck rotating for 9 years
+    private void fixAngles(double gyroAngle) { // adjust current angle to gyro angle
         double minDiff = 180.0;
+        double newTargetAngle = 0.0;
         int i;
-        
+
         for (i = -Variables.getInstance().MAX_TURNS; i < Variables.getInstance().MAX_TURNS; i++) {
-            if ((targetAngle + 360 * i - gyroAngle) < minDiff) {
+            if (Math.abs(targetAngle + 360 * i - gyroAngle) < minDiff) {
                 minDiff = (targetAngle + 360 * i - gyroAngle);
-                targetAngle = (targetAngle + 360 * i);
+                newTargetAngle = targetAngle + 360 * i; // note that we can't edit targetAngle directly
             }
         }
+        targetAngle = newTargetAngle;
     }
 
 }
