@@ -212,7 +212,6 @@ public class OI {
         // because the I term is the area under the curve, it gets a higher weight if it's been going on for a longer time, hence the errorSum
         // formula:  kI * errorSum (sum of all previous errors)
         termI = kI * errorSum[system];
-        // we can limit this if we find it to be necessary, it can build up
 
         output = termP + termI + termD;
 

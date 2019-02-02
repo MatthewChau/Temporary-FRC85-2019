@@ -77,7 +77,6 @@ public class DriveTrain extends Subsystem {
      */
     public void cartDrive(double[] inputs) {
         int i;
-        TalonSRX[] motors = new TalonSRX[3];
 
         if (Math.abs(inputs[0]) > Variables.getInstance().DEADBAND 
             || Math.abs(inputs[1]) > Variables.getInstance().DEADBAND
@@ -118,14 +117,10 @@ public class DriveTrain extends Subsystem {
             _leftBackMotor.set(ControlMode.PercentOutput, wheelSpeeds[2]);
             _rightBackMotor.set(ControlMode.PercentOutput, -wheelSpeeds[3]);
         } else {
-            motors[0] = _leftFrontMotor;
-            motors[1] = _rightFrontMotor;
-            motors[2] = _leftBackMotor;
-            motors[3] = _rightBackMotor;
-
-            for (i = 0; i < 3; i++) {
-                motors[i].set(ControlMode.PercentOutput, 0.0);
-            }
+            _leftFrontMotor.set(ControlMode.PercentOutput, 0.0);
+            _rightFrontMotor.set(ControlMode.PercentOutput, 0.0);
+            _leftBackMotor.set(ControlMode.PercentOutput, 0.0);
+            _rightBackMotor.set(ControlMode.PercentOutput, 0.0);
         }
     }
 

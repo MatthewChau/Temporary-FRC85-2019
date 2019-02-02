@@ -48,7 +48,7 @@ public class FollowTarget extends Command {
             xSpeed = 0;
         }
 
-        double[] _speedArray = {xSpeed, ySpeed, 0, 0};
+        double[] _speedArray = {-xSpeed, ySpeed, 0, 0};
         DriveTrain.getInstance().cartDrive(_speedArray);
     }
 
