@@ -9,6 +9,9 @@ public class FollowTarget extends Command {
 
     private double[] _driveForward = new double[] {0, 0, -.25, 0, 0};
     private double[] _driveBackward = new double[] {0, 0, .25, 0, 0};
+    private double[] _driveLeft = new double[] {0, .25, 0, 0, 0};
+    private double[] _driveRight = new double[] {0, -.25, 0, 0, 0};
+
     private double[] _stop = new double[] {0, 0, 0, 0, 0};
 
     private boolean _targetFound;
@@ -24,19 +27,34 @@ public class FollowTarget extends Command {
     @Override
     protected void execute() {
         super.execute();
-        if (35 <= Vision.distance() && Vision.distance() < 45) {
-            DriveTrain.getInstance().cartDrive(_stop); //assuming backwards is positive
-            //_targetFound = true;
+        double xSpeed, ySpeed;
+
+        if (35 <= Vision.distance() && Vision.distance() <= 45) {
+            ySpeed = 0;
         }
         else if (Vision.distance() < 35) {
-            DriveTrain.getInstance().cartDrive(_driveBackward);  //assuming forwards is negative
+
+            ySpeed = 0.3;
         }
-        else if (Vision.distance() >= 45) {
-            DriveTrain.getInstance().cartDrive(_driveForward);
+        else if (Vision.distance() > 45) {
+            ySpeed = -0.3;
         }
         else{
-            DriveTrain.getInstance().cartDrive(_stop);
+            ySpeed = 0;
         }
+
+        if (Vision.centerX() < -5) {
+            xSpeed = 0.4;
+        }
+        else if (Vision.centerX() > 5) {
+                xSpeed = -0.4;
+        }
+        else {
+            xSpeed = 0;
+        }
+
+        double[] _speedArray = {0, xSpeed, ySpeed, 0, 0};
+        DriveTrain.getInstance().cartDrive(_speedArray);
     }
 
     @Override
