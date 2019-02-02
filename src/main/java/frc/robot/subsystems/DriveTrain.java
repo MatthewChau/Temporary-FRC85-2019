@@ -96,9 +96,9 @@ public class DriveTrain extends Subsystem {
                 vector.rotate(inputs[4]);
             }
 
-            if (Math.abs(inputs[3]) < Variables.getInstance().DEADBAND || inputs[0] == 0) { // will deal with headless later
-                inputs[3] = applyPID(inputs[3], getTargetAngle(vector));
-            }
+            //if (Math.abs(inputs[3]) < Variables.getInstance().DEADBAND || inputs[0] == 0) { // will deal with headless later
+            //    inputs[3] = applyPID(inputs[3], getTargetAngle(vector));
+            //}
 
             wheelSpeeds[0] = vector.x + vector.y + inputs[3];
             wheelSpeeds[1] = vector.x - vector.y - inputs[3];

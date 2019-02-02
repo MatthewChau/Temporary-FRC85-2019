@@ -1,5 +1,6 @@
 package frc.robot.commands.drivetrain;
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Vision;
 import frc.robot.subsystems.DriveTrain;
 
@@ -28,7 +29,9 @@ public class FollowTarget extends Command {
     protected void execute() {
         super.execute();
         double xSpeed, ySpeed;
+        double zRotation = Vision.rotate();
 
+        //Determine ySpeed
         if (35 <= Vision.distance() && Vision.distance() <= 45) {
             ySpeed = 0;
         }
@@ -43,17 +46,19 @@ public class FollowTarget extends Command {
             ySpeed = 0;
         }
 
+        //Determine xSpeed
         if (Vision.centerX() < -5) {
-            xSpeed = 0.4;
+            xSpeed = 0.3;
         }
         else if (Vision.centerX() > 5) {
-                xSpeed = -0.4;
+                xSpeed = -0.3;
         }
         else {
             xSpeed = 0;
         }
-
-        double[] _speedArray = {0, xSpeed, ySpeed, 0, 0};
+        
+        SmartDashboard.putNumber("Rotation", zRotation);
+        double[] _speedArray = {0, xSpeed, ySpeed, zRotation, 0};
         DriveTrain.getInstance().cartDrive(_speedArray);
     }
 

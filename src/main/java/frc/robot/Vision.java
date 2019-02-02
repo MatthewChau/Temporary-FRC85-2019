@@ -11,6 +11,48 @@ public class Vision {
 	
 	public static double distance = 0;
 	public static double centerDistance = 0;
+
+	public static double rotate(){
+
+		double[] areaTable = null;
+		double[] centerXTable = null;
+		double center1, center2, rightArea, leftArea;
+		double _leftTurn = 0.1;
+		double _rightTurn = -0.1;
+		double _areaTolerence = 20;
+		try{
+			NetworkTable _table;
+			_table = NetworkTable.getTable("GRIP/myContoursReport");
+			areaTable = _table.getNumberArray("area", areaTable);
+			centerXTable = _table.getNumberArray("centerX", centerXTable);
+
+			center1 = centerXTable[0];
+			center2 = centerXTable[1];
+
+			if (center1 > center2){
+				rightArea = areaTable[0];
+				leftArea = areaTable[1];
+			}
+			else if (center2 > center1){
+				rightArea = areaTable[1];
+				leftArea = areaTable[0];
+			}else{
+				rightArea = 0;
+				leftArea = 0;
+			}
+
+			if(rightArea > leftArea + _areaTolerence){
+				return _rightTurn;
+			}else if (leftArea > rightArea + _areaTolerence){
+				return _leftTurn;
+			}else{
+				return 0;
+			}
+		}catch(Exception e){
+			return 0;
+		}
+		
+	}
 	
 	public static double centerX() {
 		try{
