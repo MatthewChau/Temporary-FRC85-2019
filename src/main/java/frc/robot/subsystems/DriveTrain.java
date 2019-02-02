@@ -70,19 +70,18 @@ public class DriveTrain extends Subsystem {
 
     /** 
      * args for inputs: 
-     * 0 - bool for headedness
-     * 1 - xSpeed
-     * 2 - ySpeed
-     * 3 - zRotation
-     * 4 - gyroAngle (0 if not really using)
+     * 0 - xSpeed
+     * 1 - ySpeed
+     * 2 - zRotation
+     * 3 - gyroAngle (0 if not really using)
      */
     public void cartDrive(double[] inputs) {
         int i;
 
-        if (Math.abs(inputs[1]) > Variables.getInstance().DEADBAND 
-            || Math.abs(inputs[2]) > Variables.getInstance().DEADBAND
-            || Math.abs(inputs[3]) > Variables.getInstance().DEADBAND) {
-            for (i = 0; i < 3; i++) {
+        if (Math.abs(inputs[0]) > Variables.getInstance().DEADBAND 
+            || Math.abs(inputs[1]) > Variables.getInstance().DEADBAND
+            || Math.abs(inputs[2]) > Variables.getInstance().DEADBAND) {
+            for (i = 0; i < 2; i++) {
                 if (inputs[i] > 1.0) {
                     inputs[i] = 1.0;
                 } else if (inputs[i] < -1.0) {
@@ -90,46 +89,26 @@ public class DriveTrain extends Subsystem {
                 }
             }
 
-            Vector2d vector = new Vector2d(inputs[2], inputs[1]);
-            if (inputs[0] == 1 || OI.getInstance().forwardOnly()) { // if headless, account for it
-                vector.rotate(inputs[4]);
+            Vector2d vector = new Vector2d(inputs[1], inputs[0]);
+            if (OI.getInstance().isHeadless() || OI.getInstance().forwardOnly()) { // if headless, account for it
+                vector.rotate(inputs[3]);
             }
 
-            SmartDashboard.putNumber("inputs[0]", inputs[0]);
-            SmartDashboard.putNumber("inputs[3]", inputs[3]);
-            SmartDashboard.putNumber("inputs[4]", inputs[4]);
-
-            /*if (Math.abs(inputs[3]) < Variables.getInstance().DEADBAND && inputs[0] == 0) { // note that all of this stuff only runs if headless is NOT activated; if it is, you on your own mon amie
-                if (OI.getInstance().forwardOnly() && Math.abs(inputs[4]) < (Variables.getInstance().MAX_TURNS * 360.0)) { // if we go over the max amount of turns then don't even bother
-                    setForwardOnlyTargetAngle();
-                    targetAngle = fixTargetAngle(inputs[4]);
-                } else if ((OI.getInstance().turn90()[0] || OI.getInstance().turn90()[1]) 
-                           && (Math.abs(inputs[4]) < Variables.getInstance().MAX_TURNS * 360.0)
-                           && (isTurnProgressComplete())) {
-                    setTurn90TargetAngle(OI.getInstance().turn90());
-                    targetAngle = fixTargetAngle(inputs[4]);
-                } else { // straight driving without rotation
-                    setTargetAngleMoving(inputs[4]); // note that this only changes it if necessary (it's a large enough change)
-                }
-                inputs[3] = OI.getInstance().applyPID(OI.getInstance().ROT_SYSTEM, inputs[4], targetAngle, kPRot, kIRot, kDRot);
-            }*/
-
-            if (Math.abs(inputs[3]) < Variables.getInstance().DEADBAND && inputs[0] == 0) { // we will deal with headless later ahaha
+            if (Math.abs(inputs[2]) < Variables.getInstance().DEADBAND && !OI.getInstance().isHeadless()) { // we will deal with headless later ahaha
                 if (OI.getInstance().forwardOnly()) {
                     setForwardOnlyTargetAngle();
-                    fixAngles(inputs[4]);
-                    inputs[3] = OI.getInstance().applyPID(OI.getInstance().ROT_SYSTEM, inputs[4], targetAngle, kPRot, kIRot, kDRot, kMaxOuputRot, kMinOuputRot);
+                    fixAngles(inputs[3]);
+                    inputs[2] = OI.getInstance().applyPID(OI.getInstance().ROT_SYSTEM, inputs[3], targetAngle, kPRot, kIRot, kDRot, kMaxOuputRot, kMinOuputRot);
                 } else {
-                    setTargetAngleMoving(inputs[4]);
-                    inputs[3] = OI.getInstance().applyPID(OI.getInstance().ROT_SYSTEM, inputs[4], targetAngle, kPRot, kIRot, kDRot);
+                    setTargetAngleMoving(inputs[3]);
+                    inputs[2] = OI.getInstance().applyPID(OI.getInstance().ROT_SYSTEM, inputs[3], targetAngle, kPRot, kIRot, kDRot);
                 }
             }
 
-
-            wheelSpeeds[0] = vector.x + vector.y + inputs[3];
-            wheelSpeeds[1] = vector.x - vector.y - inputs[3];
-            wheelSpeeds[2] = vector.x - vector.y + inputs[3];
-            wheelSpeeds[3] = vector.x + vector.y - inputs[3];
+            wheelSpeeds[0] = vector.x + vector.y + inputs[2];
+            wheelSpeeds[1] = vector.x - vector.y - inputs[2];
+            wheelSpeeds[2] = vector.x - vector.y + inputs[2];
+            wheelSpeeds[3] = vector.x + vector.y - inputs[2];
 
             limitSpeeds(wheelSpeeds);
 

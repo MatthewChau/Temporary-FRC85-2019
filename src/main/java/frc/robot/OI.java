@@ -96,14 +96,12 @@ public class OI {
     }
 
     public double[] getJoystickInput() {
-        if (isHeadless()) {
-            headlessDrive();
-            // 1 or 0 is passed to identify whether the array is headless or headed drive.
-            return new double[] {1, _xSpeed, _ySpeed, _zRotation, _gyroAngle};
-        } else {
-            headlessDrive();
-            return new double[] {0, _xSpeed, _ySpeed, _zRotation, _gyroAngle};
-        }
+        _xSpeed = -_driverController.getRawAxis(0);
+        _ySpeed = _driverController.getRawAxis(1);
+        _zRotation = -_driverController.getRawAxis(4);
+        _gyroAngle = IMU.getInstance().getFusedHeading();
+
+        return new double[] {_xSpeed, _ySpeed, _zRotation, _gyroAngle};
     }
 
     private void headedDrive() {
@@ -180,10 +178,6 @@ public class OI {
         return angle;
     }
 
-    public double applyPID(int system, double current, double target, double kP, double kI, double kD) {
-        return applyPID(system, current, target, kP, kI, kD, 0.0, 0.0);
-    }
-
     private void logErrorForIntegral(int system, double error) {
         int i;
 
@@ -196,6 +190,10 @@ public class OI {
         for (i = 0; i < 4; i++) { // get the error sum for the system
             errorSum[system] += errorLog[system][i];
         }
+    }
+
+    public double applyPID(int system, double current, double target, double kP, double kI, double kD) {
+        return applyPID(system, current, target, kP, kI, kD, 0.0, 0.0);
     }
 
     /*
