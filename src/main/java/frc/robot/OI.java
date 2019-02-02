@@ -43,12 +43,16 @@ public class OI {
     public int ROT_SYSTEM = 0;
     public int LIFT_UPDOWN_SYSTEM = 1;
     public int LIFT_FRONTBACK_SYSTEM = 2;
-    public int INTAKE_SYSTEM = 3;
+    public int VISION_SYSTEM = 3;
+    public int INTAKE_SYSTEM = 4;
+
+    private int NUM_LOG_ENTRIES = 5;
 
     private boolean[] firstRun = new boolean[INTAKE_SYSTEM];
     private double[] errorSum = new double[INTAKE_SYSTEM];
     private double[] lastOutput = new double[INTAKE_SYSTEM];
     private double[] lastActual = new double[INTAKE_SYSTEM];
+    private double[][] errorLog = new double[INTAKE_SYSTEM][NUM_LOG_ENTRIES - 1];
 
     private OI() {
         _driverController = new Joystick(Addresses.CONTROLLER_DRIVER);
@@ -180,6 +184,20 @@ public class OI {
         return applyPID(system, current, target, kP, kI, kD, 0.0, 0.0);
     }
 
+    private void logErrorForIntegral(int system, double error) {
+        int i;
+
+        for (i = 1; i < 4; i++) { // shift the error log, the oldest entries are the higher numbers
+            errorLog[system][i] = errorLog[system][i - 1];
+        }
+
+        errorLog[system][0] = error; // log the newest error
+
+        for (i = 0; i < 4; i++) { // get the error sum for the system
+            errorSum[system] += errorLog[system][i];
+        }
+    }
+
     /*
     formula for output at time t (o(t)), based on error at time t (e(t)):
     o(t) = (kP * e(t)) + (kI * ∫e(t)dt) - (kD * (de(t) / dt))
@@ -206,11 +224,11 @@ public class OI {
         // slow down correction if it's doing the right thing (in an effort to prevent major overshooting)
         // formula:  -kD * change in read, "change in read" being the instant derivative at that point in time
         termD = -kD * (current - lastActual[system]);
-        //lastActual[system] = current;
+        lastActual[system] = current;
 
         // because the I term is the area under the curve, it gets a higher weight if it's been going on for a longer time, hence the errorSum
         // formula:  kI * errorSum (sum of all previous errors)
-        termI = 0;//kI * errorSum[system];
+        termI = kI * errorSum[system];
         // we can limit this if we find it to be necessary, it can build up
 
         output = termP + termI + termD;
@@ -225,10 +243,7 @@ public class OI {
 
         SmartDashboard.putNumber("PID Output", output);
 
-        // figure out a basis to reset the error sum here
-        // what mason did last year was just make it so that it had like zero influence while assigning higher precedence to the D term
-
-        errorSum[system] += error;
+        logErrorForIntegral(system, error);
 
         lastOutput[system] = output;
 
