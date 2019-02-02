@@ -137,6 +137,11 @@ public class DriveTrain extends Subsystem {
             _rightFrontMotor.set(ControlMode.PercentOutput, -wheelSpeeds[1]);
             _leftBackMotor.set(ControlMode.PercentOutput, wheelSpeeds[2]);
             _rightBackMotor.set(ControlMode.PercentOutput, -wheelSpeeds[3]);
+        } else {
+            _leftFrontMotor.set(ControlMode.PercentOutput, 0.0);
+            _rightFrontMotor.set(ControlMode.PercentOutput, 0.0);
+            _leftBackMotor.set(ControlMode.PercentOutput, 0.0);
+            _rightBackMotor.set(ControlMode.PercentOutput, 0.0);
         }
     }
 
