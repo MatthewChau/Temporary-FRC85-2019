@@ -63,17 +63,17 @@ public class Vision {
 
 					distance = 10.8*160/(2*centerDistance*Math.tan(Math.toRadians(20.854)));
 
-					return distance;
+					return distance - 10;
 				}else{
-					return distance;
+					return 40;
 				}
 
 			}else{
-				return distance;
+				return 40;
 			}
 
 		}catch(Exception e){
-			return distance;
+			return 40;
 		}
 	}
 

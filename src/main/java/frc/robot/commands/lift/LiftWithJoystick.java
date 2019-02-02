@@ -25,8 +25,8 @@ public class LiftWithJoystick extends Command {
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
-        Lift.getInstance().verticalShift(OI.getInstance().getVerticalLift());
-        Lift.getInstance().horizontalShift(OI.getInstance().getHorizontalLift());
+        //Lift.getInstance().verticalShift(OI.getInstance().getVerticalLift());
+        //Lift.getInstance().horizontalShift(OI.getInstance().getHorizontalLift());
     }
 
     // Make this return true when this Command no longer needs to run execute()
