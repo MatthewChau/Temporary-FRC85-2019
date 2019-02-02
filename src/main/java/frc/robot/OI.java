@@ -192,8 +192,14 @@ public class OI {
         double termP, termI, termD;
         double error = target - current;
 
-        SmartDashboard.putNumber("PID Target", target);
-        SmartDashboard.putNumber("PID Error", error);
+        if (system == VISION_SYSTEM) {
+            SmartDashboard.putNumber("Vision PID Target", target);
+            SmartDashboard.putNumber("Vision PID Error", error);
+        } else if (system == ROT_SYSTEM) {
+            SmartDashboard.putNumber("Rot PID Target", target);
+            SmartDashboard.putNumber("Rot PID Error", error);
+        }
+
 
         // the proportional stuff just kinda exists, the initial correction
         termP = kP * error;
