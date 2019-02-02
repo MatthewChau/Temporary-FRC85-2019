@@ -96,7 +96,7 @@ public class OI {
     }
 
     public double[] getJoystickInput() {
-        _xSpeed = -_driverController.getRawAxis(0);
+        _xSpeed = _driverController.getRawAxis(0);
         _ySpeed = _driverController.getRawAxis(1);
         _zRotation = -_driverController.getRawAxis(4);
         _gyroAngle = IMU.getInstance().getFusedHeading();
