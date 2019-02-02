@@ -7,12 +7,7 @@ public class FollowTarget extends Command {
     private double _distanceWanted = 35.0; //The distance from the pads that we want the robot to be
     private double _tolerance = 5.0;
 
-    private double[] _driveForward = new double[] {0, 0, -.25, 0, 0};
-    private double[] _driveBackward = new double[] {0, 0, .25, 0, 0};
-    private double[] _driveLeft = new double[] {0, .25, 0, 0, 0};
-    private double[] _driveRight = new double[] {0, -.25, 0, 0, 0};
-
-    private double[] _stop = new double[] {0, 0, 0, 0, 0};
+    private double[] _stop = new double[] {0, 0, 0, 0};
 
     private boolean _targetFound;
     
@@ -47,13 +42,13 @@ public class FollowTarget extends Command {
             xSpeed = 0.4;
         }
         else if (Vision.centerX() > 5) {
-                xSpeed = -0.4;
+            xSpeed = -0.4;
         }
         else {
             xSpeed = 0;
         }
 
-        double[] _speedArray = {0, xSpeed, ySpeed, 0, 0};
+        double[] _speedArray = {xSpeed, ySpeed, 0, 0};
         DriveTrain.getInstance().cartDrive(_speedArray);
     }
 

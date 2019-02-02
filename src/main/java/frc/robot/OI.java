@@ -104,21 +104,6 @@ public class OI {
         return new double[] {_xSpeed, _ySpeed, _zRotation, _gyroAngle};
     }
 
-    private void headedDrive() {
-        // Deadband is initialized in subsystem DriveTrain with the mecanum drive constructor.
-        _xSpeed = -_driverController.getRawAxis(0);
-        _ySpeed = _driverController.getRawAxis(1);
-        _zRotation = -_driverController.getRawAxis(4);
-        //_gyroAngle = 0.0;
-    }
-
-    private void headlessDrive() {
-        _xSpeed = -_driverController.getRawAxis(0);
-        _ySpeed = _driverController.getRawAxis(1);
-        _zRotation = -_driverController.getRawAxis(4);
-        _gyroAngle = IMU.getInstance().getFusedHeading();
-    }
-
     public double getXInput() {
         return _driverController.getRawAxis(0);
     }
