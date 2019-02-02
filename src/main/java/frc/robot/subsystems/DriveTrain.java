@@ -89,7 +89,7 @@ public class DriveTrain extends Subsystem {
                 }
             }
 
-            Vector2d vector = new Vector2d(inputs[1], -inputs[0]); // invert x because left is negative
+            Vector2d vector = new Vector2d(-inputs[1], inputs[0]); // invert everything because they inverted motors on us
             if (OI.getInstance().isHeadless() || OI.getInstance().forwardOnly()) { // if headless, account for it
                 vector.rotate(inputs[3]);
             }
@@ -105,10 +105,10 @@ public class DriveTrain extends Subsystem {
                 }
             }
 
-            wheelSpeeds[0] = vector.x + vector.y + inputs[2];
-            wheelSpeeds[1] = vector.x - vector.y - inputs[2];
-            wheelSpeeds[2] = vector.x - vector.y + inputs[2];
-            wheelSpeeds[3] = vector.x + vector.y - inputs[2];
+            wheelSpeeds[0] = vector.x + vector.y - inputs[2];
+            wheelSpeeds[1] = vector.x - vector.y + inputs[2];
+            wheelSpeeds[2] = vector.x - vector.y - inputs[2];
+            wheelSpeeds[3] = vector.x + vector.y + inputs[2];
 
             limitSpeeds(wheelSpeeds);
 
