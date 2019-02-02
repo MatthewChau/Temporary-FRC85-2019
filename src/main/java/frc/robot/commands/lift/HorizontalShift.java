@@ -25,9 +25,8 @@ public class HorizontalShift extends Command {
     @Override
     protected void initialize() {
         super.initialize();
-        LiftHorizontal.getInstance().horizontalShift(_targetPosition, _speed);
-        //Change to "LiftHorizontal.getInstance().horizontalShift(_direction * OI.getInstance().getRawAxis)" 
-        //or something like that if you wish to manipulate based on joystick axis.
+        //Lift.getInstance().horizontalShift(_direction);
+        //Change to "Lift.getInstance().horizontalShift(_direction * OI.getInstance().getRawAxis)" or something like that if you wish to manipulate based on joystick axis.
     }
 
     @Override

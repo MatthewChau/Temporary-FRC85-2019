@@ -4,39 +4,45 @@ import frc.robot.Vision;
 import frc.robot.subsystems.DriveTrain;
 
 public class FollowTarget extends Command {
-    private double _distanceWanted = 24.0; //The distance from the pads that we want the robot to be
-    private double _tolerance = 2.0;
+    private double _distanceWanted = 35.0; //The distance from the pads that we want the robot to be
+    private double _tolerance = 5.0;
 
-    private double[] _driveForward = new double[] {0, .05, 0, 0, 0};
-    private double[] _driveBackward = new double[] {0, .05, 0, 0, 0};
+    private double[] _driveForward = new double[] {0, 0, -.25, 0, 0};
+    private double[] _driveBackward = new double[] {0, 0, .25, 0, 0};
     private double[] _stop = new double[] {0, 0, 0, 0, 0};
 
     private boolean _targetFound;
     
+    public FollowTarget() {
+        requires(DriveTrain.getInstance());
+    }
     @Override
     protected void initialize() {
         super.initialize();
-        requires(DriveTrain.getInstance());
     }
 
     @Override
     protected void execute() {
         super.execute();
-        if (Vision.distance() <= (_distanceWanted - _tolerance)) {
-            DriveTrain.getInstance().cartDrive(_driveForward); //assuming backwards is positive
+        if (35 <= Vision.distance() && Vision.distance() < 45) {
+            DriveTrain.getInstance().cartDrive(_stop); //assuming backwards is positive
+            //_targetFound = true;
         }
-        else if (Vision.distance() >= (_distanceWanted + _tolerance)) {
+        else if (Vision.distance() < 35) {
             DriveTrain.getInstance().cartDrive(_driveBackward);  //assuming forwards is negative
         }
-        else {
+        else if (Vision.distance() >= 45) {
+            DriveTrain.getInstance().cartDrive(_driveForward);
+        }
+        else{
             DriveTrain.getInstance().cartDrive(_stop);
-            _targetFound = true;
         }
     }
 
     @Override
     protected boolean isFinished() {
-        return _targetFound;
+        
+        return false;
     }
 
     @Override
