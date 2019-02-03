@@ -30,9 +30,9 @@ public class FollowTarget extends Command {
         double kIVision = 0.0;//SmartDashboard.getNumber("kIVision", 0.0);
         double kDVision = 0.0;//SmartDashboard.getNumber("kDVision", 0.0);
 
-        xSpeed = OI.getInstance().applyPID(OI.getInstance().VISION_SYSTEM, Vision.centerX(), targetCenter, kPVision, kIVision, kDVision, .5, -.5);
-        ySpeed = OI.getInstance().applyPID(OI.getInstance().LIFT_UPDOWN_SYSTEM, Vision.distance(), targetDistance, kPVision, kIVision, kDVision, .5, -.5);
-        zRotation = Vision.rotate();
+        xSpeed = OI.getInstance().applyPID(OI.getInstance().VISION_X_SYSTEM, Vision.getInstance().centerX(), targetCenter, kPVision, kIVision, kDVision, .5, -.5);
+        ySpeed = OI.getInstance().applyPID(OI.getInstance().VISION_Y_SYSTEM, Vision.getInstance().distance(), targetDistance, kPVision, kIVision, kDVision, .5, -.5);
+        zRotation = Vision.getInstance().rotate();
 
         SmartDashboard.putNumber("Rotation For Vision", zRotation);
         double[] _speedArray = {-xSpeed, ySpeed, zRotation, 0};

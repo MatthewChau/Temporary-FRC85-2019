@@ -201,6 +201,8 @@ public class OI {
         } else if (system == VISION_Y_SYSTEM) {
             SmartDashboard.putNumber("Vision PID Target Distance", target);
             SmartDashboard.putNumber("Vision PID Error Distance", error);
+        } else if (system == VISION_ROT_SYSTEM) {
+            SmartDashboard.putNumber("Vision PID LeftArea - RightArea", error); // if left is larger, error is positive
         } else if (system == ROT_SYSTEM) {
             SmartDashboard.putNumber("Rot PID Target", target);
             SmartDashboard.putNumber("Rot PID Error", error);
@@ -208,7 +210,6 @@ public class OI {
                 DriveTrain.getInstance().turnInProgress = false;
             }
         }
-
 
         // the proportional stuff just kinda exists, the initial correction
         termP = kP * error;
