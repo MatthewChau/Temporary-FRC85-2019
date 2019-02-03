@@ -32,7 +32,7 @@ public class OI {
     private Joystick _driverController;
     private Joystick _operatorController;
 
-    private JoystickButton _driverLeftBumper, _driverAButton, _driverBButton;
+    private JoystickButton _driverLeftBumper, _driverYButton, _driverBButton;
     private JoystickButton _operatorPhaseZero, _operatorPhaseOne, _operatorPhaseTwo, _operatorPhaseThree, _operatorLeftBumper, _operatorRightBumper;
 
     private double _xSpeed = 0, _ySpeed = 0, _zRotation = 0;
@@ -43,16 +43,18 @@ public class OI {
     public int ROT_SYSTEM = 0;
     public int LIFT_UPDOWN_SYSTEM = 1;
     public int LIFT_FRONTBACK_SYSTEM = 2;
-    public int VISION_SYSTEM = 3;
-    public int INTAKE_SYSTEM = 4;
+    public int VISION_X_SYSTEM = 3;
+    public int VISION_Y_SYSTEM = 4;
+    public int VISION_ROT_SYSTEM = 5;
+    public int INTAKE_SYSTEM = 6;
 
     private int NUM_LOG_ENTRIES = 5;
 
-    private boolean[] firstRun = new boolean[INTAKE_SYSTEM];
-    private double[] errorSum = new double[INTAKE_SYSTEM];
-    private double[] lastOutput = new double[INTAKE_SYSTEM];
-    private double[] lastActual = new double[INTAKE_SYSTEM];
-    private double[][] errorLog = new double[INTAKE_SYSTEM][NUM_LOG_ENTRIES - 1];
+    private boolean[] firstRun = new boolean[INTAKE_SYSTEM + 1];
+    private double[] errorSum = new double[INTAKE_SYSTEM + 1];
+    private double[] lastOutput = new double[INTAKE_SYSTEM + 1];
+    private double[] lastActual = new double[INTAKE_SYSTEM + 1];
+    private double[][] errorLog = new double[INTAKE_SYSTEM][NUM_LOG_ENTRIES];
 
     private OI() {
         _driverController = new Joystick(Addresses.CONTROLLER_DRIVER);
@@ -66,7 +68,7 @@ public class OI {
         _operatorLeftBumper = new JoystickButton(_operatorController, 1);
         _operatorRightBumper = new JoystickButton(_operatorController, 2);
 */
-        _driverAButton = new JoystickButton(_driverController, 4); // Change to Y button
+        _driverYButton = new JoystickButton(_driverController, 4); // Change to Y button
         _driverBButton = new JoystickButton(_driverController, 2); // Change to B button
 /*
         _operatorPhaseZero.whenPressed(new VerticalShift(0, 1)); //go to phase 0
@@ -85,7 +87,7 @@ public class OI {
         Arrays.fill(lastActual, 0.0);
 
         FollowTarget followTarget;
-        _driverAButton.whileActive(followTarget = new FollowTarget()); //follows when pressed
+        _driverYButton.whileActive(followTarget = new FollowTarget()); //follows when pressed
     }
 
     public static OI getInstance() {
@@ -142,14 +144,15 @@ public class OI {
         return _driverController.getRawButton(1);
     }
 
-/*    public boolean[] turn90() {
-        boolean[] outputs = new boolean[1];
-        outputs[0] = _driverController.getRawButton();
-        outputs[1] = _driverController.getRawButton();
-        SmartDashboard.putBoolean("Left 90", _driverController.getRawButton());
-        SmartDashboard.putBoolean("Right 90", _driverController.getRawButton());
-        return outputs;
-    }*/
+    public boolean directionOne() {
+        SmartDashboard.putBoolean("90 Left", _driverController.getRawButton(3));
+        return _driverController.getRawButton(3);
+    }
+
+    public boolean directionTwo() {
+        SmartDashboard.putBoolean("90 Right", _driverController.getRawButton(2));
+        return _driverController.getRawButton(2);
+    }
 
     public double fixArcTangent(double angle, double x, double y) { // fix an angle output by arctan
         if (y >= 0) {
@@ -192,12 +195,18 @@ public class OI {
         double termP, termI, termD;
         double error = target - current;
 
-        if (system == VISION_SYSTEM) {
-            SmartDashboard.putNumber("Vision PID Target", target);
-            SmartDashboard.putNumber("Vision PID Error", error);
+        if (system == VISION_X_SYSTEM) {
+            SmartDashboard.putNumber("Vision PID Target X", target);
+            SmartDashboard.putNumber("Vision PID Error X", error);
+        } else if (system == VISION_Y_SYSTEM) {
+            SmartDashboard.putNumber("Vision PID Target Distance", target);
+            SmartDashboard.putNumber("Vision PID Error Distance", error);
         } else if (system == ROT_SYSTEM) {
             SmartDashboard.putNumber("Rot PID Target", target);
             SmartDashboard.putNumber("Rot PID Error", error);
+            if (DriveTrain.getInstance().turnInProgress && Math.abs(error) < 3.0) { // note that we actually want a tolerance here
+                DriveTrain.getInstance().turnInProgress = false;
+            }
         }
 
 

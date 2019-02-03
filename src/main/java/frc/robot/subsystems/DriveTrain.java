@@ -10,22 +10,14 @@ package frc.robot.subsystems;
 import frc.robot.Addresses;
 import frc.robot.OI;
 import frc.robot.commands.drivetrain.DriveWithJoystick;
-import frc.robot.sensors.IMU;
 import frc.robot.Variables;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.drive.MecanumDrive;
 import edu.wpi.first.wpilibj.drive.Vector2d;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj.PIDController;
-import edu.wpi.first.wpilibj.PIDSource;
-import edu.wpi.first.wpilibj.PIDSourceType;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-
-import java.util.Arrays;
 
 /**
  * Add your docs here.
@@ -39,6 +31,7 @@ public class DriveTrain extends Subsystem {
     //private double kPForwardOnly = 0.0, kIForwardOnly = 0.0, kDForwardOnly = 0.0; // might end up only using Rot constants
     //private double baseJoystickAngle = 0.0; // don't think we need this for what we are doing yet
     private double targetAngle = 0.0;
+    public boolean turnInProgress = false; // only used for the 90 degree turns
     private double[] wheelSpeeds = new double[4];
 
     private static DriveTrain _instance = null;
@@ -81,7 +74,7 @@ public class DriveTrain extends Subsystem {
         if (Math.abs(inputs[0]) > Variables.getInstance().DEADBAND 
             || Math.abs(inputs[1]) > Variables.getInstance().DEADBAND
             || Math.abs(inputs[2]) > Variables.getInstance().DEADBAND) {
-            for (i = 0; i < 2; i++) {
+            for (i = 0; i < 2; i++) { // normalize axis inputs
                 if (inputs[i] > 1.0) {
                     inputs[i] = 1.0;
                 } else if (inputs[i] < -1.0) {
@@ -95,13 +88,21 @@ public class DriveTrain extends Subsystem {
             }
 
             if (Math.abs(inputs[2]) < Variables.getInstance().DEADBAND && !OI.getInstance().isHeadless()) { // we will deal with headless later ahaha
-                if (OI.getInstance().forwardOnly()) {
+                if (turnInProgress) { // note that this block exists for the sole purpose of overriding things when they are in progress
+                    inputs[2] = OI.getInstance().applyPID(OI.getInstance().ROT_SYSTEM, inputs[3], targetAngle, kPRot, kIRot, kDRot);
+                } else if (OI.getInstance().directionOne()) {
+                    setTurn90TargetAngle(true, inputs[3]); // turn left
+                    inputs[2] = OI.getInstance().applyPID(OI.getInstance().ROT_SYSTEM, inputs[3], targetAngle, kPRot, kIRot, kDRot); // note that no constraints are made here because we just wanna move
+                } else if (OI.getInstance().directionTwo()) {
+                    setTurn90TargetAngle(false, inputs[3]); // turn right
+                    inputs[2] = OI.getInstance().applyPID(OI.getInstance().ROT_SYSTEM, inputs[3], targetAngle, kPRot, kIRot, kDRot);
+                } else if (OI.getInstance().forwardOnly()) { // finally we check if we are in that specific mode
                     setForwardOnlyTargetAngle();
                     fixAngles(inputs[3]);
                     inputs[2] = OI.getInstance().applyPID(OI.getInstance().ROT_SYSTEM, inputs[3], targetAngle, kPRot, kIRot, kDRot, kMaxOuputRot, kMinOuputRot);
-                } else {
+                } else { // normal movement
                     setTargetAngleMoving(inputs[3]);
-                    inputs[2] = OI.getInstance().applyPID(OI.getInstance().ROT_SYSTEM, inputs[3], targetAngle, kPRot, kIRot, kDRot);
+                    inputs[2] = OI.getInstance().applyPID(OI.getInstance().ROT_SYSTEM, inputs[3], targetAngle, kPRot, kIRot, kDRot, kMaxOuputRot, kMinOuputRot);
                 }
             }
 
@@ -122,13 +123,6 @@ public class DriveTrain extends Subsystem {
             _leftBackMotor.set(ControlMode.PercentOutput, 0.0);
             _rightBackMotor.set(ControlMode.PercentOutput, 0.0);
         }
-    }
-
-    public double getTargetAngle(Vector2d vector) {
-        double targetAngle;
-        targetAngle = Math.atan(OI.getInstance().getYInput() / OI.getInstance().getXInput());
-
-        return targetAngle;
     }
 
     /**
@@ -190,7 +184,7 @@ public class DriveTrain extends Subsystem {
     note that this is if you want the robot to go FORWARD facing this angle
     */
     
-    private void setForwardOnlyTargetAngle() {
+    private void setForwardOnlyTargetAngle() { // this still needs to be tested
         double joystickAngle = Math.toDegrees(Math.atan(-OI.getInstance().getXInput() / Math.abs(OI.getInstance().getYInput()))); // get angle from the top, making left positive
         joystickAngle = OI.getInstance().fixArcTangent(joystickAngle, OI.getInstance().getXInput(), OI.getInstance().getYInput()); // fix the arctan angle so that we get a full 360 degrees
         if (Math.abs((Math.abs(targetAngle) % 360) - Math.abs(joystickAngle)) > Variables.getInstance().TOLERANCE_ANGLE) { // if the new angle differs "significantly"
@@ -198,8 +192,17 @@ public class DriveTrain extends Subsystem {
         }
     }
 
-    private void setTurn90TargetAngle(boolean[] directions) {
+    // note that we only set the targetAngle here if the turnInProgress isn't happening, otherwise it maintains it value
 
+    private void setTurn90TargetAngle(boolean direction, double gyroAngle) { // also needs to be tested
+        if (!turnInProgress) {
+            if (direction) { // turn left
+                targetAngle = gyroAngle + 90;
+            } else { // turn right
+                targetAngle = gyroAngle - 90;
+            }
+            turnInProgress = true;
+        }
     }
 
     private void limitSpeeds(double[] speeds) { // take the highest speed & then adjust everything else proportionally if it is over 1
