@@ -30,9 +30,9 @@ public class Vision {
 		double[] centerXTable = null;
 		double center1, center2, rightArea, leftArea;
 		double kPVisionRot = 0.1, kIVisionRot = 0.0, kDVisionRot = 0.0;
-		/*double _leftTurn = 0.1;
+		double _leftTurn = 0.1;
 		double _rightTurn = -0.1;
-		double _areaTolerence = 20;*/
+		double _areaTolerence = 20;
 
 		try {
 			NetworkTable _table;
@@ -65,15 +65,15 @@ public class Vision {
 			i don't honestly know if this will work quite yet but give it a shot.  feel free to edit literally anything
 			*/
 
-			return OI.getInstance().applyPID(OI.getInstance().VISION_ROT_SYSTEM, leftArea, rightArea, kPVisionRot, kIVisionRot, kDVisionRot, 0.25, -0.25);
+			//return OI.getInstance().applyPID(OI.getInstance().VISION_ROT_SYSTEM, leftArea, rightArea, kPVisionRot, kIVisionRot, kDVisionRot, 0.25, -0.25);
 
-			/*if (rightArea > leftArea + _areaTolerence) {
+			if (rightArea > leftArea + _areaTolerence) {
 				return _rightTurn;
 			} else if (leftArea > rightArea + _areaTolerence) {
 				return _leftTurn;
 			} else {
 				return 0;
-			}*/
+			}
 		} catch(Exception e) {
 			return 0;
 		}

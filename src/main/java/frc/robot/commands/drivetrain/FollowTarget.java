@@ -17,7 +17,7 @@ public class FollowTarget extends Command {
     }
     @Override
     protected void initialize() {
-        SmartDashboard.putNumber("kPVIsion", 0.0);
+        SmartDashboard.putNumber("kPVIsion", 0.1);
         SmartDashboard.putNumber("kIVision", 0.0);
         SmartDashboard.putNumber("kDVision", 0.0);
 
