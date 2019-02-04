@@ -104,7 +104,7 @@ public class Vision {
 		}
 	}
 
-	public double distance() {
+	public static double distance() {
 		
 		double[] heightArray = null;
 		double[] widthArray = null;
