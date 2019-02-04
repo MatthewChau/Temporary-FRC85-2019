@@ -16,6 +16,8 @@ import edu.wpi.first.wpilibj.DriverStation;
 import frc.robot.sensors.IMU;
 import frc.robot.sensors.ProxSensors;
 import frc.robot.subsystems.DriveTrain;
+import frc.robot.subsystems.LiftHorizontal;
+import frc.robot.subsystems.LiftVertical;
 
 public class Diagnostics {
 
@@ -39,7 +41,10 @@ public class Diagnostics {
                     + "Driver Side to Side Axis,Driver Up Down Axis,"
                     + "Left Front Motor,Left Back Motor,Right Front Motor,Right Back Motor,"
                     + "Lift Top Limit,Lift Bottom Limit,Lift Front Limit,Lift Rear Limit,"
+                    + "Lift Vertical Position,Lift Horizontal Position,"
                     + "Intake Top Limit,Intake Bottom Limit,"
+                    // + "Intake Flipper,Intake Roller,"
+                    // + "Intake Position," (?)
                     + "Yaw,Pitch,Roll,"
                     + ",");
             out.newLine();
@@ -73,8 +78,16 @@ public class Diagnostics {
             String liftFrontLimit = Boolean.toString(ProxSensors.getInstance().getLiftFrontLimit());
             String liftRearLimit = Boolean.toString(ProxSensors.getInstance().getLiftRearLimit());
 
+            String liftVerticalPos = Integer.toString(LiftVertical.getInstance().getVerticalPosition());
+            String liftHorizontalPos = Integer.toString(LiftHorizontal.getInstance().getHorizontalPosition());
+
             String intakeTopLimit = Boolean.toString(ProxSensors.getInstance().getIntakeTopLimit());
             String intakeBottomLimit = Boolean.toString(ProxSensors.getInstance().getIntakeBottomLimit());
+
+            // String intakeFlipper = Double.toSting(Intake.getInstance().getFlipper()); or something
+            // String intakeRoller =
+
+            // String intakePos (?)
 
             String yaw = Double.toString(IMU.getInstance().getYaw());
             String pitch = Double.toString(IMU.getInstance().getPitch());
@@ -85,7 +98,10 @@ public class Diagnostics {
                     + xInput + "," + yInput + ","  
                     + leftFrontMotor + "," + leftBackMotor + "," + rightFrontMotor + "," + rightBackMotor + ","
                     + liftTopLimit + "," + liftBottomLimit + "," + liftFrontLimit + "," + liftRearLimit + ","
+                    + liftVerticalPos + "," + liftHorizontalPos + ","
                     + intakeTopLimit + "," + intakeBottomLimit + ","
+                    //intake motors
+                    //intake pos?
                     + yaw + "," + pitch + "," + roll + ","
                     + ",");
 
