@@ -7,7 +7,9 @@
 
 package frc.robot.subsystems;
 
+import frc.robot.OI;
 import frc.robot.Addresses;
+import frc.robot.Variables;
 import frc.robot.sensors.ProxSensors;
 import frc.robot.commands.lift.LiftVerticalWithJoystick;
 
@@ -22,12 +24,11 @@ public class LiftVertical extends Subsystem {
 
     private static LiftVertical _instance = null;
 
-    // Vertical
     private TalonSRX _liftLeftMotor, _liftRightMotor;
 
     private double _verticalSpeed;
   
-    private LiftVertical(){
+    private LiftVertical() {
         _liftLeftMotor = new TalonSRX(Addresses.LIFT_LEFT_MOTOR);
         _liftLeftMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
         _liftRightMotor = new TalonSRX(Addresses.LIFT_RIGHT_MOTOR);
@@ -51,16 +52,15 @@ public class LiftVertical extends Subsystem {
         _liftRightMotor.set(ControlMode.PercentOutput, -speed);
     } 
 
-    public void verticalShift(int position, double speed) {
-        if (position > getVerticalPosition()) {
-
-        } else if (position < getVerticalPosition()) {
-
-        }
+    public void verticalShift(int targetPosition, double speedMax) {
+        double speed = OI.getInstance().applyPID(OI.getInstance().LIFT_VERTICAL_SYSTEM, LiftVertical.getInstance().getVerticalPosition(), targetPosition, 
+            Variables.getInstance().getVerticalLiftKP(), Variables.getInstance().getVerticalLiftKI(), Variables.getInstance().getVerticalLiftKD(), 
+            Math.abs(speedMax), -Math.abs(speedMax));
 
         _liftLeftMotor.set(ControlMode.PercentOutput, speed);
         _liftRightMotor.set(ControlMode.PercentOutput, -speed); //Guess, since the motors are gonna be facing different directions. 
     }
+
     /**
      * Checks the lift's proximity sensors, a false = do not drive
      */

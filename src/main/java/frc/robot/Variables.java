@@ -15,6 +15,17 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Variables {
+
+    private static Variables _instance;
+    
+    // DRIVETRAIN
+
+    // LIFT
+
+    // Lift Vertical PID
+
+    private static final double kP_VLIFT = 0.1, kI_VLIFT = 0.000001, kD_VLIFT = 0.2;
+
     // Lift Vertical Postitions
     public static final int HATCH_LOW = 10;
     public static final int HATCH_MIDDLE = 100;
@@ -40,19 +51,24 @@ public class Variables {
     public static final int BUMPERS_TWO = 3;
     public static final int range = 0;
 
+    // INTAKE
+
     // Intake Positions and Degrees
     public static final int INTAKE_DEGREE_ONE = 0;
     public static final int INTAKE_DEGREE_TWO = 90;
     public static final int INTAKE_DEGREE_THREE = 95;
 
-    private static Variables _instance;
-
     public final double DEADBAND = 0.05;
     public final double TOLERANCE_ANGLE = 10.0;
     public final int MAX_TURNS = 5; // if we go over 1800 degrees in either direction in one match then help.
 
+    /**
+     * Put variables here that should be changebale on the fly.
+     */
     private Variables() {
-
+        SmartDashboard.putNumber("kP_VLIFT", kP_VLIFT);
+        SmartDashboard.putNumber("kI_VLIFT", kI_VLIFT);
+        SmartDashboard.putNumber("kD_VLIFT", kD_VLIFT);
     }
 
     public static Variables getInstance() {
@@ -62,6 +78,21 @@ public class Variables {
         return _instance;
     }
 
+    public double getVerticalLiftKP() {
+        return SmartDashboard.getNumber("kP_VLIFT", kP_VLIFT);
+    }
+
+    public double getVerticalLiftKI() {
+        return SmartDashboard.getNumber("kI_VLIFT", kI_VLIFT);
+    }
+
+    public double getVerticalLiftKD() {
+        return SmartDashboard.getNumber("kD_VLIFT", kD_VLIFT);
+    }
+
+    /**
+     * Repeatedly called in Robot.java
+     */
     public void outputVariables() {
         SmartDashboard.putNumber("Left Front Percent", DriveTrain.getInstance().getLeftFrontPercent());
         SmartDashboard.putNumber("Left Back Percent", DriveTrain.getInstance().getLeftBackPercent());

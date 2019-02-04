@@ -41,8 +41,8 @@ public class OI {
     private double _gyroAngle;
 
     public int ROT_SYSTEM = 0;
-    public int LIFT_UPDOWN_SYSTEM = 1;
-    public int LIFT_FRONTBACK_SYSTEM = 2;
+    public int LIFT_VERTICAL_SYSTEM = 1;
+    public int LIFT_HORIZONTAL_SYSTEM = 2;
     public int VISION_SYSTEM = 3;
     public int INTAKE_SYSTEM = 4;
 
@@ -132,9 +132,9 @@ public class OI {
     /**
      * Called in commands to return the joystick axis which is converted into the set speed of the motor
      */
-    /*
-    public double getVerticalLift() {
-        if (!Lift.getInstance().checkVerticalLift(_operatorController.getRawAxis(1))) {
+    
+    public double getLiftVertical() {
+        if (!LiftVertical.getInstance().checkVerticalLift(_operatorController.getRawAxis(1))) {
             return _liftSpeed = 0;
         } else {
             return _liftSpeed = _operatorController.getRawAxis(1) * 0.5;
@@ -148,7 +148,7 @@ public class OI {
             return _liftSpeed = _operatorController.getRawAxis(0) * 0.5;
         }
     }
-*/
+
     public boolean isHeadless() {
         SmartDashboard.putBoolean("Headless", _driverController.getRawButton(6));
         return _driverController.getRawButton(6);
