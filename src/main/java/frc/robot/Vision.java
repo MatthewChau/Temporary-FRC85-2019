@@ -96,7 +96,7 @@ public class Vision {
 			
 			xError = xCenterOfTarget - 80; //distance from target, assumes image is 160p
 
-			SmartDashboard.putNumber("centerXOfTarget", xCenterOfTarget);
+			//SmartDashboard.putNumber("centerXOfTarget", xCenterOfTarget);
 			SmartDashboard.putNumber("x_error", xError);
 			
 			return xError;		
@@ -105,7 +105,7 @@ public class Vision {
 		}
 	}
 
-	public static double distance() {
+	public double distance() {
 		
 		double[] heightArray = null;
 		double[] widthArray = null;

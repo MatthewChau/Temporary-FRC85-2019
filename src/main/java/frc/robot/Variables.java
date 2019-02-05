@@ -68,7 +68,7 @@ public class Variables {
         SmartDashboard.putNumber("Right Front Percent", DriveTrain.getInstance().getRightFrontPercent());
         SmartDashboard.putNumber("Right Back Percent", DriveTrain.getInstance().getRightBackPercent());
 
-        SmartDashboard.putNumber("Distance", Vision.distance());
+        SmartDashboard.putNumber("Distance", Vision.getInstance().distance());
 
         SmartDashboard.putNumber("Fused", IMU.getInstance().getFusedHeading());
 

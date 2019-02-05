@@ -17,9 +17,9 @@ public class FollowTarget extends Command {
     }
     @Override
     protected void initialize() {
-        SmartDashboard.putNumber("kPVIsion", 0.1);
-        SmartDashboard.putNumber("kIVision", 0.0);
-        SmartDashboard.putNumber("kDVision", 0.0);
+        //SmartDashboard.putNumber("kPVision", 0.0);
+        //SmartDashboard.putNumber("kIVision", 0.0);
+        //SmartDashboard.putNumber("kDVision", 0.0);
 
         super.initialize();
     }
@@ -28,15 +28,15 @@ public class FollowTarget extends Command {
     protected void execute() {
         super.execute();
         double xSpeed, ySpeed, zRotation;
-        double targetDistance = 40.0;//SmartDashboard.getNumber("Target Distance", 0.0);
+        double targetDistance = 60.0;//SmartDashboard.getNumber("Target Distance", 0.0);
         double targetCenter = 0.0;//SmartDashboard.getNumber("Target Center", 0.0);
-        double kPVision = SmartDashboard.getNumber("kPVision", 0.0);
-        double kIVision = SmartDashboard.getNumber("kIVision", 0.0);
-        double kDVision = SmartDashboard.getNumber("kDVision", 0.0);
+        double kPVision = 0.1; // SmartDashboard.getNumber("kPVision", 0.0);
+        double kIVision = 0.0;  //SmartDashboard.getNumber("kIVision", 0.0);
+        double kDVision = 0.09;  //SmartDashboard.getNumber("kDVision", 0.0);
 
-        xSpeed = OI.getInstance().applyPID(OI.getInstance().VISION_X_SYSTEM, Vision.getInstance().centerX(), targetCenter, kPVision, kIVision, kDVision, .5, -.5);
-        ySpeed = OI.getInstance().applyPID(OI.getInstance().VISION_Y_SYSTEM, Vision.getInstance().distance(), targetDistance, kPVision, kIVision, kDVision, .5, -.5);
-        zRotation = Vision.getInstance().rotate();
+        xSpeed = OI.getInstance().applyPID(OI.getInstance().VISION_X_SYSTEM, Vision.getInstance().centerX(), targetCenter, kPVision, kIVision, kDVision, .25, -.25);
+        ySpeed = OI.getInstance().applyPID(OI.getInstance().VISION_Y_SYSTEM, Vision.getInstance().distance(), targetDistance, kPVision, kIVision, kDVision, .25, -.25);
+        zRotation = 0.0;
 
         SmartDashboard.putNumber("Rotation For Vision", zRotation);
 
