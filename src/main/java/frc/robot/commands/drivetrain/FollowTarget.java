@@ -39,7 +39,7 @@ public class FollowTarget extends Command {
         ySpeed = OI.getInstance().applyPID(OI.getInstance().VISION_Y_SYSTEM, Vision.getInstance().distance(), targetDistance, kPVision, kIVision, kDVision, .25, -.25);
         zRotation = OI.getInstance().applyPID(OI.getInstance().VISION_ROT_SYSTEM, Vision.getInstance().getAreaDifference(), 0.0, kPVisionRot, kIVisionRot, kDVisionRot, .25, -.25); //we'll see if this works better?
 
-        SmartDashboard.putNumber("Rotation For Vision", zRotation); // this and the other pid value shit will help us out significantly
+        SmartDashboard.putNumber("Rotation For Vision", zRotation);
 
         double[] _speedArray = {-xSpeed, ySpeed, zRotation, 0};
         DriveTrain.getInstance().cartDrive(_speedArray);

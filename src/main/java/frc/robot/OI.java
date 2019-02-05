@@ -180,7 +180,7 @@ public class OI {
         }
     }
 
-    private void debugMessages(int system, double error, double target) {
+    private void debugMessages(int system, double error, double target, double output) {
         switch(system) {
             case ROT_SYSTEM:
                 SmartDashboard.putNumber("Rot PID Target", target);
@@ -195,7 +195,8 @@ public class OI {
                 SmartDashboard.putNumber("Vision PID Error Distance", error);
                 break;
             case VISION_ROT_SYSTEM:
-                SmartDashboard.putNumber("Vision PID Rotation Error", error); // let's see what this is outputting :)
+                SmartDashboard.putNumber("Vision PID Rotation Error", error);
+                SmartDashboard.putNumber("Vision PID Rotation Output", output);
                 break;
             default:
                 break;
@@ -216,8 +217,6 @@ public class OI {
         double output;
         double termP, termI, termD;
         double error = target - current;
-
-        debugMessages(system, error, target); // made a new method so as not to clog up this method
 
         if (system == ROT_SYSTEM) {
             if (DriveTrain.getInstance().turnInProgress && Math.abs(error) < 3.0) { // note that we actually want a tolerance here
@@ -253,9 +252,9 @@ public class OI {
             }
         }
 
-        SmartDashboard.putNumber("PID Output", output);
-
         logErrorForIntegral(system, error);
+
+        debugMessages(system, error, target, output); // made a new method so as not to clog up this method
 
         lastOutput[system] = output;
 
