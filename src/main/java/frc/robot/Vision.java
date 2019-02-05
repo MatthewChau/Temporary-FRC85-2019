@@ -108,11 +108,11 @@ public class Vision {
 
 					return distance - 10;
 				} else {
-					return 40;
+					return 50;
 				}
 
 			} else {
-				return 40;
+				return 50;
 			}
 
 		} catch(Exception e) {

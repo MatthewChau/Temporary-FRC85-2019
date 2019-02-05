@@ -203,6 +203,33 @@ public class OI {
         }
     }
 
+    public boolean checkIfNeedBeRun(int system, double error) {
+        switch (system) {
+            case ROT_SYSTEM:
+                if (DriveTrain.getInstance().turnInProgress && Math.abs(error) < 3.0) { // note that we actually want a tolerance here
+                    DriveTrain.getInstance().turnInProgress = false;
+                    return false;
+                }
+                return true;
+            case VISION_ROT_SYSTEM:
+                if (Math.abs(error) < 15) {
+                    return false;
+                }
+                return true;
+            case VISION_X_SYSTEM:
+                if (Math.abs(error) < 10) {
+                    return false;
+                }
+                return true;
+            case VISION_Y_SYSTEM:
+                if (Math.abs(error) < 10) {
+                    return false;
+                }
+            default:
+                return true;
+        }
+    }
+
     public double applyPID(int system, double current, double target, double kP, double kI, double kD) {
         return applyPID(system, current, target, kP, kI, kD, 0.0, 0.0);
     }
@@ -218,10 +245,8 @@ public class OI {
         double termP, termI, termD;
         double error = target - current;
 
-        if (system == ROT_SYSTEM) {
-            if (DriveTrain.getInstance().turnInProgress && Math.abs(error) < 3.0) { // note that we actually want a tolerance here
-                DriveTrain.getInstance().turnInProgress = false;
-            }
+        if (!checkIfNeedBeRun(system, error)) {
+            return 0.0;
         }
 
         // the proportional stuff just kinda exists, the initial correction
