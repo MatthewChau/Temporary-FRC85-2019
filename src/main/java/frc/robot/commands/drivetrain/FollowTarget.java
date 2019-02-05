@@ -33,13 +33,13 @@ public class FollowTarget extends Command {
         double kPVision = 0.1; // SmartDashboard.getNumber("kPVision", 0.0);
         double kIVision = 0.0;  //SmartDashboard.getNumber("kIVision", 0.0);
         double kDVision = 0.09;  //SmartDashboard.getNumber("kDVision", 0.0);
+        double kPVisionRot = 0.1, kIVisionRot = 0.0, kDVisionRot = 0.0;
 
         xSpeed = OI.getInstance().applyPID(OI.getInstance().VISION_X_SYSTEM, Vision.getInstance().centerX(), targetCenter, kPVision, kIVision, kDVision, .25, -.25);
         ySpeed = OI.getInstance().applyPID(OI.getInstance().VISION_Y_SYSTEM, Vision.getInstance().distance(), targetDistance, kPVision, kIVision, kDVision, .25, -.25);
-        zRotation = 0.0;
+        zRotation = OI.getInstance().applyPID(OI.getInstance().VISION_ROT_SYSTEM, Vision.getInstance().getAreaDifference(), 0.0, kPVisionRot, kIVisionRot, kDVisionRot, .25, -.25); //we'll see if this works better?
 
-        SmartDashboard.putNumber("Rotation For Vision", zRotation);
-
+        SmartDashboard.putNumber("Rotation For Vision", zRotation); // this and the other pid value shit will help us out significantly
 
         double[] _speedArray = {-xSpeed, ySpeed, zRotation, 0};
         DriveTrain.getInstance().cartDrive(_speedArray);

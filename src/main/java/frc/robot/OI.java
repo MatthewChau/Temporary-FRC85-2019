@@ -40,13 +40,13 @@ public class OI {
 
     private double _gyroAngle;
 
-    public int ROT_SYSTEM = 0;
-    public int LIFT_UPDOWN_SYSTEM = 1;
-    public int LIFT_FRONTBACK_SYSTEM = 2;
-    public int VISION_X_SYSTEM = 3;
-    public int VISION_Y_SYSTEM = 4;
-    public int VISION_ROT_SYSTEM = 5;
-    public int INTAKE_SYSTEM = 6;
+    public static final int ROT_SYSTEM = 0;
+    public static final int LIFT_UPDOWN_SYSTEM = 1;
+    public static final int LIFT_FRONTBACK_SYSTEM = 2;
+    public static final int VISION_X_SYSTEM = 3;
+    public static final int VISION_Y_SYSTEM = 4;
+    public static final int VISION_ROT_SYSTEM = 5;
+    public static final int INTAKE_SYSTEM = 6;
 
     private int NUM_LOG_ENTRIES = 5;
 
@@ -180,6 +180,28 @@ public class OI {
         }
     }
 
+    private void debugMessages(int system, double error, double target) {
+        switch(system) {
+            case ROT_SYSTEM:
+                SmartDashboard.putNumber("Rot PID Target", target);
+                SmartDashboard.putNumber("Rot PID Error", error);
+                break;
+            case VISION_X_SYSTEM:
+                SmartDashboard.putNumber("Vision PID Target X", target);
+                SmartDashboard.putNumber("Vision PID Error X", error);
+                break;
+            case VISION_Y_SYSTEM:
+                SmartDashboard.putNumber("Vision PID Target Distance", target);
+                SmartDashboard.putNumber("Vision PID Error Distance", error);
+                break;
+            case VISION_ROT_SYSTEM:
+                SmartDashboard.putNumber("Vision PID Rotation Error", error); // let's see what this is outputting :)
+                break;
+            default:
+                break;
+        }
+    }
+
     public double applyPID(int system, double current, double target, double kP, double kI, double kD) {
         return applyPID(system, current, target, kP, kI, kD, 0.0, 0.0);
     }
@@ -195,17 +217,9 @@ public class OI {
         double termP, termI, termD;
         double error = target - current;
 
-        if (system == VISION_X_SYSTEM) {
-            SmartDashboard.putNumber("Vision PID Target X", target);
-            SmartDashboard.putNumber("Vision PID Error X", error);
-        } else if (system == VISION_Y_SYSTEM) {
-            SmartDashboard.putNumber("Vision PID Target Distance", target);
-            SmartDashboard.putNumber("Vision PID Error Distance", error);
-        } else if (system == VISION_ROT_SYSTEM) {
-            SmartDashboard.putNumber("Vision PID LeftArea - RightArea", error); // if left is larger, error is positive
-        } else if (system == ROT_SYSTEM) {
-            SmartDashboard.putNumber("Rot PID Target", target);
-            SmartDashboard.putNumber("Rot PID Error", error);
+        debugMessages(system, error, target); // made a new method so as not to clog up this method
+
+        if (system == ROT_SYSTEM) {
             if (DriveTrain.getInstance().turnInProgress && Math.abs(error) < 3.0) { // note that we actually want a tolerance here
                 DriveTrain.getInstance().turnInProgress = false;
             }
