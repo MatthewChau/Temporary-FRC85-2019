@@ -49,7 +49,6 @@ public class BeltTrain extends Subsystem {
     public void DriveBelt(double speed) {
         _beltTrainFrontMotor.set(ControlMode.PercentOutput, speed);
         _beltTrainBackMotor.set(ControlMode.PercentOutput, speed);
-        
     }
 
     public double getFrontMotorPercent() {
