@@ -19,7 +19,14 @@ public class Addresses {
     public static final int DRIVETRAIN_RIGHT_FRONT_MOTOR = 3;
     public static final int DRIVETRAIN_RIGHT_BACK_MOTOR = 4;
 
-    // IMU
+    //BeltTrain
+    public static final int BELTTRAIN_FRONT_MOTOR = 12;
+    public static final int BELTTRAIN_BACK_MOTOR = 13;
+
+    //place holder Belt SolenOId
+    public static final int BELT_SOLENOID = 19; 
+   
+     // IMU
     // public static final int IMUTalon = 2;
 
     // LiftProximitySensors DigitalInputs
