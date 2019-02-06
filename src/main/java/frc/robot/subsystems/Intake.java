@@ -11,6 +11,7 @@ import frc.robot.Addresses;
 import frc.robot.Robot;
 
 import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
@@ -28,6 +29,7 @@ public class Intake extends Subsystem {
     private TalonSRX _flipper;
     private TalonSRX _roller;
     private Encoder _intakePos;
+    private Servo _intakeServo;
     private LimitSwitchNormal _test;
     private LimitSwitchSource _test2;
 
@@ -49,6 +51,8 @@ public class Intake extends Subsystem {
         _flipper = new TalonSRX(Addresses.INTAKE_FLIPPER);
         _roller = new TalonSRX(Addresses.INTAKE_ROLLER);
         _intakePos = new Encoder(Addresses.INTAKE_ENCODER_A, Addresses.INTAKE_ENCODER_B);
+
+        _intakeServo = new Servo(Addresses.INTAKE_SERVO);
     }
 
     public static Intake getInstance() {
@@ -99,6 +103,10 @@ public class Intake extends Subsystem {
 
     public void stopRoller() {
         _roller.set(mode, 0);
+    }
+
+    public void setServo(double position) {
+        _intakeServo.set(position);
     }
 
 }

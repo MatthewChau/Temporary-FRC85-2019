@@ -7,15 +7,17 @@
 
 package frc.robot;
 
-import frc.robot.sensors.IMU;
+import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.LiftVertical;
 import frc.robot.subsystems.LiftHorizontal;
-import frc.robot.commands.lift.VerticalShift;
-import frc.robot.commands.lift.HorizontalShift;
-import frc.robot.commands.lift.VerticalShift;
-import frc.robot.subsystems.DriveTrain;
+import frc.robot.sensors.IMU;
+
 import frc.robot.commands.drivetrain.FollowTarget;
+import frc.robot.commands.lift.VerticalShift;
 import frc.robot.commands.lift.HorizontalShift;
+import frc.robot.commands.lift.VerticalShift;
+import frc.robot.commands.lift.HorizontalShift;
+import frc.robot.commands.intake.DriveServo;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Joystick.AxisType;
@@ -32,7 +34,7 @@ public class OI {
     private Joystick _driverController;
     private Joystick _operatorController;
 
-    private JoystickButton _driverLeftBumper, _driverAButton, _driverBButton;
+    private JoystickButton _driverLeftBumper, _driverAButton, _driverBButton, _driverXButton;
     private JoystickButton _operatorPhaseZero, _operatorPhaseOne, _operatorPhaseTwo, _operatorPhaseThree, _operatorLeftBumper, _operatorRightBumper;
 
     private double _xSpeed = 0, _ySpeed = 0, _zRotation = 0;
@@ -68,6 +70,7 @@ public class OI {
 */
         _driverAButton = new JoystickButton(_driverController, 4); // Change to Y button
         _driverBButton = new JoystickButton(_driverController, 2); // Change to B button
+        _driverXButton = new JoystickButton(_driverController, 3);
 /*
         _operatorPhaseZero.whenPressed(new VerticalShift(0, 1)); //go to phase 0
         _operatorPhaseOne.whenPressed(new VerticalShift(1, 1)); //go to phase 1
@@ -86,6 +89,9 @@ public class OI {
 
         FollowTarget followTarget;
         _driverAButton.whileActive(followTarget = new FollowTarget()); //follows when pressed
+
+        _driverXButton.whenPressed(new DriveServo(0.5));
+        _driverXButton.whenReleased(new DriveServo(0.0));
     }
 
     public static OI getInstance() {

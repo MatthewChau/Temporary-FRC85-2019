@@ -33,6 +33,9 @@ public class Addresses {
     public static final int LIFT_RIGHT_MOTOR = 6;
     public static final int LIFT_CIM_MOTOR = 7;
 
+    // Intake 
+    public static final int INTAKE_SERVO = 0;
+
     // Intake (addresses are placeholders for now)
     public static final int INTAKE_FLIPPER = 9;
     public static final int INTAKE_PUSHER = 10;

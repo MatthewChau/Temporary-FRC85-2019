@@ -57,7 +57,7 @@ public class DriveTrain extends Subsystem {
 
     public static DriveTrain getInstance() {
         if (_instance == null) {
-        _instance = new DriveTrain();
+            _instance = new DriveTrain();
         }
         return _instance;
     }
