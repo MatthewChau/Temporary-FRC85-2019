@@ -27,11 +27,11 @@ public class BeltTrain extends Subsystem {
     }
     
     public boolean getBeltSolenoid() {
-      return _beltSolenoid.get();
+        return _beltSolenoid.get();
     }
 
     public void setBeltSolenoid(boolean on) {
-            _beltSolenoid.set(on);
+        _beltSolenoid.set(on);
     }
 
     public static BeltTrain getInstance() {
