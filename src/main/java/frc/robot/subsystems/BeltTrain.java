@@ -16,12 +16,12 @@ public class BeltTrain extends Subsystem {
     
     public static BeltTrain _instance = null;
 
-    private TalonSRX _belttrainfrontmotor, _belttrainbackmotor;
+    private TalonSRX _beltTrainFrontMotor, _beltTrainBackMotor;
     private Solenoid _beltSolenoid;
 
     public BeltTrain() {
-        _belttrainfrontmotor = new TalonSRX(Addresses.BELTTRAIN_FRONT_MOTOR);
-        _belttrainbackmotor = new TalonSRX(Addresses.BELTTRAIN_BACK_MOTOR);
+        _beltTrainFrontMotor = new TalonSRX(Addresses.BELTTRAIN_FRONT_MOTOR);
+        _beltTrainBackMotor = new TalonSRX(Addresses.BELTTRAIN_BACK_MOTOR);
         
         _beltSolenoid = new Solenoid(Addresses.BELT_SOLENOID);
     }
@@ -47,9 +47,25 @@ public class BeltTrain extends Subsystem {
     }
 
     public void DriveBelt(double speed) {
-     _belttrainbackmotor.set(ControlMode.PercentOutput, speed);
-     _belttrainfrontmotor.set(ControlMode.PercentOutput, speed);
+        _beltTrainFrontMotor.set(ControlMode.PercentOutput, speed);
+        _beltTrainBackMotor.set(ControlMode.PercentOutput, speed);
+        
+    }
 
+    public double getFrontMotorPercent() {
+        return _beltTrainFrontMotor.getMotorOutputPercent();
+    }
+
+    public double getBackMotorPercent() {
+        return _beltTrainBackMotor.getMotorOutputPercent();
+    }
+
+    public double getFrontMotorVoltage() {
+        return _beltTrainFrontMotor.getMotorOutputVoltage();
+    }
+
+    public double getBackMotorVoltage() {
+        return _beltTrainBackMotor.getMotorOutputVoltage();
     }
      
 }
