@@ -7,37 +7,32 @@
 
 package frc.robot.commands.belttrain;
 
+import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.subsystems.BeltTrain;
 
-import edu.wpi.first.wpilibj.command.Command;
-
-public class Wheely extends Command {
-
-	boolean _on;
-
-	public Wheely(boolean out) { //true = out/on, false = in/off
-		_on = out;
-
+public class ToggleWheely extends Command {
+	public ToggleWheely() {
     	// Use requires() here to declare subsystem dependencies
-		requires(BeltTrain.getInstance());
-	}
+    	requires(BeltTrain.getInstance());
+  	}
 
   	// Called just before this Command runs the first time
   	@Override
   	protected void initialize() {
-		
+  
 	}
 
   	// Called repeatedly when this Command is scheduled to run
   	@Override
   	protected void execute() {
-		BeltTrain.getInstance().setBeltSolenoid(_on);
+		BeltTrain.getInstance().setBeltSolenoid(!BeltTrain.getInstance().getBeltSolenoid());
 	}
 
   	// Make this return true when this Command no longer needs to run execute()
   	@Override
   	protected boolean isFinished() {
-    	return true;
+		return true;
+  
 	}
 
   	// Called once after isFinished returns true

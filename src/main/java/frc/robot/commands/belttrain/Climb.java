@@ -20,12 +20,10 @@ public class Climb extends CommandGroup {
     	addSequential(new Wheely(true));
 		addSequential(new BeltTrainDrive(1));
 
-		//wait();
+		//wait(); maybe
 
 		addParallel(new Wheely(false));
-    	// e.g. addSequential(new Command1());
-    	// addSequential(new Command2());
-    	// these will run in order.
+		//stop the belt train at some point
 
     	// To run multiple commands at the same time,
     	// use addParallel()
