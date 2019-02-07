@@ -70,9 +70,10 @@ public class OI {
         _operatorLeftBumper = new JoystickButton(_operatorController, 1);
         _operatorRightBumper = new JoystickButton(_operatorController, 2);
 */
-        _driverYButton = new JoystickButton(_driverController, 4); // Change to Y button
-        _driverBButton = new JoystickButton(_driverController, 2); // Change to B button
+        _driverAButton = new JoystickButton(_driverController, 1);
+        _driverBButton = new JoystickButton(_driverController, 2);
         _driverXButton = new JoystickButton(_driverController, 3);
+        _driverYButton = new JoystickButton(_driverController, 4);
 /*
         _operatorPhaseZero.whenPressed(new VerticalShift(0, 1)); //go to phase 0
         _operatorPhaseOne.whenPressed(new VerticalShift(1, 1)); //go to phase 1
@@ -90,7 +91,7 @@ public class OI {
         Arrays.fill(lastActual, 0.0);
 
         FollowTarget followTarget;
-        _driverAButton.whileActive(followTarget = new FollowTarget()); //follows when pressed
+        _driverYButton.whileActive(followTarget = new FollowTarget()); //follows when pressed
 
         _driverXButton.whenPressed(new DriveServo(0.5));
         _driverXButton.whenReleased(new DriveServo(0.0));
