@@ -41,7 +41,6 @@ public class FollowTarget extends Command {
 
     @Override
     protected boolean isFinished() {
-        
         return false;
     }
 

@@ -44,7 +44,7 @@ public class LiftVertical extends Subsystem {
     @Override
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
-        setDefaultCommand(new LiftVerticalWithJoystick());
+        //setDefaultCommand(new LiftVerticalWithJoystick());
     }
 
     public void verticalShift(double speed) {
