@@ -34,7 +34,7 @@ public class OI {
     private Joystick _driverController;
     private Joystick _operatorController;
 
-    private JoystickButton _driverLeftBumper, _driverAButton, _driverBButton, _driverXButton;
+    private JoystickButton _driverLeftBumper, _driverAButton, _driverBButton, _driverXButton, _driverYButton;
     private JoystickButton _operatorPhaseZero, _operatorPhaseOne, _operatorPhaseTwo, _operatorPhaseThree, _operatorLeftBumper, _operatorRightBumper;
 
     private double _xSpeed = 0, _ySpeed = 0, _zRotation = 0;
@@ -42,19 +42,21 @@ public class OI {
 
     private double _gyroAngle;
 
-    public int ROT_SYSTEM = 0;
-    public int LIFT_VERTICAL_SYSTEM = 1;
-    public int LIFT_HORIZONTAL_SYSTEM = 2;
-    public int VISION_SYSTEM = 3;
-    public int INTAKE_SYSTEM = 4;
+    public static final int ROT_SYSTEM = 0;
+    public static final int LIFT_VERTICAL_SYSTEM = 1;
+    public static final int LIFT_HORIZONTAL_SYSTEM = 2;
+    public static final int VISION_X_SYSTEM = 3;
+    public static final int VISION_Y_SYSTEM = 4;
+    public static final int VISION_ROT_SYSTEM = 5;
+    public static final int INTAKE_SYSTEM = 6;
 
     private int NUM_LOG_ENTRIES = 5;
 
-    private boolean[] firstRun = new boolean[INTAKE_SYSTEM];
-    private double[] errorSum = new double[INTAKE_SYSTEM];
-    private double[] lastOutput = new double[INTAKE_SYSTEM];
-    private double[] lastActual = new double[INTAKE_SYSTEM];
-    private double[][] errorLog = new double[INTAKE_SYSTEM][NUM_LOG_ENTRIES - 1];
+    private boolean[] firstRun = new boolean[INTAKE_SYSTEM + 1];
+    private double[] errorSum = new double[INTAKE_SYSTEM + 1];
+    private double[] lastOutput = new double[INTAKE_SYSTEM + 1];
+    private double[] lastActual = new double[INTAKE_SYSTEM + 1];
+    private double[][] errorLog = new double[INTAKE_SYSTEM][NUM_LOG_ENTRIES];
 
     private OI() {
         _driverController = new Joystick(Addresses.CONTROLLER_DRIVER);
@@ -68,7 +70,7 @@ public class OI {
         _operatorLeftBumper = new JoystickButton(_operatorController, 1);
         _operatorRightBumper = new JoystickButton(_operatorController, 2);
 */
-        _driverAButton = new JoystickButton(_driverController, 4); // Change to Y button
+        _driverYButton = new JoystickButton(_driverController, 4); // Change to Y button
         _driverBButton = new JoystickButton(_driverController, 2); // Change to B button
         _driverXButton = new JoystickButton(_driverController, 3);
 /*
@@ -102,29 +104,12 @@ public class OI {
     }
 
     public double[] getJoystickInput() {
-        if (isHeadless()) {
-            headlessDrive();
-            // 1 or 0 is passed to identify whether the array is headless or headed drive.
-            return new double[] {1, _xSpeed, _ySpeed, _zRotation, _gyroAngle};
-        } else {
-            headlessDrive();
-            return new double[] {0, _xSpeed, _ySpeed, _zRotation, _gyroAngle};
-        }
-    }
-
-    private void headedDrive() {
-        // Deadband is initialized in subsystem DriveTrain with the mecanum drive constructor.
-        _xSpeed = -_driverController.getRawAxis(0);
-        _ySpeed = _driverController.getRawAxis(1);
-        _zRotation = -_driverController.getRawAxis(4);
-        //_gyroAngle = 0.0;
-    }
-
-    private void headlessDrive() {
-        _xSpeed = -_driverController.getRawAxis(0);
+        _xSpeed = _driverController.getRawAxis(0);
         _ySpeed = _driverController.getRawAxis(1);
         _zRotation = -_driverController.getRawAxis(4);
         _gyroAngle = IMU.getInstance().getFusedHeading();
+
+        return new double[] {_xSpeed, _ySpeed, _zRotation, _gyroAngle};
     }
 
     public double getXInput() {
@@ -165,14 +150,15 @@ public class OI {
         return _driverController.getRawButton(1);
     }
 
-/*    public boolean[] turn90() {
-        boolean[] outputs = new boolean[1];
-        outputs[0] = _driverController.getRawButton();
-        outputs[1] = _driverController.getRawButton();
-        SmartDashboard.putBoolean("Left 90", _driverController.getRawButton());
-        SmartDashboard.putBoolean("Right 90", _driverController.getRawButton());
-        return outputs;
-    }*/
+    public boolean directionOne() {
+        SmartDashboard.putBoolean("90 Left", _driverController.getRawButton(3));
+        return _driverController.getRawButton(3);
+    }
+
+    public boolean directionTwo() {
+        SmartDashboard.putBoolean("90 Right", _driverController.getRawButton(2));
+        return _driverController.getRawButton(2);
+    }
 
     public double fixArcTangent(double angle, double x, double y) { // fix an angle output by arctan
         if (y >= 0) {
@@ -184,10 +170,6 @@ public class OI {
         }
         // if y is above 0, there should be no need to change anything; the range goes from -90 to 90
         return angle;
-    }
-
-    public double applyPID(int system, double current, double target, double kP, double kI, double kD) {
-        return applyPID(system, current, target, kP, kI, kD, 0.0, 0.0);
     }
 
     private void logErrorForIntegral(int system, double error) {
@@ -204,6 +186,60 @@ public class OI {
         }
     }
 
+    private void debugMessages(int system, double error, double target, double output) {
+        switch(system) {
+            case ROT_SYSTEM:
+                SmartDashboard.putNumber("Rot PID Target", target);
+                SmartDashboard.putNumber("Rot PID Error", error);
+                break;
+            case VISION_X_SYSTEM:
+                SmartDashboard.putNumber("Vision PID Target X", target);
+                SmartDashboard.putNumber("Vision PID Error X", error);
+                break;
+            case VISION_Y_SYSTEM:
+                SmartDashboard.putNumber("Vision PID Target Distance", target);
+                SmartDashboard.putNumber("Vision PID Error Distance", error);
+                break;
+            case VISION_ROT_SYSTEM:
+                SmartDashboard.putNumber("Vision PID Rotation Error", error);
+                SmartDashboard.putNumber("Vision PID Rotation Output", output);
+                break;
+            default:
+                break;
+        }
+    }
+
+    public boolean checkIfNeedBeRun(int system, double error) {
+        switch (system) {
+            case ROT_SYSTEM:
+                if (DriveTrain.getInstance().turnInProgress && Math.abs(error) < 3.0) { // note that we actually want a tolerance here
+                    DriveTrain.getInstance().turnInProgress = false;
+                    return false;
+                }
+                return true;
+            case VISION_ROT_SYSTEM:
+                if (Math.abs(error) < 15) {
+                    return false;
+                }
+                return true;
+            case VISION_X_SYSTEM:
+                if (Math.abs(error) < 10) {
+                    return false;
+                }
+                return true;
+            case VISION_Y_SYSTEM:
+                if (Math.abs(error) < 10) {
+                    return false;
+                }
+            default:
+                return true;
+        }
+    }
+
+    public double applyPID(int system, double current, double target, double kP, double kI, double kD) {
+        return applyPID(system, current, target, kP, kI, kD, 0.0, 0.0);
+    }
+
     /*
     formula for output at time t (o(t)), based on error at time t (e(t)):
     o(t) = (kP * e(t)) + (kI * ∫e(t)dt) - (kD * (de(t) / dt))
@@ -215,8 +251,9 @@ public class OI {
         double termP, termI, termD;
         double error = target - current;
 
-        SmartDashboard.putNumber("PID Target", target);
-        SmartDashboard.putNumber("PID Error", error);
+        if (!checkIfNeedBeRun(system, error)) {
+            return 0.0;
+        }
 
         // the proportional stuff just kinda exists, the initial correction
         termP = kP * error;
@@ -235,7 +272,6 @@ public class OI {
         // because the I term is the area under the curve, it gets a higher weight if it's been going on for a longer time, hence the errorSum
         // formula:  kI * errorSum (sum of all previous errors)
         termI = kI * errorSum[system];
-        // we can limit this if we find it to be necessary, it can build up
 
         output = termP + termI + termD;
 
@@ -247,9 +283,9 @@ public class OI {
             }
         }
 
-        SmartDashboard.putNumber("PID Output", output);
-
         logErrorForIntegral(system, error);
+
+        debugMessages(system, error, target, output); // made a new method so as not to clog up this method
 
         lastOutput[system] = output;
 
