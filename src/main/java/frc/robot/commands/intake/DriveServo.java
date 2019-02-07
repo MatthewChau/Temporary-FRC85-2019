@@ -5,17 +5,18 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.lift;
-
-import frc.robot.OI;
-import frc.robot.subsystems.LiftVertical;
+package frc.robot.commands.intake;
 
 import edu.wpi.first.wpilibj.command.Command;
+import frc.robot.subsystems.Intake;
 
-public class LiftVerticalWithJoystick extends Command {
-    public LiftVerticalWithJoystick() {
-        // Use requires() here to declare subsystem dependencies
-        requires(LiftVertical.getInstance());
+public class DriveServo extends Command {
+
+    private double _position;
+
+    public DriveServo(double position) {
+        requires(Intake.getInstance());
+        _position = position;
     }
 
     // Called just before this Command runs the first time
@@ -26,20 +27,18 @@ public class LiftVerticalWithJoystick extends Command {
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
-//        LiftVertical.getInstance().verticalShift(OI.getInstance().getLiftVertical());
-
+        Intake.getInstance().setServo(_position);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     @Override
     protected boolean isFinished() {
-        return false;
+        return true;
     }
 
     // Called once after isFinished returns true
     @Override
     protected void end() {
-        LiftVertical.getInstance().verticalShift(0);
     }
 
     // Called when another command which requires one or more of the same

@@ -1,15 +1,14 @@
 package frc.robot.commands.drivetrain;
+
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
+import frc.robot.OI;
 import frc.robot.Vision;
 import frc.robot.subsystems.DriveTrain;
 
 public class FollowTarget extends Command {
-    private double _distanceWanted = 35.0; //The distance from the pads that we want the robot to be
-    private double _tolerance = 5.0;
-
-    private double[] _driveForward = new double[] {0, 0, -.25, 0, 0};
-    private double[] _driveBackward = new double[] {0, 0, .25, 0, 0};
-    private double[] _stop = new double[] {0, 0, 0, 0, 0};
+    private double[] _stop = new double[] {0, 0, 0, 0};
 
     private boolean _targetFound;
     
@@ -18,30 +17,36 @@ public class FollowTarget extends Command {
     }
     @Override
     protected void initialize() {
+        //SmartDashboard.putNumber("kPVision", 0.0);
+        //SmartDashboard.putNumber("kIVision", 0.0);
+        //SmartDashboard.putNumber("kDVision", 0.0);
+
         super.initialize();
     }
 
     @Override
     protected void execute() {
         super.execute();
-        if (35 <= Vision.distance() && Vision.distance() < 45) {
-            DriveTrain.getInstance().cartDrive(_stop); //assuming backwards is positive
-            //_targetFound = true;
-        }
-        else if (Vision.distance() < 35) {
-            DriveTrain.getInstance().cartDrive(_driveBackward);  //assuming forwards is negative
-        }
-        else if (Vision.distance() >= 45) {
-            DriveTrain.getInstance().cartDrive(_driveForward);
-        }
-        else{
-            DriveTrain.getInstance().cartDrive(_stop);
-        }
+        double xSpeed, ySpeed, zRotation;
+        double targetDistance = 50.0;//SmartDashboard.getNumber("Target Distance", 0.0);
+        double targetCenter = 0.0;//SmartDashboard.getNumber("Target Center", 0.0);
+        double kPVision = 0.027; // SmartDashboard.getNumber("kPVision", 0.0);
+        double kIVision = 0.0;  //SmartDashboard.getNumber("kIVision", 0.0);
+        double kDVision = 0.0;  //SmartDashboard.getNumber("kDVision", 0.0);
+        double kPVisionRot = 0.005, kIVisionRot = 0.0, kDVisionRot = 0.0;
+
+        xSpeed = OI.getInstance().applyPID(OI.getInstance().VISION_X_SYSTEM, Vision.getInstance().centerX(), targetCenter, kPVision, kIVision, kDVision, .5, -.5);
+        ySpeed = OI.getInstance().applyPID(OI.getInstance().VISION_Y_SYSTEM, Vision.getInstance().distance(), targetDistance, kPVision, kIVision, kDVision, .5, -.5);
+        zRotation = -OI.getInstance().applyPID(OI.getInstance().VISION_ROT_SYSTEM, Vision.getInstance().getAreaDifference(), 0.0, kPVisionRot, kIVisionRot, kDVisionRot, .5, -.5); //we'll see if this works better?
+
+        SmartDashboard.putNumber("Rotation For Vision", zRotation);
+
+        double[] _speedArray = {-xSpeed, ySpeed, zRotation, 0};
+        DriveTrain.getInstance().cartDrive(_speedArray);
     }
 
     @Override
     protected boolean isFinished() {
-        
         return false;
     }
 

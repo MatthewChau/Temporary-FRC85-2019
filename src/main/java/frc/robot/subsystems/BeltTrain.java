@@ -25,14 +25,6 @@ public class BeltTrain extends Subsystem {
         
         _beltSolenoid = new Solenoid(Addresses.BELT_SOLENOID);
     }
-    
-    public boolean getBeltSolenoid() {
-        return _beltSolenoid.get();
-    }
-
-    public void setBeltSolenoid(boolean on) {
-        _beltSolenoid.set(on);
-    }
 
     public static BeltTrain getInstance() {
         if (_instance == null) {
@@ -49,6 +41,14 @@ public class BeltTrain extends Subsystem {
     public void DriveBelt(double speed) {
         _beltTrainFrontMotor.set(ControlMode.PercentOutput, speed);
         _beltTrainBackMotor.set(ControlMode.PercentOutput, speed);
+    }
+
+    public void setBeltSolenoid(boolean on) {
+        _beltSolenoid.set(on);
+    }
+
+    public boolean getBeltSolenoid() {
+        return _beltSolenoid.get();
     }
 
     public double getFrontMotorPercent() {
