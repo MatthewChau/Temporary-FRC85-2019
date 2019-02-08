@@ -1,7 +1,7 @@
 <grip:Pipeline>
   <sources>
     <grip:Camera>
-      <property name="address" value="http://frcvision.local:1181/stream.mjpg"/>
+      <property name="address" value="http://10.0.85.77:1181/stream.mjpg"/>
     </grip:Camera>
   </sources>
   <steps>
@@ -32,7 +32,7 @@
       <grip:Input step="1" socket="1">
         <value>false</value>
       </grip:Input>
-      <grip:Output step="1" socket="0" previewed="true"/>
+      <grip:Output step="1" socket="0" previewed="false"/>
     </grip:Step>
     <grip:Step name="Filter Contours">
       <grip:Input step="2" socket="0"/>
@@ -109,16 +109,16 @@
       <grip:Input step="3" socket="0"/>
     </grip:Connection>
     <grip:Connection>
+      <grip:Output step="1" socket="0" previewed="false"/>
+      <grip:Input step="2" socket="0"/>
+    </grip:Connection>
+    <grip:Connection>
       <grip:Output step="0" socket="0" previewed="false"/>
       <grip:Input step="1" socket="0"/>
     </grip:Connection>
     <grip:Connection>
       <grip:Output source="0" socket="0" previewed="true"/>
       <grip:Input step="0" socket="0"/>
-    </grip:Connection>
-    <grip:Connection>
-      <grip:Output step="1" socket="0" previewed="true"/>
-      <grip:Input step="2" socket="0"/>
     </grip:Connection>
     <grip:Connection>
       <grip:Output step="3" socket="0" previewed="true"/>
@@ -138,7 +138,7 @@
     <language>Python</language>
     <className>GripPipeline</className>
     <implementWpilibPipeline>false</implementWpilibPipeline>
-    <saveDir>C:\Users\kyleh\GRIP</saveDir>
+    <saveDir>C:\Users\BOB\GRIP</saveDir>
     <packageName></packageName>
     <moduleName>grip</moduleName>
   </codeGenerationSettings>
