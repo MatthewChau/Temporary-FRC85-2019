@@ -187,4 +187,22 @@ public class Vision {
 
 		return turn;
 	}
+
+	public double turnAngleForPID() { // given the white line
+		NetworkTable _table;
+		double[] angleArray = {0.0, 0.0};
+		double avgAngle, angle1, angle2;
+
+		_table = NetworkTable.getTable("GRIP/myLinesReport");
+		angleArray = _table.getNumberArray("angle", angleArray);
+		
+		if (angleArray.length > 1) {
+			angle1 = angleArray[0]; // all the way right is 0
+			angle2 = angleArray[1]; // all the way right is 0
+            
+			return ((angle1 + angle2) / 2.0) - 90; // adjust by 90 in order to give us the angle we are approximately at
+		}
+		return 0.0; // no turning i guess
+	}
+
 }
