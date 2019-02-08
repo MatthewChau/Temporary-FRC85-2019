@@ -120,4 +120,71 @@ public class Vision {
 		}
 	}
 
+	/**
+	 * @return degrees the robot needs to turn to be aligned with the alignment line. Counter-clockwise is positive.
+	 */
+	public double turnAngle() {
+
+		double ratio = 2.0;
+		NetworkTable _table;
+		double[] angleArray = {80.0, 100.0};
+		double angle = 90.0;
+		double angle1 = 0.0;
+		double angle2 = 0.0;
+		double turn = 0.0;
+		double pointX = 0.0;
+		double pointY = 0.0;
+		double reflectedAngle = 0.0;
+		double angleRadians = 0.0;
+		double slope = 0.0;
+		double topViewSlope = 0.0;
+        double topViewAngle = 0.0;
+        double topViewAngleDegrees = 0.0;
+
+		_table = NetworkTable.getTable("GRIP/myLinesReport");
+		angleArray = _table.getNumberArray("angle", angleArray);
+        
+		if (angleArray.length > 1) {
+			angle1 = angleArray[0];
+			angle2 = angleArray[1];
+            
+			if (angle1 < 0) {
+				angle1 += 180.0;
+			} else if (angle1 >= 180.0) {
+				angle1 -= 180.0;
+			}
+			
+			if (angle2 < 0) {
+				angle2 += 180.0;
+			} else if (angle2 >= 180.0) {
+				angle2 -= 180.0;
+			}
+            
+			angle = (angle1 + angle2) / 2.0;
+		}
+
+		if (angle > 89 && angle < 91) {
+			return 0.0;
+		}
+
+		reflectedAngle = 180.0 - angle;
+		angleRadians = reflectedAngle * Math.PI / 180.0;
+		pointX = Math.cos(angleRadians);
+		pointY = Math.sin(angleRadians);
+
+		slope = pointY / pointX;
+		topViewSlope = slope * ratio;
+        topViewAngle = Math.atan(topViewSlope);
+
+		if (topViewAngle < 0) {
+			topViewAngle += Math.PI;
+		} else if (topViewAngle > (Math.PI)) {
+			topViewAngle -= Math.PI;
+		}
+
+		topViewAngleDegrees = topViewAngle * 180.0 / Math.PI;
+        turn = -(90 - topViewAngleDegrees);
+
+		return turn;
+	}
 }
