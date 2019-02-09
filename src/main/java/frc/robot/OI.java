@@ -83,7 +83,7 @@ public class OI {
         _operatorLeftBumper.whenActive(new HorizontalShift(0, 1)); //1 means to go left (or backward) hopefully
         _operatorRightBumper.whenActive(new HorizontalShift(1, -1)); //-1 means to go right (or forward) */
 
-        // init the pid stuffs
+        // init the pid stuff 
 
         Arrays.fill(firstRun, true);
         Arrays.fill(errorSum, 0.0);

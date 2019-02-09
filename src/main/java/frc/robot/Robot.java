@@ -36,6 +36,8 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void robotInit() {
+
+
         DriveTrain.getInstance();
         Intake.getInstance();
         LiftVertical.getInstance();
@@ -69,6 +71,7 @@ public class Robot extends TimedRobot {
 
     @Override
     public void teleopInit() {
+
         IMU.getInstance().setFusedHeading(0);
         super.teleopInit();
     }

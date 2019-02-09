@@ -62,6 +62,7 @@ public class Variables {
     public final double TOLERANCE_ANGLE = 10.0;
     public final int MAX_TURNS = 5; // if we go over 1800 degrees in either direction in one match then help.
 
+
     /**
      * Put variables here that should be changebale on the fly.
      */
@@ -69,6 +70,8 @@ public class Variables {
         SmartDashboard.putNumber("kP_VLIFT", kP_VLIFT);
         SmartDashboard.putNumber("kI_VLIFT", kI_VLIFT);
         SmartDashboard.putNumber("kD_VLIFT", kD_VLIFT);
+
+
     }
 
     public static Variables getInstance() {
@@ -78,6 +81,7 @@ public class Variables {
         return _instance;
     }
 
+  
     public double getVerticalLiftKP() {
         return SmartDashboard.getNumber("kP_VLIFT", kP_VLIFT);
     }
