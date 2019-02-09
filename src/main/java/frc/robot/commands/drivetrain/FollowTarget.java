@@ -32,10 +32,16 @@ public class FollowTarget extends Command {
         double kDVision = 0.0;  //SmartDashboard.getNumber("kDVision", 0.0);
         double kPVisionRot = 0.005, kIVisionRot = 0.0, kDVisionRot = 0.0;
 
-        xSpeed = OI.getInstance().applyPID(OI.getInstance().VISION_X_SYSTEM, Vision.getInstance().centerX(), targetCenter, kPVision, kIVision, kDVision, .5, -.5);
-        ySpeed = OI.getInstance().applyPID(OI.getInstance().VISION_Y_SYSTEM, Vision.getInstance().distance(), targetDistance, kPVision, kIVision, kDVision, .5, -.5);
-        zRotation = -OI.getInstance().applyPID(OI.getInstance().VISION_ROT_SYSTEM, Vision.getInstance().getAreaDifference(), 0.0, kPVisionRot, kIVisionRot, kDVisionRot, .5, -.5); //we'll see if this works better?
+        double distanceFromMethod = Vision.getInstance().distance;
 
+        xSpeed = OI.getInstance().applyPID(OI.getInstance().VISION_X_SYSTEM, Vision.getInstance().centerX(), targetCenter, kPVision, kIVision, kDVision, .5, -.5);
+        ySpeed = OI.getInstance().applyPID(OI.getInstance().VISION_Y_SYSTEM, distanceFromMethod, targetDistance, kPVision, kIVision, kDVision, .5, -.5);
+        //if (distanceFromMethod >= 40.0) {
+            zRotation = -OI.getInstance().applyPID(OI.getInstance().VISION_ROT_SYSTEM, Vision.getInstance().getAreaDifference(), 0.0, kPVisionRot, kIVisionRot, kDVisionRot, .5, -.5);
+        //} else {
+        //    zRotation = OI.getInstance().applyPID(OI.getInstance().VISION_ROT_SYSTEM, Vision.getInstance().turnAngleForPID(), 0.0, kPVisionRot, kIVisionRot, kDVisionRot, .5, -.5); // try this on for size
+        //}
+        
         SmartDashboard.putNumber("Rotation For Vision", zRotation);
 
         double[] _speedArray = {-xSpeed, ySpeed, zRotation, 0};
