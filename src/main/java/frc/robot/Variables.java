@@ -71,6 +71,10 @@ public class Variables {
         SmartDashboard.putNumber("kP_VLIFT", kP_VLIFT);
         SmartDashboard.putNumber("kI_VLIFT", kI_VLIFT);
         SmartDashboard.putNumber("kD_VLIFT", kD_VLIFT);
+
+        SmartDashboard.putNumber("kP_HLIFT", kP_HLIFT);
+        SmartDashboard.putNumber("kI_HLIFT", kI_HLIFT);
+        SmartDashboard.putNumber("kD_HLIFT", kD_HLIFT);
     }
 
     public static Variables getInstance() {
