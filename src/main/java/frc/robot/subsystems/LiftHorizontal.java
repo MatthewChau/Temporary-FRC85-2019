@@ -7,6 +7,8 @@
 
 package frc.robot.subsystems;
 
+import frc.robot.OI;
+import frc.robot.Variables;
 import frc.robot.Addresses;
 import frc.robot.sensors.ProxSensors;
 import frc.robot.commands.lift.LiftHorizontalWithJoystick;
@@ -52,26 +54,24 @@ public class LiftHorizontal extends Subsystem {
     }
 
     public void horizontalShift(double speed) {
-        _liftRearMotor.set(ControlMode.PercentOutput, speed);
-    }
-
-    public void horizontalShift(int position, double speed) {
-        if (position > getHorizontalPosition()) {
-
-        } else if (position < getHorizontalPosition()) {
-
-        }
-
-        _liftRearMotor.set(ControlMode.PercentOutput, speed);
-    }
-
-    public boolean checkHorizontalLift(double speed) {
         if ((ProxSensors.getInstance().getLiftFrontLimit() && speed > 0)
-                || (ProxSensors.getInstance().getLiftRearLimit() && speed < 0)) {
-            return false;
+            || (ProxSensors.getInstance().getLiftRearLimit() && speed < 0)) {
+            _liftRearMotor.set(ControlMode.PercentOutput, speed);
         } else {
-            return true;
+            _liftRearMotor.set(ControlMode.PercentOutput, 0);
         }
+    }
+
+    /**
+     * @param targetPosition, encoder counts
+     * @param speedMax, max speed that motor will run at 
+     */
+    public void horizontalShift(int targetPosition, double speedMax) {
+        double speed = OI.getInstance().applyPID(OI.getInstance().LIFT_HORIZONTAL_SYSTEM, getHorizontalPosition(), targetPosition, 
+            Variables.getInstance().getHorizontalLiftKP(), Variables.getInstance().getHorizontalLiftKI(), Variables.getInstance().getHorizontalLiftKD(), 
+            Math.abs(speedMax), -Math.abs(speedMax));
+
+        _liftRearMotor.set(ControlMode.PercentOutput, speed);
     }
 
     public int getHorizontalPosition() {

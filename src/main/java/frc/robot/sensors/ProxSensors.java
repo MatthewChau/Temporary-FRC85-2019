@@ -28,8 +28,8 @@ public class ProxSensors extends Subsystem {
         _liftTopLimit = new DigitalInput(Addresses.LIFT_TOP_LIMIT);
         _liftBottomLimit = new DigitalInput(Addresses.LIFT_BOTTOM_LIMIT);
 
-        _liftFrontLimit= new DigitalInput(Addresses.LIFT_LEFT_LIMIT);
-        _liftRearLimit = new DigitalInput(Addresses.LIFT_RIGHT_LIMIT);
+        _liftFrontLimit= new DigitalInput(Addresses.LIFT_FRONT_LIMIT);
+        _liftRearLimit = new DigitalInput(Addresses.LIFT_BACK_LIMIT);
 
         _intakeTopLimit = new DigitalInput(Addresses.INTAKE_TOP_LIMIT);
         _intakeBottomLimit = new DigitalInput(Addresses.INTAKE_BOTTOM_LIMIT);

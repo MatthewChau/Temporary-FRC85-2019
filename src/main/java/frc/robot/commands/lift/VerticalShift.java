@@ -13,24 +13,32 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class VerticalShift extends Command {
 
-    private int _speed, _targetPosition; //positive means going up, negative means going down
-    private double _liftTolerance = 10.0; //the motors have to be within 10 encoder ticks in order for the command to stop
+    private int _speedMax, _targetPosition; //positive means going up, negative means going down
+    private int _liftTolerance = 10; //the motors have to be within 10 encoder ticks in order for the command to stop
 
-    public VerticalShift(int position, int speed) {
+    public VerticalShift(int position, int speedMax) {
         requires(LiftVertical.getInstance());
         _targetPosition = position;
-        _speed = speed;
+        _speedMax = speedMax;
+    }
+
+    /**
+     * @param timeout in seconds
+     */
+    public VerticalShift(int position, int speedMax, double timeout) {
+        requires(LiftVertical.getInstance());
+        _targetPosition = position;
+        _speedMax = speedMax;
+        setTimeout(timeout);
     }
 
     @Override
     protected void initialize() {
-        super.initialize();
-        LiftVertical.getInstance().verticalShift(_targetPosition, _speed);
     }
 
     @Override
     protected void execute() {
-        super.execute();
+        LiftVertical.getInstance().verticalShift(_targetPosition, _speedMax);
     }
 
     @Override
@@ -40,7 +48,6 @@ public class VerticalShift extends Command {
 
     @Override
     protected void end() {
-        super.end();
         LiftVertical.getInstance().verticalShift(0,0);
     }
 

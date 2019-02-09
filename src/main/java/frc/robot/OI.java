@@ -38,7 +38,6 @@ public class OI {
     private JoystickButton _operatorPhaseZero, _operatorPhaseOne, _operatorPhaseTwo, _operatorPhaseThree, _operatorLeftBumper, _operatorRightBumper;
 
     private double _xSpeed = 0, _ySpeed = 0, _zRotation = 0;
-    private double _liftSpeed = 0;
 
     private double _gyroAngle;
 
@@ -126,19 +125,11 @@ public class OI {
      */
     
     public double getLiftVertical() {
-        if (!LiftVertical.getInstance().checkVerticalLift(_operatorController.getRawAxis(1))) {
-            return _liftSpeed = 0;
-        } else {
-            return _liftSpeed = _operatorController.getRawAxis(1) * 0.5;
-        }
+        return -_operatorController.getRawAxis(1) * 0.5;
     }
 
     public double getLiftHorizontal() {
-        if (!LiftHorizontal.getInstance().checkHorizontalLift(_operatorController.getRawAxis(0))) {
-            return _liftSpeed = 0;
-        } else {
-            return _liftSpeed = _operatorController.getRawAxis(0) * 0.5;
-        }
+        return _operatorController.getRawAxis(0) * 0.5;
     }
 
     public boolean isHeadless() {

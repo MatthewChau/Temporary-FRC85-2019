@@ -48,12 +48,22 @@ public class LiftVertical extends Subsystem {
     }
 
     public void verticalShift(double speed) {
-        _liftLeftMotor.set(ControlMode.PercentOutput, speed);
-        _liftRightMotor.set(ControlMode.PercentOutput, -speed);
+        if ((ProxSensors.getInstance().getLiftTopLimit() && speed > 0) 
+            || (ProxSensors.getInstance().getLiftBottomLimit() && speed < 0)) {
+                _liftLeftMotor.set(ControlMode.PercentOutput, speed);
+                _liftRightMotor.set(ControlMode.PercentOutput, -speed);
+            } else {
+                _liftLeftMotor.set(ControlMode.PercentOutput, 0);
+                _liftRightMotor.set(ControlMode.PercentOutput, 0);
+            }
     } 
 
+    /**
+     * @param targetPosition, encoder counts
+     * @param speedMax, max speed that motor will run at 
+     */
     public void verticalShift(int targetPosition, double speedMax) {
-        double speed = OI.getInstance().applyPID(OI.getInstance().LIFT_VERTICAL_SYSTEM, LiftVertical.getInstance().getVerticalPosition(), targetPosition, 
+        double speed = OI.getInstance().applyPID(OI.getInstance().LIFT_VERTICAL_SYSTEM, getVerticalPosition(), targetPosition, 
             Variables.getInstance().getVerticalLiftKP(), Variables.getInstance().getVerticalLiftKI(), Variables.getInstance().getVerticalLiftKD(), 
             Math.abs(speedMax), -Math.abs(speedMax));
 
@@ -61,17 +71,6 @@ public class LiftVertical extends Subsystem {
         _liftRightMotor.set(ControlMode.PercentOutput, -speed); //Guess, since the motors are gonna be facing different directions. 
     }
 
-    /**
-     * Checks the lift's proximity sensors, a false = do not drive
-     */
-    public boolean checkVerticalLift(double speed) {
-        if ((ProxSensors.getInstance().getLiftTopLimit() && speed > 0) || (ProxSensors.getInstance().getLiftBottomLimit() && speed < 0)) {
-            return false;
-        } else {
-            return true;
-        }
-    }
-  
     public int getVerticalPosition() {
         return _liftLeftMotor.getSelectedSensorPosition();
     }

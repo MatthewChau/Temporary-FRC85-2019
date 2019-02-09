@@ -23,8 +23,10 @@ public class Variables {
     // LIFT
 
     // Lift Vertical PID
-
     private static final double kP_VLIFT = 0.1, kI_VLIFT = 0.000001, kD_VLIFT = 0.2;
+
+    // Lift Horizontal PID
+    private static final double kP_HLIFT = 0.1, kI_HLIFT = 0.000001, kD_HLIFT = 0.2;
 
     // Lift Vertical Postitions
     public static final int HATCH_LOW = 10;
@@ -63,7 +65,7 @@ public class Variables {
     public final int MAX_TURNS = 5; // if we go over 1800 degrees in either direction in one match then help.
 
     /**
-     * Put variables here that should be changebale on the fly.
+     * Put variables here that should be changeable on the fly.
      */
     private Variables() {
         SmartDashboard.putNumber("kP_VLIFT", kP_VLIFT);
@@ -88,6 +90,18 @@ public class Variables {
 
     public double getVerticalLiftKD() {
         return SmartDashboard.getNumber("kD_VLIFT", kD_VLIFT);
+    }
+
+    public double getHorizontalLiftKP() {
+        return SmartDashboard.getNumber("kP_HLIFT", kP_HLIFT);
+    }
+
+    public double getHorizontalLiftKI() {
+        return SmartDashboard.getNumber("kI_HLIFT", kI_HLIFT);
+    }
+
+    public double getHorizontalLiftKD() {
+        return SmartDashboard.getNumber("kD_HLIFT", kD_HLIFT);
     }
 
     /**
