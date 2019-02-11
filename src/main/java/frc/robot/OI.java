@@ -92,9 +92,6 @@ public class OI {
 
         FollowTarget followTarget;
         _driverYButton.whileActive(followTarget = new FollowTarget()); //follows when pressed
-
-        _driverXButton.whenPressed(new DriveServo(0.5));
-        _driverXButton.whenReleased(new DriveServo(0.0));
     }
 
     public static OI getInstance() {
@@ -142,34 +139,36 @@ public class OI {
     }
 
     public boolean isHeadless() {
-        SmartDashboard.putBoolean("Headless", _driverController.getRawButton(6));
+        SmartDashboard.putBoolean("Headless", _driverController.getRawButton(6)); // right bumper
         return _driverController.getRawButton(6);
     }
 
-    public boolean forwardOnly() {
+    public boolean forwardOnly() { // a button send help
         SmartDashboard.putBoolean("Forward Only", _driverController.getRawButton(1));
         return _driverController.getRawButton(1);
     }
 
-    public boolean directionOne() {
+    public boolean directionOne() { // currently not implemented
         SmartDashboard.putBoolean("90 Left", _driverController.getRawButton(3));
         return _driverController.getRawButton(3);
     }
 
-    public boolean directionTwo() {
+    public boolean directionTwo() { // currently not implemented
         SmartDashboard.putBoolean("90 Right", _driverController.getRawButton(2));
         return _driverController.getRawButton(2);
     }
 
     public double fixArcTangent(double angle, double x, double y) { // fix an angle output by arctan
-        if (y >= 0) {
-            if (x >= 0) {
-                angle -= 180;
+        if (y >= 0) { // apparently y is positive when pointing down right now.  not entirely sure why, but... yeah
+            if (x > 0) {
+                angle -= 90;
             } else {
                 angle = 180 - angle;
             }
         }
-        // if y is above 0, there should be no need to change anything; the range goes from -90 to 90
+        SmartDashboard.putNumber("x for joystick", x);
+        SmartDashboard.putNumber("y for joystick", y);
+
         return angle;
     }
 
@@ -187,7 +186,7 @@ public class OI {
         }
     }
 
-    private void debugMessages(int system, double error, double target, double output) {
+    private void debugMessages(int system, double current, double error, double target, double output) {
         switch(system) {
             case ROT_SYSTEM:
                 SmartDashboard.putNumber("Rot PID Target", target);
@@ -219,7 +218,7 @@ public class OI {
                 }
                 return true;
             case VISION_ROT_SYSTEM:
-                if (Math.abs(error) < 15) {
+                if (Math.abs(error) < 3) {
                     return false;
                 }
                 return true;
@@ -286,7 +285,7 @@ public class OI {
 
         logErrorForIntegral(system, error);
 
-        debugMessages(system, error, target, output); // made a new method so as not to clog up this method
+        debugMessages(system, current, error, target, output); // made a new method so as not to clog up this method
 
         lastOutput[system] = output;
 

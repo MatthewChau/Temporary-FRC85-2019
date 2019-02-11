@@ -102,7 +102,7 @@ public class DriveTrain extends Subsystem {
                 } else if (OI.getInstance().forwardOnly()) { // finally we check if we are in that specific mode
                     setForwardOnlyTargetAngle();
                     fixAngles(inputs[3]);
-                    inputs[2] = OI.getInstance().applyPID(OI.getInstance().ROT_SYSTEM, inputs[3], targetAngle, kPRot, kIRot, kDRot, kMaxOuputRot, kMinOuputRot);
+                    inputs[2] = OI.getInstance().applyPID(OI.getInstance().ROT_SYSTEM, inputs[3], targetAngle, kPRot, kIRot, kDRot, 1.5, -1.5);
                 } else { // normal movement
                     setTargetAngleMoving(inputs[3]);
                     inputs[2] = OI.getInstance().applyPID(OI.getInstance().ROT_SYSTEM, inputs[3], targetAngle, kPRot, kIRot, kDRot, kMaxOuputRot, kMinOuputRot);
