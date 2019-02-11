@@ -74,9 +74,15 @@ public class DriveTrain extends Subsystem {
     public void cartDrive(double[] inputs) {
         int i;
 
-        if (Math.abs(inputs[0]) > Variables.getInstance().DEADBAND 
+        if (OI.getInstance().directionOne()) {
+            setTurn90TargetAngle(true, inputs[3]); // turn left
+        } else if (OI.getInstance().directionTwo()) {
+            setTurn90TargetAngle(false, inputs[3]); // turn right
+        }
+        else if (Math.abs(inputs[0]) > Variables.getInstance().DEADBAND 
             || Math.abs(inputs[1]) > Variables.getInstance().DEADBAND
-            || Math.abs(inputs[2]) > Variables.getInstance().DEADBAND) {
+            || Math.abs(inputs[2]) > Variables.getInstance().DEADBAND
+            || turnInProgress) {
             for (i = 0; i < 2; i++) { // normalize axis inputs
                 if (inputs[i] > 1.0) {
                     inputs[i] = 1.0;
@@ -89,11 +95,11 @@ public class DriveTrain extends Subsystem {
             if (OI.getInstance().isHeadless() || OI.getInstance().forwardOnly()) { // if headless, account for it
                 vector.rotate(inputs[3]);
             }
-
-            if (Math.abs(inputs[2]) < Variables.getInstance().DEADBAND && !OI.getInstance().isHeadless()) { // we will deal with headless later ahaha
-                if (turnInProgress) { // note that this block exists for the sole purpose of overriding things when they are in progress
-                    inputs[2] = OI.getInstance().applyPID(OI.getInstance().ROT_SYSTEM, inputs[3], targetAngle, kPRot, kIRot, kDRot);
-                } else if (OI.getInstance().directionOne()) {
+            
+            if (turnInProgress) { // note that this block exists for the sole purpose of overriding things when they are in progress
+                inputs[2] = OI.getInstance().applyPID(OI.getInstance().ROT_SYSTEM, inputs[3], targetAngle, kPRot, kIRot, kDRot);
+            } else if (Math.abs(inputs[2]) < Variables.getInstance().DEADBAND && !OI.getInstance().isHeadless()) { // we will deal with headless later ahaha
+                if (OI.getInstance().directionOne()) {
                     setTurn90TargetAngle(true, inputs[3]); // turn left
                     inputs[2] = OI.getInstance().applyPID(OI.getInstance().ROT_SYSTEM, inputs[3], targetAngle, kPRot, kIRot, kDRot); // note that no constraints are made here because we just wanna move
                 } else if (OI.getInstance().directionTwo()) {
