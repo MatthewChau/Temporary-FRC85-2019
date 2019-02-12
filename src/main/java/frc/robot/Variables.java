@@ -58,7 +58,7 @@ public class Variables {
     public static final int INTAKE_DEGREE_THREE = 95;
 
     public final double DEADBAND = 0.05;
-    public final double TOLERANCE_ANGLE = 10.0;
+    public final double TOLERANCE_ANGLE = 6.0;
     public final int MAX_TURNS = 5; // if we go over 1800 degrees in either direction in one match then help.
 
 

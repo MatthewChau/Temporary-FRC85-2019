@@ -145,12 +145,12 @@ public class OI {
         return _driverController.getRawButton(1);
     }
 
-    public boolean directionOne() { // currently not implemented
+    public boolean directionOne() {
         SmartDashboard.putBoolean("90 Left", _driverController.getRawButton(3));
         return _driverController.getRawButton(3);
     }
 
-    public boolean directionTwo() { // currently not implemented
+    public boolean directionTwo() {
         SmartDashboard.putBoolean("90 Right", _driverController.getRawButton(2));
         return _driverController.getRawButton(2);
     }

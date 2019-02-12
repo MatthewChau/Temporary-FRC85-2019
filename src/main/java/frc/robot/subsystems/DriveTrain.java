@@ -96,8 +96,7 @@ public class DriveTrain extends Subsystem {
                 inputs[2] = OI.getInstance().applyPID(OI.getInstance().ROT_SYSTEM, inputs[3], targetAngle, kPRot, kIRot, kDRot);
             } else if (Math.abs(inputs[2]) < Variables.getInstance().DEADBAND && !OI.getInstance().isHeadless()) { // we will deal with headless later ahaha
                 if (OI.getInstance().forwardOnly()) { // finally we check if we are in that specific mode
-                    setForwardOnlyTargetAngle();
-                    fixAngles(inputs[3]);
+                    setForwardOnlyTargetAngle(inputs[3]);
                     inputs[2] = OI.getInstance().applyPID(OI.getInstance().ROT_SYSTEM, inputs[3], targetAngle, kPRot, kIRot, kDRot, 1.5, -1.5);
                 } else { // normal movement
                     setTargetAngleMoving(inputs[3]);
@@ -181,19 +180,35 @@ public class DriveTrain extends Subsystem {
     arctan(|X / Y|)
     then we fix it using the method in OI to adjust it so that we can use it (i.e. arctan doesn't always return 0-90!), commented there
     note that this is if you want the robot to go FORWARD facing this angle
+    we then set it to the closest to the current angle that the robot is, using a temp var so that we can pass a value before editing the targetValue
     */
     
-    private void setForwardOnlyTargetAngle() { // this still needs to be tested
+    private void setForwardOnlyTargetAngle(double gyroAngle) {
+        double minDiff = 180.0;
+        double newTargetAngle = 0.0;
+        double temp = 0.0;
+        int i;
         double joystickAngle = Math.toDegrees(Math.atan(-OI.getInstance().getXInput() / Math.abs(OI.getInstance().getYInput()))); // get angle from the top, making left positive
+        
         joystickAngle = OI.getInstance().fixArcTangent(joystickAngle, OI.getInstance().getXInput(), OI.getInstance().getYInput()); // fix the arctan angle so that we get a full 360 degrees
+        
         if (Math.abs((Math.abs(targetAngle) % 360) - Math.abs(joystickAngle)) > Variables.getInstance().TOLERANCE_ANGLE) { // if the new angle differs "significantly"
-            targetAngle = joystickAngle;
+            temp = joystickAngle;
         }
+        
+        for (i = -Variables.getInstance().MAX_TURNS; i < Variables.getInstance().MAX_TURNS; i++) {
+            if (Math.abs(temp + 360 * i - gyroAngle) < minDiff) { // if the new diff is less than the recorded minimum thus far
+                minDiff = (temp + 360 * i - gyroAngle);
+                newTargetAngle = temp + 360 * i; // note that we can't edit targetAngle directly while the loop is happening
+            }
+        }
+
+        targetAngle = newTargetAngle; // and finally set targetAngle
     }
 
     // note that we only set the targetAngle here if the turnInProgress isn't happening, otherwise it maintains it value
 
-    public void setTurn90TargetAngle(boolean direction, double gyroAngle) { // also needs to be tested
+    public void setTurn90TargetAngle(boolean direction, double gyroAngle) {
         if (!turnInProgress) {
             if (direction) { // turn left
                 targetAngle = gyroAngle + 90;
@@ -219,17 +234,4 @@ public class DriveTrain extends Subsystem {
         }
     }
 
-    private void fixAngles(double gyroAngle) { // adjust current angle to gyro angle
-        double minDiff = 180.0;
-        double newTargetAngle = 0.0;
-        int i;
-
-        for (i = -Variables.getInstance().MAX_TURNS; i < Variables.getInstance().MAX_TURNS; i++) {
-            if (Math.abs(targetAngle + 360 * i - gyroAngle) < minDiff) {
-                minDiff = (targetAngle + 360 * i - gyroAngle);
-                newTargetAngle = targetAngle + 360 * i; // note that we can't edit targetAngle directly
-            }
-        }
-        targetAngle = newTargetAngle;
-    }
 }
