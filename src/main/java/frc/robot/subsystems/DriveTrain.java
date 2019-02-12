@@ -14,9 +14,6 @@ import frc.robot.Variables;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.Vector2d;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
-import javax.swing.text.StyleContext.SmallAttributeSet;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
@@ -74,15 +71,14 @@ public class DriveTrain extends Subsystem {
     public void cartDrive(double[] inputs) {
         int i;
 
-        if (OI.getInstance().directionOne()) {
+        /*if (OI.getInstance().directionOne()) {
             setTurn90TargetAngle(true, inputs[3]); // turn left
         } else if (OI.getInstance().directionTwo()) {
             setTurn90TargetAngle(false, inputs[3]); // turn right
-        }
-        else if (Math.abs(inputs[0]) > Variables.getInstance().DEADBAND 
+        } else */if (Math.abs(inputs[0]) > Variables.getInstance().DEADBAND 
             || Math.abs(inputs[1]) > Variables.getInstance().DEADBAND
             || Math.abs(inputs[2]) > Variables.getInstance().DEADBAND
-            || turnInProgress) {
+            /*|| turnInProgress*/) {
             for (i = 0; i < 2; i++) { // normalize axis inputs
                 if (inputs[i] > 1.0) {
                     inputs[i] = 1.0;
@@ -99,13 +95,7 @@ public class DriveTrain extends Subsystem {
             if (turnInProgress) { // note that this block exists for the sole purpose of overriding things when they are in progress
                 inputs[2] = OI.getInstance().applyPID(OI.getInstance().ROT_SYSTEM, inputs[3], targetAngle, kPRot, kIRot, kDRot);
             } else if (Math.abs(inputs[2]) < Variables.getInstance().DEADBAND && !OI.getInstance().isHeadless()) { // we will deal with headless later ahaha
-                if (OI.getInstance().directionOne()) {
-                    setTurn90TargetAngle(true, inputs[3]); // turn left
-                    inputs[2] = OI.getInstance().applyPID(OI.getInstance().ROT_SYSTEM, inputs[3], targetAngle, kPRot, kIRot, kDRot); // note that no constraints are made here because we just wanna move
-                } else if (OI.getInstance().directionTwo()) {
-                    setTurn90TargetAngle(false, inputs[3]); // turn right
-                    inputs[2] = OI.getInstance().applyPID(OI.getInstance().ROT_SYSTEM, inputs[3], targetAngle, kPRot, kIRot, kDRot);
-                } else if (OI.getInstance().forwardOnly()) { // finally we check if we are in that specific mode
+                if (OI.getInstance().forwardOnly()) { // finally we check if we are in that specific mode
                     setForwardOnlyTargetAngle();
                     fixAngles(inputs[3]);
                     inputs[2] = OI.getInstance().applyPID(OI.getInstance().ROT_SYSTEM, inputs[3], targetAngle, kPRot, kIRot, kDRot, 1.5, -1.5);
@@ -203,7 +193,7 @@ public class DriveTrain extends Subsystem {
 
     // note that we only set the targetAngle here if the turnInProgress isn't happening, otherwise it maintains it value
 
-    private void setTurn90TargetAngle(boolean direction, double gyroAngle) { // also needs to be tested
+    public void setTurn90TargetAngle(boolean direction, double gyroAngle) { // also needs to be tested
         if (!turnInProgress) {
             if (direction) { // turn left
                 targetAngle = gyroAngle + 90;

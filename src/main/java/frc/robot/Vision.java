@@ -25,6 +25,10 @@ public class Vision {
 		return _instance;
 	}
 	
+	/*********************
+	 * TWO TARGET THINGS * - activated by X BUTTON
+	 *********************/
+
 	public double getAreaDifference() {
 		double[] areaTable = null;
 		double[] centerXTable = null;
@@ -54,7 +58,7 @@ public class Vision {
 		}
 	}
 	
-	public double centerX() {
+	public double twoTargetCenter() {
 		try {
 			double[] centerXArray = null;
 			
@@ -78,7 +82,7 @@ public class Vision {
 		}
 	}
 
-	public double distance() {
+	public double twoTargetDistance() {
 		
 		double[] heightArray = null;
 		double[] widthArray = null;
@@ -106,19 +110,23 @@ public class Vision {
 
 					distance = 10.8*160/(2*centerDistance*Math.tan(Math.toRadians(20.854)));
 
-					return distance - 10;
+					return distance;
 				} else {
-					return 50;
+					return 0.0;
 				}
 
 			} else {
-				return 50;
+				return 0.0;
 			}
 
 		} catch(Exception e) {
-			return 40; // do we want to use a number so that we can tell it obviously isn't working?
+			return 0.0; // use a number so that we can tell it isn't working
 		}
 	}
+
+	/*********************
+	 * ONE TARGET THINGS * - activated by Y BUTTON
+	 *********************/
 
 	/**
 	 * @return degrees the robot needs to turn to be aligned with the alignment line. Counter-clockwise is positive.
@@ -188,7 +196,11 @@ public class Vision {
 		return turn;
 	}
 
-	public double turnAngleForPID() { // given the white line
+	/*public double oneTargetCenter() {
+
+	}*/
+
+	public double oneTargetAngle() { // given the white line
 		NetworkTable _table;
 		double[] angleArray = {0.0, 0.0};
 		double angle1, angle2;

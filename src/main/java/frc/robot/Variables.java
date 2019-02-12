@@ -8,10 +8,9 @@
 package frc.robot;
 
 import frc.robot.subsystems.DriveTrain;
-import frc.robot.sensors.ProxSensors;
+//import frc.robot.sensors.ProxSensors;
 import frc.robot.sensors.IMU;
 
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Variables {
@@ -103,7 +102,7 @@ public class Variables {
         SmartDashboard.putNumber("Right Front Percent", DriveTrain.getInstance().getRightFrontPercent());
         SmartDashboard.putNumber("Right Back Percent", DriveTrain.getInstance().getRightBackPercent());
 
-        SmartDashboard.putNumber("Distance", Vision.getInstance().distance());
+        SmartDashboard.putNumber("Distance", Vision.getInstance().twoTargetDistance());
 
         SmartDashboard.putNumber("Fused", IMU.getInstance().getFusedHeading());
 

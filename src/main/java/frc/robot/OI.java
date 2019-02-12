@@ -12,7 +12,8 @@ import frc.robot.subsystems.LiftVertical;
 import frc.robot.subsystems.LiftHorizontal;
 import frc.robot.sensors.IMU;
 
-import frc.robot.commands.drivetrain.FollowTarget;
+import frc.robot.commands.drivetrain.FollowOneTarget;
+import frc.robot.commands.drivetrain.FollowTwoTarget;
 import frc.robot.commands.lift.VerticalShift;
 import frc.robot.commands.lift.HorizontalShift;
 import frc.robot.commands.lift.VerticalShift;
@@ -90,8 +91,11 @@ public class OI {
         Arrays.fill(lastOutput, 0.0);
         Arrays.fill(lastActual, 0.0);
 
-        FollowTarget followTarget;
-        _driverYButton.whileActive(followTarget = new FollowTarget()); //follows when pressed
+        FollowOneTarget followOneTarget;
+        _driverYButton.whileActive(followOneTarget = new FollowOneTarget()); //follows when pressed
+        
+        FollowTwoTarget followTwoTarget;
+        _driverXButton.whileActive(followTwoTarget = new FollowTwoTarget());
     }
 
     public static OI getInstance() {
@@ -166,9 +170,6 @@ public class OI {
                 angle = 180 - angle;
             }
         }
-        SmartDashboard.putNumber("x for joystick", x);
-        SmartDashboard.putNumber("y for joystick", y);
-
         return angle;
     }
 

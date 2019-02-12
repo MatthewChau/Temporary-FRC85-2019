@@ -11,7 +11,6 @@ import frc.robot.OI;
 import frc.robot.subsystems.DriveTrain;
 
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class DriveWithJoystick extends Command {
 

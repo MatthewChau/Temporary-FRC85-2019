@@ -19,6 +19,7 @@ import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.LiftVertical;
 import frc.robot.subsystems.LiftHorizontal;
+import frc.robot.Vision;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -36,14 +37,13 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void robotInit() {
-
-
         DriveTrain.getInstance();
         Intake.getInstance();
         LiftVertical.getInstance();
         LiftHorizontal.getInstance();
         OI.getInstance();
         IMU.getInstance();
+        Vision.getInstance();
     }
 
     /**
