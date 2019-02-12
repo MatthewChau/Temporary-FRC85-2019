@@ -28,8 +28,6 @@ public class DriveTrain extends Subsystem {
 
     private double kPRot = 0.05, kIRot = 0.0, kDRot = 0.0;
     private double kMaxOuputRot = 1.0, kMinOuputRot = -1.0;
-    //private double kPForwardOnly = 0.0, kIForwardOnly = 0.0, kDForwardOnly = 0.0; // might end up only using Rot constants
-    //private double baseJoystickAngle = 0.0; // don't think we need this for what we are doing yet
     private double targetAngle = 0.0;
     public boolean turnInProgress = false; // only used for the 90 degree turns
     private double[] wheelSpeeds = new double[4];
@@ -68,6 +66,7 @@ public class DriveTrain extends Subsystem {
      * 2 - zRotation - positive is counter-clockwise
      * 3 - gyroAngle 
      */
+    
     public void cartDrive(double[] inputs) {
         int i;
 
@@ -87,8 +86,8 @@ public class DriveTrain extends Subsystem {
                 }
             }
 
-            Vector2d vector = new Vector2d(-inputs[1], inputs[0]); // invert everything because they inverted motors on us
-            if (OI.getInstance().isHeadless() || OI.getInstance().forwardOnly()) { // if headless, account for it
+            Vector2d vector = new Vector2d(-inputs[1], inputs[0]);
+            if (OI.getInstance().isHeadless() || OI.getInstance().forwardOnly()) { // if headless/forward only, account for it
                 vector.rotate(inputs[3]);
             }
             
@@ -166,6 +165,10 @@ public class DriveTrain extends Subsystem {
         return _leftBackMotor;
     }
 
+    public void setTargetAngle(double angle) { // might not end up using this elsewhere, but here it is i suppose
+        targetAngle = angle;
+    }
+
     private void setTargetAngleMoving(double gyroAngle) { // if necessary, change the target angle
         if (Math.abs(Math.abs(gyroAngle) - Math.abs(targetAngle)) > Variables.getInstance().TOLERANCE_ANGLE) {
             targetAngle = gyroAngle;
@@ -206,10 +209,8 @@ public class DriveTrain extends Subsystem {
         targetAngle = newTargetAngle; // and finally set targetAngle
     }
 
-    // note that we only set the targetAngle here if the turnInProgress isn't happening, otherwise it maintains it value
-
     public void setTurn90TargetAngle(boolean direction, double gyroAngle) {
-        if (!turnInProgress) {
+        if (!turnInProgress) { // checked here because otherwise it would be checked every single time we call the function
             if (direction) { // turn left
                 targetAngle = gyroAngle + 90;
             } else { // turn right
@@ -220,14 +221,16 @@ public class DriveTrain extends Subsystem {
     }
 
     private void limitSpeeds(double[] speeds) { // take the highest speed & then adjust everything else proportionally if it is over 1
-        double maxMagnitude = Math.abs(speeds[0]);
+        double maxMagnitude = Math.abs(speeds[0]); // choose an arbitrary one of them to be the max as an init thing
         int i;
+
         for (i = 0; i < 3; i++) {
-            if (Math.abs(speeds[i]) > maxMagnitude) {
+            if (Math.abs(speeds[i]) > maxMagnitude) { // if the i'th speed is larger, change maxMag to be the i'th speed
                 maxMagnitude = Math.abs(speeds[i]);
             }
         }
-        if (maxMagnitude > 1.0) {
+
+        if (maxMagnitude > 1.0) { // this thus normalizes the speeds proportionally speaking
             for (i = 0; i < 3; i++) {
                 speeds[i] = speeds[i] / maxMagnitude;
             }
