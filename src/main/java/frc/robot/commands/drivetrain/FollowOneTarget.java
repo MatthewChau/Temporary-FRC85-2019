@@ -8,8 +8,6 @@ import frc.robot.Vision;
 import frc.robot.subsystems.DriveTrain;
 
 public class FollowOneTarget extends Command {
-    private double[] _stop = new double[] {0, 0, 0, 0};
-
     //private boolean _targetFound;
     
     public FollowOneTarget() {
@@ -49,12 +47,12 @@ public class FollowOneTarget extends Command {
     @Override
     public synchronized void cancel() {
         super.cancel();
-        DriveTrain.getInstance().cartDrive(_stop);
+        DriveTrain.getInstance().cartDrive(OI.getInstance().stopArray);
     }
 
     @Override
     protected void end() {
         super.end();
-        DriveTrain.getInstance().cartDrive(_stop);
+        DriveTrain.getInstance().cartDrive(OI.getInstance().stopArray);
     }
 }

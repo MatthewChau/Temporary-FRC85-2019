@@ -66,7 +66,7 @@ public class DriveTrain extends Subsystem {
      * 0 - xSpeed - positive is right
      * 1 - ySpeed - positive is forward
      * 2 - zRotation - positive is counter-clockwise
-     * 3 - gyroAngle (0 if not really using)
+     * 3 - gyroAngle 
      */
     public void cartDrive(double[] inputs) {
         int i;

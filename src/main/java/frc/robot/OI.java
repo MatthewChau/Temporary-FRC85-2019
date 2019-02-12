@@ -59,6 +59,8 @@ public class OI {
     private double[] lastActual = new double[INTAKE_SYSTEM + 1];
     private double[][] errorLog = new double[INTAKE_SYSTEM][NUM_LOG_ENTRIES];
 
+    public double[] stopArray = new double[4];
+
     private OI() {
         _driverController = new Joystick(Addresses.CONTROLLER_DRIVER);
         /*_operatorController = new Joystick(Addresses.CONTROLLER_OPERATOR);
@@ -90,6 +92,8 @@ public class OI {
         Arrays.fill(errorSum, 0.0);
         Arrays.fill(lastOutput, 0.0);
         Arrays.fill(lastActual, 0.0);
+
+        Arrays.fill(stopArray, 0.0);
 
         FollowOneTarget followOneTarget;
         _driverYButton.whileActive(followOneTarget = new FollowOneTarget()); //follows when pressed
