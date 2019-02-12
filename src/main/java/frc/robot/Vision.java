@@ -196,9 +196,24 @@ public class Vision {
 		return turn;
 	}
 
-	/*public double oneTargetCenter() {
+	public double oneTargetCenter() {
+		NetworkTable table;
+		double[] x1Array = {0.0, 0.0}, x2Array = {0.0, 0.0};
+		//double x11, x12, x21, x22;
 
-	}*/
+		table = NetworkTable.getTable("GRIP/myLinesReport");
+		x1Array = table.getNumberArray("x1", x1Array);
+		x2Array = table.getNumberArray("x2", x2Array);
+
+		if ((x1Array.length + x2Array.length) > 3) { // maybe there's a way to conglomerate all the lines together.  look into it?
+			SmartDashboard.putNumber("x1 for vis", x1Array[0]);
+			SmartDashboard.putNumber("x2 for vis", x1Array[1]);
+			SmartDashboard.putNumber("x3 for vis", x2Array[0]);
+			SmartDashboard.putNumber("x4 for vis", x2Array[1]);
+			return ((x1Array[0] + x1Array[1] + x2Array[0] + x2Array[1]) / 4);
+		}
+		return 0.0;
+	}
 
 	public double oneTargetAngle() { // given the white line
 		NetworkTable _table;

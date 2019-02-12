@@ -20,6 +20,7 @@ import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.LiftVertical;
 import frc.robot.subsystems.LiftHorizontal;
 import frc.robot.Vision;
+import java.util.Arrays;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -71,8 +72,17 @@ public class Robot extends TimedRobot {
 
     @Override
     public void teleopInit() {
-
         IMU.getInstance().setFusedHeading(0);
+
+        // init the pid stuff 
+
+        Arrays.fill(OI.getInstance().firstRun, true);
+        Arrays.fill(OI.getInstance().errorSum, 0.0);
+        Arrays.fill(OI.getInstance().lastOutput, 0.0);
+        Arrays.fill(OI.getInstance().lastActual, 0.0);
+
+        Arrays.fill(OI.getInstance().stopArray, 0.0);
+
         super.teleopInit();
     }
 

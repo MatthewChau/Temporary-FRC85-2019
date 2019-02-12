@@ -26,8 +26,6 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
-import java.util.Arrays;
-
 public class OI {
 
     private static OI _instance;
@@ -53,15 +51,15 @@ public class OI {
 
     private int NUM_LOG_ENTRIES = 5;
 
-    private boolean[] firstRun = new boolean[INTAKE_SYSTEM + 1];
-    private double[] errorSum = new double[INTAKE_SYSTEM + 1];
-    private double[] lastOutput = new double[INTAKE_SYSTEM + 1];
-    private double[] lastActual = new double[INTAKE_SYSTEM + 1];
-    private double[][] errorLog = new double[INTAKE_SYSTEM][NUM_LOG_ENTRIES];
+    public boolean[] firstRun = new boolean[INTAKE_SYSTEM + 1];
+    public double[] errorSum = new double[INTAKE_SYSTEM + 1];
+    public double[] lastOutput = new double[INTAKE_SYSTEM + 1];
+    public double[] lastActual = new double[INTAKE_SYSTEM + 1];
+    public double[][] errorLog = new double[INTAKE_SYSTEM][NUM_LOG_ENTRIES];
 
     public double[] stopArray = new double[4];
 
-    private OI() {
+    private OI() { // is this run every single time getInstance is called?  we'll need to init pid stuff differently if so
         _driverController = new Joystick(Addresses.CONTROLLER_DRIVER);
         /*_operatorController = new Joystick(Addresses.CONTROLLER_OPERATOR);
 
@@ -85,15 +83,6 @@ public class OI {
 
         _operatorLeftBumper.whenActive(new HorizontalShift(0, 1)); //1 means to go left (or backward) hopefully
         _operatorRightBumper.whenActive(new HorizontalShift(1, -1)); //-1 means to go right (or forward) */
-
-        // init the pid stuff 
-
-        Arrays.fill(firstRun, true);
-        Arrays.fill(errorSum, 0.0);
-        Arrays.fill(lastOutput, 0.0);
-        Arrays.fill(lastActual, 0.0);
-
-        Arrays.fill(stopArray, 0.0);
 
         FollowOneTarget followOneTarget;
         _driverYButton.whileActive(followOneTarget = new FollowOneTarget()); //follows when pressed
@@ -228,7 +217,7 @@ public class OI {
                 }
                 return true;
             case VISION_X_SYSTEM:
-                if (Math.abs(error) < 10) {
+                if (Math.abs(error) < 5) {
                     return false;
                 }
                 return true;
