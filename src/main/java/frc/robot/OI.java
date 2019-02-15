@@ -61,29 +61,45 @@ public class OI {
 
     private OI() { // is this run every single time getInstance is called?  we'll need to init pid stuff differently if so
         _driverController = new Joystick(Addresses.CONTROLLER_DRIVER);
-        /*_operatorController = new Joystick(Addresses.CONTROLLER_OPERATOR);
+        _operatorController = new Joystick(Addresses.CONTROLLER_OPERATOR);
 
-        _operatorPhaseZero = new JoystickButton(_operatorController, 1); //Change values if needed
-        _operatorPhaseOne = new JoystickButton(_operatorController, 2); //Change values if needed
-        _operatorPhaseTwo = new JoystickButton(_operatorController, 3); //Change values if needed
-        _operatorPhaseThree = new JoystickButton(_operatorController, 4); //Change values if needed
-
-        _operatorLeftBumper = new JoystickButton(_operatorController, 1);
-        _operatorRightBumper = new JoystickButton(_operatorController, 2);
-*/
         _driverAButton = new JoystickButton(_driverController, 1);
         _driverBButton = new JoystickButton(_driverController, 2);
         _driverXButton = new JoystickButton(_driverController, 3);
         _driverYButton = new JoystickButton(_driverController, 4);
-/*
-        _operatorPhaseZero.whenPressed(new VerticalShift(0, 1)); //go to phase 0
-        _operatorPhaseOne.whenPressed(new VerticalShift(1, 1)); //go to phase 1
+
+        _operatorLiftDown = new JoystickButton(_operatorController, 1);
+
+        _operatorCargoPhaseOne = new JoystickButton(_operatorController, 2); //Change values if needed
+        _operatorCargoPhaseTwo = new JoystickButton(_operatorController, 3); //Change values if needed
+        _operatorCargoPhaseThree = new JoystickButton(_operatorController, 4); //Change values if needed
+
+        _operatorHatchPhaseOne = new JoystickButton(_operatorController, 5);
+        _operatorHatchPhaseTwo = new JoystickButton(_operatorController, 6);
+        _operatorHatchPhaseThree = new JoystickButton(_operatorController, 7);
+
+        _operatorLiftUpAndDown = new JoystickButton(_operatorController, 8);
+        _operatorIntakeRotate = new JoystickButton(_operatorController, 9);
+        _operatorMastBackAndForth = new JoystickButton(_operatorController, 10);
+        _operatorCargoIn = new JoystickButton(_operatorController, 11);
+
+        //Cargo Loading Station or Cargo Ship
+        _operatorCargoLSOCS = new JoystickButton(_operatorController, 12);
+        _operatorCargoOut = new JoystickButton(_operatorController, 13);
+        _operatorCargoFloor = new JoystickButton(_operatorController, 14);
+
+        //Hatch Loading Station or Cargo Ship
+        _operatorHatchLSOCS = new JoystickButton(_operatorController, 15);
+        _operatorHatchFloor = new JoystickButton(_operatorController, 16);
+        _operatorHatchRelease = new JoystickButton(_operatorController, 17);
+
+        /*_operatorPhaseOne.whenPressed(new VerticalShift(Variables.HATCH_LOW, 1)); //go to phase 1
         _operatorPhaseTwo.whenPressed(new VerticalShift(2, 1)); //go to phase 2
         _operatorPhaseThree.whenPressed(new VerticalShift(3, 1)); //go to phase 3
 
         _operatorLeftBumper.whenActive(new HorizontalShift(0, 1)); //1 means to go left (or backward) hopefully
         _operatorRightBumper.whenActive(new HorizontalShift(1, -1)); //-1 means to go right (or forward) */
-
+        */
         FollowOneTarget followOneTarget;
         _driverYButton.whileActive(followOneTarget = new FollowOneTarget()); //follows when pressed
         
