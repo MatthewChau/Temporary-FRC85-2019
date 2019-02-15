@@ -68,7 +68,7 @@ public class OI {
         _driverXButton = new JoystickButton(_driverController, 3);
         _driverYButton = new JoystickButton(_driverController, 4);
 
-        _operatorLiftDown = new JoystickButton(_operatorController, 1);
+        /*_operatorLiftDown = new JoystickButton(_operatorController, 1);
 
         _operatorCargoPhaseOne = new JoystickButton(_operatorController, 2); //Change values if needed
         _operatorCargoPhaseTwo = new JoystickButton(_operatorController, 3); //Change values if needed
@@ -91,7 +91,7 @@ public class OI {
         //Hatch Loading Station or Cargo Ship
         _operatorHatchLSOCS = new JoystickButton(_operatorController, 15);
         _operatorHatchFloor = new JoystickButton(_operatorController, 16);
-        _operatorHatchRelease = new JoystickButton(_operatorController, 17);
+        _operatorHatchRelease = new JoystickButton(_operatorController, 17);*/
 
         /*_operatorPhaseOne.whenPressed(new VerticalShift(Variables.HATCH_LOW, 1)); //go to phase 1
         _operatorPhaseTwo.whenPressed(new VerticalShift(2, 1)); //go to phase 2
@@ -99,7 +99,7 @@ public class OI {
 
         _operatorLeftBumper.whenActive(new HorizontalShift(0, 1)); //1 means to go left (or backward) hopefully
         _operatorRightBumper.whenActive(new HorizontalShift(1, -1)); //-1 means to go right (or forward) */
-        */
+        
         FollowOneTarget followOneTarget;
         _driverYButton.whileActive(followOneTarget = new FollowOneTarget()); //follows when pressed
         
@@ -151,24 +151,26 @@ public class OI {
         }
     }
 
-    public boolean isHeadless() {
-        SmartDashboard.putBoolean("Headless", _driverController.getRawButton(6)); // right bumper
+    public boolean getRightBumper() {
         return _driverController.getRawButton(6);
     }
 
-    public boolean forwardOnly() { // a button send help
-        SmartDashboard.putBoolean("Forward Only", _driverController.getRawButton(1));
+    public boolean getAButton() {
         return _driverController.getRawButton(1);
     }
 
-    public boolean directionOne() {
-        SmartDashboard.putBoolean("90 Left", _driverController.getRawButton(3));
+    public boolean getBButton() {
+        //SmartDashboard.putBoolean("90 Right", _driverController.getRawButton(2));
+        return _driverController.getRawButton(2);
+    }
+
+    public boolean getXButton() {
+        //SmartDashboard.putBoolean("90 Left", _driverController.getRawButton(3));
         return _driverController.getRawButton(3);
     }
 
-    public boolean directionTwo() {
-        SmartDashboard.putBoolean("90 Right", _driverController.getRawButton(2));
-        return _driverController.getRawButton(2);
+    public boolean getYButton() {
+        return _driverController.getRawButton(4);
     }
 
     public double fixArcTangent(double angle, double x, double y) { // fix an angle output by arctan
@@ -228,7 +230,8 @@ public class OI {
                 }
                 return true;
             case VISION_ROT_SYSTEM:
-                if (Math.abs(error) < 3) {
+                if (DriveTrain.getInstance().turnInProgress && Math.abs(error) < 3.0) {
+                    DriveTrain.getInstance().turnInProgress = false;
                     return false;
                 }
                 return true;
