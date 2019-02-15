@@ -30,7 +30,7 @@ public class DriveTrain extends Subsystem {
     private double kMaxOuputRot = 1.0, kMinOuputRot = -1.0;
     //private double kPForwardOnly = 0.0, kIForwardOnly = 0.0, kDForwardOnly = 0.0; // might end up only using Rot constants
     //private double baseJoystickAngle = 0.0; // don't think we need this for what we are doing yet
-    private double targetAngle = 0.0;
+    public double targetAngle = 0.0;
     public boolean turnInProgress = false; // only used for the 90 degree turns
     private double[] wheelSpeeds = new double[4];
 
@@ -71,9 +71,9 @@ public class DriveTrain extends Subsystem {
     public void cartDrive(double[] inputs) {
         int i;
 
-        /*if (OI.getInstance().directionOne()) {
+        /*if (OI.getInstance().getXButton()) {
             setTurn90TargetAngle(true, inputs[3]); // turn left
-        } else if (OI.getInstance().directionTwo()) {
+        } else if (OI.getInstance().getBButton()) {
             setTurn90TargetAngle(false, inputs[3]); // turn right
         } else */if (Math.abs(inputs[0]) > Variables.getInstance().DEADBAND 
             || Math.abs(inputs[1]) > Variables.getInstance().DEADBAND
@@ -88,14 +88,14 @@ public class DriveTrain extends Subsystem {
             }
 
             Vector2d vector = new Vector2d(-inputs[1], inputs[0]); // invert everything because they inverted motors on us
-            if (OI.getInstance().isHeadless() || OI.getInstance().forwardOnly()) { // if headless, account for it
+            if (OI.getInstance().isHeadless() || OI.getInstance().getAButton()) { // if headless, account for it
                 vector.rotate(inputs[3]);
             }
             
             if (turnInProgress) { // note that this block exists for the sole purpose of overriding things when they are in progress
                 inputs[2] = OI.getInstance().applyPID(OI.getInstance().ROT_SYSTEM, inputs[3], targetAngle, kPRot, kIRot, kDRot);
             } else if (Math.abs(inputs[2]) < Variables.getInstance().DEADBAND && !OI.getInstance().isHeadless()) { // we will deal with headless later ahaha
-                if (OI.getInstance().forwardOnly()) { // finally we check if we are in that specific mode
+                if (OI.getInstance().getAButton()) { // finally we check if we are in that specific mode
                     setForwardOnlyTargetAngle();
                     fixAngles(inputs[3]);
                     inputs[2] = OI.getInstance().applyPID(OI.getInstance().ROT_SYSTEM, inputs[3], targetAngle, kPRot, kIRot, kDRot, 1.5, -1.5);
@@ -204,6 +204,17 @@ public class DriveTrain extends Subsystem {
         }
     }
 
+    public void setTargetAngle(double angle) { // make sure to call fixAngles afterward
+        if (!turnInProgress) {
+            targetAngle = angle;
+            turnInProgress = true;
+        }
+    }
+
+    public double getTargetAngle() {
+        return targetAngle;
+    }
+
     private void limitSpeeds(double[] speeds) { // take the highest speed & then adjust everything else proportionally if it is over 1
         double maxMagnitude = Math.abs(speeds[0]);
         int i;
@@ -219,7 +230,7 @@ public class DriveTrain extends Subsystem {
         }
     }
 
-    private void fixAngles(double gyroAngle) { // adjust current angle to gyro angle
+    public void fixAngles(double gyroAngle) { // adjust target angle to gyro angle
         double minDiff = 180.0;
         double newTargetAngle = 0.0;
         int i;
@@ -232,4 +243,5 @@ public class DriveTrain extends Subsystem {
         }
         targetAngle = newTargetAngle;
     }
+
 }

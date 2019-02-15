@@ -39,6 +39,11 @@ public class Variables {
     public static final int CARGO_LOADING_STATION = 95;
     public static final int CARGO_FLOOR = 5;
 
+    public static final double ROT_POS_1 = 90;
+    public static final double ROT_POS_2 = -90;
+    public static final double ROT_POS_3 = 60;
+    public static final double ROT_POS_4 = 120;
+
     // Lift Horizontal Positions
     public static int platform = 0;
     public static int bumpers = 0;

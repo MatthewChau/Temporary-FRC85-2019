@@ -215,7 +215,7 @@ public class Vision {
 		return 0.0;
 	}
 
-	public double oneTargetAngle() { // given the white line
+	/*public double oneTargetAngle() { // given the white line
 		NetworkTable _table;
 		double[] angleArray = {0.0, 0.0};
 		double angle1, angle2;
@@ -230,6 +230,6 @@ public class Vision {
 			return ((angle1 + angle2) / 2.0);
 		}
 		return 0.0; // no turning i guess
-	}
+	}*/
 
 }

@@ -140,19 +140,22 @@ public class OI {
         return _driverController.getRawButton(6);
     }
 
-    public boolean forwardOnly() { // a button send help
-        SmartDashboard.putBoolean("Forward Only", _driverController.getRawButton(1));
+    public boolean getAButton() {
         return _driverController.getRawButton(1);
     }
 
-    public boolean directionOne() { // currently not implemented
-        SmartDashboard.putBoolean("90 Left", _driverController.getRawButton(3));
+    public boolean getBButton() {
+        //SmartDashboard.putBoolean("90 Right", _driverController.getRawButton(2));
+        return _driverController.getRawButton(2);
+    }
+
+    public boolean getXButton() {
+        //SmartDashboard.putBoolean("90 Left", _driverController.getRawButton(3));
         return _driverController.getRawButton(3);
     }
 
-    public boolean directionTwo() { // currently not implemented
-        SmartDashboard.putBoolean("90 Right", _driverController.getRawButton(2));
-        return _driverController.getRawButton(2);
+    public boolean getYButton() {
+        return _driverController.getRawButton(4);
     }
 
     public double fixArcTangent(double angle, double x, double y) { // fix an angle output by arctan
@@ -212,7 +215,8 @@ public class OI {
                 }
                 return true;
             case VISION_ROT_SYSTEM:
-                if (Math.abs(error) < 3) {
+                if (DriveTrain.getInstance().turnInProgress && Math.abs(error) < 3.0) {
+                    DriveTrain.getInstance().turnInProgress = false;
                     return false;
                 }
                 return true;
