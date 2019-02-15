@@ -5,24 +5,24 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.belttrain;
+package frc.robot.commands.rearsolenoid;
 
-import frc.robot.subsystems.BeltSolenoid;
+import frc.robot.subsystems.RearSolenoid;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class SetBeltSolenoid extends Command {
+public class SetRearSolenoid extends Command {
 
     private boolean _activated;
 
-    public SetBeltSolenoid (boolean activated) {
-        requires(BeltSolenoid.getInstance());
+    public SetRearSolenoid(boolean activated) {
+        requires(RearSolenoid.getInstance());
         _activated = activated;
     }
 
     @Override
     protected void initialize() {
-        BeltSolenoid.getInstance().setBeltSolenoid(_activated);
+        RearSolenoid.getInstance().setRearSolenoid(_activated);
     }
 
     @Override

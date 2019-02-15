@@ -23,8 +23,12 @@ public class Addresses {
     public static final int BELTTRAIN_FRONT_MOTOR = 12;
     public static final int BELTTRAIN_BACK_MOTOR = 13;
 
-    //place holder Belt SolenOId
-    public static final int BELT_SOLENOID = 19; 
+    //Belt Solenoid
+    public static final int BELTTRAIN_LEFT_SOLENOID = 19; 
+    public static final int BELTTRAIN_RIGHT_SOLENOID = 20;
+
+    //Rear Solenoid
+    public static final int REAR_SOLENOID = 21;
    
      // IMU
     // public static final int IMUTalon = 2;

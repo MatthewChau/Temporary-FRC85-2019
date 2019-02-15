@@ -1,8 +1,9 @@
 package frc.robot.subsystems;
     
-import frc.robot.Addresses;
 import frc.robot.OI;
+import frc.robot.Addresses;
 import frc.robot.Variables;
+
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.Solenoid;
 
@@ -10,11 +11,11 @@ public class BeltSolenoid extends Subsystem {
     
     public static BeltSolenoid _instance = null;
 
-    private Solenoid _beltSolenoid;
+    private Solenoid _leftBeltSolenoid, _rightBeltSolenoid;
 
     public BeltSolenoid() {
-        
-        _beltSolenoid = new Solenoid(Addresses.BELT_SOLENOID);
+        _leftBeltSolenoid = new Solenoid(Addresses.BELTTRAIN_LEFT_SOLENOID);
+        _rightBeltSolenoid = new Solenoid(Addresses.BELTTRAIN_RIGHT_SOLENOID);
     }
 
     public static BeltSolenoid getInstance() {
@@ -29,12 +30,17 @@ public class BeltSolenoid extends Subsystem {
         
     }
 
-    public void setBeltSolenoid(boolean on) {
-        _beltSolenoid.set(on);
+    public void setBeltSolenoid(boolean activated) {
+        _leftBeltSolenoid.set(activated);
+        _rightBeltSolenoid.set(activated);
     }
 
-    public boolean getBeltSolenoid() {
-        return _beltSolenoid.get();
+    public boolean getLeftBeltSolenoid() {
+        return _leftBeltSolenoid.get();
+    }
+
+    public boolean getRightBeltSolenoid() {
+        return _rightBeltSolenoid.get();
     }
    
 }

@@ -13,44 +13,47 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class BeltTrainDrive extends Command {
 
-	double _speed;
+    double _speed;
 
-	public BeltTrainDrive(double speed) {
-		_speed = speed;
+    public BeltTrainDrive(double speed) {
+        requires(BeltTrain.getInstance());
+        _speed = speed;
+    }
 
-		// Use requires() here to declare subsystem dependencies
-		requires(BeltTrain.getInstance());
-	}
+    public BeltTrainDrive(double speed, double timeout) {
+        requires(BeltTrain.getInstance());
+        setTimeout(timeout);
+        _speed = speed;
+    }
 
-	// Called just before this Command runs the first time
-	@Override
-  	protected void initialize() {
+    // Called just before this Command runs the first time
+    @Override
+      protected void initialize() {
   
-	}
+    }
 
-  	// Called repeatedly when this Command is scheduled to run
-  	@Override
-  	protected void execute() {
-		BeltTrain.getInstance().DriveBelt(_speed);
-	}
+    // Called repeatedly when this Command is scheduled to run
+    @Override
+    protected void execute() {
+        BeltTrain.getInstance().DriveBelt(_speed);
+    }
 
-  	// Make this return true when this Command no longer needs to run execute()
-  	@Override
-  	protected boolean isFinished() {
-    	return false;
-  
-	}
+    // Make this return true when this Command no longer needs to run execute()
+    @Override
+    protected boolean isFinished() {
+        return false;
+    }
 
-  	// Called once after isFinished returns true
-  	@Override
-  	protected void end() {
-		BeltTrain.getInstance().DriveBelt(0);
-	}
+    // Called once after isFinished returns true
+    @Override
+    protected void end() {
+        BeltTrain.getInstance().DriveBelt(0);
+    }
 
-	// Called when another command which requires one or more of the same
-	// subsystems is scheduled to run
-	@Override
-	protected void interrupted() {
-  
-	}
+    // Called when another command which requires one or more of the same
+    // subsystems is scheduled to run
+    @Override
+    protected void interrupted() {
+    }
+    
 }
