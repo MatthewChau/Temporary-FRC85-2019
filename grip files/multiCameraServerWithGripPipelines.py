@@ -1,10 +1,4 @@
 #!/usr/bin/env python3
-#----------------------------------------------------------------------------
-# Copyright (c) 2018 FIRST. All Rights Reserved.
-# Open Source Software - may be modified and shared by FRC teams. The code
-# must be accompanied by the FIRST BSD license file in the root directory of
-# the project.
-#----------------------------------------------------------------------------
 
 import json
 import time
@@ -14,43 +8,9 @@ import numpy
 import cscore
 import cv2
 
-#from cscore import CameraServer, VideoSource, UsbCamera, MjpegServer, CvSink
 from networktables import NetworkTablesInstance
 from toppipeline import TopPipeline
 from bottompipeline import BottomPipeline
-
-#   JSON format:
-#   {
-#       "team": <team number>,
-#       "ntmode": <"client" or "server", "client" if unspecified>
-#       "cameras": [
-#           {
-#               "name": <camera name>
-#               "path": <path, e.g. "/dev/video0">
-#               "pixel format": <"MJPEG", "YUYV", etc>   // optional
-#               "width": <video mode width>              // optional
-#               "height": <video mode height>            // optional
-#               "fps": <video mode fps>                  // optional
-#               "brightness": <percentage brightness>    // optional
-#               "white balance": <"auto", "hold", value> // optional
-#               "exposure": <"auto", "hold", value>      // optional
-#               "properties": [                          // optional
-#                   {
-#                       "name": <property name>
-#                       "value": <property value>
-#                   }
-#               ],
-#               "stream": {                              // optional
-#                   "properties": [
-#                       {
-#                           "name": <stream property name>
-#                           "value": <stream property value>
-#                       }
-#                   ]
-#               }
-#           }
-#       ]
-#   }
 
 width=320
 height=240
@@ -70,38 +30,40 @@ def startCamera(name, path, configJson):
 
     return camera 
 
-def getFrame(sink, img):
+def getFrame(sink, img, table):
     if sink.getSource().isConnected:
         timestamp, img = topSink.grabFrame(img)
+        table.getEntry("Timestamp").setString(timestamp)
         if timestamp == 0:
-            print('{} error: {}'.format(sink.getSource().getName(), sink.getError()))
-            return
+            errorMessage = '{} error: {}'.format(sink.getSource().getName(), sink.getError())
+            print(errorMessage)
+            table.getEntry("Error").setString(errorMessage)
+            return timestamp, img
 
-        return img
+        table.getEntry("Error").setString("")
+        return timestamp, img
 
-
-def startPipeline(pipeline, img, entry):
-    result = pipeline.process(img)
-    if result is not None:
-        entry.setRaw(result)
-
+def startPipeline(pipeline, img, timestamp):
+    try:
+        pipeline.process(img)
+        table.getEntry("ProcessedTimestamp").setString(timestamp)
+        table.getEntry("PipelineError").setString("")
+    except ValueError as err:
+        table.getEntry("PipelineError").setString(err)
+    except:
+        table.getEntry("PipelineError").setString(sys.exc_info()[0])
 
 if __name__ == "__main__":
     # start NetworkTables
     ntinst = NetworkTablesInstance.getDefault()
     ntinst.startClientTeam(85)
     table = ntinst.getTable("Vision")
-    topEntry = table.getEntry("top")
-    bottomEntry = table.getEntry("bottom")
-
-    #outputStream = cs.putVideo("Output", width, height)
-    #mjpegServer = cscore.MjpegServer("httpserver", 8081)
+    topTable = table.getSubTable("Top")
+    bottomTable = table.getSubTable("Bottom")
 
     topCamera = startCamera("top", "/dev/video0", None)
     bottomCamera = startCamera("bottom", "/dev/video1", None)
 
-    #mjpegServer.setSource(topCamera)
-    
     topSink = cs.getVideo(camera=topCamera)
     bottomSink = cs.getVideo(camera=bottomCamera)
     
@@ -111,18 +73,17 @@ if __name__ == "__main__":
     topPipeline = TopPipeline()
     bottomPipeline = BottomPipeline()
 
-    #startPipeline(topSink, topPipeline)
     while True:
-        topImg = getFrame(topSink, topImg)
-        bottomImg = getFrame(bottomSink, bottomImg)
+        topTimestamp, topImg = getFrame(topSink, topImg, topTable)
+        bottomTimestamp, bottomImg = getFrame(bottomSink, bottomImg, bottomTable)
    
-        topProcess = multiprocessing.Process(target=startPipeline, args=(topPipeline, topImg, topEntry))
-        bottomProcess = multiprocessing.Process(target=startPipeline, args=(bottomPipeline, bottomImg, bottomEntry))
+        topProcess = multiprocessing.Process(target=startPipeline, args=(topPipeline, topImg, topTimestamp))
+        bottomProcess = multiprocessing.Process(target=startPipeline, args=(bottomPipeline, bottomImg, bottomTimestamp))
 
         topProcess.start()
         bottomProcess.start()
 
-        #topProcess.join()
-        #bottomProcess.join()
-        time.sleep(0.01)
+        topTable.getEntry("Value").setString(topPipeline.convex_hulls_output)
+        bottomTable.getEntry("Value").setString(bottomPipeline.filter_lines_output)
 
+        time.sleep(0.01)
