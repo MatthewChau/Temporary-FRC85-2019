@@ -187,8 +187,8 @@ public class OI {
                 SmartDashboard.putNumber("Rot PID Error", error);
                 break;
             case VISION_X_SYSTEM:
-                SmartDashboard.putNumber("Vision PID Target X", target);
                 SmartDashboard.putNumber("Vision PID Error X", error);
+                SmartDashboard.putNumber("Vision PID Output X", output);
                 break;
             case VISION_Y_SYSTEM:
                 SmartDashboard.putNumber("Vision PID Target Distance", target);

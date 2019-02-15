@@ -217,18 +217,40 @@ public class Vision {
 
 	public double oneTargetAngle() { // given the white line
 		NetworkTable _table;
-		double[] angleArray = {0.0, 0.0};
-		double angle1, angle2;
+		double[] angleArray = {0.0, 0.0}, y1Array = {0.0, 0.0};
+		double angle1, angle2, y1 = 0.0, y2 = 0.0;
 
 		_table = NetworkTable.getTable("GRIP/myLinesReport");
 		angleArray = _table.getNumberArray("angle", angleArray);
+		y1Array = _table.getNumberArray("y1", y1Array);
+		//y2Array = _table.getNumberArray("y2", y2Array);
+		
+		if (y1Array.length > 1) {
+			y1 = y1Array[0];
+			y2 = y1Array[1];
+		}
+
+		SmartDashboard.putNumber("y1", y1);
+		SmartDashboard.putNumber("y2", y2);
 		
 		if (angleArray.length > 1) {
 			angle1 = angleArray[0];
 			angle2 = angleArray[1];
-            
+
+			if (angle1 < 0.0) {
+				angle1 += 180.0;
+			}
+				
+			if (angle2 < 0.0) {
+				angle2 += 180.0;
+			}
+
+			SmartDashboard.putNumber("angle1", angle1);
+			SmartDashboard.putNumber("angle2", angle2);
+			
 			return ((angle1 + angle2) / 2.0);
 		}
+		
 		return 0.0; // no turning i guess
 	}
 
