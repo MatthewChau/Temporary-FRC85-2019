@@ -11,7 +11,8 @@ public class Addresses {
 
     // Drivestation
     public static final int CONTROLLER_DRIVER = 0;
-    public static final int CONTROLLER_OPERATOR = 1;
+    public static final int CONTROLLER_OPERATOR1 = 1;
+    public static final int CONTROLLER_OPERATOR2 = 2;
 
     // DriveTrain
     public static final int DRIVETRAIN_LEFT_FRONT_MOTOR = 1;
