@@ -24,8 +24,7 @@ public class Addresses {
     public static final int BELTTRAIN_RIGHT_MOTOR = 13;
 
     // Belt Solenoid
-    public static final int BELTTRAIN_LEFT_SOLENOID = 19; 
-    public static final int BELTTRAIN_RIGHT_SOLENOID = 20;
+    public static final int BELTTRAIN_SOLENOID = 14;
 
     // Rear Solenoid
     public static final int REAR_SOLENOID = 21;
