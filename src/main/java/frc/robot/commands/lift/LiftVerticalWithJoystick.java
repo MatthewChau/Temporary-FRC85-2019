@@ -14,7 +14,6 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class LiftVerticalWithJoystick extends Command {
     public LiftVerticalWithJoystick() {
-        // Use requires() here to declare subsystem dependencies
         requires(LiftVertical.getInstance());
     }
 
@@ -26,8 +25,7 @@ public class LiftVerticalWithJoystick extends Command {
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
-//        LiftVertical.getInstance().verticalShift(OI.getInstance().getLiftVertical());
-
+        LiftVertical.getInstance().verticalShift(OI.getInstance().getLiftVertical());
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -40,12 +38,6 @@ public class LiftVerticalWithJoystick extends Command {
     @Override
     protected void end() {
         LiftVertical.getInstance().verticalShift(0);
-    }
-
-    // Called when another command which requires one or more of the same
-    // subsystems is scheduled to run
-    @Override
-    protected void interrupted() {
     }
 
 }

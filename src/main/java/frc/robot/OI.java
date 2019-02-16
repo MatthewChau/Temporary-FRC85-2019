@@ -35,10 +35,11 @@ public class OI {
 
     private JoystickButton _driverLeftBumper, _driverAButton, _driverBButton, _driverXButton, _driverYButton;
     private JoystickButton _operatorPhaseZero, _operatorPhaseOne, _operatorPhaseTwo, _operatorPhaseThree, _operatorLeftBumper, _operatorRightBumper;
-    private JoystickButton _operatorCargoPhaseOne, _operatorLiftDown, _operatorCargoPhaseTwo, _operatorCargoPhaseThree, _operatorHatchPhaseOne, _operatorHatchPhaseTwo, _operatorHatchPhaseThree, _operatorLiftUpAndDown, _operatorIntakeRotate, _operatorMastBackAndForth, _operatorCargoIn, _operatorCargoLSOCS, _operatorCargoOut, _operatorCargoFloor, _operatorHatchLSOCS, _operatorHatchFloor, _operatorHatchRelease;
+    private JoystickButton _operatorCargoPhaseOne, _operatorLiftDown, _operatorCargoPhaseTwo, _operatorCargoPhaseThree, _operatorHatchPhaseOne, _operatorHatchPhaseTwo, _operatorHatchPhaseThree, 
+        _operatorLiftUpAndDown, _operatorIntakeRotate, _operatorMastBackAndForth, _operatorCargoIn, _operatorCargoLSOCS, _operatorCargoOut, _operatorCargoFloor, _operatorHatchLSOCS, 
+        _operatorHatchFloor, _operatorHatchRelease;
 
     private double _xSpeed = 0, _ySpeed = 0, _zRotation = 0;
-    private double _liftSpeed = 0;
 
     private double _gyroAngle;
 
@@ -136,19 +137,11 @@ public class OI {
      */
     
     public double getLiftVertical() {
-        if (!LiftVertical.getInstance().checkVerticalLift(_operatorController1.getRawAxis(1))) {
-            return _liftSpeed = 0;
-        } else {
-            return _liftSpeed = _operatorController1.getRawAxis(1) * 0.5;
-        }
+        return -_operatorController2.getRawAxis(1) * 0.5;
     }
 
     public double getLiftHorizontal() {
-        if (!LiftHorizontal.getInstance().checkHorizontalLift(_operatorController2.getRawAxis(1))) {
-            return _liftSpeed = 0;
-        } else {
-            return _liftSpeed = _operatorController2.getRawAxis(1) * 0.5;
-        }
+        return _operatorController2.getRawAxis(0) * 0.5;
     }
 
     public boolean getRightBumper() {
