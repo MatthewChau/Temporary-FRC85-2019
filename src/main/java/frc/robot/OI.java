@@ -33,7 +33,6 @@ public class OI {
     private Joystick _operatorControllerWhite, _operatorControllerBlack;
 
     private JoystickButton _driverLeftBumper, _driverControllerAButton, _driverControllerBButton, _driverControllerXButton, _driverControllerYButton;
-    private JoystickButton _operatorZero, _operatorOne, _operatorTwo, _operatorThree, _operatorLeftBumper, _operatorRightBumper;
 
     // White
     private JoystickButton _operatorCargoDefault, _operatorCargoFloor, _operatorCargoIn, _operatorCargoOut,
@@ -80,7 +79,9 @@ public class OI {
 
         // Joystick combinations
         _operatorLiftVertical = new JoystickButton(_operatorControllerWhite, 1);        
+        _operatorLiftVertical.whenPressed(new LiftVerticalWithJoystick());
         _operatorLiftHorizontal = new JoystickButton(_operatorControllerBlack, 1);
+        _operatorLiftHorizontal.whenPressed(new LiftHorizontalWithJoystick());
         _operatorIntakeRotate = new JoystickButton(_operatorControllerBlack, 2);
 
         // Cargo
@@ -148,14 +149,6 @@ public class OI {
 
     public double getYInputJoystick() {
         return _driverJoystickLeft.getRawAxis(1);
-    }
-
-    /**
-     * Called in commands to return the joystick axis which is converted into the set speed of the motor
-     */
-    
-    public double getOperatorJoystick() {
-        return _operatorControllerBlack.getRawAxis(1);
     }
 
     public boolean isHeadless() {
@@ -226,6 +219,24 @@ public class OI {
 
     private boolean getTurn90RightButton() {
         return _driverJoystickRight.getRawButton(6);
+    }
+
+    // Operator Control Board
+
+    public double getOperatorJoystick() {
+        return _operatorControllerBlack.getRawAxis(1);
+    }
+
+    public boolean getOperatorLiftHorizontal() {
+        return _operatorLiftHorizontal.get();
+    }
+
+    public boolean getOperatorLiftVertical() {
+        return _operatorLiftVertical.get();
+    }
+
+    public boolean getOperatorIntakeRotate() {
+        return _operatorIntakeRotate.get();
     }
 
     public double fixArcTangent(double angle, double x, double y) { // fix an angle output by arctan
