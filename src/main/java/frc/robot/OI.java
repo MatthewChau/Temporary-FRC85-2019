@@ -235,7 +235,7 @@ public class OI {
     }
 
     private boolean getTurn90RightButton() {
-        return _driverJoystickRight.getRawButton(6);s
+        return _driverJoystickRight.getRawButton(6);
     }
 
     public double fixArcTangent(double angle, double x, double y) { // fix an angle output by arctan
