@@ -14,6 +14,7 @@ import frc.robot.Variables;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.Vector2d;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
@@ -70,14 +71,14 @@ public class DriveTrain extends Subsystem {
     public void cartDrive(double[] inputs) {
         int i;
 
-        /*if (OI.getInstance().getXButton()) {
+        if (OI.getInstance().getTurnLeft90()) {
             setTurn90TargetAngle(true, inputs[3]); // turn left
-        } else if (OI.getInstance().getBButton()) {
+        } else if (OI.getInstance().getTurnRight90()) {
             setTurn90TargetAngle(false, inputs[3]); // turn right
-        } else */if (Math.abs(inputs[0]) > Variables.getInstance().DEADBAND 
+        } else if (Math.abs(inputs[0]) > Variables.getInstance().DEADBAND 
             || Math.abs(inputs[1]) > Variables.getInstance().DEADBAND
             || Math.abs(inputs[2]) > Variables.getInstance().DEADBAND
-            /*|| turnInProgress*/) {
+            || turnInProgress) {
             for (i = 0; i < 2; i++) { // normalize axis inputs
                 if (inputs[i] > 1.0) {
                     inputs[i] = 1.0;
@@ -87,14 +88,14 @@ public class DriveTrain extends Subsystem {
             }
 
             Vector2d vector = new Vector2d(-inputs[1], inputs[0]);
-            if (OI.getInstance().getRightBumper() || OI.getInstance().getAButton()) { // if headless/forward only, account for it
+            if (OI.getInstance().isHeadless() || OI.getInstance().isForwardOnlyMode()) { // if headless/forward only, account for it
                 vector.rotate(inputs[3]);
             }
             
             if (turnInProgress) { // note that this block exists for the sole purpose of overriding things when they are in progress
                 inputs[2] = OI.getInstance().applyPID(OI.getInstance().ROT_SYSTEM, inputs[3], targetAngle, kPRot, kIRot, kDRot);
-            } else if (Math.abs(inputs[2]) < Variables.getInstance().DEADBAND && !OI.getInstance().getRightBumper()) { // we will deal with headless later ahaha
-                if (OI.getInstance().getAButton()) { // finally we check if we are in that specific mode
+            } else if (Math.abs(inputs[2]) < Variables.getInstance().DEADBAND && !OI.getInstance().isHeadless()) { // we will deal with headless later ahaha
+                if (OI.getInstance().isForwardOnlyMode()) { // finally we check if we are in that specific mode
                     setForwardOnlyTargetAngle();
                     fixTargetAngle(inputs[3]);
                     inputs[2] = OI.getInstance().applyPID(OI.getInstance().ROT_SYSTEM, inputs[3], targetAngle, kPRot, kIRot, kDRot, 1.0, -1.0);
@@ -177,17 +178,23 @@ public class DriveTrain extends Subsystem {
     the goal is to get the angle with left from the y axis being positive going counter-clockwise (because that's how gyro goes)
     so we absolute value the whole thing to keep it within range of arctan's use
     joystick angle formula thus becomes:
-    arctan(|X / Y|)
+    arctan(-X / |Y|)
     then we fix it using the method in OI to adjust it so that we can use it (i.e. arctan doesn't always return 0-90!), commented there
     note that this is if you want the robot to go FORWARD facing this angle
     we then set it to the closest to the current angle that the robot is, using a temp var so that we can pass a value before editing the targetValue
     */
     
     private void setForwardOnlyTargetAngle() {
-        double joystickAngle = Math.toDegrees(Math.atan(-OI.getInstance().getXInput() / Math.abs(OI.getInstance().getYInput()))); // get angle from the top, making left positive
+        double joystickAngle;
         
-        joystickAngle = OI.getInstance().fixArcTangent(joystickAngle, OI.getInstance().getXInput(), OI.getInstance().getYInput()); // fix the arctan angle so that we get a full 360 degrees
-        
+        if (SmartDashboard.getBoolean("Joysticks Enabled", false)) {
+            joystickAngle = Math.toDegrees(Math.atan(-OI.getInstance().getXInputController() / Math.abs(OI.getInstance().getYInputController())));
+            joystickAngle = OI.getInstance().fixArcTangent(joystickAngle, OI.getInstance().getXInputController(), OI.getInstance().getYInputController()); // fix the arctan angle so that we get a full 360 degrees
+        } else {
+            joystickAngle = Math.toDegrees(Math.atan(-OI.getInstance().getXInputJoystick() / Math.abs(OI.getInstance().getYInputJoystick())));
+            joystickAngle = OI.getInstance().fixArcTangent(joystickAngle, OI.getInstance().getXInputJoystick(), OI.getInstance().getYInputJoystick());
+        }
+
         if (Math.abs((Math.abs(targetAngle) % 360) - Math.abs(joystickAngle)) > Variables.getInstance().TOLERANCE_ANGLE) { // if the new angle differs "significantly"
             targetAngle = joystickAngle;
         }
@@ -205,7 +212,7 @@ public class DriveTrain extends Subsystem {
             }
         }
 
-        targetAngle = newTargetAngle; // and finally set targetAngle
+        targetAngle = newTargetAngle;
     }
 
     public void setTurn90TargetAngle(boolean direction, double gyroAngle) {

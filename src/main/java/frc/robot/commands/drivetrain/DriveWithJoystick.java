@@ -11,6 +11,7 @@ import frc.robot.OI;
 import frc.robot.subsystems.DriveTrain;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class DriveWithJoystick extends Command {
 
@@ -29,7 +30,11 @@ public class DriveWithJoystick extends Command {
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
-        DriveTrain.getInstance().cartDrive(OI.getInstance().getJoystickInput());
+        if (SmartDashboard.getBoolean("Joysticks Enabled", false)) {
+            DriveTrain.getInstance().cartDrive(OI.getInstance().getJoystickInput());
+        } else {
+            DriveTrain.getInstance().cartDrive(OI.getInstance().getControllerInput());
+        }
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -41,8 +46,7 @@ public class DriveWithJoystick extends Command {
     // Called once after isFinished returns true
     @Override
     protected void end() {
-        double[] zero = {0, 0, 0, 0};
-        DriveTrain.getInstance().cartDrive(zero);
+        DriveTrain.getInstance().cartDrive(OI.getInstance().stopArray);
     }
 
     // Called when another command which requires one or more of the same
