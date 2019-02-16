@@ -32,9 +32,11 @@ public class OI {
 
     private Joystick _driverController, _driverJoystickRight, _driverJoystickLeft;
     private Joystick _operatorController;
+    private Joystick _operatorController1, _operatorController2;
 
     private JoystickButton _driverLeftBumper, _driverAButton, _driverBButton, _driverXButton, _driverYButton;
     private JoystickButton _operatorPhaseZero, _operatorPhaseOne, _operatorPhaseTwo, _operatorPhaseThree, _operatorLeftBumper, _operatorRightBumper;
+    private JoystickButton _operatorCargoPhaseOne, _operatorLiftDown, _operatorCargoPhaseTwo, _operatorCargoPhaseThree, _operatorHatchPhaseOne, _operatorHatchPhaseTwo, _operatorHatchPhaseThree, _operatorLiftUpAndDown, _operatorIntakeRotate, _operatorMastBackAndForth, _operatorCargoIn, _operatorCargoLSOCS, _operatorCargoOut, _operatorCargoFloor, _operatorHatchLSOCS, _operatorHatchFloor, _operatorHatchRelease;
 
     private double _xSpeed = 0, _ySpeed = 0, _zRotation = 0;
 
@@ -62,37 +64,36 @@ public class OI {
         _driverController = new Joystick(Addresses.CONTROLLER_DRIVER);
         _driverJoystickRight = new Joystick(Addresses.CONTROLLER_DRIVER_STICK_RIGHT);
         _driverJoystickLeft = new Joystick(Addresses.CONTROLLER_DRIVER_STICK_LEFT);
-        _operatorController = new Joystick(Addresses.CONTROLLER_OPERATOR);
+        _operatorController1 = new Joystick(Addresses.CONTROLLER_OPERATOR1);
+        _operatorController2 = new Joystick(Addresses.CONTROLLER_OPERATOR2);
 
         _driverAButton = new JoystickButton(_driverController, 1);
         _driverBButton = new JoystickButton(_driverController, 2);
         _driverXButton = new JoystickButton(_driverController, 3);
         _driverYButton = new JoystickButton(_driverController, 4);
 
-        /*_operatorLiftDown = new JoystickButton(_operatorController, 1);
+        _operatorCargoPhaseOne = new JoystickButton(_operatorController1, 8); //Change values if needed
+        _operatorCargoPhaseTwo = new JoystickButton(_operatorController1, 7); //Change values if needed
+        _operatorCargoPhaseThree = new JoystickButton(_operatorController1, 6); //Change values if needed
 
-        _operatorCargoPhaseOne = new JoystickButton(_operatorController, 2); //Change values if needed
-        _operatorCargoPhaseTwo = new JoystickButton(_operatorController, 3); //Change values if needed
-        _operatorCargoPhaseThree = new JoystickButton(_operatorController, 4); //Change values if needed
+        _operatorHatchPhaseOne = new JoystickButton(_operatorController2, 8);
+        _operatorHatchPhaseTwo = new JoystickButton(_operatorController2, 7);
+        _operatorHatchPhaseThree = new JoystickButton(_operatorController2, 6);
 
-        _operatorHatchPhaseOne = new JoystickButton(_operatorController, 5);
-        _operatorHatchPhaseTwo = new JoystickButton(_operatorController, 6);
-        _operatorHatchPhaseThree = new JoystickButton(_operatorController, 7);
-
-        _operatorLiftUpAndDown = new JoystickButton(_operatorController, 8);
-        _operatorIntakeRotate = new JoystickButton(_operatorController, 9);
-        _operatorMastBackAndForth = new JoystickButton(_operatorController, 10);
-        _operatorCargoIn = new JoystickButton(_operatorController, 11);
+        _operatorLiftUpAndDown = new JoystickButton(_operatorController1, 1);
+        _operatorIntakeRotate = new JoystickButton(_operatorController2, 2);
+        _operatorMastBackAndForth = new JoystickButton(_operatorController2, 1);
+        _operatorCargoIn = new JoystickButton(_operatorController1, 2);
 
         //Cargo Loading Station or Cargo Ship
-        _operatorCargoLSOCS = new JoystickButton(_operatorController, 12);
-        _operatorCargoOut = new JoystickButton(_operatorController, 13);
-        _operatorCargoFloor = new JoystickButton(_operatorController, 14);
+        _operatorCargoLSOCS = new JoystickButton(_operatorController1, 3);
+        _operatorCargoOut = new JoystickButton(_operatorController1, 4);
+        _operatorCargoFloor = new JoystickButton(_operatorController1, 5);
 
         //Hatch Loading Station or Cargo Ship
-        _operatorHatchLSOCS = new JoystickButton(_operatorController, 15);
-        _operatorHatchFloor = new JoystickButton(_operatorController, 16);
-        _operatorHatchRelease = new JoystickButton(_operatorController, 17);*/
+        _operatorHatchLSOCS = new JoystickButton(_operatorController2, 3);
+        _operatorHatchFloor = new JoystickButton(_operatorController2, 5);
+        _operatorHatchRelease = new JoystickButton(_operatorController2, 4);
 
         /*_operatorPhaseOne.whenPressed(new VerticalShift(Variables.HATCH_LOW, 1)); //go to phase 1
         _operatorPhaseTwo.whenPressed(new VerticalShift(2, 1)); //go to phase 2
