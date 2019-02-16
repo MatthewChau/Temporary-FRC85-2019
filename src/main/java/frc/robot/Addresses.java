@@ -19,15 +19,15 @@ public class Addresses {
     public static final int DRIVETRAIN_RIGHT_FRONT_MOTOR = 3;
     public static final int DRIVETRAIN_RIGHT_BACK_MOTOR = 4;
 
-    //BeltTrain
+    // BeltTrain
     public static final int BELTTRAIN_LEFT_MOTOR = 12;
     public static final int BELTTRAIN_RIGHT_MOTOR = 13;
 
-    //Belt Solenoid
+    // Belt Solenoid
     public static final int BELTTRAIN_LEFT_SOLENOID = 19; 
     public static final int BELTTRAIN_RIGHT_SOLENOID = 20;
 
-    //Rear Solenoid
+    // Rear Solenoid
     public static final int REAR_SOLENOID = 21;
    
      // IMU
