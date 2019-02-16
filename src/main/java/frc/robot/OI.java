@@ -230,7 +230,7 @@ public class OI {
         return _driverJoystickRight.getRawButton(5);
     }
 
-    private boolean getYButton() {
+    public boolean getYButton() {
         return _driverController.getRawButton(4);
     }
 
