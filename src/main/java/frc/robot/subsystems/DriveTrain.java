@@ -188,11 +188,11 @@ public class DriveTrain extends Subsystem {
         double joystickAngle;
         
         if (SmartDashboard.getBoolean("Joysticks Enabled", false)) {
-            joystickAngle = Math.toDegrees(Math.atan(-OI.getInstance().getXInputController() / Math.abs(OI.getInstance().getYInputController())));
-            joystickAngle = OI.getInstance().fixArcTangent(joystickAngle, OI.getInstance().getXInputController(), OI.getInstance().getYInputController()); // fix the arctan angle so that we get a full 360 degrees
-        } else {
             joystickAngle = Math.toDegrees(Math.atan(-OI.getInstance().getXInputJoystick() / Math.abs(OI.getInstance().getYInputJoystick())));
             joystickAngle = OI.getInstance().fixArcTangent(joystickAngle, OI.getInstance().getXInputJoystick(), OI.getInstance().getYInputJoystick());
+        } else {
+            joystickAngle = Math.toDegrees(Math.atan(-OI.getInstance().getXInputController() / Math.abs(OI.getInstance().getYInputController())));
+            joystickAngle = OI.getInstance().fixArcTangent(joystickAngle, OI.getInstance().getXInputController(), OI.getInstance().getYInputController()); // fix the arctan angle so that we get a full 360 degrees
         }
 
         if (Math.abs((Math.abs(targetAngle) % 360) - Math.abs(joystickAngle)) > Variables.getInstance().TOLERANCE_ANGLE) { // if the new angle differs "significantly"

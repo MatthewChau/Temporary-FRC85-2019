@@ -182,8 +182,9 @@ public class OI {
     public boolean isForwardOnlyMode() {
         if (SmartDashboard.getBoolean("Joysticks Enabled", false)) {
             return getLeftJoystickForwardOnlyMode();
+        } else {
+            return getAButton();
         }
-        return getAButton();
     }
 
     private boolean getAButton() {
