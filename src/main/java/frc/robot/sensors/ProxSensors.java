@@ -12,12 +12,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 
 import frc.robot.Addresses;
 
-/**
- * Add your docs here.
- */
 public class ProxSensors extends Subsystem {
-    // Put methods for controlling this subsystem
-    // here. Call these from Commands.
 
     private static ProxSensors _instance = null;
     private DigitalInput _liftTopLimit, _liftBottomLimit, _liftFrontLimit, _liftRearLimit;

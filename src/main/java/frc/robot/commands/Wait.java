@@ -15,7 +15,7 @@ public class Wait extends TimedCommand {
      * @param timeout in seconds
      */
     public Wait(double timeout) {
-		super(timeout);
+        super(timeout);
     }
     
 }

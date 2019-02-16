@@ -19,21 +19,11 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 
-/**
- * 3 Encoders (1 for slide) 2 775s (TalonSRX) for lift up/down 4 Proximity
- * sensors (detect prescences of something) 1 CIM (TalonSRX) for slide 2 motors
- * on lift for lift, 1 CIM for 7-inch shift
- */
 public class LiftHorizontal extends Subsystem {
-    // Put methods for controlling this subsystem
-    // here. Call these from Commands.
 
     private static LiftHorizontal _instance = null;
 
-    // Horizontal Motor
     private TalonSRX _liftRearMotor;
-
-    private double _horizontalSpeed;
 
     private LiftHorizontal() {
         _liftRearMotor = new TalonSRX(Addresses.LIFT_CIM_MOTOR);
@@ -49,8 +39,6 @@ public class LiftHorizontal extends Subsystem {
 
     @Override
     public void initDefaultCommand() {
-        // Set the default command for a subsystem here.
-        //setDefaultCommand(new LiftHorizontalWithJoystick());
     }
 
     public void horizontalShift(double speed) {

@@ -8,7 +8,7 @@
 package frc.robot;
 
 import frc.robot.subsystems.DriveTrain;
-//import frc.robot.sensors.ProxSensors;
+import frc.robot.sensors.ProxSensors;
 import frc.robot.sensors.IMU;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;

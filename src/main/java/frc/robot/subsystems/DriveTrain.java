@@ -20,12 +20,9 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
-/**
- * Add your docs here.
- */
 public class DriveTrain extends Subsystem {
-    // Put methods for controlling this subsystem
-    // here. Call these from Commands.
+
+    private static DriveTrain _instance = null;
 
     private double kPRot = 0.05, kIRot = 0.0, kDRot = 0.0;
     private double kMaxOuputRot = 1.0, kMinOuputRot = -1.0;
@@ -33,7 +30,6 @@ public class DriveTrain extends Subsystem {
     public boolean turnInProgress = false; // only used for the 90 degree turns
     private double[] wheelSpeeds = new double[4];
 
-    private static DriveTrain _instance = null;
     private TalonSRX _leftFrontMotor, _leftBackMotor, _rightFrontMotor, _rightBackMotor;
 
     private DriveTrain() {

@@ -19,7 +19,6 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 
-
 public class LiftVertical extends Subsystem {
 
     private static LiftVertical _instance = null;
@@ -43,19 +42,17 @@ public class LiftVertical extends Subsystem {
 
     @Override
     public void initDefaultCommand() {
-        // Set the default command for a subsystem here.
-        //setDefaultCommand(new LiftVerticalWithJoystick());
     }
 
     public void verticalShift(double speed) {
         if ((ProxSensors.getInstance().getLiftTopLimit() && speed > 0) 
             || (ProxSensors.getInstance().getLiftBottomLimit() && speed < 0)) {
-                _liftLeftMotor.set(ControlMode.PercentOutput, speed);
-                _liftRightMotor.set(ControlMode.PercentOutput, -speed);
-            } else {
-                _liftLeftMotor.set(ControlMode.PercentOutput, 0);
-                _liftRightMotor.set(ControlMode.PercentOutput, 0);
-            }
+            _liftLeftMotor.set(ControlMode.PercentOutput, speed);
+            _liftRightMotor.set(ControlMode.PercentOutput, -speed);
+        } else {
+            _liftLeftMotor.set(ControlMode.PercentOutput, 0);
+            _liftRightMotor.set(ControlMode.PercentOutput, 0);
+        }
     } 
 
     /**

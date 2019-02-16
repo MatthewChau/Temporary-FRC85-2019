@@ -50,4 +50,5 @@ public class HorizontalShift extends Command {
     protected void end() {
         LiftHorizontal.getInstance().horizontalShift(0);
     }
+    
 }

@@ -57,11 +57,5 @@ public class Addresses {
     // Intake Limits (addresses are placeholders for now)
     public static final int INTAKE_TOP_LIMIT = 12;
     public static final int INTAKE_BOTTOM_LIMIT = 13;
-    
-    //Encoders (addresses are placeholders for now)
-    //public static final int LIFT_LEFT_ENCODER = 8;
-    //public static final int LIFT_CIM_ENCODER = 9;
-    public static final int INTAKE_ENCODER_A = 14;
-    public static final int INTAKE_ENCODER_B = 15;
 
 }

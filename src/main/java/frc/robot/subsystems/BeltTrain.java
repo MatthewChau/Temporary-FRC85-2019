@@ -30,7 +30,6 @@ public class BeltTrain extends Subsystem {
 
     @Override
     public void initDefaultCommand() {
-        
     }
 
     public void DriveBelt(double speed) {

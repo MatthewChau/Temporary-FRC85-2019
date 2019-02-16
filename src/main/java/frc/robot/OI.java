@@ -18,7 +18,6 @@ import frc.robot.commands.lift.VerticalShift;
 import frc.robot.commands.lift.HorizontalShift;
 import frc.robot.commands.lift.VerticalShift;
 import frc.robot.commands.lift.HorizontalShift;
-import frc.robot.commands.intake.DriveServo;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Joystick.AxisType;
