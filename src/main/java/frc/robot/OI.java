@@ -31,10 +31,9 @@ public class OI {
     private static OI _instance;
 
     private Joystick _driverController, _driverJoystickRight, _driverJoystickLeft;
-    private Joystick _operatorController;
     private Joystick _operatorController1, _operatorController2;
 
-    private JoystickButton _driverLeftBumper, _driverAButton, _driverBButton, _driverXButton, _driverYButton;
+    private JoystickButton _driverLeftBumper, _driverControllerAButton, _driverControllerBButton, _driverControllerXButton, _driverControllerYButton;
     private JoystickButton _operatorPhaseZero, _operatorPhaseOne, _operatorPhaseTwo, _operatorPhaseThree, _operatorLeftBumper, _operatorRightBumper;
     private JoystickButton _operatorCargoPhaseOne, _operatorLiftDown, _operatorCargoPhaseTwo, _operatorCargoPhaseThree, _operatorHatchPhaseOne, _operatorHatchPhaseTwo, _operatorHatchPhaseThree, _operatorLiftUpAndDown, _operatorIntakeRotate, _operatorMastBackAndForth, _operatorCargoIn, _operatorCargoLSOCS, _operatorCargoOut, _operatorCargoFloor, _operatorHatchLSOCS, _operatorHatchFloor, _operatorHatchRelease;
 
@@ -60,17 +59,17 @@ public class OI {
 
     public double[] stopArray = new double[4];
 
-    private OI() { // is this run every single time getInstance is called?  we'll need to init pid stuff differently if so
+    private OI() {
         _driverController = new Joystick(Addresses.CONTROLLER_DRIVER);
         _driverJoystickRight = new Joystick(Addresses.CONTROLLER_DRIVER_STICK_RIGHT);
         _driverJoystickLeft = new Joystick(Addresses.CONTROLLER_DRIVER_STICK_LEFT);
         _operatorController1 = new Joystick(Addresses.CONTROLLER_OPERATOR1);
         _operatorController2 = new Joystick(Addresses.CONTROLLER_OPERATOR2);
 
-        _driverAButton = new JoystickButton(_driverController, 1);
-        _driverBButton = new JoystickButton(_driverController, 2);
-        _driverXButton = new JoystickButton(_driverController, 3);
-        _driverYButton = new JoystickButton(_driverController, 4);
+        _driverControllerAButton = new JoystickButton(_driverController, 1);
+        _driverControllerBButton = new JoystickButton(_driverController, 2);
+        _driverControllerXButton = new JoystickButton(_driverController, 3);
+        _driverControllerYButton = new JoystickButton(_driverController, 4);
 
         _operatorCargoPhaseOne = new JoystickButton(_operatorController1, 8); //Change values if needed
         _operatorCargoPhaseTwo = new JoystickButton(_operatorController1, 7); //Change values if needed
@@ -95,7 +94,7 @@ public class OI {
         _operatorHatchFloor = new JoystickButton(_operatorController2, 5);
         _operatorHatchRelease = new JoystickButton(_operatorController2, 4);
 
-        /*_operatorPhaseOne.whenPressed(new VerticalShift(Variables.HATCH_LOW, 1)); //go to phase 1
+        /*_operatorPhaseOne.whenPressed(new VerticalShift(Variables.getInstance().HATCH_LOW, 1)); //go to phase 1
         _operatorPhaseTwo.whenPressed(new VerticalShift(2, 1)); //go to phase 2
         _operatorPhaseThree.whenPressed(new VerticalShift(3, 1)); //go to phase 3
 
@@ -103,10 +102,10 @@ public class OI {
         _operatorRightBumper.whenActive(new HorizontalShift(1, -1)); //-1 means to go right (or forward) */
         
         FollowOneTarget followOneTarget;
-        _driverYButton.whileActive(followOneTarget = new FollowOneTarget()); //follows when pressed
+        _driverControllerYButton.whileActive(followOneTarget = new FollowOneTarget()); //follows when pressed
         
         FollowTwoTarget followTwoTarget;
-        _driverXButton.whileActive(followTwoTarget = new FollowTwoTarget());
+        _driverControllerXButton.whileActive(followTwoTarget = new FollowTwoTarget());
     }
 
     public static OI getInstance() {
@@ -155,16 +154,16 @@ public class OI {
      */
     
     public double getLiftVertical() {
-        if (LiftVertical.getInstance().checkVerticalLift(_operatorController.getRawAxis(1))) {
-            return _operatorController.getRawAxis(1) * 0.5;
+        if (LiftVertical.getInstance().checkVerticalLift(_operatorController2.getRawAxis(1))) {
+            return _operatorController2.getRawAxis(1) * 0.5;
         } else {
             return 0;
         }
     }
 
     public double getLiftHorizontal() {
-        if (LiftHorizontal.getInstance().checkHorizontalLift(_operatorController.getRawAxis(0))) {
-            return _operatorController.getRawAxis(0) * 0.5;
+        if (LiftHorizontal.getInstance().checkHorizontalLift(_operatorController2.getRawAxis(0))) {
+            return _operatorController2.getRawAxis(0) * 0.5;
         } else {
             return 0;
         }
@@ -206,13 +205,37 @@ public class OI {
         return _driverController.getRawButton(2);
     }
 
-    public boolean getXButton() {
+    public boolean getTurnLeft90() {
+        if (SmartDashboard.getBoolean("Joysticks Enabled", false)) {
+            return false;//getTurn90LeftButton();
+        } else {
+            return false;//getXButton();
+        }
+    }
+
+    public boolean getTurnRight90() {
+        if (SmartDashboard.getBoolean("Joysticks Enabled", false)) {
+            return false;//getTurn90RightButton();
+        } else {
+            return false;//getBButton();
+        }
+    }
+
+    private boolean getXButton() {
         //SmartDashboard.putBoolean("90 Left", _driverController.getRawButton(3));
         return _driverController.getRawButton(3);
     }
 
-    public boolean getYButton() {
+    private boolean getTurn90LeftButton() {
+        return _driverJoystickRight.getRawButton(5);
+    }
+
+    private boolean getYButton() {
         return _driverController.getRawButton(4);
+    }
+
+    private boolean getTurn90RightButton() {
+        return _driverJoystickRight.getRawButton(6);s
     }
 
     public double fixArcTangent(double angle, double x, double y) { // fix an angle output by arctan

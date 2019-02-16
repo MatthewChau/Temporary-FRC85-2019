@@ -71,14 +71,14 @@ public class DriveTrain extends Subsystem {
     public void cartDrive(double[] inputs) {
         int i;
 
-        /*if (OI.getInstance().getXButton()) {
+        if (OI.getInstance().getTurnLeft90()) {
             setTurn90TargetAngle(true, inputs[3]); // turn left
-        } else if (OI.getInstance().getBButton()) {
+        } else if (OI.getInstance().getTurnRight90()) {
             setTurn90TargetAngle(false, inputs[3]); // turn right
-        } else */if (Math.abs(inputs[0]) > Variables.getInstance().DEADBAND 
+        } else if (Math.abs(inputs[0]) > Variables.getInstance().DEADBAND 
             || Math.abs(inputs[1]) > Variables.getInstance().DEADBAND
             || Math.abs(inputs[2]) > Variables.getInstance().DEADBAND
-            /*|| turnInProgress*/) {
+            || turnInProgress) {
             for (i = 0; i < 2; i++) { // normalize axis inputs
                 if (inputs[i] > 1.0) {
                     inputs[i] = 1.0;
@@ -212,7 +212,7 @@ public class DriveTrain extends Subsystem {
             }
         }
 
-        targetAngle = newTargetAngle; // and finally set targetAngle
+        targetAngle = newTargetAngle;
     }
 
     public void setTurn90TargetAngle(boolean direction, double gyroAngle) {
