@@ -38,7 +38,6 @@ public class Diagnostics {
             log.createNewFile();
             out = new BufferedWriter(new FileWriter(log, true));
             out.append("Time,Match Time,"
-                    + "Driver Side to Side Axis,Driver Up Down Axis,"
                     + "Left Front Motor,Left Back Motor,Right Front Motor,Right Back Motor,"
                     + "Lift Top Limit,Lift Bottom Limit,Lift Front Limit,Lift Rear Limit,"
                     + "Lift Vertical Position,Lift Horizontal Position,"
@@ -64,9 +63,6 @@ public class Diagnostics {
             _placeHolder++;
             String time = Integer.toString(_placeHolder);
             String matchTime = Double.toString(DriverStation.getInstance().getMatchTime());
-            
-            String xInput = Double.toString(OI.getInstance().getXInput());
-            String yInput = Double.toString(OI.getInstance().getYInput());
 
             String leftFrontMotor = Double.toString(DriveTrain.getInstance().getLeftFrontPercent());
             String leftBackMotor = Double.toString(DriveTrain.getInstance().getLeftBackPercent());
@@ -95,7 +91,6 @@ public class Diagnostics {
 
 
             out.append(time + "," + matchTime + ","
-                    + xInput + "," + yInput + ","  
                     + leftFrontMotor + "," + leftBackMotor + "," + rightFrontMotor + "," + rightBackMotor + ","
                     + liftTopLimit + "," + liftBottomLimit + "," + liftFrontLimit + "," + liftRearLimit + ","
                     + liftVerticalPos + "," + liftHorizontalPos + ","

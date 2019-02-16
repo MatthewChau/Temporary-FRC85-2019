@@ -62,9 +62,9 @@ public class Variables {
     public static final int INTAKE_DEGREE_TWO = 90;
     public static final int INTAKE_DEGREE_THREE = 95;
 
-    public final double DEADBAND = 0.05;
+    public final double DEADBAND = 0.1;
     public final double TOLERANCE_ANGLE = 6.0;
-    public final int MAX_TURNS = 5; // if we go over 1800 degrees in either direction in one match then help.
+    public final int MAX_TURNS = 7; // if we go over 2520 degrees in either direction in one match then help.
 
 
     /**
@@ -75,6 +75,7 @@ public class Variables {
         SmartDashboard.putNumber("kI_VLIFT", kI_VLIFT);
         SmartDashboard.putNumber("kD_VLIFT", kD_VLIFT);
 
+        SmartDashboard.putBoolean("Joysticks Enabled", false);
 
     }
 

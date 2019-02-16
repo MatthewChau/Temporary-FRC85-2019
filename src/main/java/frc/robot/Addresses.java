@@ -10,8 +10,10 @@ package frc.robot;
 public class Addresses {
 
     // Drivestation
-    public static final int CONTROLLER_DRIVER = 0;
+    public static final int CONTROLLER_DRIVER = 2;
     public static final int CONTROLLER_OPERATOR = 1;
+    public static final int CONTROLLER_DRIVER_STICK_RIGHT = 0;
+    public static final int CONTROLLER_DRIVER_STICK_LEFT = 1;
 
     // DriveTrain
     public static final int DRIVETRAIN_LEFT_FRONT_MOTOR = 1;
@@ -26,7 +28,7 @@ public class Addresses {
     //place holder Belt SolenOId
     public static final int BELT_SOLENOID = 19; 
    
-     // IMU
+    // IMU
     // public static final int IMUTalon = 2;
 
     // LiftProximitySensors DigitalInputs

@@ -30,14 +30,13 @@ public class OI {
 
     private static OI _instance;
 
-    private Joystick _driverController;
+    private Joystick _driverController, _driverJoystickRight, _driverJoystickLeft;
     private Joystick _operatorController;
 
     private JoystickButton _driverLeftBumper, _driverAButton, _driverBButton, _driverXButton, _driverYButton;
     private JoystickButton _operatorPhaseZero, _operatorPhaseOne, _operatorPhaseTwo, _operatorPhaseThree, _operatorLeftBumper, _operatorRightBumper;
 
     private double _xSpeed = 0, _ySpeed = 0, _zRotation = 0;
-    private double _liftSpeed = 0;
 
     private double _gyroAngle;
 
@@ -61,6 +60,8 @@ public class OI {
 
     private OI() { // is this run every single time getInstance is called?  we'll need to init pid stuff differently if so
         _driverController = new Joystick(Addresses.CONTROLLER_DRIVER);
+        _driverJoystickRight = new Joystick(Addresses.CONTROLLER_DRIVER_STICK_RIGHT);
+        _driverJoystickLeft = new Joystick(Addresses.CONTROLLER_DRIVER_STICK_LEFT);
         _operatorController = new Joystick(Addresses.CONTROLLER_OPERATOR);
 
         _driverAButton = new JoystickButton(_driverController, 1);
@@ -114,21 +115,38 @@ public class OI {
         return _instance;
     }
 
-    public double[] getJoystickInput() {
-        _xSpeed = _driverController.getRawAxis(0);
-        _ySpeed = _driverController.getRawAxis(1);
+    public double[] getControllerInput() {
+        _xSpeed = getXInputController();
+        _ySpeed = getYInputController();
         _zRotation = -_driverController.getRawAxis(4);
         _gyroAngle = IMU.getInstance().getFusedHeading();
 
         return new double[] {_xSpeed, _ySpeed, _zRotation, _gyroAngle};
     }
 
-    public double getXInput() {
+    public double[] getJoystickInput() {
+        _xSpeed = getXInputJoystick();
+        _ySpeed = getYInputJoystick();
+        _zRotation = -_driverJoystickRight.getRawAxis(2);
+        _gyroAngle = IMU.getInstance().getFusedHeading();
+
+        return new double[] {_xSpeed, _ySpeed, _zRotation, _gyroAngle};
+    }
+
+    public double getXInputController() {
         return _driverController.getRawAxis(0);
     }
 
-    public double getYInput() {
+    public double getYInputController() {
         return _driverController.getRawAxis(1);
+    }
+
+    public double getXInputJoystick() {
+        return _driverJoystickLeft.getRawAxis(0);
+    }
+
+    public double getYInputJoystick() {
+        return _driverJoystickLeft.getRawAxis(1);
     }
 
     /**
@@ -136,27 +154,50 @@ public class OI {
      */
     
     public double getLiftVertical() {
-        if (!LiftVertical.getInstance().checkVerticalLift(_operatorController.getRawAxis(1))) {
-            return _liftSpeed = 0;
+        if (LiftVertical.getInstance().checkVerticalLift(_operatorController.getRawAxis(1))) {
+            return _operatorController.getRawAxis(1) * 0.5;
         } else {
-            return _liftSpeed = _operatorController.getRawAxis(1) * 0.5;
+            return 0;
         }
     }
 
     public double getLiftHorizontal() {
-        if (!LiftHorizontal.getInstance().checkHorizontalLift(_operatorController.getRawAxis(0))) {
-            return _liftSpeed = 0;
+        if (LiftHorizontal.getInstance().checkHorizontalLift(_operatorController.getRawAxis(0))) {
+            return _operatorController.getRawAxis(0) * 0.5;
         } else {
-            return _liftSpeed = _operatorController.getRawAxis(0) * 0.5;
+            return 0;
         }
     }
 
-    public boolean getRightBumper() {
+    public boolean isHeadless() {
+        if (SmartDashboard.getBoolean("Joysticks Enabled", false)) { 
+            return getLeftStickTrigger();
+        } else {
+            return getRightBumper();
+        }
+    }
+    
+    private boolean getRightBumper() {
         return _driverController.getRawButton(6);
     }
+    
+    public boolean getLeftStickTrigger() {
+        return _driverJoystickLeft.getRawButton(1);
+    }
 
-    public boolean getAButton() {
+    public boolean isForwardOnlyMode() {
+        if (SmartDashboard.getBoolean("Joysticks Enabled", false)) {
+            return getLeftJoystickForwardOnlyMode();
+        }
+        return getAButton();
+    }
+
+    private boolean getAButton() {
         return _driverController.getRawButton(1);
+    }
+
+    private boolean getLeftJoystickForwardOnlyMode() {
+        return _driverJoystickLeft.getRawButton(2);
     }
 
     public boolean getBButton() {
