@@ -47,11 +47,11 @@ public class LiftVertical extends Subsystem {
     public void verticalShift(double speed) {
         if ((ProxSensors.getInstance().getLiftTopLimit() && speed > 0) 
             || (ProxSensors.getInstance().getLiftBottomLimit() && speed < 0)) {
-            _liftLeftMotor.set(ControlMode.PercentOutput, speed);
-            _liftRightMotor.set(ControlMode.PercentOutput, -speed);
-        } else {
             _liftLeftMotor.set(ControlMode.PercentOutput, 0);
             _liftRightMotor.set(ControlMode.PercentOutput, 0);
+        } else {
+            _liftLeftMotor.set(ControlMode.PercentOutput, speed);
+            _liftRightMotor.set(ControlMode.PercentOutput, -speed);
         }
     } 
 
@@ -64,8 +64,14 @@ public class LiftVertical extends Subsystem {
             Variables.getInstance().getVerticalLiftKP(), Variables.getInstance().getVerticalLiftKI(), Variables.getInstance().getVerticalLiftKD(), 
             Math.abs(speedMax), -Math.abs(speedMax));
 
-        _liftLeftMotor.set(ControlMode.PercentOutput, speed);
-        _liftRightMotor.set(ControlMode.PercentOutput, -speed); //Guess, since the motors are gonna be facing different directions. 
+        if ((ProxSensors.getInstance().getLiftTopLimit() && speed > 0) 
+            || (ProxSensors.getInstance().getLiftBottomLimit() && speed < 0)) {
+            _liftLeftMotor.set(ControlMode.PercentOutput, 0);
+            _liftRightMotor.set(ControlMode.PercentOutput, 0);
+        } else {
+            _liftLeftMotor.set(ControlMode.PercentOutput, speed);
+            _liftRightMotor.set(ControlMode.PercentOutput, -speed);
+        }
     }
 
     public int getVerticalPosition() {

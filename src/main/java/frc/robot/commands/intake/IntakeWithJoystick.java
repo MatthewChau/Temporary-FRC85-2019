@@ -5,16 +5,16 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.lift;
+package frc.robot.commands.intake;
 
 import frc.robot.OI;
-import frc.robot.subsystems.LiftVertical;
+import frc.robot.subsystems.Intake;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class LiftVerticalWithJoystick extends Command {
-    public LiftVerticalWithJoystick() {
-        requires(LiftVertical.getInstance());
+public class IntakeWithJoystick extends Command {
+    public IntakeWithJoystick() {
+        requires(Intake.getInstance());
     }
 
     // Called just before this Command runs the first time
@@ -25,23 +25,23 @@ public class LiftVerticalWithJoystick extends Command {
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
-        LiftVertical.getInstance().verticalShift(OI.getInstance().getOperatorJoystick() * 0.167);
+        Intake.getInstance().setFlipper(OI.getInstance().getOperatorJoystick() * 0.167);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     @Override
     protected boolean isFinished() {
-        if (!OI.getInstance().getOperatorLiftVertical() || OI.getInstance().getOperatorLiftHorizontal() || OI.getInstance().getOperatorIntakeRotate()) {
+        if (!OI.getInstance().getOperatorIntakeRotate() || OI.getInstance().getOperatorLiftHorizontal() || OI.getInstance().getOperatorLiftVertical()) {
             return true;
         } else {
             return false;
-        }
+        }    
     }
 
     // Called once after isFinished returns true
     @Override
     protected void end() {
-        LiftVertical.getInstance().verticalShift(0);
+        Intake.getInstance().setFlipper(0);
     }
 
 }

@@ -19,6 +19,10 @@ public class Variables {
     
     // DRIVETRAIN
 
+    public final double DEADBAND = 0.1;
+    public final double TOLERANCE_ANGLE = 6.0;
+    public final int MAX_TURNS = 7; // if we go over 2520 degrees in either direction in one match then help.
+
     // LIFT
 
     // Lift Vertical PID
@@ -59,14 +63,14 @@ public class Variables {
 
     // INTAKE
 
+    // Intake PID
+
+    public static final double kP_INTAKE = 0.1, kI_INTAKE = 0.000001, kD_INTAKE = 0.2;
+
     // Intake Positions and Degrees
     public static final int INTAKE_DEGREE_ONE = 0;
     public static final int INTAKE_DEGREE_TWO = 90;
     public static final int INTAKE_DEGREE_THREE = 95;
-
-    public final double DEADBAND = 0.1;
-    public final double TOLERANCE_ANGLE = 6.0;
-    public final int MAX_TURNS = 7; // if we go over 2520 degrees in either direction in one match then help.
 
 
     /**
@@ -80,6 +84,10 @@ public class Variables {
         SmartDashboard.putNumber("kP_HLIFT", kP_HLIFT);
         SmartDashboard.putNumber("kI_HLIFT", kI_HLIFT);
         SmartDashboard.putNumber("kD_HLIFT", kD_HLIFT);
+        
+        SmartDashboard.putNumber("kP_INTAKE", kP_INTAKE);
+        SmartDashboard.putNumber("kI_INTAKE", kI_INTAKE);
+        SmartDashboard.putNumber("kD_INTAKE", kD_INTAKE);
 
         SmartDashboard.putBoolean("Joysticks Enabled", false);
     }
@@ -91,7 +99,9 @@ public class Variables {
         return _instance;
     }
 
-  
+    /**
+     * get methods for changable variables
+     */
     public double getVerticalLiftKP() {
         return SmartDashboard.getNumber("kP_VLIFT", kP_VLIFT);
     }
@@ -114,6 +124,18 @@ public class Variables {
 
     public double getHorizontalLiftKD() {
         return SmartDashboard.getNumber("kD_HLIFT", kD_HLIFT);
+    }
+
+    public double getIntakeKP() {
+        return SmartDashboard.getNumber("kP_INTAKE", kP_INTAKE);
+    }
+
+    public double getIntakeKI() {
+        return SmartDashboard.getNumber("kI_INTAKE", kI_INTAKE);
+    }
+
+    public double getIntakeKD() {
+        return SmartDashboard.getNumber("kD_INTAKE", kD_INTAKE);
     }
 
     /**
