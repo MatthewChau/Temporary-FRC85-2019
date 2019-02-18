@@ -16,6 +16,30 @@ public class Addresses {
     public static final int CONTROLLER_DRIVER_STICK_RIGHT = 0;
     public static final int CONTROLLER_DRIVER_STICK_LEFT = 1;
 
+    // Black op station
+    public static final int OPERATOR_LIFT_HORIZONTAL = 1;
+    public static final int OPERATOR_INTAKE_ROTATE = 2;
+
+    public static final int OPERATOR_HATCH_DEFAULT = 3;
+    public static final int OPERATOR_HATCH_RELEASE = 4;
+    public static final int OPERATOR_HATCH_FLOOR = 5;
+
+    public static final int OPERATOR_HATCH_THREE = 6;
+    public static final int OPERATOR_HATCH_TWO = 7;
+    public static final int OPERATOR_HATCH_ONE = 8;
+
+    // White operator station
+    public static final int OPERATOR_LIFT_VERTICAL = 1;
+
+    public static final int OPERATOR_CARGO_IN = 2;
+    public static final int OPERATOR_CARGO_DEFAULT = 3;
+    public static final int OPERATOR_CARGO_OUT = 4;
+    public static final int OPERATOR_CARGO_FLOOR = 5;
+
+    public static final int OPERATOR_CARGO_THREE = 6;
+    public static final int OPERATOR_CARGO_TWO = 7;
+    public static final int OPERATOR_CARGO_ONE = 8;
+
     // DriveTrain
     public static final int DRIVETRAIN_LEFT_FRONT_MOTOR = 11;
     public static final int DRIVETRAIN_LEFT_BACK_MOTOR = 12;

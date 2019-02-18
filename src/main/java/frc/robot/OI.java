@@ -78,30 +78,30 @@ public class OI {
         _driverControllerYButton = new JoystickButton(_driverController, 4);
 
         // Joystick combinations
-        _operatorLiftVertical = new JoystickButton(_operatorControllerWhite, 1);        
+        _operatorLiftVertical = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_LIFT_VERTICAL);        
         _operatorLiftVertical.whenPressed(new LiftVerticalWithJoystick());
-        _operatorLiftHorizontal = new JoystickButton(_operatorControllerBlack, 1);
+        _operatorLiftHorizontal = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_LIFT_HORIZONTAL);
         _operatorLiftHorizontal.whenPressed(new LiftHorizontalWithJoystick());
-        _operatorIntakeRotate = new JoystickButton(_operatorControllerBlack, 2);
+        _operatorIntakeRotate = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_INTAKE_ROTATE);
 
         // Cargo
-        _operatorCargoDefault = new JoystickButton(_operatorControllerWhite, 3);
-        _operatorCargoFloor = new JoystickButton(_operatorControllerWhite, 5);
-        _operatorCargoIn = new JoystickButton(_operatorControllerWhite, 2);
-        _operatorCargoOut = new JoystickButton(_operatorControllerWhite, 4);
+        _operatorCargoDefault = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_CARGO_DEFAULT);
+        _operatorCargoFloor = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_CARGO_FLOOR);
+        _operatorCargoIn = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_CARGO_IN);
+        _operatorCargoOut = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_CARGO_OUT);
 
-        _operatorCargoOne = new JoystickButton(_operatorControllerWhite, 8);
-        _operatorCargoTwo = new JoystickButton(_operatorControllerWhite, 7);
-        _operatorCargoThree = new JoystickButton(_operatorControllerWhite, 6); 
+        _operatorCargoOne = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_CARGO_ONE);
+        _operatorCargoTwo = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_CARGO_TWO);
+        _operatorCargoThree = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_CARGO_THREE); 
 
         // Hatch
-        _operatorHatchDefault = new JoystickButton(_operatorControllerBlack, 3);
-        _operatorHatchFloor = new JoystickButton(_operatorControllerBlack, 5);
-        _operatorHatchRelease = new JoystickButton(_operatorControllerBlack, 4);
+        _operatorHatchDefault = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_HATCH_DEFAULT);
+        _operatorHatchFloor = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_HATCH_FLOOR);
+        _operatorHatchRelease = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_HATCH_RELEASE);
 
-        _operatorHatchOne = new JoystickButton(_operatorControllerBlack, 8);
-        _operatorHatchTwo = new JoystickButton(_operatorControllerBlack, 7);
-        _operatorHatchThree = new JoystickButton(_operatorControllerBlack, 6);
+        _operatorHatchOne = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_HATCH_ONE);
+        _operatorHatchTwo = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_HATCH_TWO);
+        _operatorHatchThree = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_HATCH_THREE);
         
         FollowOneTarget followOneTarget;
         _driverControllerYButton.whileActive(followOneTarget = new FollowOneTarget()); //follows when pressed
