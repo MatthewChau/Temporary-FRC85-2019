@@ -29,7 +29,7 @@ public class IMU {
     private double[] _initialYPR = new double[3];
 
     private IMU() {
-        _pigeon = new PigeonIMU(Addresses.LIFT_LEFT_MOTOR);
+        _pigeon = new PigeonIMU(DriveTrain.getInstance().getIMUTalon());
     }
 
     public static IMU getInstance() {

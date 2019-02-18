@@ -16,8 +16,8 @@ import frc.robot.commands.drivetrain.FollowOneTarget;
 import frc.robot.commands.drivetrain.FollowTwoTarget;
 import frc.robot.commands.lift.VerticalShift;
 import frc.robot.commands.lift.HorizontalShift;
-import frc.robot.commands.lift.LiftHorizontalWithJoystick;
-import frc.robot.commands.lift.LiftVerticalWithJoystick;
+import frc.robot.commands.lift.VerticalShift;
+import frc.robot.commands.lift.HorizontalShift;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Joystick.AxisType;
@@ -30,19 +30,13 @@ public class OI {
     private static OI _instance;
 
     private Joystick _driverController, _driverJoystickRight, _driverJoystickLeft;
-    private Joystick _operatorControllerWhite, _operatorControllerBlack;
+    private Joystick _operatorController1, _operatorController2;
 
     private JoystickButton _driverLeftBumper, _driverControllerAButton, _driverControllerBButton, _driverControllerXButton, _driverControllerYButton;
-    private JoystickButton _operatorZero, _operatorOne, _operatorTwo, _operatorThree, _operatorLeftBumper, _operatorRightBumper;
-
-    // White
-    private JoystickButton _operatorCargoDefault, _operatorCargoFloor, _operatorCargoIn, _operatorCargoOut,
-        _operatorCargoOne, _operatorCargoTwo, _operatorCargoThree,  
-         _operatorLiftVertical;
-    // Black
-    private JoystickButton _operatorHatchDefault, _operatorHatchFloor, _operatorHatchRelease, 
-        _operatorHatchOne, _operatorHatchTwo, _operatorHatchThree,
-        _operatorLiftHorizontal, _operatorIntakeRotate;
+    private JoystickButton _operatorPhaseZero, _operatorPhaseOne, _operatorPhaseTwo, _operatorPhaseThree, _operatorLeftBumper, _operatorRightBumper;
+    private JoystickButton _operatorCargoPhaseOne, _operatorLiftDown, _operatorCargoPhaseTwo, _operatorCargoPhaseThree, _operatorHatchPhaseOne, _operatorHatchPhaseTwo, _operatorHatchPhaseThree, 
+        _operatorLiftUpAndDown, _operatorIntakeRotate, _operatorMastBackAndForth, _operatorCargoIn, _operatorCargoLSOCS, _operatorCargoOut, _operatorCargoFloor, _operatorHatchLSOCS, 
+        _operatorHatchFloor, _operatorHatchRelease;
 
     private double _xSpeed = 0, _ySpeed = 0, _zRotation = 0;
 
@@ -70,37 +64,43 @@ public class OI {
         _driverController = new Joystick(Addresses.CONTROLLER_DRIVER);
         _driverJoystickRight = new Joystick(Addresses.CONTROLLER_DRIVER_STICK_RIGHT);
         _driverJoystickLeft = new Joystick(Addresses.CONTROLLER_DRIVER_STICK_LEFT);
-        _operatorControllerWhite = new Joystick(Addresses.CONTROLLER_OPERATOR1);
-        _operatorControllerBlack = new Joystick(Addresses.CONTROLLER_OPERATOR2);
+        _operatorController1 = new Joystick(Addresses.CONTROLLER_OPERATOR1);
+        _operatorController2 = new Joystick(Addresses.CONTROLLER_OPERATOR2);
 
         _driverControllerAButton = new JoystickButton(_driverController, 1);
         _driverControllerBButton = new JoystickButton(_driverController, 2);
         _driverControllerXButton = new JoystickButton(_driverController, 3);
         _driverControllerYButton = new JoystickButton(_driverController, 4);
 
-        // Joystick combinations
-        _operatorLiftVertical = new JoystickButton(_operatorControllerWhite, 1);        
-        _operatorLiftHorizontal = new JoystickButton(_operatorControllerBlack, 1);
-        _operatorIntakeRotate = new JoystickButton(_operatorControllerBlack, 2);
+        _operatorCargoPhaseOne = new JoystickButton(_operatorController1, 8); //Change values if needed
+        _operatorCargoPhaseTwo = new JoystickButton(_operatorController1, 7); //Change values if needed
+        _operatorCargoPhaseThree = new JoystickButton(_operatorController1, 6); //Change values if needed
 
-        // Cargo
-        _operatorCargoDefault = new JoystickButton(_operatorControllerWhite, 3);
-        _operatorCargoFloor = new JoystickButton(_operatorControllerWhite, 5);
-        _operatorCargoIn = new JoystickButton(_operatorControllerWhite, 2);
-        _operatorCargoOut = new JoystickButton(_operatorControllerWhite, 4);
+        _operatorHatchPhaseOne = new JoystickButton(_operatorController2, 8);
+        _operatorHatchPhaseTwo = new JoystickButton(_operatorController2, 7);
+        _operatorHatchPhaseThree = new JoystickButton(_operatorController2, 6);
 
-        _operatorCargoOne = new JoystickButton(_operatorControllerWhite, 8);
-        _operatorCargoTwo = new JoystickButton(_operatorControllerWhite, 7);
-        _operatorCargoThree = new JoystickButton(_operatorControllerWhite, 6); 
+        _operatorLiftUpAndDown = new JoystickButton(_operatorController1, 1);
+        _operatorIntakeRotate = new JoystickButton(_operatorController2, 2);
+        _operatorMastBackAndForth = new JoystickButton(_operatorController2, 1);
+        _operatorCargoIn = new JoystickButton(_operatorController1, 2);
 
-        // Hatch
-        _operatorHatchDefault = new JoystickButton(_operatorControllerBlack, 3);
-        _operatorHatchFloor = new JoystickButton(_operatorControllerBlack, 5);
-        _operatorHatchRelease = new JoystickButton(_operatorControllerBlack, 4);
+        //Cargo Loading Station or Cargo Ship
+        _operatorCargoLSOCS = new JoystickButton(_operatorController1, 3);
+        _operatorCargoOut = new JoystickButton(_operatorController1, 4);
+        _operatorCargoFloor = new JoystickButton(_operatorController1, 5);
 
-        _operatorHatchOne = new JoystickButton(_operatorControllerBlack, 8);
-        _operatorHatchTwo = new JoystickButton(_operatorControllerBlack, 7);
-        _operatorHatchThree = new JoystickButton(_operatorControllerBlack, 6);
+        //Hatch Loading Station or Cargo Ship
+        _operatorHatchLSOCS = new JoystickButton(_operatorController2, 3);
+        _operatorHatchFloor = new JoystickButton(_operatorController2, 5);
+        _operatorHatchRelease = new JoystickButton(_operatorController2, 4);
+
+        /*_operatorPhaseOne.whenPressed(new VerticalShift(Variables.getInstance().HATCH_LOW, 1)); //go to phase 1
+        _operatorPhaseTwo.whenPressed(new VerticalShift(2, 1)); //go to phase 2
+        _operatorPhaseThree.whenPressed(new VerticalShift(3, 1)); //go to phase 3
+
+        _operatorLeftBumper.whenActive(new HorizontalShift(0, 1)); //1 means to go left (or backward) hopefully
+        _operatorRightBumper.whenActive(new HorizontalShift(1, -1)); //-1 means to go right (or forward) */
         
         FollowOneTarget followOneTarget;
         _driverControllerYButton.whileActive(followOneTarget = new FollowOneTarget()); //follows when pressed
@@ -154,8 +154,12 @@ public class OI {
      * Called in commands to return the joystick axis which is converted into the set speed of the motor
      */
     
-    public double getOperatorJoystick() {
-        return _operatorControllerBlack.getRawAxis(1);
+    public double getLiftVertical() {
+        return -_operatorController2.getRawAxis(1) * 0.5;
+    }
+
+    public double getLiftHorizontal() {
+        return _operatorController2.getRawAxis(0) * 0.5;
     }
 
     public boolean isHeadless() {

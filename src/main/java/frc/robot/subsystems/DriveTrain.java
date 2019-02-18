@@ -159,6 +159,10 @@ public class DriveTrain extends Subsystem {
         return _rightBackMotor.getMotorOutputPercent();
     }
 
+    public TalonSRX getIMUTalon() {
+        return _leftBackMotor;
+    }
+
     private void setTargetAngleMoving(double gyroAngle) { // if necessary, change the target angle
         if (Math.abs(Math.abs(gyroAngle) - Math.abs(targetAngle)) > Variables.getInstance().TOLERANCE_ANGLE) {
             targetAngle = gyroAngle;
