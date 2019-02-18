@@ -8,15 +8,14 @@
 package frc.robot.subsystems;
 
 import frc.robot.Addresses;
-import frc.robot.Robot;
-
+import frc.robot.OI;
+import frc.robot.Variables;
+import frc.robot.sensors.ProxSensors;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.LimitSwitchNormal;
-import com.ctre.phoenix.motorcontrol.LimitSwitchSource;
 
 /**
  * The intake subsystem
@@ -25,19 +24,7 @@ public class Intake extends Subsystem {
 
     private static Intake _instance = null;
 
-    private TalonSRX _flipper;
-    private TalonSRX _roller;
-
-    private int _loadStationPos = 0; // placeholder
-    private int _pickUpPos = 90; // placeholder
-    private int _lowerPickUpPos = 95; // placeholder
-
-    private double flipperSpeed = 0.1;
-    private double intakeTolerance = 1;
-
-    @Override
-    public void initDefaultCommand() {
-    }
+    private TalonSRX _flipper, _roller;
 
     private Intake() {
         _flipper = new TalonSRX(Addresses.INTAKE_FLIPPER);
@@ -52,34 +39,41 @@ public class Intake extends Subsystem {
         return _instance;
     }
 
-    public double getIntakePos() {
-        return _flipper.getSelectedSensorPosition();
+    @Override
+    public void initDefaultCommand() {
     }
 
-    /**
-     * Sets the intake to vertical position
-     */
-    public boolean setLoadStation() {
-        boolean isThere = false;
-        if (getIntakePos() > _loadStationPos) {
-            if (!Robot.overrideLimits) {
-				_flipper.set(ControlMode.PercentOutput, flipperSpeed);
-            }
+    public void setFlipper(double speed) {
+        if ((ProxSensors.getInstance().getIntakeBottomLimit() && speed > 0) 
+            || (ProxSensors.getInstance().getIntakeTopLimit() && speed < 0)) {
+             _flipper.set(ControlMode.PercentOutput, 0);
         } else {
-
+            _flipper.set(ControlMode.PercentOutput, speed);
         }
+    }
 
-        if (Math.abs(getIntakePos() - _loadStationPos) < intakeTolerance) {
-            isThere = true;
+    public void setFlipper(double targetPosition, double maxSpeed) {
+        double speed = OI.getInstance().applyPID(OI.getInstance().INTAKE_SYSTEM, getFlipperPosition(), targetPosition, 
+            Variables.getInstance().getIntakeKP(), Variables.getInstance().getIntakeKI(), Variables.getInstance().getIntakeKD(), 
+            Math.abs(maxSpeed), -Math.abs(maxSpeed));
+
+        if ((ProxSensors.getInstance().getIntakeBottomLimit() && speed > 0) 
+            || (ProxSensors.getInstance().getIntakeTopLimit() && speed < 0)) {
+             _flipper.set(ControlMode.PercentOutput, 0);
+        } else {
+            _flipper.set(ControlMode.PercentOutput, speed);
         }
-
-        return isThere;
     }
 
     /**
-     * Sets the intake to horizontal position
+     * @param position in encoder counts
      */
-    public void setPickUp() {
+    public void setFlipperPosition(int position) {
+        _flipper.setSelectedSensorPosition(position);
+    }
+
+    public double getFlipperPosition() {
+        return _flipper.getSelectedSensorPosition();
     }
 
     public void setRoller(double speed) {

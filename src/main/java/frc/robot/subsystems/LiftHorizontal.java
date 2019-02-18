@@ -44,9 +44,9 @@ public class LiftHorizontal extends Subsystem {
     public void horizontalShift(double speed) {
         if ((ProxSensors.getInstance().getLiftFrontLimit() && speed > 0)
             || (ProxSensors.getInstance().getLiftRearLimit() && speed < 0)) {
-            _liftRearMotor.set(ControlMode.PercentOutput, speed);
-        } else {
             _liftRearMotor.set(ControlMode.PercentOutput, 0);
+        } else {
+            _liftRearMotor.set(ControlMode.PercentOutput, speed);
         }
     }
 
@@ -59,7 +59,12 @@ public class LiftHorizontal extends Subsystem {
             Variables.getInstance().getHorizontalLiftKP(), Variables.getInstance().getHorizontalLiftKI(), Variables.getInstance().getHorizontalLiftKD(), 
             Math.abs(speedMax), -Math.abs(speedMax));
 
-        _liftRearMotor.set(ControlMode.PercentOutput, speed);
+        if ((ProxSensors.getInstance().getLiftFrontLimit() && speed > 0)
+            || (ProxSensors.getInstance().getLiftRearLimit() && speed < 0)) {
+            _liftRearMotor.set(ControlMode.PercentOutput, 0);
+        } else {
+            _liftRearMotor.set(ControlMode.PercentOutput, speed);
+        }
     }
 
     public int getHorizontalPosition() {

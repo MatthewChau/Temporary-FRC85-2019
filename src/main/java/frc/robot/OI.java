@@ -14,10 +14,14 @@ import frc.robot.sensors.IMU;
 
 import frc.robot.commands.drivetrain.FollowOneTarget;
 import frc.robot.commands.drivetrain.FollowTwoTarget;
+
 import frc.robot.commands.lift.VerticalShift;
 import frc.robot.commands.lift.HorizontalShift;
 import frc.robot.commands.lift.LiftHorizontalWithJoystick;
 import frc.robot.commands.lift.LiftVerticalWithJoystick;
+
+import frc.robot.commands.intake.ActivateIntake;
+import frc.robot.commands.intake.IntakeWithJoystick;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Joystick.AxisType;
@@ -82,13 +86,18 @@ public class OI {
         _operatorLiftVertical.whenPressed(new LiftVerticalWithJoystick());
         _operatorLiftHorizontal = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_LIFT_HORIZONTAL);
         _operatorLiftHorizontal.whenPressed(new LiftHorizontalWithJoystick());
-        _operatorIntakeRotate = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_INTAKE_ROTATE);
+        _operatorIntakeRotate = new JoystickButton(_operatorControllerBlack, 2);
+        _operatorIntakeRotate.whenPressed(new IntakeWithJoystick());
 
         // Cargo
-        _operatorCargoDefault = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_CARGO_DEFAULT);
-        _operatorCargoFloor = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_CARGO_FLOOR);
-        _operatorCargoIn = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_CARGO_IN);
-        _operatorCargoOut = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_CARGO_OUT);
+        _operatorCargoDefault = new JoystickButton(_operatorControllerWhite, 3);
+        _operatorCargoFloor = new JoystickButton(_operatorControllerWhite, 5);
+        _operatorCargoIn = new JoystickButton(_operatorControllerWhite, 2);
+        _operatorCargoIn.whenPressed(new ActivateIntake(1.0));
+        _operatorCargoIn.whenReleased(new ActivateIntake(0));
+        _operatorCargoOut = new JoystickButton(_operatorControllerWhite, 4);
+        _operatorCargoOut.whenPressed(new ActivateIntake(-1.0));
+        _operatorCargoOut.whenReleased(new ActivateIntake(0));
 
         _operatorCargoOne = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_CARGO_ONE);
         _operatorCargoTwo = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_CARGO_TWO);

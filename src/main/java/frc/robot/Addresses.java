@@ -46,41 +46,35 @@ public class Addresses {
     public static final int DRIVETRAIN_RIGHT_FRONT_MOTOR = 13;
     public static final int DRIVETRAIN_RIGHT_BACK_MOTOR = 14;
 
-    // BeltTrain
-    public static final int BELTTRAIN_LEFT_MOTOR = 31;
-    public static final int BELTTRAIN_RIGHT_MOTOR = 32;
+    // Lift
+    public static final int LIFT_LEFT_MOTOR = 21;
+    public static final int LIFT_RIGHT_MOTOR = 22;
+    public static final int LIFT_CIM_MOTOR = 23;
 
-    // Belt Solenoid
-    public static final int BELTTRAIN_SOLENOID = 14;
-
-    // Rear Solenoid
-    public static final int REAR_SOLENOID = 21;
-   
-    // IMU
-    // public static final int IMUTalon = 2;
-
-    // LiftProximitySensors DigitalInputs
+    // Lift Proximity Sensors (DigitalInputOutputs)
     public static final int LIFT_TOP_LIMIT = 0;
     public static final int LIFT_CENTER_LIMIT = 1;
     public static final int LIFT_BOTTOM_LIMIT = 2;
     public static final int LIFT_FRONT_LIMIT = 3;
     public static final int LIFT_BACK_LIMIT = 4;
 
-    // Lift (addresses are placeholders for now)
-    public static final int LIFT_LEFT_MOTOR = 21;
-    public static final int LIFT_RIGHT_MOTOR = 6;
-    public static final int LIFT_CIM_MOTOR = 7;
-
     // Intake 
-    public static final int INTAKE_SERVO = 0;
+    public static final int INTAKE_FLIPPER = 31;
+    public static final int INTAKE_PUSHER = 32;
+    public static final int INTAKE_ROLLER = 33;
 
-    // Intake (addresses are placeholders for now)
-    public static final int INTAKE_FLIPPER = 41;
-    public static final int INTAKE_PUSHER = 42;
-    public static final int INTAKE_ROLLER = 43;
+    // Intake Proximity Sensors
+    public static final int INTAKE_TOP_LIMIT = 5;
+    public static final int INTAKE_BOTTOM_LIMIT = 6;
 
-    // Intake Limits (addresses are placeholders for now)
-    public static final int INTAKE_TOP_LIMIT = 12;
-    public static final int INTAKE_BOTTOM_LIMIT = 13;
+    // BeltTrain
+    public static final int BELTTRAIN_LEFT_MOTOR = 41;
+    public static final int BELTTRAIN_RIGHT_MOTOR = 42;
 
+    // Belt Solenoid
+    public static final int BELTTRAIN_SOLENOID = 0;
+
+    // Rear Solenoid
+    public static final int REAR_SOLENOID = 1;
+   
 }

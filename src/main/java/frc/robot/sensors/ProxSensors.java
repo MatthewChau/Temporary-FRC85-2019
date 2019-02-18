@@ -15,12 +15,13 @@ import frc.robot.Addresses;
 public class ProxSensors extends Subsystem {
 
     private static ProxSensors _instance = null;
-    private DigitalInput _liftTopLimit, _liftBottomLimit, _liftFrontLimit, _liftRearLimit;
+    private DigitalInput _liftTopLimit, _liftCenterLimit, _liftBottomLimit, _liftFrontLimit, _liftRearLimit;
 
     private DigitalInput _intakeTopLimit, _intakeBottomLimit;
 
     private ProxSensors() {
         _liftTopLimit = new DigitalInput(Addresses.LIFT_TOP_LIMIT);
+        _liftCenterLimit = new DigitalInput(Addresses.LIFT_CENTER_LIMIT);
         _liftBottomLimit = new DigitalInput(Addresses.LIFT_BOTTOM_LIMIT);
 
         _liftFrontLimit= new DigitalInput(Addresses.LIFT_FRONT_LIMIT);
