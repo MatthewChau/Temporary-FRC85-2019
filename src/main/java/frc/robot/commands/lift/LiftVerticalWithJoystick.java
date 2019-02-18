@@ -31,11 +31,7 @@ public class LiftVerticalWithJoystick extends Command {
     // Make this return true when this Command no longer needs to run execute()
     @Override
     protected boolean isFinished() {
-        if (!OI.getInstance().getOperatorLiftVertical() || OI.getInstance().getOperatorLiftHorizontal() || OI.getInstance().getOperatorIntakeRotate()) {
-            return true;
-        } else {
-            return false;
-        }
+        return false;
     }
 
     // Called once after isFinished returns true

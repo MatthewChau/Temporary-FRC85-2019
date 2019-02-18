@@ -31,17 +31,19 @@ public class LiftHorizontalWithJoystick extends Command {
     // Make this return true when this Command no longer needs to run execute()
     @Override
     protected boolean isFinished() {
-        if (!OI.getInstance().getOperatorLiftHorizontal() || OI.getInstance().getOperatorLiftVertical() || OI.getInstance().getOperatorIntakeRotate()) {
-            return true;
-        } else {
-            return false;
-        }    
+        return false;
     }
 
     // Called once after isFinished returns true
     @Override
     protected void end() {
         LiftHorizontal.getInstance().horizontalShift(0);
+    }
+
+    // Called when another command which requires one or more of the same
+    // subsystems is scheduled to run
+    @Override
+    protected void interrupted() {
     }
 
 }
