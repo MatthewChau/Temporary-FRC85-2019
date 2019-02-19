@@ -13,10 +13,10 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class HorizontalShift extends Command {
 
-    private int _speedMax, _targetPosition;
-    private int _tolerance = 10;
+    private int _targetPosition, _tolerance = 10;
+    private double _speedMax;
 
-    public HorizontalShift(int targetPosition, int speedMax) {
+    public HorizontalShift(int targetPosition, double speedMax) {
         requires(LiftHorizontal.getInstance());
         _targetPosition = targetPosition;
         _speedMax = speedMax;
@@ -25,7 +25,7 @@ public class HorizontalShift extends Command {
     /**
      * @param timeout in seconds
      */
-    public HorizontalShift(int targetPosition, int speedMax, double timeout) {
+    public HorizontalShift(int targetPosition, double speedMax, double timeout) {
         requires(LiftHorizontal.getInstance());
         _targetPosition = targetPosition;
         _speedMax = speedMax;
