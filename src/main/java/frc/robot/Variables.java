@@ -8,6 +8,8 @@
 package frc.robot;
 
 import frc.robot.subsystems.DriveTrain;
+import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.LiftHorizontal;
 import frc.robot.subsystems.LiftVertical;
 import frc.robot.sensors.ProxSensors;
 import frc.robot.sensors.IMU;
@@ -32,7 +34,9 @@ public class Variables {
     // Lift Horizontal PID
     private static final double kP_HLIFT = 0.1, kI_HLIFT = 0.000001, kD_HLIFT = 0.2;
 
-    private static final double LIFT_STALL_SPEED = .167;
+    private static final double LIFT_STALL_SPEED = 0.167;
+
+    private static final double LIFT_UP_SPEED = 0.25;
 
     // Lift Vertical Postitions
     public static final int HATCH_LOW = 10;
@@ -94,6 +98,8 @@ public class Variables {
         SmartDashboard.putNumber("kI_INTAKE", kI_INTAKE);
         SmartDashboard.putNumber("kD_INTAKE", kD_INTAKE);
 
+        SmartDashboard.putNumber("Lift Up Speed", LIFT_UP_SPEED);
+
         SmartDashboard.putNumber("LIFT_STALL_SPEED", LIFT_STALL_SPEED);
 
         SmartDashboard.putNumber("INTAKE_STALL_SPEED", INTAKE_STALL_SPEED);
@@ -147,6 +153,10 @@ public class Variables {
         return SmartDashboard.getNumber("kD_INTAKE", kD_INTAKE);
     }
 
+    public double getVerticalLiftUpSpeed() {
+        return SmartDashboard.getNumber("LIFT_UP_SPEED", LIFT_UP_SPEED);
+    }
+
     public double getVerticalStall() {
         return SmartDashboard.getNumber("LIFT_STALL_SPEED", LIFT_STALL_SPEED);
     }
@@ -180,8 +190,15 @@ public class Variables {
         SmartDashboard.putBoolean("Lift Top", ProxSensors.getInstance().getLiftTopLimit());
         SmartDashboard.putBoolean("Lift Center", ProxSensors.getInstance().getLiftCenterLimit());
         SmartDashboard.putBoolean("Lift Bottom", ProxSensors.getInstance().getLiftBottomLimit());
+        SmartDashboard.putBoolean("Intake Bottom", ProxSensors.getInstance().getIntakeBottomLimit());
 
         SmartDashboard.putNumber("Operator Joystick", OI.getInstance().getOperatorJoystick());
+
+        SmartDashboard.putNumber("Vertical Lift", LiftVertical.getInstance().getVerticalPosition());
+
+        SmartDashboard.putNumber("Horizontal Lift", LiftHorizontal.getInstance().getHorizontalPosition());
+
+        SmartDashboard.putNumber("Intake Encoder", Intake.getInstance().getFlipperPosition());
 
         //SmartDashboard.putBoolean("Prox me OwO", ProxSensors.getInstance().getTopLimit());
     }

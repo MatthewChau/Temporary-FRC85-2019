@@ -49,6 +49,10 @@ public class LiftHorizontal extends Subsystem {
         } else {
             _liftRearMotor.set(ControlMode.PercentOutput, speed);
         }
+
+        if (ProxSensors.getInstance().getLiftFrontLimit()) {
+            setHorizontalPosition(0);
+        }
     }
 
     /**
@@ -66,6 +70,10 @@ public class LiftHorizontal extends Subsystem {
         } else {
             _liftRearMotor.set(ControlMode.PercentOutput, speed);
         }
+    }
+
+    public void setHorizontalPosition(int position) {
+        _liftRearMotor.setSelectedSensorPosition(position);
     }
 
     public int getHorizontalPosition() {

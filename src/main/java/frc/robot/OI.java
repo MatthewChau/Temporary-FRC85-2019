@@ -96,10 +96,10 @@ public class OI {
         _operatorCargoDefault = new JoystickButton(_operatorControllerWhite, 3);
         _operatorCargoFloor = new JoystickButton(_operatorControllerWhite, 5);
         _operatorCargoIn = new JoystickButton(_operatorControllerWhite, 2);
-        _operatorCargoIn.whenPressed(new ActivateIntake(1.0));
+        _operatorCargoIn.whenPressed(new ActivateIntake(0.8));
         _operatorCargoIn.whenReleased(new ActivateIntake(0));
         _operatorCargoOut = new JoystickButton(_operatorControllerWhite, 4);
-        _operatorCargoOut.whenPressed(new ActivateIntake(-1.0));
+        _operatorCargoOut.whenPressed(new ActivateIntake(-0.8));
         _operatorCargoOut.whenReleased(new ActivateIntake(0));
 
         _operatorCargoOne = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_CARGO_ONE);

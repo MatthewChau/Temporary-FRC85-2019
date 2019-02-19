@@ -25,7 +25,7 @@ public class IntakeWithJoystick extends Command {
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
-        Intake.getInstance().setFlipper(OI.getInstance().getOperatorJoystick() * 0.167);
+        Intake.getInstance().setFlipper(OI.getInstance().getOperatorJoystick() * 0.25);
     }
 
     // Make this return true when this Command no longer needs to run execute()
