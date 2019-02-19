@@ -29,10 +29,10 @@ public class LiftVertical extends Subsystem {
   
     private LiftVertical() {
         _liftLeftMotor = new TalonSRX(Addresses.LIFT_LEFT_MOTOR);
-        _liftLeftMotor.setNeutralMode(NeutralMode.Brake);
-        _liftLeftMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
+        _liftLeftMotor.setNeutralMode(NeutralMode.Coast);
         _liftRightMotor = new TalonSRX(Addresses.LIFT_RIGHT_MOTOR);
-        _liftRightMotor.setNeutralMode(NeutralMode.Brake);
+        _liftRightMotor.setNeutralMode(NeutralMode.Coast);
+        _liftRightMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
     }
 
     public static LiftVertical getInstance() {
@@ -82,11 +82,11 @@ public class LiftVertical extends Subsystem {
     }
 
     public void setVerticalPosition(int position) {
-        _liftLeftMotor.setSelectedSensorPosition(position);
+        _liftRightMotor.setSelectedSensorPosition(position);
     }
 
     public int getVerticalPosition() {
-        return _liftLeftMotor.getSelectedSensorPosition();
+        return _liftRightMotor.getSelectedSensorPosition();
     }
    
 }

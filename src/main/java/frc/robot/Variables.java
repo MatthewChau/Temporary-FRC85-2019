@@ -34,7 +34,7 @@ public class Variables {
     // Lift Horizontal PID
     private static final double kP_HLIFT = 0.1, kI_HLIFT = 0.000001, kD_HLIFT = 0.2;
 
-    private static final double LIFT_STALL_SPEED = 0.167;
+    private static final double LIFT_STALL_SPEED = 0.18;
 
     private static final double LIFT_UP_SPEED = 0.25;
 
@@ -98,7 +98,7 @@ public class Variables {
         SmartDashboard.putNumber("kI_INTAKE", kI_INTAKE);
         SmartDashboard.putNumber("kD_INTAKE", kD_INTAKE);
 
-        SmartDashboard.putNumber("Lift Up Speed", LIFT_UP_SPEED);
+        SmartDashboard.putNumber("LIFT_UP_SPEED", LIFT_UP_SPEED);
 
         SmartDashboard.putNumber("LIFT_STALL_SPEED", LIFT_STALL_SPEED);
 
@@ -190,7 +190,7 @@ public class Variables {
         SmartDashboard.putBoolean("Lift Top", ProxSensors.getInstance().getLiftTopLimit());
         SmartDashboard.putBoolean("Lift Center", ProxSensors.getInstance().getLiftCenterLimit());
         SmartDashboard.putBoolean("Lift Bottom", ProxSensors.getInstance().getLiftBottomLimit());
-        SmartDashboard.putBoolean("Intake Bottom", ProxSensors.getInstance().getIntakeBottomLimit());
+        SmartDashboard.putBoolean("Lift Front", ProxSensors.getInstance().getLiftFrontLimit());
 
         SmartDashboard.putNumber("Operator Joystick", OI.getInstance().getOperatorJoystick());
 

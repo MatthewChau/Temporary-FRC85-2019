@@ -32,7 +32,7 @@ public class LiftVerticalWithJoystick extends Command {
         _speed = OI.getInstance().getOperatorJoystick();
 
         if (_speed > 0) {
-            _speed = 0.5;
+            _speed = 0.40;
         } else if (_speed < 0) {
             _speed = -0.15;
         }
