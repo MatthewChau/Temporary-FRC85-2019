@@ -57,11 +57,11 @@ public class ProxSensors extends Subsystem {
     }
 
     public boolean getLiftFrontLimit() {
-        return _liftFrontLimit.get();
+        return !_liftFrontLimit.get();
     }
 
     public boolean getLiftRearLimit() {
-        return _liftRearLimit.get();
+        return !_liftRearLimit.get();
     }
 
     public boolean getIntakeTopLimit() {
