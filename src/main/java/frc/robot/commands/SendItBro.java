@@ -13,8 +13,8 @@ public class SendItBro extends CommandGroup {
 
     public SendItBro() {
         addSequential(new Wait(1.0));
-        addSequential(new DriveSeconds(_speed, 2.0));
-        addParallel(new BeltTrainDrive(.5, 2.0));
+        addSequential(new DriveSeconds(_speed, 5.0));
+        addParallel(new BeltTrainDrive(.5, 5.0));
     }
     
 }
