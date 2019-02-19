@@ -65,11 +65,11 @@ public class ProxSensors extends Subsystem {
     }
 
     public boolean getIntakeTopLimit() {
-        return _intakeTopLimit.get();
+        return !_intakeTopLimit.get();
     }
 
     public boolean getIntakeBottomLimit() {
-        return _intakeBottomLimit.get();
+        return !_intakeBottomLimit.get();
     }
 
 }
