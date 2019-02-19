@@ -56,6 +56,10 @@ public class LiftVertical extends Subsystem {
             _liftLeftMotor.set(ControlMode.PercentOutput, speed);
             _liftRightMotor.set(ControlMode.PercentOutput, speed);
         }
+
+        if (ProxSensors.getInstance().getLiftBottomLimit()) {
+            setVerticalPosition(0);
+        }
     } 
 
     /**
@@ -75,6 +79,10 @@ public class LiftVertical extends Subsystem {
             _liftLeftMotor.set(ControlMode.PercentOutput, speed);
             _liftRightMotor.set(ControlMode.PercentOutput, speed);
         }
+    }
+
+    public void setVerticalPosition(int position) {
+        _liftLeftMotor.setSelectedSensorPosition(position);
     }
 
     public int getVerticalPosition() {

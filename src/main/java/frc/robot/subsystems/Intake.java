@@ -54,12 +54,12 @@ public class Intake extends Subsystem {
     }
 
     public void setFlipper(double speed) {
-        if ((ProxSensors.getInstance().getIntakeBottomLimit() && speed > 0)
-            || (ProxSensors.getInstance().getIntakeTopLimit() && speed < 0)
+        if ((ProxSensors.getInstance().getIntakeBottomLimit() && speed < 0)
+            || (ProxSensors.getInstance().getIntakeTopLimit() && speed > 0)
             || (speed == 0)) {
             _flipper.set(ControlMode.PercentOutput, Variables.getInstance().getIntakeStall());
         } else {
-            _flipper.set(ControlMode.PercentOutput, speed);
+            _flipper.set(ControlMode.PercentOutput, -speed);
         }
     }
 
