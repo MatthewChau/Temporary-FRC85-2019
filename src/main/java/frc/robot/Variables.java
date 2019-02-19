@@ -8,6 +8,7 @@
 package frc.robot;
 
 import frc.robot.subsystems.DriveTrain;
+import frc.robot.subsystems.LiftVertical;
 import frc.robot.sensors.ProxSensors;
 import frc.robot.sensors.IMU;
 
@@ -30,6 +31,8 @@ public class Variables {
 
     // Lift Horizontal PID
     private static final double kP_HLIFT = 0.1, kI_HLIFT = 0.000001, kD_HLIFT = 0.2;
+
+    private static final double STALL_SPEED = .167;
 
     // Lift Vertical Postitions
     public static final int HATCH_LOW = 10;
@@ -89,6 +92,8 @@ public class Variables {
         SmartDashboard.putNumber("kI_INTAKE", kI_INTAKE);
         SmartDashboard.putNumber("kD_INTAKE", kD_INTAKE);
 
+        SmartDashboard.putNumber("STALL_SPEED", STALL_SPEED);
+
         SmartDashboard.putBoolean("Joysticks Enabled", false);
     }
 
@@ -138,6 +143,10 @@ public class Variables {
         return SmartDashboard.getNumber("kD_INTAKE", kD_INTAKE);
     }
 
+    public double getVerticalStall() {
+        return SmartDashboard.getNumber("STALL_SPEED", STALL_SPEED);
+    }
+
     /**
      * Repeatedly called in Robot.java
      */
@@ -159,6 +168,13 @@ public class Variables {
 
         SmartDashboard.putNumber("Initial Roll", IMU.getInstance().getInitialRoll());
         SmartDashboard.putNumber("Roll", IMU.getInstance().getRoll());
+
+        SmartDashboard.putBoolean("Lift Top", ProxSensors.getInstance().getLiftTopLimit());
+        SmartDashboard.putBoolean("Lift Center", ProxSensors.getInstance().getLiftCenterLimit());
+        SmartDashboard.putBoolean("Lift Bottom", ProxSensors.getInstance().getLiftBottomLimit());
+
+        SmartDashboard.putNumber("Operator Joystick", OI.getInstance().getOperatorJoystick());
+
         //SmartDashboard.putBoolean("Prox me OwO", ProxSensors.getInstance().getTopLimit());
     }
 

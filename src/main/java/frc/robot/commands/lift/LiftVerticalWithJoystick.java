@@ -8,11 +8,15 @@
 package frc.robot.commands.lift;
 
 import frc.robot.OI;
+import frc.robot.Variables;
 import frc.robot.subsystems.LiftVertical;
 
 import edu.wpi.first.wpilibj.command.Command;
 
 public class LiftVerticalWithJoystick extends Command {
+
+    double _speed = 0;
+
     public LiftVerticalWithJoystick() {
         requires(LiftVertical.getInstance());
     }
@@ -25,7 +29,15 @@ public class LiftVerticalWithJoystick extends Command {
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
-        LiftVertical.getInstance().verticalShift(OI.getInstance().getOperatorJoystick() * 0.167);
+        _speed = OI.getInstance().getOperatorJoystick();
+
+        if (_speed > 0) {
+            _speed = _speed * 0.30;
+        } else if (_speed < 0) {
+            _speed = _speed * 0.167;
+        }
+
+        LiftVertical.getInstance().verticalShift(_speed);
     }
 
     // Make this return true when this Command no longer needs to run execute()

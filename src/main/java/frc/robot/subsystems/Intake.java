@@ -11,9 +11,11 @@ import frc.robot.Addresses;
 import frc.robot.OI;
 import frc.robot.Variables;
 import frc.robot.sensors.ProxSensors;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 
@@ -26,10 +28,18 @@ public class Intake extends Subsystem {
 
     private TalonSRX _flipper, _roller;
 
+    private Solenoid _solenoidOne, _solenoidTwo;
+
     private Intake() {
         _flipper = new TalonSRX(Addresses.INTAKE_FLIPPER);
+        _flipper.setNeutralMode(NeutralMode.Brake);
         _flipper.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
         _roller = new TalonSRX(Addresses.INTAKE_ROLLER);
+        _roller.setNeutralMode(NeutralMode.Brake);
+
+        // Two stage solenoid
+        _solenoidOne = new Solenoid(Addresses.INTAKE_ONE_SOLENOID);
+        _solenoidTwo = new Solenoid(Addresses.INTAKE_TWO_SOLENOID);
     }
 
     public static Intake getInstance() {
@@ -78,6 +88,24 @@ public class Intake extends Subsystem {
 
     public void setRoller(double speed) {
         _roller.set(ControlMode.PercentOutput, speed);
+    }
+
+    /**
+     * 0
+     * 1
+     * 2
+     */
+    public void setIntakeSolenoid(boolean activated) {
+        _solenoidOne.set(activated);
+        _solenoidTwo.set(!activated);
+    }
+
+    public boolean getIntakeOneSolenoid() {
+        return _solenoidOne.get();
+    }
+
+    public boolean getIntakeTwoSolenoid() {
+        return _solenoidTwo.get();
     }
 
 }

@@ -15,9 +15,12 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.sensors.IMU;
+import frc.robot.subsystems.BeltSolenoid;
+import frc.robot.subsystems.BeltTrain;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.LiftVertical;
+import frc.robot.subsystems.RearSolenoid;
 import frc.robot.subsystems.LiftHorizontal;
 import frc.robot.Vision;
 import java.util.Arrays;
@@ -45,6 +48,9 @@ public class Robot extends TimedRobot {
         OI.getInstance();
         IMU.getInstance();
         Vision.getInstance();
+        BeltSolenoid.getInstance();
+        BeltTrain.getInstance();
+        RearSolenoid.getInstance();
     }
 
     /**
@@ -74,13 +80,19 @@ public class Robot extends TimedRobot {
     public void teleopInit() {
         IMU.getInstance().setFusedHeading(0);
 
+        // Pneumatics
+
+        Intake.getInstance().setIntakeSolenoid(false);
+        BeltSolenoid.getInstance().setBeltSolenoid(false);
+        RearSolenoid.getInstance().setRearSolenoid(false);
+
         // init the pid stuff 
 
         Arrays.fill(OI.getInstance().firstRun, true);
         Arrays.fill(OI.getInstance().errorSum, 0.0);
         Arrays.fill(OI.getInstance().lastOutput, 0.0);
         Arrays.fill(OI.getInstance().lastActual, 0.0);
-
+        
         Arrays.fill(OI.getInstance().stopArray, 0.0);
 
         super.teleopInit();

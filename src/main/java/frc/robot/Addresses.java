@@ -11,8 +11,8 @@ public class Addresses {
 
     // Drivestation
     public static final int CONTROLLER_DRIVER = 0;
-    public static final int CONTROLLER_OPERATOR1 = 4; // will change these later
-    public static final int CONTROLLER_OPERATOR2 = 3; // will change these later
+    public static final int CONTROLLER_OPERATOR_BLACK = 1; // will change these later
+    public static final int CONTROLLER_OPERATOR_WHITE = 2; // will change these later
     public static final int CONTROLLER_DRIVER_STICK_RIGHT = 0;
     public static final int CONTROLLER_DRIVER_STICK_LEFT = 1;
 
@@ -60,8 +60,10 @@ public class Addresses {
 
     // Intake 
     public static final int INTAKE_FLIPPER = 31;
-    public static final int INTAKE_PUSHER = 32;
-    public static final int INTAKE_ROLLER = 33;
+    public static final int INTAKE_ROLLER = 32;
+
+    public static final int INTAKE_ONE_SOLENOID = 2;
+    public static final int INTAKE_TWO_SOLENOID = 3;
 
     // Intake Proximity Sensors
     public static final int INTAKE_TOP_LIMIT = 5;

@@ -11,13 +11,13 @@ import frc.robot.OI;
 import frc.robot.Addresses;
 import frc.robot.Variables;
 import frc.robot.sensors.ProxSensors;
-import frc.robot.commands.lift.LiftVerticalWithJoystick;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 
 public class LiftVertical extends Subsystem {
 
@@ -29,8 +29,10 @@ public class LiftVertical extends Subsystem {
   
     private LiftVertical() {
         _liftLeftMotor = new TalonSRX(Addresses.LIFT_LEFT_MOTOR);
+        _liftLeftMotor.setNeutralMode(NeutralMode.Brake);
         _liftLeftMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
         _liftRightMotor = new TalonSRX(Addresses.LIFT_RIGHT_MOTOR);
+        _liftRightMotor.setNeutralMode(NeutralMode.Brake);
     }
 
     public static LiftVertical getInstance() {
@@ -46,12 +48,13 @@ public class LiftVertical extends Subsystem {
 
     public void verticalShift(double speed) {
         if ((ProxSensors.getInstance().getLiftTopLimit() && speed > 0) 
-            || (ProxSensors.getInstance().getLiftBottomLimit() && speed < 0)) {
-            _liftLeftMotor.set(ControlMode.PercentOutput, 0);
-            _liftRightMotor.set(ControlMode.PercentOutput, 0);
+            || (ProxSensors.getInstance().getLiftBottomLimit() && speed < 0)
+            || (speed == 0)) {
+            _liftLeftMotor.set(ControlMode.PercentOutput, Variables.getInstance().getVerticalStall());
+            _liftRightMotor.set(ControlMode.PercentOutput, Variables.getInstance().getVerticalStall());
         } else {
             _liftLeftMotor.set(ControlMode.PercentOutput, speed);
-            _liftRightMotor.set(ControlMode.PercentOutput, -speed);
+            _liftRightMotor.set(ControlMode.PercentOutput, speed);
         }
     } 
 
@@ -70,7 +73,7 @@ public class LiftVertical extends Subsystem {
             _liftRightMotor.set(ControlMode.PercentOutput, 0);
         } else {
             _liftLeftMotor.set(ControlMode.PercentOutput, speed);
-            _liftRightMotor.set(ControlMode.PercentOutput, -speed);
+            _liftRightMotor.set(ControlMode.PercentOutput, speed);
         }
     }
 

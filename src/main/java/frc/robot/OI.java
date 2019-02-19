@@ -11,17 +11,20 @@ import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.LiftVertical;
 import frc.robot.subsystems.LiftHorizontal;
 import frc.robot.sensors.IMU;
-
+import frc.robot.commands.belttrain.BeltTrainDrive;
+import frc.robot.commands.belttrain.SetBeltSolenoid;
 import frc.robot.commands.drivetrain.FollowOneTarget;
 import frc.robot.commands.drivetrain.FollowTwoTarget;
 
 import frc.robot.commands.lift.VerticalShift;
+import frc.robot.commands.rearsolenoid.SetRearSolenoid;
 import frc.robot.commands.lift.HorizontalShift;
 import frc.robot.commands.lift.LiftHorizontalWithJoystick;
 import frc.robot.commands.lift.LiftVerticalWithJoystick;
 
 import frc.robot.commands.intake.ActivateIntake;
 import frc.robot.commands.intake.IntakeWithJoystick;
+import frc.robot.commands.intake.ToggleIntakeSolenoid;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Joystick.AxisType;
@@ -73,8 +76,8 @@ public class OI {
         _driverController = new Joystick(Addresses.CONTROLLER_DRIVER);
         _driverJoystickRight = new Joystick(Addresses.CONTROLLER_DRIVER_STICK_RIGHT);
         _driverJoystickLeft = new Joystick(Addresses.CONTROLLER_DRIVER_STICK_LEFT);
-        _operatorControllerWhite = new Joystick(Addresses.CONTROLLER_OPERATOR1);
-        _operatorControllerBlack = new Joystick(Addresses.CONTROLLER_OPERATOR2);
+        _operatorControllerWhite = new Joystick(Addresses.CONTROLLER_OPERATOR_WHITE);
+        _operatorControllerBlack = new Joystick(Addresses.CONTROLLER_OPERATOR_BLACK);
 
         _driverControllerAButton = new JoystickButton(_driverController, 1);
         _driverControllerBButton = new JoystickButton(_driverController, 2);
@@ -100,18 +103,25 @@ public class OI {
         _operatorCargoOut.whenReleased(new ActivateIntake(0));
 
         _operatorCargoOne = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_CARGO_ONE);
+        _operatorCargoOne.whenPressed(new SetBeltSolenoid(true));
         _operatorCargoTwo = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_CARGO_TWO);
+        _operatorCargoTwo.whenPressed(new BeltTrainDrive(0.60));
+        _operatorCargoTwo.whenReleased(new BeltTrainDrive(0));
         _operatorCargoThree = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_CARGO_THREE); 
+        _operatorCargoThree.whenPressed(new SetRearSolenoid(true));
 
         // Hatch
         _operatorHatchDefault = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_HATCH_DEFAULT);
         _operatorHatchFloor = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_HATCH_FLOOR);
         _operatorHatchRelease = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_HATCH_RELEASE);
+        _operatorHatchRelease.whenPressed(new ToggleIntakeSolenoid());
 
         _operatorHatchOne = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_HATCH_ONE);
+        _operatorHatchOne.whenPressed(new SetBeltSolenoid(false));
         _operatorHatchTwo = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_HATCH_TWO);
         _operatorHatchThree = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_HATCH_THREE);
-        
+        _operatorHatchThree.whenPressed(new SetRearSolenoid(false));
+
         FollowOneTarget followOneTarget;
         _driverControllerYButton.whileActive(followOneTarget = new FollowOneTarget()); //follows when pressed
         

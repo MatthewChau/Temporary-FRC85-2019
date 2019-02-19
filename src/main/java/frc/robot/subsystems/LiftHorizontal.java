@@ -11,13 +11,13 @@ import frc.robot.OI;
 import frc.robot.Variables;
 import frc.robot.Addresses;
 import frc.robot.sensors.ProxSensors;
-import frc.robot.commands.lift.LiftHorizontalWithJoystick;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 
 public class LiftHorizontal extends Subsystem {
 
@@ -27,6 +27,7 @@ public class LiftHorizontal extends Subsystem {
 
     private LiftHorizontal() {
         _liftRearMotor = new TalonSRX(Addresses.LIFT_CIM_MOTOR);
+        _liftRearMotor.setNeutralMode(NeutralMode.Brake);
         _liftRearMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
     }
 
