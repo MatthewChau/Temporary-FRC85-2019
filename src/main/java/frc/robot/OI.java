@@ -15,6 +15,7 @@ import frc.robot.commands.belttrain.BeltTrainDrive;
 import frc.robot.commands.belttrain.SetBeltSolenoid;
 import frc.robot.commands.drivetrain.FollowOneTarget;
 import frc.robot.commands.drivetrain.FollowTwoTarget;
+import frc.robot.commands.drivetrain.DriveSeconds;
 
 import frc.robot.commands.lift.VerticalShift;
 import frc.robot.commands.rearsolenoid.SetRearSolenoid;
@@ -127,6 +128,10 @@ public class OI {
         
         FollowTwoTarget followTwoTarget;
         _driverControllerXButton.whileActive(followTwoTarget = new FollowTwoTarget());
+
+        /*DriveSeconds driveSeconds;
+        double[] shutupanddrive = {0.0, 0.0, 0.0, 0.0};
+        _driverControllerAButton.whileActive(driveSeconds = new DriveSeconds(shutupanddrive, 10.0));*/
     }
 
     public static OI getInstance() {
