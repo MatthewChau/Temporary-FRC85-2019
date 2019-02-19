@@ -54,9 +54,10 @@ public class Intake extends Subsystem {
     }
 
     public void setFlipper(double speed) {
-        if ((ProxSensors.getInstance().getIntakeBottomLimit() && speed > 0) 
-            || (ProxSensors.getInstance().getIntakeTopLimit() && speed < 0)) {
-             _flipper.set(ControlMode.PercentOutput, 0);
+        if ((ProxSensors.getInstance().getIntakeBottomLimit() && speed > 0)
+            || (ProxSensors.getInstance().getIntakeTopLimit() && speed < 0)
+            || (speed == 0)) {
+            _flipper.set(ControlMode.PercentOutput, Variables.getInstance().getIntakeStall());
         } else {
             _flipper.set(ControlMode.PercentOutput, speed);
         }
@@ -90,11 +91,6 @@ public class Intake extends Subsystem {
         _roller.set(ControlMode.PercentOutput, speed);
     }
 
-    /**
-     * 0
-     * 1
-     * 2
-     */
     public void setIntakeSolenoid(boolean activated) {
         _solenoidOne.set(activated);
         _solenoidTwo.set(!activated);

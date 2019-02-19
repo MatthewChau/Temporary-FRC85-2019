@@ -243,7 +243,13 @@ public class OI {
     // Operator Control Board
 
     public double getOperatorJoystick() {
-        return _operatorControllerBlack.getRawAxis(1);
+        double axis = _operatorControllerBlack.getRawAxis(1);
+
+        if (Math.abs(axis) < 0.1) {
+            axis = 0;
+        }
+
+        return axis;
     }
 
     public boolean getOperatorLiftHorizontal() {

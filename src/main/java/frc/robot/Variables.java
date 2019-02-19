@@ -32,7 +32,7 @@ public class Variables {
     // Lift Horizontal PID
     private static final double kP_HLIFT = 0.1, kI_HLIFT = 0.000001, kD_HLIFT = 0.2;
 
-    private static final double STALL_SPEED = .167;
+    private static final double LIFT_STALL_SPEED = .167;
 
     // Lift Vertical Postitions
     public static final int HATCH_LOW = 10;
@@ -70,6 +70,8 @@ public class Variables {
 
     public static final double kP_INTAKE = 0.1, kI_INTAKE = 0.000001, kD_INTAKE = 0.2;
 
+    public static final double INTAKE_STALL_SPEED = 0.2;
+
     // Intake Positions and Degrees
     public static final int INTAKE_DEGREE_ONE = 0;
     public static final int INTAKE_DEGREE_TWO = 90;
@@ -92,7 +94,9 @@ public class Variables {
         SmartDashboard.putNumber("kI_INTAKE", kI_INTAKE);
         SmartDashboard.putNumber("kD_INTAKE", kD_INTAKE);
 
-        SmartDashboard.putNumber("STALL_SPEED", STALL_SPEED);
+        SmartDashboard.putNumber("LIFT_STALL_SPEED", LIFT_STALL_SPEED);
+
+        SmartDashboard.putNumber("INTAKE_STALL_SPEED", INTAKE_STALL_SPEED);
 
         SmartDashboard.putBoolean("Joysticks Enabled", false);
     }
@@ -144,7 +148,11 @@ public class Variables {
     }
 
     public double getVerticalStall() {
-        return SmartDashboard.getNumber("STALL_SPEED", STALL_SPEED);
+        return SmartDashboard.getNumber("LIFT_STALL_SPEED", LIFT_STALL_SPEED);
+    }
+
+    public double getIntakeStall() {
+        return SmartDashboard.getNumber("INTAKE_STALL_SPEED", INTAKE_STALL_SPEED);
     }
 
     /**
