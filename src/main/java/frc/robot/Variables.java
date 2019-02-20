@@ -102,6 +102,14 @@ public class Variables {
         SmartDashboard.putNumber("kI_DRIVE", 0.0);
         SmartDashboard.putNumber("kD_DRIVE", 0.0);
 
+        SmartDashboard.putNumber("kP_VISION", 0.05);
+        SmartDashboard.putNumber("kI_VISION", 0.0);
+        SmartDashboard.putNumber("kD_VISION", 0.0);
+
+        SmartDashboard.putNumber("kP_VISION_ROT", 0.012);
+        SmartDashboard.putNumber("kI_VISION_ROT", 0.0);
+        SmartDashboard.putNumber("kD_VISION_ROT", 0.2);
+
         SmartDashboard.putNumber("Lift Up Speed", LIFT_UP_SPEED);
 
         SmartDashboard.putNumber("LIFT_STALL_SPEED", LIFT_STALL_SPEED);
@@ -167,6 +175,30 @@ public class Variables {
 
     public double getDriveKD() {
         return SmartDashboard.getNumber("kD_DRIVE", 0.0);
+    }
+
+    public double getVisionKP() {
+        return SmartDashboard.getNumber("kP_VISION", 0.05);
+    }
+
+    public double getVisionKI() {
+        return SmartDashboard.getNumber("kI_VISION", 0.0);
+    }
+
+    public double getVisionKD() {
+        return SmartDashboard.getNumber("kD_VISION", 0.0);
+    }
+
+    public double getVisionRotKP() {
+        return SmartDashboard.getNumber("kP_VISION_ROT", 0.012);
+    }
+
+    public double getVisionRotKI() {
+        return SmartDashboard.getNumber("kI_VISION_ROT", 0.0);
+    }
+
+    public double getVisionRotKD() {
+        return SmartDashboard.getNumber("kD_VISION_ROT", 0.2);
     }
 
     public double getVerticalLiftUpSpeed() {
