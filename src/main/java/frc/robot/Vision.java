@@ -128,78 +128,9 @@ public class Vision {
 	 * ONE TARGET THINGS * - activated by Y BUTTON
 	 *********************/
 
-	/**
-	 * @return degrees the robot needs to turn to be aligned with the alignment line. Counter-clockwise is positive.
-	 */
-	public double turnAngle() {
-
-		double ratio = 2.0;
-		NetworkTable _table;
-		double[] angleArray = {80.0, 100.0};
-		double angle = 90.0;
-		double angle1 = 0.0;
-		double angle2 = 0.0;
-		double turn = 0.0;
-		double pointX = 0.0;
-		double pointY = 0.0;
-		double reflectedAngle = 0.0;
-		double angleRadians = 0.0;
-		double slope = 0.0;
-		double topViewSlope = 0.0;
-        double topViewAngle = 0.0;
-        double topViewAngleDegrees = 0.0;
-
-		_table = NetworkTable.getTable("GRIP/myLinesReport");
-		angleArray = _table.getNumberArray("angle", angleArray);
-        
-		if (angleArray.length > 1) {
-			angle1 = angleArray[0];
-			angle2 = angleArray[1];
-            
-			if (angle1 < 0) {
-				angle1 += 180.0;
-			} else if (angle1 >= 180.0) {
-				angle1 -= 180.0;
-			}
-			
-			if (angle2 < 0) {
-				angle2 += 180.0;
-			} else if (angle2 >= 180.0) {
-				angle2 -= 180.0;
-			}
-            
-			angle = (angle1 + angle2) / 2.0;
-		}
-
-		if (angle > 89 && angle < 91) {
-			return 0.0;
-		}
-
-		reflectedAngle = 180.0 - angle;
-		angleRadians = reflectedAngle * Math.PI / 180.0;
-		pointX = Math.cos(angleRadians);
-		pointY = Math.sin(angleRadians);
-
-		slope = pointY / pointX;
-		topViewSlope = slope * ratio;
-        topViewAngle = Math.atan(topViewSlope);
-
-		if (topViewAngle < 0) {
-			topViewAngle += Math.PI;
-		} else if (topViewAngle > (Math.PI)) {
-			topViewAngle -= Math.PI;
-		}
-
-		topViewAngleDegrees = topViewAngle * 180.0 / Math.PI;
-        turn = -(90 - topViewAngleDegrees);
-
-		return turn;
-	}
-
 	public double oneTargetCenter() {
 		NetworkTable table;
 		double[] x1Array = {0.0, 0.0}, x2Array = {0.0, 0.0};
-		//double x11, x12, x21, x22;
 
 		table = NetworkTable.getTable("GRIP/myLinesReport");
 		x1Array = table.getNumberArray("x1", x1Array);
@@ -214,44 +145,5 @@ public class Vision {
 		}
 		return 0.0;
 	}
-
-	/*public double oneTargetAngle() { // given the white line
-		NetworkTable _table;
-		double[] angleArray = {0.0, 0.0}, y1Array = {0.0, 0.0};
-		double angle1, angle2, y1 = 0.0, y2 = 0.0;
-
-		_table = NetworkTable.getTable("GRIP/myLinesReport");
-		angleArray = _table.getNumberArray("angle", angleArray);
-		y1Array = _table.getNumberArray("y1", y1Array);
-		//y2Array = _table.getNumberArray("y2", y2Array);
-		
-		if (y1Array.length > 1) {
-			y1 = y1Array[0];
-			y2 = y1Array[1];
-		}
-
-		SmartDashboard.putNumber("y1", y1);
-		SmartDashboard.putNumber("y2", y2);
-		
-		if (angleArray.length > 1) {
-			angle1 = angleArray[0];
-			angle2 = angleArray[1];
-
-			if (angle1 < 0.0) {
-				angle1 += 180.0;
-			}
-				
-			if (angle2 < 0.0) {
-				angle2 += 180.0;
-			}
-
-			SmartDashboard.putNumber("angle1", angle1);
-			SmartDashboard.putNumber("angle2", angle2);
-			
-			return ((angle1 + angle2) / 2.0);
-		}
-		
-		return 0.0; // no turning i guess
-	}*/
 
 }

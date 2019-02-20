@@ -98,6 +98,10 @@ public class Variables {
         SmartDashboard.putNumber("kI_INTAKE", kI_INTAKE);
         SmartDashboard.putNumber("kD_INTAKE", kD_INTAKE);
 
+        SmartDashboard.putNumber("kP_DRIVE", 0.05);
+        SmartDashboard.putNumber("kI_DRIVE", 0.0);
+        SmartDashboard.putNumber("kD_DRIVE", 0.0);
+
         SmartDashboard.putNumber("Lift Up Speed", LIFT_UP_SPEED);
 
         SmartDashboard.putNumber("LIFT_STALL_SPEED", LIFT_STALL_SPEED);
@@ -151,6 +155,18 @@ public class Variables {
 
     public double getIntakeKD() {
         return SmartDashboard.getNumber("kD_INTAKE", kD_INTAKE);
+    }
+
+    public double getDriveKP() {
+        return SmartDashboard.getNumber("kP_DRIVE", 0.05);
+    }
+
+    public double getDriveKI() {
+        return SmartDashboard.getNumber("kI_DRIVE", 0.0);
+    }
+
+    public double getDriveKD() {
+        return SmartDashboard.getNumber("kD_DRIVE", 0.0);
     }
 
     public double getVerticalLiftUpSpeed() {
