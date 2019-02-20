@@ -23,6 +23,8 @@ import frc.robot.subsystems.LiftVertical;
 import frc.robot.subsystems.RearSolenoid;
 import frc.robot.subsystems.LiftHorizontal;
 import frc.robot.Vision;
+import frc.robot.commands.SendItBro;
+
 import java.util.Arrays;
 
 /**
@@ -35,6 +37,9 @@ import java.util.Arrays;
 public class Robot extends TimedRobot {
 
     public static boolean overrideLimits = false;
+
+    private SendItBro _sendItBro;
+
     /**
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
@@ -67,6 +72,8 @@ public class Robot extends TimedRobot {
 
     @Override
     public void autonomousInit() {
+        _sendItBro = new SendItBro();
+        _sendItBro.start();
     }
 
     /**
@@ -74,6 +81,8 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void autonomousPeriodic() {
+        Scheduler.getInstance().run();
+        Variables.getInstance().outputVariables();
     }
 
     @Override
