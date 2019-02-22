@@ -312,6 +312,10 @@ public class OI {
                 SmartDashboard.putNumber("Vision PID Rotation Error", error);
                 SmartDashboard.putNumber("Vision PID Rotation Output", output);
                 break;
+            case LIFT_VERTICAL_SYSTEM:
+                SmartDashboard.putNumber("Vertical Lift Error", error);
+                SmartDashboard.putNumber("Vertical Lift PID Output", output);
+                break;
             default:
                 break;
         }
@@ -338,6 +342,12 @@ public class OI {
                 return true;
             case VISION_Y_SYSTEM:
                 if (Math.abs(error) < 10) {
+                    return false;
+                }
+                return true;
+            case LIFT_VERTICAL_SYSTEM:
+                if (Math.abs(error) < 1000) {
+                    LiftVertical.getInstance().adjusting = false;
                     return false;
                 }
             default:

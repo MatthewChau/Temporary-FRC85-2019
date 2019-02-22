@@ -8,7 +8,6 @@ import frc.robot.Variables;
 import frc.robot.subsystems.DriveTrain;
 
 public class FollowTwoTarget extends Command {
-    //private boolean _targetFound;
     
     public FollowTwoTarget() {
         requires(DriveTrain.getInstance());

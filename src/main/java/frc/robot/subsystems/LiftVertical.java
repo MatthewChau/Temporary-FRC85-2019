@@ -25,7 +25,9 @@ public class LiftVertical extends Subsystem {
 
     private TalonSRX _liftLeftMotor, _liftRightMotor;
 
-    private double _verticalSpeed;
+    public double targetPos;
+
+    public boolean adjusting;
   
     private LiftVertical() {
         _liftLeftMotor = new TalonSRX(Addresses.LIFT_LEFT_MOTOR);
@@ -48,19 +50,35 @@ public class LiftVertical extends Subsystem {
 
     public void verticalShift(double speed) {
         if ((ProxSensors.getInstance().getLiftTopLimit() && speed > 0) 
-            || (ProxSensors.getInstance().getLiftBottomLimit() && speed < 0)
-            || (speed == 0)) {
-            _liftLeftMotor.set(ControlMode.PercentOutput, Variables.getInstance().getVerticalStall());
-            _liftRightMotor.set(ControlMode.PercentOutput, Variables.getInstance().getVerticalStall());
-        } else {
-            _liftLeftMotor.set(ControlMode.PercentOutput, speed);
-            _liftRightMotor.set(ControlMode.PercentOutput, speed);
+            || (ProxSensors.getInstance().getLiftBottomLimit() && speed < 0)) {
+            speed = 0.0;
         }
 
         if (ProxSensors.getInstance().getLiftBottomLimit()) {
             setVerticalPosition(0);
+            targetPos = 1000; // give it a small vertical pos to aim for
         }
-    } 
+
+        /**
+         * adjusting (the bool) is used for if we are in the middle of a vertical adjustment
+         * the other check is simply for if we want to maintain the current angle
+         */
+        if (adjusting || Math.abs(speed) < Variables.getInstance().DEADBAND_LIFT) {
+            speed = OI.getInstance().applyPID(OI.getInstance().LIFT_VERTICAL_SYSTEM, 
+                                              getVerticalPosition(), 
+                                              targetPos, 
+                                              Variables.getInstance().getVerticalLiftKP(), 
+                                              Variables.getInstance().getVerticalLiftKI(), 
+                                              Variables.getInstance().getVerticalLiftKD(), 
+                                              1.0, 
+                                              -1.0);
+        } else {
+            targetPos = getVerticalPosition(); // set targetPos if the current pos changes
+        }
+        
+        _liftLeftMotor.set(ControlMode.PercentOutput, speed);
+        _liftRightMotor.set(ControlMode.PercentOutput, speed);
+    }
 
     /**
      * @param targetPosition, encoder counts

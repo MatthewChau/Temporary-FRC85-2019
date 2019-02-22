@@ -22,7 +22,8 @@ public class Variables {
     
     // DRIVETRAIN
 
-    public final double DEADBAND = 0.1;
+    public final double DEADBAND = 0.05;
+    public final double DEADBAND_LIFT = 0.1;
     public final double TOLERANCE_ANGLE = 6.0;
     public final int MAX_TURNS = 7; // if we go over 2520 degrees in either direction in one match then help.
 
@@ -130,7 +131,7 @@ public class Variables {
      * get methods for changable variables
      */
     public double getVerticalLiftKP() {
-        return SmartDashboard.getNumber("kP_VLIFT", kP_VLIFT);
+        return SmartDashboard.getNumber("kP_VLIFT", kP_VLIFT); // these are gonna have to be small af
     }
 
     public double getVerticalLiftKI() {
