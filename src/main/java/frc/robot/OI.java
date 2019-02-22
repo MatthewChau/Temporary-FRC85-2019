@@ -55,13 +55,13 @@ public class OI {
 
     private double _gyroAngle;
 
-    public static final int ROT_SYSTEM = 0;
-    public static final int LIFT_VERTICAL_SYSTEM = 1;
-    public static final int LIFT_HORIZONTAL_SYSTEM = 2;
-    public static final int VISION_X_SYSTEM = 3;
-    public static final int VISION_Y_SYSTEM = 4;
-    public static final int VISION_ROT_SYSTEM = 5;
-    public static final int INTAKE_SYSTEM = 6;
+    public final int ROT_SYSTEM = 0;
+    public final int LIFT_VERTICAL_SYSTEM = 1;
+    public final int LIFT_HORIZONTAL_SYSTEM = 2;
+    public final int VISION_X_SYSTEM = 3;
+    public final int VISION_Y_SYSTEM = 4;
+    public final int VISION_ROT_SYSTEM = 5;
+    public final int INTAKE_SYSTEM = 6;
 
     private int NUM_LOG_ENTRIES = 5;
 

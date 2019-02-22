@@ -29,14 +29,14 @@ public class Variables {
     // LIFT
 
     // Lift Vertical PID
-    private static final double kP_VLIFT = 0.1, kI_VLIFT = 0.000001, kD_VLIFT = 0.2;
+    private final double kP_VLIFT = 0.1, kI_VLIFT = 0.000001, kD_VLIFT = 0.2;
 
     // Lift Horizontal PID
-    private static final double kP_HLIFT = 0.1, kI_HLIFT = 0.000001, kD_HLIFT = 0.2;
+    private final double kP_HLIFT = 0.1, kI_HLIFT = 0.000001, kD_HLIFT = 0.2;
 
-    private static final double LIFT_STALL_SPEED = 0.167;
+    private final double LIFT_STALL_SPEED = 0.167;
 
-    private static final double LIFT_UP_SPEED = 0.25;
+    private final double LIFT_UP_SPEED = 0.25;
 
     // Lift Vertical Postitions
     public static final int HATCH_LOW = 10;
@@ -52,10 +52,10 @@ public class Variables {
     public static final int CARGO_LOADING_STATION = 95;
     public static final int CARGO_FLOOR = 5;
 
-    public static final double ROT_POS_1 = 90;
-    public static final double ROT_POS_2 = -90;
-    public static final double ROT_POS_3 = 60;
-    public static final double ROT_POS_4 = 120;
+    public final double ROT_POS_1 = 90;
+    public final double ROT_POS_2 = -90;
+    public final double ROT_POS_3 = 60;
+    public final double ROT_POS_4 = 120;
 
     // Lift Horizontal Positions
     public static int platform = 0;
