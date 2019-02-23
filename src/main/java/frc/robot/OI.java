@@ -10,6 +10,7 @@ package frc.robot;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.LiftVertical;
 import frc.robot.subsystems.LiftHorizontal;
+import frc.robot.subsystems.Intake;
 import frc.robot.sensors.IMU;
 import frc.robot.commands.belttrain.BeltTrainDrive;
 import frc.robot.commands.belttrain.SetBeltSolenoid;
@@ -25,7 +26,6 @@ import frc.robot.commands.lift.LiftVerticalWithJoystick;
 
 import frc.robot.commands.intake.ActivateIntake;
 import frc.robot.commands.intake.IntakeWithJoystick;
-import frc.robot.commands.intake.ToggleIntakeSolenoid;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Joystick.AxisType;
@@ -91,7 +91,7 @@ public class OI {
         _operatorLiftHorizontal = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_LIFT_HORIZONTAL);
         _operatorLiftHorizontal.whenPressed(new LiftHorizontalWithJoystick());
         _operatorIntakeRotate = new JoystickButton(_operatorControllerBlack, 2);
-        _operatorIntakeRotate.whenPressed(new IntakeWithJoystick());
+        //_operatorIntakeRotate.whenPressed(new IntakeWithJoystick());
 
         // Cargo
         _operatorCargoDefault = new JoystickButton(_operatorControllerWhite, 3);
@@ -314,6 +314,10 @@ public class OI {
                 SmartDashboard.putNumber("Vertical Lift PID Output", output);
                 SmartDashboard.putNumber("Vertical Lift PID Target", target);
                 break;
+            case INTAKE_SYSTEM:
+                SmartDashboard.putNumber("Intake Error", error);
+                SmartDashboard.putNumber("Intake PID Output", output);
+                SmartDashboard.putNumber("Intake PID Target", target);
             default:
                 break;
         }
@@ -346,6 +350,11 @@ public class OI {
             case LIFT_VERTICAL_SYSTEM:
                 if (Math.abs(error) < 500) {
                     LiftVertical.getInstance().adjusting = false;
+                }
+                return true;
+            case INTAKE_SYSTEM:
+                if (Math.abs(error) < 500) {
+                    Intake.getInstance().changeAdjustingBool(false);
                 }
             default:
                 return true;

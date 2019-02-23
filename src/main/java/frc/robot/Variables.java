@@ -35,10 +35,6 @@ public class Variables {
     // Lift Horizontal PID
     private final double kP_HLIFT = 0.1, kI_HLIFT = 0.000001, kD_HLIFT = 0.2;
 
-    private final double LIFT_STALL_SPEED = 0.167;
-
-    private final double LIFT_UP_SPEED = 0.25;
-
     // Lift Vertical Postitions
     public final int HATCH_LOW = 1000;
     public final int HATCH_MIDDLE = 10000;
@@ -71,11 +67,12 @@ public class Variables {
 
     // INTAKE
 
+    public final double MAX_SPEED_UP_INTAKE = 0.3;
+    public final double MAX_SPEED_DOWN_INTAKE = -0.1;
+
     // Intake PID
 
     public static final double kP_INTAKE = 0.1, kI_INTAKE = 0.000001, kD_INTAKE = 0.2;
-
-    public static final double INTAKE_STALL_SPEED = 0.2;
 
     // Intake Positions and Degrees
     public static final int INTAKE_DEGREE_ONE = 0;
@@ -111,11 +108,8 @@ public class Variables {
         SmartDashboard.putNumber("kI_VISION_ROT", 0.0);
         SmartDashboard.putNumber("kD_VISION_ROT", 0.2);
 
-        SmartDashboard.putNumber("Lift Up Speed", LIFT_UP_SPEED);
-
-        SmartDashboard.putNumber("LIFT_STALL_SPEED", LIFT_STALL_SPEED);
-
-        SmartDashboard.putNumber("INTAKE_STALL_SPEED", INTAKE_STALL_SPEED);
+        SmartDashboard.putNumber("MAX_SPEED_UP_INTAKE", MAX_SPEED_UP_INTAKE);
+        SmartDashboard.putNumber("MAX_SPEED_DOWN_INTAKE", MAX_SPEED_DOWN_INTAKE);
 
         SmartDashboard.putBoolean("Joysticks Enabled", false);
     }
@@ -202,16 +196,12 @@ public class Variables {
         return SmartDashboard.getNumber("kD_VISION_ROT", 0.2);
     }
 
-    public double getVerticalLiftUpSpeed() {
-        return SmartDashboard.getNumber("LIFT_UP_SPEED", LIFT_UP_SPEED);
+    public double getMaxSpeedUpIntake() {
+        return SmartDashboard.getNumber("MAX_SPEED_UP_INTAKE", MAX_SPEED_UP_INTAKE);
     }
 
-    public double getVerticalStall() {
-        return SmartDashboard.getNumber("LIFT_STALL_SPEED", LIFT_STALL_SPEED);
-    }
-
-    public double getIntakeStall() {
-        return SmartDashboard.getNumber("INTAKE_STALL_SPEED", INTAKE_STALL_SPEED);
+    public double getMaxSpeedDownIntake() {
+        return SmartDashboard.getNumber("MAX_SPEED_DOWN_INTAKE", MAX_SPEED_DOWN_INTAKE);
     }
 
     /**
