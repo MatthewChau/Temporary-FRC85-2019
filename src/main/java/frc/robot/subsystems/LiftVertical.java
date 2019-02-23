@@ -10,6 +10,7 @@ package frc.robot.subsystems;
 import frc.robot.OI;
 import frc.robot.Addresses;
 import frc.robot.Variables;
+import frc.robot.commands.lift.LiftVerticalWithJoystick;
 import frc.robot.sensors.ProxSensors;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -46,6 +47,7 @@ public class LiftVertical extends Subsystem {
 
     @Override
     public void initDefaultCommand() {
+        setDefaultCommand(new LiftVerticalWithJoystick(0.0)); // hopefully this runs every time then?
     }
 
     public void verticalShift(double speed) {
@@ -54,17 +56,21 @@ public class LiftVertical extends Subsystem {
             speed = 0.0;
         }
 
-        /*if (ProxSensors.getInstance().getLiftBottomLimit()) {
+        if (ProxSensors.getInstance().getLiftBottomLimit()) {
             setVerticalPosition(0);
             targetPos = 1000; // give it a small vertical pos to aim for
             adjusting = true;
-        }*/
+        } else if (ProxSensors.getInstance().getLiftTopLimit()) {
+            //setVerticalPosition(somethinghigh);
+            targetPos = getVerticalPosition() - 2000;//somethingelsehigh;
+            adjusting = true;
+        }
 
         /**
-         * adjusting (the bool) is used for if we are in the middle of a vertical adjustment
+         * adjusting (the bool) is used for if we are in the middle of a vertical adjustment (caused by button press)
          * the other check is simply for if we want to maintain the current angle
          */
-        if (/*adjusting || */Math.abs(speed) < Variables.getInstance().DEADBAND_LIFT) {
+        if (adjusting || Math.abs(speed) < Variables.getInstance().DEADBAND_LIFT) {
            speed = OI.getInstance().applyPID(OI.getInstance().LIFT_VERTICAL_SYSTEM, 
                                               getVerticalPosition(), 
                                               targetPos, 

@@ -87,7 +87,7 @@ public class OI {
 
         // Joystick combinations
         _operatorLiftVertical = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_LIFT_VERTICAL);        
-        _operatorLiftVertical.whenPressed(new LiftVerticalWithJoystick()); // better way to start this ahaha
+        //_operatorLiftVertical.whenPressed(new LiftVerticalWithJoystick()); // better way to start this ahaha
         _operatorLiftHorizontal = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_LIFT_HORIZONTAL);
         _operatorLiftHorizontal.whenPressed(new LiftHorizontalWithJoystick());
         _operatorIntakeRotate = new JoystickButton(_operatorControllerBlack, 2);
@@ -115,13 +115,10 @@ public class OI {
         _operatorHatchDefault = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_HATCH_DEFAULT);
         _operatorHatchFloor = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_HATCH_FLOOR);
         _operatorHatchRelease = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_HATCH_RELEASE);
-        _operatorHatchRelease.whenPressed(new ToggleIntakeSolenoid());
 
         _operatorHatchOne = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_HATCH_ONE);
-        _operatorHatchOne.whenPressed(new SetBeltSolenoid(false));
         _operatorHatchTwo = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_HATCH_TWO);
         _operatorHatchThree = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_HATCH_THREE);
-        _operatorHatchThree.whenPressed(new SetRearSolenoid(false));
 
         FollowOneTarget followOneTarget;
         _driverControllerYButton.whileActive(followOneTarget = new FollowOneTarget()); //follows when pressed

@@ -17,8 +17,11 @@ public class LiftVerticalWithJoystick extends Command {
 
     double _speed = 0;
 
-    public LiftVerticalWithJoystick() {
+    public LiftVerticalWithJoystick(double target) {
         requires(LiftVertical.getInstance());
+        if (target != 0.0) {
+            //LiftVertical.target = Variables.getInstance().something();
+        }
     }
 
     // Called just before this Command runs the first time
@@ -31,15 +34,17 @@ public class LiftVerticalWithJoystick extends Command {
     protected void execute() {
         _speed = OI.getInstance().getOperatorJoystick();
 
-        if (_speed > 0) {
+        if (!OI.getInstance().getOperatorLiftVertical()) { // if the button isn't pressed
+            _speed = 0.0;
+        } else if (_speed > 0) { // if the axis is at all positive
             _speed = 0.5;
-        } else if (_speed < 0) {
+        } else if (_speed < 0) { // if the axis is at all negative
             _speed = -0.1;
-        } else {
+        } else { // if the joystick reads nothing
             _speed = 0.0;
         }
 
-        LiftVertical.getInstance().verticalShift(_speed);
+        LiftVertical.getInstance().verticalShift(_speed); // finally run the method for it
     }
 
     // Make this return true when this Command no longer needs to run execute()

@@ -40,18 +40,18 @@ public class Variables {
     private final double LIFT_UP_SPEED = 0.25;
 
     // Lift Vertical Postitions
-    public static final int HATCH_LOW = 10;
-    public static final int HATCH_MIDDLE = 100;
-    public static final int HATCH_HIGH = 1000;
-    public static final int HATCH_LOADING_STATION = 15;
-    public static final int HATCH_FLOOR = 5;
-    public static final int HATCH_DROP = 5;
+    public final int HATCH_LOW = 1000;
+    public final int HATCH_MIDDLE = 10000;
+    public final int HATCH_HIGH = 20002;
+    public final int HATCH_LOADING_STATION = 15;
+    public final int HATCH_FLOOR = 5;
+    public final int HATCH_DROP = 5;
     
-    public static final int CARGO_LOW = 20;
-    public static final int CARGO_MIDDLE = 120;
-    public static final int CARGO_HIGH = 1200;
-    public static final int CARGO_LOADING_STATION = 95;
-    public static final int CARGO_FLOOR = 5;
+    public final int CARGO_LOW = 20;
+    public final int CARGO_MIDDLE = 120;
+    public final int CARGO_HIGH = 1200;
+    public final int CARGO_LOADING_STATION = 95;
+    public final int CARGO_FLOOR = 5;
 
     public final double ROT_POS_1 = 90;
     public final double ROT_POS_2 = -90;
