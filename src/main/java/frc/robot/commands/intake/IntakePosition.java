@@ -13,8 +13,6 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class IntakePosition extends Command {
 
-    private double _speed;
-
     private int _target;
     public IntakePosition(int target) {
         requires(Intake.getInstance());

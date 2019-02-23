@@ -236,6 +236,8 @@ public class Variables {
         SmartDashboard.putNumber("Vertical Lift", LiftVertical.getInstance().getVerticalPosition());
 
         SmartDashboard.putNumber("Horizontal Lift", LiftHorizontal.getInstance().getHorizontalPosition());
+        SmartDashboard.putBoolean("Front Prox Sensor", ProxSensors.getInstance().getLiftFrontLimit());
+        SmartDashboard.putBoolean("Rear Prox Sensor", ProxSensors.getInstance().getLiftRearLimit());
 
         SmartDashboard.putNumber("Intake Encoder", Intake.getInstance().getFlipperPosition());
 

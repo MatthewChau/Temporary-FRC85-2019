@@ -58,7 +58,10 @@ public class Intake extends Subsystem {
         setDefaultCommand(new IntakeWithJoystick());
     }
 
-    public void setFlipper(double speed) {        
+    public void setFlipper(double speed) {
+        
+        // limit switch stuff here
+
         if (adjusting || !OI.getInstance().getOperatorIntakeRotate()) { // if the button isn't being pressed
             speed = OI.getInstance().applyPID(OI.getInstance().INTAKE_SYSTEM, 
                                               getFlipperPosition(), 

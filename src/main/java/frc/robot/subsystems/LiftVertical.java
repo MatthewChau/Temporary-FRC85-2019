@@ -26,9 +26,9 @@ public class LiftVertical extends Subsystem {
 
     private TalonSRX _liftLeftMotor, _liftRightMotor;
 
-    public double targetPos;
+    private double targetPos;
 
-    public boolean adjusting;
+    private boolean adjusting;
   
     private LiftVertical() {
         _liftLeftMotor = new TalonSRX(Addresses.LIFT_LEFT_MOTOR);
@@ -51,6 +51,16 @@ public class LiftVertical extends Subsystem {
     }
 
     public void verticalShift(double speed) {
+        if (!OI.getInstance().getOperatorLiftVertical()) { // if the button isn't pressed
+            speed = 0.0;
+        } else if (speed > 0) { // if the axis is at all positive
+            speed = 0.5;
+        } else if (speed < 0) { // if the axis is at all negative
+            speed = -0.1;
+        } else { // if the joystick reads nothing
+            speed = 0.0;
+        }
+
         if ((ProxSensors.getInstance().getLiftTopLimit() && speed > 0) 
             || (ProxSensors.getInstance().getLiftBottomLimit() && speed < 0)) {
             speed = 0.0;
@@ -87,31 +97,20 @@ public class LiftVertical extends Subsystem {
         _liftRightMotor.set(ControlMode.PercentOutput, speed);
     }
 
-    /**
-     * @param targetPosition, encoder counts
-     * @param speedMax, max speed that motor will run at 
-     */
-    public void verticalShift(int targetPosition, double speedMax) {
-        double speed = OI.getInstance().applyPID(OI.getInstance().LIFT_VERTICAL_SYSTEM, getVerticalPosition(), targetPosition, 
-            Variables.getInstance().getVerticalLiftKP(), Variables.getInstance().getVerticalLiftKI(), Variables.getInstance().getVerticalLiftKD(), 
-            Math.abs(speedMax), -Math.abs(speedMax));
-
-        if ((ProxSensors.getInstance().getLiftTopLimit() && speed > 0) 
-            || (ProxSensors.getInstance().getLiftBottomLimit() && speed < 0)) {
-            _liftLeftMotor.set(ControlMode.PercentOutput, 0);
-            _liftRightMotor.set(ControlMode.PercentOutput, 0);
-        } else {
-            _liftLeftMotor.set(ControlMode.PercentOutput, speed);
-            _liftRightMotor.set(ControlMode.PercentOutput, speed);
-        }
-    }
-
     public void setVerticalPosition(int position) {
         _liftRightMotor.setSelectedSensorPosition(position);
     }
 
     public int getVerticalPosition() {
         return _liftRightMotor.getSelectedSensorPosition();
+    }
+
+    public void setTargetPosition(double target) {
+        targetPos = target;
+    }
+
+    public void changeAdjustingBool(boolean on) {
+        adjusting = on;
     }
    
 }

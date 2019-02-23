@@ -349,7 +349,7 @@ public class OI {
                 return true;
             case LIFT_VERTICAL_SYSTEM:
                 if (Math.abs(error) < 500) {
-                    LiftVertical.getInstance().adjusting = false;
+                    LiftVertical.getInstance().changeAdjustingBool(false);
                 }
                 return true;
             case INTAKE_SYSTEM:

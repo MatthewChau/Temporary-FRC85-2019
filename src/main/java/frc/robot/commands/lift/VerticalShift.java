@@ -38,7 +38,7 @@ public class VerticalShift extends Command {
 
     @Override
     protected void execute() {
-        LiftVertical.getInstance().verticalShift(_targetPosition, _speedMax);
+        //LiftVertical.getInstance().verticalShift(_targetPosition, _speedMax);
     }
 
     @Override
@@ -48,7 +48,7 @@ public class VerticalShift extends Command {
 
     @Override
     protected void end() {
-        LiftVertical.getInstance().verticalShift(0,0);
+        //LiftVertical.getInstance().verticalShift(0,0);
     }
 
 }
