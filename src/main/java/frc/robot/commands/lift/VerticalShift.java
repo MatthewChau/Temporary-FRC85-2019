@@ -13,10 +13,10 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class VerticalShift extends Command {
 
-    private int _speedMax, _targetPosition; //positive means going up, negative means going down
+    private double _speedMax, _targetPosition; //positive means going up, negative means going down
     private int _liftTolerance = 10; //the motors have to be within 10 encoder ticks in order for the command to stop
 
-    public VerticalShift(int position, int speedMax) {
+    public VerticalShift(int position, double speedMax) {
         requires(LiftVertical.getInstance());
         _targetPosition = position;
         _speedMax = speedMax;
