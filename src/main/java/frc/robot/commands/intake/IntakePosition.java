@@ -7,41 +7,31 @@
 
 package frc.robot.commands.intake;
 
-import frc.robot.OI;
 import frc.robot.subsystems.Intake;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class IntakeWithJoystick extends Command {
-    public IntakeWithJoystick() {
+public class IntakePosition extends Command {
+
+    private double _speed;
+
+    private int _target;
+    public IntakePosition(int target) {
         requires(Intake.getInstance());
+        _target = target;
     }
 
-    // Called just before this Command runs the first time
-    @Override
-    protected void initialize() {
-    }
-
-    // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
-        Intake.getInstance().setFlipper(OI.getInstance().getOperatorJoystick());
+        super.execute();
+        Intake.getInstance().setTargetPos(_target);
+        Intake.getInstance().changeAdjustingBool(true);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     @Override
     protected boolean isFinished() {
-        if (!OI.getInstance().getOperatorIntakeRotate() || OI.getInstance().getOperatorLiftHorizontal() || OI.getInstance().getOperatorLiftVertical()) {
-            return true;
-        } else {
-            return false;
-        }    
-    }
-
-    // Called once after isFinished returns true
-    @Override
-    protected void end() {
-        Intake.getInstance().setFlipper(0.0);
+        return false;
     }
 
 }
