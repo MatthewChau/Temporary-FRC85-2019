@@ -94,7 +94,7 @@ public class Intake extends Subsystem {
     }
 
     public void setRoller(double speed) {
-        _roller.set(ControlMode.PercentOutput, speed);
+        _roller.set(ControlMode.PercentOutput, -speed);
     }
 
     public void setTargetPos(double target) {

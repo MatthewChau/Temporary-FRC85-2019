@@ -230,7 +230,7 @@ public class Variables {
         SmartDashboard.putBoolean("Lift Top", ProxSensors.getInstance().getLiftTopLimit());
         SmartDashboard.putBoolean("Lift Center", ProxSensors.getInstance().getLiftCenterLimit());
         SmartDashboard.putBoolean("Lift Bottom", ProxSensors.getInstance().getLiftBottomLimit());
-        SmartDashboard.putBoolean("Intake Bottom", ProxSensors.getInstance().getIntakeBottomLimit());
+        SmartDashboard.putBoolean("Lift Front", ProxSensors.getInstance().getLiftFrontLimit());
 
         SmartDashboard.putNumber("Operator Joystick", OI.getInstance().getOperatorJoystick());
 

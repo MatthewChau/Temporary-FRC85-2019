@@ -119,6 +119,8 @@ public class OI {
 
         _operatorHatchOne = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_HATCH_ONE);
         _operatorHatchTwo = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_HATCH_TWO);
+        _operatorCargoTwo.whenPressed(new BeltTrainDrive(-0.60));
+        _operatorCargoTwo.whenReleased(new BeltTrainDrive(0));
         _operatorHatchThree = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_HATCH_THREE);
 
         FollowOneTarget followOneTarget;
