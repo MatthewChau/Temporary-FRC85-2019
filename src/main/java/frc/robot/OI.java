@@ -10,6 +10,7 @@ package frc.robot;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.LiftVertical;
 import frc.robot.subsystems.LiftHorizontal;
+import frc.robot.subsystems.Intake;
 import frc.robot.sensors.IMU;
 import frc.robot.commands.belttrain.BeltTrainDrive;
 import frc.robot.commands.belttrain.SetBeltSolenoid;
@@ -25,7 +26,6 @@ import frc.robot.commands.lift.LiftVerticalWithJoystick;
 
 import frc.robot.commands.intake.ActivateIntake;
 import frc.robot.commands.intake.IntakeWithJoystick;
-import frc.robot.commands.intake.ToggleIntakeSolenoid;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Joystick.AxisType;
@@ -55,13 +55,13 @@ public class OI {
 
     private double _gyroAngle;
 
-    public static final int ROT_SYSTEM = 0;
-    public static final int LIFT_VERTICAL_SYSTEM = 1;
-    public static final int LIFT_HORIZONTAL_SYSTEM = 2;
-    public static final int VISION_X_SYSTEM = 3;
-    public static final int VISION_Y_SYSTEM = 4;
-    public static final int VISION_ROT_SYSTEM = 5;
-    public static final int INTAKE_SYSTEM = 6;
+    public final int ROT_SYSTEM = 0;
+    public final int LIFT_VERTICAL_SYSTEM = 1;
+    public final int LIFT_HORIZONTAL_SYSTEM = 2;
+    public final int VISION_X_SYSTEM = 3;
+    public final int VISION_Y_SYSTEM = 4;
+    public final int VISION_ROT_SYSTEM = 5;
+    public final int INTAKE_SYSTEM = 6;
 
     private int NUM_LOG_ENTRIES = 5;
 
@@ -87,11 +87,11 @@ public class OI {
 
         // Joystick combinations
         _operatorLiftVertical = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_LIFT_VERTICAL);        
-        _operatorLiftVertical.whenPressed(new LiftVerticalWithJoystick());
+        //_operatorLiftVertical.whenPressed(new LiftVerticalWithJoystick()); // better way to start this ahaha
         _operatorLiftHorizontal = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_LIFT_HORIZONTAL);
         _operatorLiftHorizontal.whenPressed(new LiftHorizontalWithJoystick());
         _operatorIntakeRotate = new JoystickButton(_operatorControllerBlack, 2);
-        _operatorIntakeRotate.whenPressed(new IntakeWithJoystick());
+        //_operatorIntakeRotate.whenPressed(new IntakeWithJoystick());
 
         // Cargo
         _operatorCargoDefault = new JoystickButton(_operatorControllerWhite, 3);
@@ -115,15 +115,12 @@ public class OI {
         _operatorHatchDefault = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_HATCH_DEFAULT);
         _operatorHatchFloor = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_HATCH_FLOOR);
         _operatorHatchRelease = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_HATCH_RELEASE);
-        _operatorHatchRelease.whenPressed(new ToggleIntakeSolenoid());
 
         _operatorHatchOne = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_HATCH_ONE);
-        _operatorHatchOne.whenPressed(new SetBeltSolenoid(false));
         _operatorHatchTwo = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_HATCH_TWO);
         _operatorCargoTwo.whenPressed(new BeltTrainDrive(-0.60));
         _operatorCargoTwo.whenReleased(new BeltTrainDrive(0));
         _operatorHatchThree = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_HATCH_THREE);
-        _operatorHatchThree.whenPressed(new SetRearSolenoid(false));
 
         FollowOneTarget followOneTarget;
         _driverControllerYButton.whileActive(followOneTarget = new FollowOneTarget()); //follows when pressed
@@ -314,6 +311,15 @@ public class OI {
                 SmartDashboard.putNumber("Vision PID Rotation Error", error);
                 SmartDashboard.putNumber("Vision PID Rotation Output", output);
                 break;
+            case LIFT_VERTICAL_SYSTEM:
+                SmartDashboard.putNumber("Vertical Lift Error", error);
+                SmartDashboard.putNumber("Vertical Lift PID Output", output);
+                SmartDashboard.putNumber("Vertical Lift PID Target", target);
+                break;
+            case INTAKE_SYSTEM:
+                SmartDashboard.putNumber("Intake Error", error);
+                SmartDashboard.putNumber("Intake PID Output", output);
+                SmartDashboard.putNumber("Intake PID Target", target);
             default:
                 break;
         }
@@ -322,14 +328,14 @@ public class OI {
     public boolean checkIfNeedBeRun(int system, double error) {
         switch (system) {
             case ROT_SYSTEM:
-                if (DriveTrain.getInstance().turnInProgress && Math.abs(error) < 3.0) { // note that we actually want a tolerance here
-                    DriveTrain.getInstance().turnInProgress = false;
+                if (DriveTrain.getInstance().getTurnInProgress() && Math.abs(error) < 3.0) { // note that we actually want a tolerance here
+                    DriveTrain.getInstance().setTurnInProgress(false);
                     return false;
                 }
                 return true;
             case VISION_ROT_SYSTEM:
-                if (DriveTrain.getInstance().turnInProgress && Math.abs(error) < 3.0) {
-                    DriveTrain.getInstance().turnInProgress = false;
+                if (DriveTrain.getInstance().getTurnInProgress() && Math.abs(error) < 3.0) {
+                    DriveTrain.getInstance().setTurnInProgress(false);
                     return false;
                 }
                 return true;
@@ -341,6 +347,16 @@ public class OI {
             case VISION_Y_SYSTEM:
                 if (Math.abs(error) < 10) {
                     return false;
+                }
+                return true;
+            case LIFT_VERTICAL_SYSTEM:
+                if (Math.abs(error) < 500) {
+                    LiftVertical.getInstance().changeAdjustingBool(false);
+                }
+                return true;
+            case INTAKE_SYSTEM:
+                if (Math.abs(error) < 500) {
+                    Intake.getInstance().changeAdjustingBool(false);
                 }
             default:
                 return true;

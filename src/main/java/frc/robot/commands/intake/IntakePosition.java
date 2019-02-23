@@ -11,22 +11,25 @@ import frc.robot.subsystems.Intake;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class ToggleIntakeSolenoid extends Command {
+public class IntakePosition extends Command {
 
-    public ToggleIntakeSolenoid() {
+    private int _target;
+    public IntakePosition(int target) {
         requires(Intake.getInstance());
+        _target = target;
     }
 
-    // Called just before this Command runs the first time
     @Override
-    protected void initialize() {
-        Intake.getInstance().setIntakeSolenoid(!Intake.getInstance().getIntakeOneSolenoid());
+    protected void execute() {
+        super.execute();
+        Intake.getInstance().setTargetPos(_target);
+        Intake.getInstance().changeAdjustingBool(true);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     @Override
     protected boolean isFinished() {
-        return true;
+        return false;
     }
 
 }

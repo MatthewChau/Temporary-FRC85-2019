@@ -15,10 +15,12 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class LiftVerticalWithJoystick extends Command {
 
-    double _speed = 0;
-
-    public LiftVerticalWithJoystick() {
+    public LiftVerticalWithJoystick(double target) { // pass in 0.0 if you want stuff to work fine
         requires(LiftVertical.getInstance());
+        if (target != 0.0) {
+            LiftVertical.getInstance().setTargetPosition(target);
+            LiftVertical.getInstance().changeAdjustingBool(true);
+        }
     }
 
     // Called just before this Command runs the first time
@@ -29,15 +31,7 @@ public class LiftVerticalWithJoystick extends Command {
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
-        _speed = OI.getInstance().getOperatorJoystick();
-
-        if (_speed > 0) {
-            _speed = 0.40;
-        } else if (_speed < 0) {
-            _speed = -0.15;
-        }
-
-        LiftVertical.getInstance().verticalShift(_speed);
+        LiftVertical.getInstance().verticalShift(OI.getInstance().getOperatorJoystick()); // finally run the method for it
     }
 
     // Make this return true when this Command no longer needs to run execute()

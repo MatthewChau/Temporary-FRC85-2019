@@ -25,7 +25,6 @@ public class DriveTrain extends Subsystem {
 
     private static DriveTrain _instance = null;
 
-    private double kPRot = 0.05, kIRot = 0.0, kDRot = 0.0;
     private double kMaxOuputRot = 1.0, kMinOuputRot = -1.0;
     public double targetAngle = 0.0;
     public boolean turnInProgress = false; // only used for the 90 degree turns
@@ -98,15 +97,15 @@ public class DriveTrain extends Subsystem {
             }
             
             if (turnInProgress) { // note that this block exists for the sole purpose of overriding things when they are in progress
-                inputs[2] = OI.getInstance().applyPID(OI.getInstance().ROT_SYSTEM, inputs[3], targetAngle, kPRot, kIRot, kDRot);
+                inputs[2] = OI.getInstance().applyPID(OI.getInstance().ROT_SYSTEM, inputs[3], targetAngle, Variables.getInstance().getDriveKD(), Variables.getInstance().getDriveKI(), Variables.getInstance().getDriveKD());
             } else if (Math.abs(inputs[2]) < Variables.getInstance().DEADBAND && !OI.getInstance().isHeadless()) { // we will deal with headless later ahaha
                 if (OI.getInstance().isForwardOnlyMode()) { // finally we check if we are in that specific mode
                     setForwardOnlyTargetAngle();
                     fixTargetAngle(inputs[3]);
-                    inputs[2] = OI.getInstance().applyPID(OI.getInstance().ROT_SYSTEM, inputs[3], targetAngle, kPRot, kIRot, kDRot, 1.0, -1.0);
+                    inputs[2] = OI.getInstance().applyPID(OI.getInstance().ROT_SYSTEM, inputs[3], targetAngle, Variables.getInstance().getDriveKD(), Variables.getInstance().getDriveKI(), Variables.getInstance().getDriveKD(), 1.0, -1.0);
                 } else { // normal movement
                     setTargetAngleMoving(inputs[3]);
-                    inputs[2] = OI.getInstance().applyPID(OI.getInstance().ROT_SYSTEM, inputs[3], targetAngle, kPRot, kIRot, kDRot, kMaxOuputRot, kMinOuputRot);
+                    inputs[2] = OI.getInstance().applyPID(OI.getInstance().ROT_SYSTEM, inputs[3], targetAngle, Variables.getInstance().getDriveKD(), Variables.getInstance().getDriveKI(), Variables.getInstance().getDriveKD(), kMaxOuputRot, kMinOuputRot);
                 }
             }
 
@@ -236,6 +235,14 @@ public class DriveTrain extends Subsystem {
 
     public double getTargetAngle() {
         return targetAngle;
+    }
+
+    public void setTurnInProgress(boolean bool) {
+        turnInProgress = bool;
+    }
+
+    public boolean getTurnInProgress() {
+        return turnInProgress;
     }
 
     private void limitSpeeds(double[] speeds) { // take the highest speed & then adjust everything else proportionally if it is over 1

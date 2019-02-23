@@ -1,14 +1,13 @@
 package frc.robot.commands.drivetrain;
 
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import frc.robot.OI;
 import frc.robot.Vision;
+import frc.robot.Variables;
 import frc.robot.subsystems.DriveTrain;
 
 public class FollowTwoTarget extends Command {
-    //private boolean _targetFound;
     
     public FollowTwoTarget() {
         requires(DriveTrain.getInstance());
@@ -24,17 +23,34 @@ public class FollowTwoTarget extends Command {
         double xSpeed, ySpeed, zRotation;
         double targetDistance = 50.0;
         double targetCenter = 0.0;
-        double kPVision = 0.027;
-        double kIVision = 0.0;
-        double kDVision = 0.0;
-        double kPVisionRot = 0.012, kIVisionRot = 0.0, kDVisionRot = 0.2;
 
-        xSpeed = OI.getInstance().applyPID(OI.getInstance().VISION_X_SYSTEM, Vision.getInstance().twoTargetCenter(), targetCenter, kPVision, kIVision, kDVision, .5, -.5);
-        ySpeed = OI.getInstance().applyPID(OI.getInstance().VISION_Y_SYSTEM, Vision.getInstance().twoTargetDistance(), targetDistance, kPVision, kIVision, kDVision, .5, -.5);
-        zRotation = -OI.getInstance().applyPID(OI.getInstance().VISION_ROT_SYSTEM, Vision.getInstance().getAreaDifference(), 0.0, kPVisionRot, kIVisionRot, kDVisionRot, .5, -.5);
+        xSpeed = OI.getInstance().applyPID(OI.getInstance().VISION_X_SYSTEM,
+                                           Vision.getInstance().twoTargetCenter(), 
+                                           targetCenter, 
+                                           Variables.getInstance().getVisionKP(), 
+                                           Variables.getInstance().getVisionKI(), 
+                                           Variables.getInstance().getVisionKD(), 
+                                           .5, 
+                                           -.5);
         
-        SmartDashboard.putNumber("Rotation For 2 Target Vision", zRotation);
-
+        ySpeed = OI.getInstance().applyPID(OI.getInstance().VISION_Y_SYSTEM, 
+                                           Vision.getInstance().twoTargetDistance(), 
+                                           targetDistance, 
+                                           Variables.getInstance().getVisionKP(), 
+                                           Variables.getInstance().getVisionKI(), 
+                                           Variables.getInstance().getVisionKD(), 
+                                           .5, 
+                                           -.5);
+        
+        zRotation = -OI.getInstance().applyPID(OI.getInstance().VISION_ROT_SYSTEM, 
+                                               Vision.getInstance().getAreaDifference(), 
+                                               0.0, 
+                                               Variables.getInstance().getVisionRotKP(), 
+                                               Variables.getInstance().getVisionRotKI(), 
+                                               Variables.getInstance().getVisionRotKD(), 
+                                               .5, 
+                                               -.5);
+        
         double[] _speedArray = {-xSpeed, ySpeed, zRotation, 0};
         DriveTrain.getInstance().cartDrive(_speedArray);
     }

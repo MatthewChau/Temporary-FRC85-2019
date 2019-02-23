@@ -1,7 +1,6 @@
 package frc.robot.commands.drivetrain;
 
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import frc.robot.OI;
 import frc.robot.Variables;
@@ -24,12 +23,6 @@ public class FollowOneTarget extends Command {
     protected void execute() {
         super.execute();
         double xSpeed, ySpeed, zRotation, gyroAngle; // the angle only added in order to stay straight while strafing
-        double kPVision = 0.05;
-        double kIVision = 0.0;
-        double kDVision = 0.0;
-        double kPVisionRot = 0.012, kIVisionRot = 0.0, kDVisionRot = 0.2;
-
-        // x & rotation together should be enough to align, honestly
         
         gyroAngle = IMU.getInstance().getFusedHeading();
 
@@ -38,9 +31,25 @@ public class FollowOneTarget extends Command {
             DriveTrain.getInstance().fixAngles(gyroAngle);
         }
 
-        xSpeed = -OI.getInstance().applyPID(OI.getInstance().VISION_X_SYSTEM, Vision.getInstance().oneTargetCenter(), 160.0, kPVision, kIVision, kDVision, .25, -.25); // 120 appears to be the center
+        xSpeed = -OI.getInstance().applyPID(OI.getInstance().VISION_X_SYSTEM, 
+                                            Vision.getInstance().oneTargetCenter(), 
+                                            160.0, // appears to be the center of the camera
+                                            Variables.getInstance().getVisionKP(), 
+                                            Variables.getInstance().getVisionKI(), 
+                                            Variables.getInstance().getVisionKD(), 
+                                            .25, 
+                                            -.25);
+
         ySpeed = 0.0;
-        zRotation = OI.getInstance().applyPID(OI.getInstance().VISION_ROT_SYSTEM, gyroAngle, DriveTrain.getInstance().targetAngle, kPVisionRot, kIVisionRot, kDVisionRot, .25, -.25);
+
+        zRotation = OI.getInstance().applyPID(OI.getInstance().VISION_ROT_SYSTEM,
+                                              gyroAngle, 
+                                              DriveTrain.getInstance().targetAngle,
+                                              Variables.getInstance().getVisionRotKP(),
+                                              Variables.getInstance().getVisionRotKI(),
+                                              Variables.getInstance().getVisionRotKD(),
+                                              .25,
+                                              -.25);
 
         double[] _speedArray = {xSpeed, ySpeed, zRotation, gyroAngle};
         DriveTrain.getInstance().cartDrive(_speedArray);
