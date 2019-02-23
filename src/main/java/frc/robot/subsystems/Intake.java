@@ -55,7 +55,7 @@ public class Intake extends Subsystem {
 
     @Override
     public void initDefaultCommand() {
-        setDefaultCommand(new IntakeWithJoystick());
+        //setDefaultCommand(new IntakeWithJoystick());
     }
 
     public void setFlipper(double speed) {

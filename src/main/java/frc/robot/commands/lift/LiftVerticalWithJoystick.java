@@ -12,6 +12,7 @@ import frc.robot.Variables;
 import frc.robot.subsystems.LiftVertical;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class LiftVerticalWithJoystick extends Command {
 
@@ -31,7 +32,9 @@ public class LiftVerticalWithJoystick extends Command {
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
-        LiftVertical.getInstance().verticalShift(OI.getInstance().getOperatorJoystick()); // finally run the method for it
+        if (SmartDashboard.getBoolean("Safe?", false)) {
+            LiftVertical.getInstance().verticalShift(OI.getInstance().getOperatorJoystick()); // finally run the method for it
+        }
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -47,7 +50,7 @@ public class LiftVerticalWithJoystick extends Command {
     // Called once after isFinished returns true
     @Override
     protected void end() {
-        LiftVertical.getInstance().verticalShift(0);
+        LiftVertical.getInstance().stopMotors();
     }
 
 }

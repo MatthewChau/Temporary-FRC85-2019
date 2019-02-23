@@ -72,7 +72,7 @@ public class Variables {
 
     // Intake PID
 
-    public static final double kP_INTAKE = 0.1, kI_INTAKE = 0.000001, kD_INTAKE = 0.2;
+    public static final double kP_INTAKE = 0.001, kI_INTAKE = 0.0, kD_INTAKE = 0.0;
 
     // Intake Positions and Degrees
     public static final int INTAKE_DEGREE_ONE = 0;
@@ -112,6 +112,7 @@ public class Variables {
         SmartDashboard.putNumber("MAX_SPEED_DOWN_INTAKE", MAX_SPEED_DOWN_INTAKE);
 
         SmartDashboard.putBoolean("Joysticks Enabled", false);
+        SmartDashboard.putBoolean("Safe?", false);
     }
 
     public static Variables getInstance() {

@@ -68,12 +68,6 @@ public class LiftVertical extends Subsystem {
 
         if (ProxSensors.getInstance().getLiftBottomLimit()) {
             setVerticalPosition(0);
-            targetPos = 1000; // give it a small vertical pos to aim for
-            adjusting = true;
-        } else if (ProxSensors.getInstance().getLiftTopLimit()) {
-            //setVerticalPosition(somethinghigh);
-            targetPos = getVerticalPosition() - 2000;//somethingelsehigh;
-            adjusting = true;
         }
 
         /**
@@ -95,6 +89,11 @@ public class LiftVertical extends Subsystem {
         
         _liftLeftMotor.set(ControlMode.PercentOutput, speed);
         _liftRightMotor.set(ControlMode.PercentOutput, speed);
+    }
+
+    public void stopMotors() {
+        _liftLeftMotor.set(ControlMode.PercentOutput, 0.0);
+        _liftRightMotor.set(ControlMode.PercentOutput, 0.0);
     }
 
     public void setVerticalPosition(int position) {

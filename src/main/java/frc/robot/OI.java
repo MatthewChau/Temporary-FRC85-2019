@@ -115,6 +115,7 @@ public class OI {
         _operatorHatchDefault = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_HATCH_DEFAULT);
         _operatorHatchFloor = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_HATCH_FLOOR);
         _operatorHatchRelease = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_HATCH_RELEASE);
+        //_operatorHatchRelease.whenPressed(new LiftVerticalWithJoystick(0.0));
 
         _operatorHatchOne = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_HATCH_ONE);
         _operatorHatchTwo = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_HATCH_TWO);
@@ -266,6 +267,10 @@ public class OI {
         return _operatorIntakeRotate.get();
     }
 
+    public boolean getOperatorHatchRelease() {
+        return _operatorHatchRelease.get();
+    }
+
     public double fixArcTangent(double angle, double x, double y) { // fix an angle output by arctan
         if (y >= 0) { // apparently y is positive when pointing down right now.  not entirely sure why, but... yeah
             if (x > 0) {
@@ -348,12 +353,12 @@ public class OI {
                 }
                 return true;
             case LIFT_VERTICAL_SYSTEM:
-                if (Math.abs(error) < 500) {
+                if (Math.abs(error) < 350) {
                     LiftVertical.getInstance().changeAdjustingBool(false);
                 }
                 return true;
             case INTAKE_SYSTEM:
-                if (Math.abs(error) < 500) {
+                if (Math.abs(error) < 50) {
                     Intake.getInstance().changeAdjustingBool(false);
                 }
             default:
