@@ -21,6 +21,10 @@ import frc.robot.subsystems.LiftVertical;
 
 public class Diagnostics {
 
+    /*drive train motor voltage/current draw, maybe prox sensors, solenoids? and driver joysticks
+    * encoders, ypr, 
+    */
+
     File log;
     BufferedWriter out = null;
 
