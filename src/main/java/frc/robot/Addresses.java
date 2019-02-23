@@ -79,4 +79,7 @@ public class Addresses {
     // Rear Solenoid
     public static final int REAR_SOLENOID = 1;
    
+    // LED Spike Relay
+    public static final int LIGHT_RELAY = 0;
+
 }
