@@ -34,7 +34,9 @@ public class LiftVerticalWithJoystick extends Command {
         if (_speed > 0) {
             _speed = 0.5;
         } else if (_speed < 0) {
-            _speed = -0.15;
+            _speed = -0.1;
+        } else {
+            _speed = 0.0;
         }
 
         LiftVertical.getInstance().verticalShift(_speed);

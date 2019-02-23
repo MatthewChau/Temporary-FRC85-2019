@@ -87,7 +87,7 @@ public class OI {
 
         // Joystick combinations
         _operatorLiftVertical = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_LIFT_VERTICAL);        
-        _operatorLiftVertical.whenPressed(new LiftVerticalWithJoystick());
+        _operatorLiftVertical.whenPressed(new LiftVerticalWithJoystick()); // better way to start this ahaha
         _operatorLiftHorizontal = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_LIFT_HORIZONTAL);
         _operatorLiftHorizontal.whenPressed(new LiftHorizontalWithJoystick());
         _operatorIntakeRotate = new JoystickButton(_operatorControllerBlack, 2);
@@ -315,6 +315,7 @@ public class OI {
             case LIFT_VERTICAL_SYSTEM:
                 SmartDashboard.putNumber("Vertical Lift Error", error);
                 SmartDashboard.putNumber("Vertical Lift PID Output", output);
+                SmartDashboard.putNumber("Vertical Lift PID Target", target);
                 break;
             default:
                 break;
@@ -346,9 +347,8 @@ public class OI {
                 }
                 return true;
             case LIFT_VERTICAL_SYSTEM:
-                if (Math.abs(error) < 1000) {
+                if (Math.abs(error) < 500) {
                     LiftVertical.getInstance().adjusting = false;
-                    return false;
                 }
             default:
                 return true;

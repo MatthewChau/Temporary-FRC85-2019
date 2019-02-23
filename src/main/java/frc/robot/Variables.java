@@ -23,14 +23,14 @@ public class Variables {
     // DRIVETRAIN
 
     public final double DEADBAND = 0.05;
-    public final double DEADBAND_LIFT = 0.1;
+    public final double DEADBAND_LIFT = 0.05;
     public final double TOLERANCE_ANGLE = 6.0;
     public final int MAX_TURNS = 7; // if we go over 2520 degrees in either direction in one match then help.
 
     // LIFT
 
     // Lift Vertical PID
-    private final double kP_VLIFT = 0.1, kI_VLIFT = 0.000001, kD_VLIFT = 0.2;
+    private final double kP_VLIFT = 0.01, kI_VLIFT = 0.0, kD_VLIFT = 0.0;
 
     // Lift Horizontal PID
     private final double kP_HLIFT = 0.1, kI_HLIFT = 0.000001, kD_HLIFT = 0.2;
