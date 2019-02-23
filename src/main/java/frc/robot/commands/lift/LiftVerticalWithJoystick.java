@@ -15,10 +15,11 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class LiftVerticalWithJoystick extends Command {
 
-    public LiftVerticalWithJoystick(double target) {
+    public LiftVerticalWithJoystick(double target) { // pass in 0.0 if you want stuff to work fine
         requires(LiftVertical.getInstance());
         if (target != 0.0) {
-            //LiftVertical.target = Variables.getInstance().something();
+            LiftVertical.getInstance().setTargetPosition(target);
+            LiftVertical.getInstance().changeAdjustingBool(true);
         }
     }
 

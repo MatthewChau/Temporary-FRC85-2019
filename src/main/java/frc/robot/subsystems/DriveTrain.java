@@ -237,6 +237,14 @@ public class DriveTrain extends Subsystem {
         return targetAngle;
     }
 
+    public void setTurnInProgress(boolean bool) {
+        turnInProgress = bool;
+    }
+
+    public boolean getTurnInProgress() {
+        return turnInProgress;
+    }
+
     private void limitSpeeds(double[] speeds) { // take the highest speed & then adjust everything else proportionally if it is over 1
         double maxMagnitude = Math.abs(speeds[0]); // choose an arbitrary one of them to be the max as an init thing
         int i;

@@ -326,14 +326,14 @@ public class OI {
     public boolean checkIfNeedBeRun(int system, double error) {
         switch (system) {
             case ROT_SYSTEM:
-                if (DriveTrain.getInstance().turnInProgress && Math.abs(error) < 3.0) { // note that we actually want a tolerance here
-                    DriveTrain.getInstance().turnInProgress = false;
+                if (DriveTrain.getInstance().getTurnInProgress() && Math.abs(error) < 3.0) { // note that we actually want a tolerance here
+                    DriveTrain.getInstance().setTurnInProgress(false);
                     return false;
                 }
                 return true;
             case VISION_ROT_SYSTEM:
-                if (DriveTrain.getInstance().turnInProgress && Math.abs(error) < 3.0) {
-                    DriveTrain.getInstance().turnInProgress = false;
+                if (DriveTrain.getInstance().getTurnInProgress() && Math.abs(error) < 3.0) {
+                    DriveTrain.getInstance().setTurnInProgress(false);
                     return false;
                 }
                 return true;
