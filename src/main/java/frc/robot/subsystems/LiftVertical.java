@@ -111,5 +111,9 @@ public class LiftVertical extends Subsystem {
     public void changeAdjustingBool(boolean on) {
         adjusting = on;
     }
+
+    public TalonSRX getIMUTalon() {
+        return _liftLeftMotor;
+    }
    
 }

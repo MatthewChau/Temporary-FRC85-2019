@@ -30,7 +30,7 @@ public class Variables {
     // LIFT
 
     // Lift Vertical PID
-    private final double kP_VLIFT = 0.01, kI_VLIFT = 0.0, kD_VLIFT = 0.0;
+    private final double kP_VLIFT = 0.0005, kI_VLIFT = 0.0, kD_VLIFT = 0.0;
 
     // Lift Horizontal PID
     private final double kP_HLIFT = 0.1, kI_HLIFT = 0.000001, kD_HLIFT = 0.2;

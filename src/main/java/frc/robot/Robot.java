@@ -91,9 +91,10 @@ public class Robot extends TimedRobot {
 
         // Pneumatics
 
-        Intake.getInstance().setIntakeSolenoid(false);
         BeltSolenoid.getInstance().setBeltSolenoid(false);
         RearSolenoid.getInstance().setRearSolenoid(false);
+        
+        Intake.getInstance().setFlipperPosition(0);
 
         // init the pid stuff 
 

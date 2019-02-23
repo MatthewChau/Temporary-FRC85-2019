@@ -11,6 +11,7 @@ import frc.robot.OI;
 import frc.robot.subsystems.Intake;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class IntakeWithJoystick extends Command {
     public IntakeWithJoystick() {
@@ -25,17 +26,15 @@ public class IntakeWithJoystick extends Command {
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
-        Intake.getInstance().setFlipper(OI.getInstance().getOperatorJoystick());
+        if (SmartDashboard.getBoolean("Safe?", false)) {
+            Intake.getInstance().setFlipper(OI.getInstance().getOperatorJoystick());
+        }
     }
 
     // Make this return true when this Command no longer needs to run execute()
     @Override
     protected boolean isFinished() {
-        if (!OI.getInstance().getOperatorIntakeRotate() || OI.getInstance().getOperatorLiftHorizontal() || OI.getInstance().getOperatorLiftVertical()) {
-            return true;
-        } else {
-            return false;
-        }    
+        return false; 
     }
 
     // Called once after isFinished returns true

@@ -29,8 +29,6 @@ public class Intake extends Subsystem {
 
     private TalonSRX _flipper, _roller;
 
-    private Solenoid _solenoidOne, _solenoidTwo;
-
     private boolean adjusting;
     private double targetPos;
 
@@ -40,10 +38,6 @@ public class Intake extends Subsystem {
         _flipper.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
         _roller = new TalonSRX(Addresses.INTAKE_ROLLER);
         _roller.setNeutralMode(NeutralMode.Brake);
-
-        // Two stage solenoid
-        _solenoidOne = new Solenoid(Addresses.INTAKE_ONE_SOLENOID);
-        _solenoidTwo = new Solenoid(Addresses.INTAKE_TWO_SOLENOID);
     }
 
     public static Intake getInstance() {
@@ -55,14 +49,14 @@ public class Intake extends Subsystem {
 
     @Override
     public void initDefaultCommand() {
-        //setDefaultCommand(new IntakeWithJoystick());
+        setDefaultCommand(new IntakeWithJoystick());
     }
 
     public void setFlipper(double speed) {
         
-        // limit switch stuff here
+        // limit switch stuff here ?
 
-        if (adjusting || !OI.getInstance().getOperatorIntakeRotate()) { // if the button isn't being pressed
+        if (speed < Variables.getInstance().DEADBAND_LIFT && (adjusting || !OI.getInstance().getOperatorIntakeRotate())) { // if the button isn't being pressed or target pos is being adjusted
             speed = OI.getInstance().applyPID(OI.getInstance().INTAKE_SYSTEM, 
                                               getFlipperPosition(), 
                                               targetPos, 
@@ -71,17 +65,20 @@ public class Intake extends Subsystem {
                                               Variables.getInstance().getIntakeKD(), 
                                               Variables.getInstance().getMaxSpeedUpIntake(), 
                                               Variables.getInstance().getMaxSpeedDownIntake());
-        } else if (speed > 0.0) {
+        } else if (speed > Variables.getInstance().DEADBAND_LIFT) {
             speed = .3;
-        } else {
-            speed = -.1;
+            targetPos = getFlipperPosition();
+        } else if (speed < -Variables.getInstance().DEADBAND_LIFT) {
+            speed = -.3;
+            targetPos = getFlipperPosition();
         }
 
         if ((ProxSensors.getInstance().getIntakeBottomLimit() && speed > 0) 
-            || (ProxSensors.getInstance().getIntakeTopLimit() && speed < 0)) {
-             _flipper.set(ControlMode.PercentOutput, 0);
+            || (ProxSensors.getInstance().getIntakeTopLimit() && speed < 0)
+            || Math.abs(speed) < Variables.getInstance().DEADBAND_LIFT) {
+            _flipper.set(ControlMode.PercentOutput, 0);
         } else {
-            _flipper.set(ControlMode.PercentOutput, -speed);
+            _flipper.set(ControlMode.PercentOutput, speed);
         }
     }
 
@@ -98,19 +95,6 @@ public class Intake extends Subsystem {
 
     public void setRoller(double speed) {
         _roller.set(ControlMode.PercentOutput, speed);
-    }
-
-    public void setIntakeSolenoid(boolean activated) {
-        _solenoidOne.set(activated);
-        _solenoidTwo.set(!activated);
-    }
-
-    public boolean getIntakeOneSolenoid() {
-        return _solenoidOne.get();
-    }
-
-    public boolean getIntakeTwoSolenoid() {
-        return _solenoidTwo.get();
     }
 
     public void setTargetPos(double target) {

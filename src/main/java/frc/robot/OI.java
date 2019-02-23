@@ -69,7 +69,7 @@ public class OI {
     public double[] errorSum = new double[INTAKE_SYSTEM + 1];
     public double[] lastOutput = new double[INTAKE_SYSTEM + 1];
     public double[] lastActual = new double[INTAKE_SYSTEM + 1];
-    public double[][] errorLog = new double[INTAKE_SYSTEM][NUM_LOG_ENTRIES];
+    public double[][] errorLog = new double[INTAKE_SYSTEM + 1][NUM_LOG_ENTRIES];
 
     public double[] stopArray = new double[4];
 
