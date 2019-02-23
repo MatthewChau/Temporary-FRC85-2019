@@ -25,7 +25,6 @@ import frc.robot.commands.lift.LiftVerticalWithJoystick;
 
 import frc.robot.commands.intake.ActivateIntake;
 import frc.robot.commands.intake.IntakeWithJoystick;
-import frc.robot.commands.intake.ToggleIntakeSolenoid;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Joystick.AxisType;
@@ -115,7 +114,7 @@ public class OI {
         _operatorHatchDefault = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_HATCH_DEFAULT);
         _operatorHatchFloor = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_HATCH_FLOOR);
         _operatorHatchRelease = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_HATCH_RELEASE);
-        _operatorHatchRelease.whenPressed(new ToggleIntakeSolenoid());
+        //_operatorHatchRelease.whenPressed(new ToggleIntakeSolenoid());
 
         _operatorHatchOne = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_HATCH_ONE);
         _operatorHatchOne.whenPressed(new SetBeltSolenoid(false));
