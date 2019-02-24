@@ -17,6 +17,8 @@ import frc.robot.commands.belttrain.SetBeltSolenoid;
 import frc.robot.commands.drivetrain.FollowOneTarget;
 import frc.robot.commands.drivetrain.FollowTwoTarget;
 import frc.robot.commands.drivetrain.DriveSeconds;
+import frc.robot.commands.intake.IntakePosition;
+import frc.robot.commands.lift.LiftVerticalPosition;
 
 import frc.robot.commands.lift.VerticalShift;
 import frc.robot.commands.rearsolenoid.SetRearSolenoid;
@@ -86,12 +88,10 @@ public class OI {
         _driverControllerYButton = new JoystickButton(_driverController, 4);
 
         // Joystick combinations
-        _operatorLiftVertical = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_LIFT_VERTICAL);        
-        //_operatorLiftVertical.whenPressed(new LiftVerticalWithJoystick()); // better way to start this ahaha
+        _operatorLiftVertical = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_LIFT_VERTICAL);
         _operatorLiftHorizontal = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_LIFT_HORIZONTAL);
         _operatorLiftHorizontal.whenPressed(new LiftHorizontalWithJoystick());
-        _operatorIntakeRotate = new JoystickButton(_operatorControllerBlack, 2);
-        //_operatorIntakeRotate.whenPressed(new IntakeWithJoystick());
+        _operatorIntakeRotate = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_INTAKE_ROTATE);
 
         // Cargo
         _operatorCargoDefault = new JoystickButton(_operatorControllerWhite, 3);
@@ -115,13 +115,14 @@ public class OI {
         _operatorHatchDefault = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_HATCH_DEFAULT);
         _operatorHatchFloor = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_HATCH_FLOOR);
         _operatorHatchRelease = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_HATCH_RELEASE);
-        //_operatorHatchRelease.whenPressed(new LiftVerticalWithJoystick(0.0));
 
         _operatorHatchOne = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_HATCH_ONE);
         _operatorHatchTwo = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_HATCH_TWO);
         _operatorCargoTwo.whenPressed(new BeltTrainDrive(-0.60));
         _operatorCargoTwo.whenReleased(new BeltTrainDrive(0));
         _operatorHatchThree = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_HATCH_THREE);
+        //_operatorHatchThree.whenPressed(new IntakePosition(-500000));
+        //_operatorHatchThree.whenReleased(new LiftVerticalPosition(5000));
 
         FollowOneTarget followOneTarget;
         _driverControllerYButton.whileActive(followOneTarget = new FollowOneTarget()); //follows when pressed
@@ -360,7 +361,7 @@ public class OI {
                 }
                 return true;
             case INTAKE_SYSTEM:
-                if (Math.abs(error) < 50) {
+                if (Math.abs(error) < 1000) {
                     Intake.getInstance().changeAdjustingBool(false);
                 }
             default:

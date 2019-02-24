@@ -12,7 +12,6 @@ import frc.robot.OI;
 import frc.robot.Variables;
 import frc.robot.commands.intake.IntakeWithJoystick;
 import frc.robot.sensors.ProxSensors;
-import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
@@ -56,7 +55,7 @@ public class Intake extends Subsystem {
         
         // limit switch stuff here ?
 
-        if (speed < Variables.getInstance().DEADBAND_LIFT && (adjusting || !OI.getInstance().getOperatorIntakeRotate())) { // if the button isn't being pressed or target pos is being adjusted
+        if (speed < Variables.getInstance().DEADBAND_LIFT || adjusting) { // if we aren't yeeting or we are adjusting
             speed = OI.getInstance().applyPID(OI.getInstance().INTAKE_SYSTEM, 
                                               getFlipperPosition(), 
                                               targetPos, 
@@ -66,16 +65,17 @@ public class Intake extends Subsystem {
                                               Variables.getInstance().getMaxSpeedUpIntake(), 
                                               Variables.getInstance().getMaxSpeedDownIntake());
         } else if (speed > Variables.getInstance().DEADBAND_LIFT) {
-            speed = .3;
+            speed = .6;
             targetPos = getFlipperPosition();
         } else if (speed < -Variables.getInstance().DEADBAND_LIFT) {
-            speed = -.3;
+            speed = -.6;
             targetPos = getFlipperPosition();
         }
 
-        if ((ProxSensors.getInstance().getIntakeBottomLimit() && speed > 0) 
-            || (ProxSensors.getInstance().getIntakeTopLimit() && speed < 0)
-            || Math.abs(speed) < Variables.getInstance().DEADBAND_LIFT) {
+        if ((ProxSensors.getInstance().getIntakeBottomLimit() && speed > 0) // if we trying to exceed top limit
+            || (ProxSensors.getInstance().getIntakeTopLimit() && speed < 0) // if we trying to exceed bottom limit
+            || Math.abs(speed) < Variables.getInstance().DEADBAND_LIFT // if speed is less than the deadband
+            || !OI.getInstance().getOperatorIntakeRotate()) {
             _flipper.set(ControlMode.PercentOutput, 0);
         } else {
             _flipper.set(ControlMode.PercentOutput, speed);

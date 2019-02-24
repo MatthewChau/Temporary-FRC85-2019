@@ -5,25 +5,25 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.intake;
+package frc.robot.commands.lift;
 
-import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.LiftVertical;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class IntakePosition extends Command {
+public class LiftVerticalPosition extends Command {
 
     private int _target;
-    public IntakePosition(int target) {
-        requires(Intake.getInstance());
+    public LiftVerticalPosition(int target) {
+        requires(LiftVertical.getInstance());
         _target = target;
     }
 
     @Override
     protected void execute() {
         super.execute();
-        Intake.getInstance().setTargetPos(_target);
-        Intake.getInstance().changeAdjustingBool(true);
+        LiftVertical.getInstance().setTargetPosition(_target);
+        LiftVertical.getInstance().changeAdjustingBool(true);
     }
 
     // Make this return true when this Command no longer needs to run execute()

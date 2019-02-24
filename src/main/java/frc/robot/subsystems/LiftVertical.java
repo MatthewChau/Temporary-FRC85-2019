@@ -74,7 +74,7 @@ public class LiftVertical extends Subsystem {
          * adjusting (the bool) is used for if we are in the middle of a vertical adjustment (caused by button press)
          * the other check is simply for if we want to maintain the current angle
          */
-        if (adjusting || Math.abs(speed) < Variables.getInstance().DEADBAND_LIFT) {
+        if (Math.abs(speed) < Variables.getInstance().DEADBAND_LIFT || adjusting) {
            speed = OI.getInstance().applyPID(OI.getInstance().LIFT_VERTICAL_SYSTEM, 
                                               getVerticalPosition(), 
                                               targetPos, 

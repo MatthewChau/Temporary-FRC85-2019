@@ -1,0 +1,168 @@
+<xml version="1.0">
+<dashboard>
+	<widget field="Intake PID Target" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="303" y="131"/>
+	</widget>
+	<widget field="Intake PID Output" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="468" y="91"/>
+	</widget>
+	<widget field="Intake Error" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="498" y="70"/>
+	</widget>
+	<widget field="Rot PID Error" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="130" y="432"/>
+	</widget>
+	<widget field="Rot PID Target" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="122" y="412"/>
+	</widget>
+	<widget field="Vertical Lift PID Target" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="329" y="409"/>
+	</widget>
+	<widget field="Vertical Lift PID Output" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="327" y="388"/>
+	</widget>
+	<widget field="Vertical Lift Error" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="357" y="367"/>
+	</widget>
+	<widget field="Lift Front" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.CheckBox">
+		<location x="817" y="78"/>
+	</widget>
+	<widget field="Auto Selector" type="String" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="241" y="32"/>
+	</widget>
+	<widget field="Right Front Percent" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="788" y="407"/>
+	</widget>
+	<widget field="Joysticks Enabled" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.CheckBox">
+		<location x="669" y="34"/>
+	</widget>
+	<widget field="Rear Prox Sensor" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.CheckBox">
+		<location x="779" y="121"/>
+	</widget>
+	<widget field="Front Prox Sensor" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.CheckBox">
+		<location x="776" y="99"/>
+	</widget>
+	<widget field="Lift Top" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.CheckBox">
+		<location x="825" y="15"/>
+	</widget>
+	<widget field="Lift Center" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.CheckBox">
+		<location x="810" y="36"/>
+	</widget>
+	<widget field="Lift Bottom" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.CheckBox">
+		<location x="808" y="57"/>
+	</widget>
+	<widget field="Safe?" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.CheckBox">
+		<location x="727" y="13"/>
+	</widget>
+	<widget field="Intake Encoder" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="585" y="227"/>
+	</widget>
+	<widget field="Horizontal Lift" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="813" y="377"/>
+	</widget>
+	<widget field="Vertical Lift" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="632" y="378"/>
+	</widget>
+	<widget field="Operator Joystick" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="572" y="184"/>
+	</widget>
+	<widget field="Roll" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="286" y="110"/>
+	</widget>
+	<widget field="Initial Roll" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="254" y="88"/>
+	</widget>
+	<widget field="Pitch" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="211" y="267"/>
+	</widget>
+	<widget field="Initial Pitch" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="178" y="244"/>
+	</widget>
+	<widget field="Yaw" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="408" y="254"/>
+	</widget>
+	<widget field="IMU Error Code" type="String" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="543" y="13"/>
+	</widget>
+	<widget field="Initial Yaw" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="375" y="227"/>
+	</widget>
+	<widget field="Fused" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="399" y="278"/>
+	</widget>
+	<widget field="Distance" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="574" y="139"/>
+	</widget>
+	<widget field="Right Back Percent" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="793" y="432"/>
+	</widget>
+	<widget field="Left Back Percent" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="605" y="433"/>
+	</widget>
+	<widget field="Left Front Percent" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="601" y="408"/>
+	</widget>
+	<widget field="MAX_SPEED_DOWN_INTAKE" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="744" y="344"/>
+	</widget>
+	<widget field="MAX_SPEED_UP_INTAKE" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="763" y="321"/>
+	</widget>
+	<widget field="kD_VISION_ROT" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="357"/>
+	</widget>
+	<widget field="kI_VISION_ROT" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="336"/>
+	</widget>
+	<widget field="kP_VISION_ROT" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="315"/>
+	</widget>
+	<widget field="kD_VISION" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="294"/>
+	</widget>
+	<widget field="kI_VISION" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="273"/>
+	</widget>
+	<widget field="kP_VISION" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="252"/>
+	</widget>
+	<widget field="kD_DRIVE" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="231"/>
+	</widget>
+	<widget field="kI_DRIVE" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="210"/>
+	</widget>
+	<widget field="kP_DRIVE" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="189"/>
+	</widget>
+	<widget field="kD_INTAKE" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="168"/>
+	</widget>
+	<widget field="kI_INTAKE" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="147"/>
+	</widget>
+	<widget field="kP_INTAKE" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="126"/>
+	</widget>
+	<widget field="kD_HLIFT" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="105"/>
+	</widget>
+	<widget field="kI_HLIFT" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="84"/>
+	</widget>
+	<widget field="kP_HLIFT" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="63"/>
+	</widget>
+	<widget field="kD_VLIFT" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="42"/>
+	</widget>
+	<widget field="kI_VLIFT" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="21"/>
+	</widget>
+	<widget field="kP_VLIFT" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="0"/>
+	</widget>
+</dashboard>
+<live-window>
+</live-window>
+</xml>
