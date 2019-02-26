@@ -1,4 +1,4 @@
-package frc.robot.commands;
+package frc.robot.commands.driverassistance;
 
 import frc.robot.commands.belttrain.BeltTrainDrive;
 import frc.robot.commands.drivetrain.DriveSeconds;
