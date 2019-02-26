@@ -51,7 +51,7 @@ public class LiftVertical extends Subsystem {
     }
 
     public void verticalShift(double speed) {
-        if (!OI.getInstance().getOperatorLiftVertical() || Math.abs(speed) < Variables.getInstance().DEADBAND_OPERATORSTICK) {
+        if (!OI.getInstance().getOperatorLiftVertical() || speed == 0) {
             speed = OI.getInstance().applyPID(OI.getInstance().LIFT_VERTICAL_SYSTEM, 
                                               getVerticalPosition(), 
                                               targetPos, 
@@ -62,8 +62,10 @@ public class LiftVertical extends Subsystem {
                                               -0.2);
         } else if (speed > Variables.getInstance().DEADBAND_OPERATORSTICK) {
             speed = 0.5;
+            targetPos = getVerticalPosition();
         } else if (speed < -Variables.getInstance().DEADBAND_OPERATORSTICK) {
             speed = -0.2;
+            targetPos = getVerticalPosition();
         }
 
         if ((ProxSensors.getInstance().getLiftTopLimit() && speed > 0.0)

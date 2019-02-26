@@ -52,7 +52,7 @@ public class Intake extends Subsystem {
     }
 
     public void setFlipper(double speed) {
-        if (adjusting) { // if we are adjusting (shouldn't need a check for if we are at small speed because seriously)
+        if (adjusting) { // if we are adjusting
             speed = OI.getInstance().applyPID(OI.getInstance().INTAKE_SYSTEM, 
                                               getFlipperPosition(), 
                                               targetPos, 
@@ -61,20 +61,19 @@ public class Intake extends Subsystem {
                                               Variables.getInstance().getIntakeKD(), 
                                               Variables.getInstance().getMaxSpeedUpIntake(), 
                                               Variables.getInstance().getMaxSpeedDownIntake());
-        } else if (speed > Variables.getInstance().DEADBAND_OPERATORSTICK) {
-            speed = .6;
+        } else if (speed > 0.0) {
+            speed = 0.3;
             targetPos = getFlipperPosition();
-        } else if (speed < -Variables.getInstance().DEADBAND_OPERATORSTICK) {
-            speed = -.6;
+        } else if (speed < 0.0) {
+            speed = -0.3;
             targetPos = getFlipperPosition();
         } else {
-            speed = 0;
+            speed = 0.0;
         }
 
         if ((ProxSensors.getInstance().getIntakeBottomLimit() && speed > 0) // if we trying to exceed top limit
             || (ProxSensors.getInstance().getIntakeTopLimit() && speed < 0) // if we trying to exceed bottom limit
-            || Math.abs(speed) < Variables.getInstance().DEADBAND_OPERATORSTICK // if speed is less than the deadband
-            || !OI.getInstance().getOperatorIntakeRotate()) {
+            || (!OI.getInstance().getOperatorIntakeRotate() && !adjusting)) { // if the button isn't pressed and we are not adjusting
             _flipper.set(ControlMode.PercentOutput, 0);
         } else {
             _flipper.set(ControlMode.PercentOutput, speed);
@@ -100,8 +99,8 @@ public class Intake extends Subsystem {
         targetPos = target;
     }
 
-    public void changeAdjustingBool(boolean isAdjusting) {
-        adjusting = isAdjusting;
+    public void changeAdjustingBool(boolean bool) {
+        adjusting = bool;
     }
 
 }

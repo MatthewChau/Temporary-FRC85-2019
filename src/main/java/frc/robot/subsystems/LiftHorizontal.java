@@ -57,16 +57,16 @@ public class LiftHorizontal extends Subsystem {
                                               Variables.getInstance().getHorizontalLiftKD(), 
                                               0.5, 
                                               -0.5);
-        } else if (speed > Variables.getInstance().DEADBAND_OPERATORSTICK) {
+        } else if (speed > 0.0) {
             speed = 0.5;
-        } else if (speed < -Variables.getInstance().DEADBAND_OPERATORSTICK) {
+        } else if (speed < 0.0) {
             speed = -0.5;
         } else {
             speed = 0.0;
         }
         
-        if ((ProxSensors.getInstance().getLiftFrontLimit() && speed > 0)
-            || (ProxSensors.getInstance().getLiftRearLimit() && speed < 0)
+        if ((ProxSensors.getInstance().getLiftFrontLimit() && speed > 0.0)
+            || (ProxSensors.getInstance().getLiftRearLimit() && speed < 0.0)
             || !OI.getInstance().getOperatorLiftHorizontal()) { // if button isn't pressed
             _liftRearMotor.set(ControlMode.PercentOutput, 0);
         } else {
