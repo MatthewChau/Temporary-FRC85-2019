@@ -342,7 +342,7 @@ public class OI {
                 }
                 return true;
             case LIFT_VERTICAL_SYSTEM:
-                if (Math.abs(error) < 350) {
+                if (Math.abs(error) < 450) {
                     LiftVertical.getInstance().changeAdjustingBool(false);
                 }
                 return true;
