@@ -52,10 +52,7 @@ public class Intake extends Subsystem {
     }
 
     public void setFlipper(double speed) {
-        
-        // limit switch stuff here ?
-
-        if (speed < Variables.getInstance().DEADBAND_LIFT || adjusting) { // if we aren't yeeting or we are adjusting
+        if (adjusting) { // if we are adjusting (shouldn't need a check for if we are at small speed because seriously)
             speed = OI.getInstance().applyPID(OI.getInstance().INTAKE_SYSTEM, 
                                               getFlipperPosition(), 
                                               targetPos, 
@@ -64,17 +61,19 @@ public class Intake extends Subsystem {
                                               Variables.getInstance().getIntakeKD(), 
                                               Variables.getInstance().getMaxSpeedUpIntake(), 
                                               Variables.getInstance().getMaxSpeedDownIntake());
-        } else if (speed > Variables.getInstance().DEADBAND_LIFT) {
+        } else if (speed > Variables.getInstance().DEADBAND_OPERATORSTICK) {
             speed = .6;
             targetPos = getFlipperPosition();
-        } else if (speed < -Variables.getInstance().DEADBAND_LIFT) {
+        } else if (speed < -Variables.getInstance().DEADBAND_OPERATORSTICK) {
             speed = -.6;
             targetPos = getFlipperPosition();
+        } else {
+            speed = 0;
         }
 
         if ((ProxSensors.getInstance().getIntakeBottomLimit() && speed > 0) // if we trying to exceed top limit
             || (ProxSensors.getInstance().getIntakeTopLimit() && speed < 0) // if we trying to exceed bottom limit
-            || Math.abs(speed) < Variables.getInstance().DEADBAND_LIFT // if speed is less than the deadband
+            || Math.abs(speed) < Variables.getInstance().DEADBAND_OPERATORSTICK // if speed is less than the deadband
             || !OI.getInstance().getOperatorIntakeRotate()) {
             _flipper.set(ControlMode.PercentOutput, 0);
         } else {

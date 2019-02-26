@@ -10,6 +10,7 @@ package frc.robot.subsystems;
 import frc.robot.OI;
 import frc.robot.Variables;
 import frc.robot.Addresses;
+import frc.robot.commands.lift.LiftHorizontalWithJoystick;
 import frc.robot.sensors.ProxSensors;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -24,6 +25,9 @@ public class LiftHorizontal extends Subsystem {
     private static LiftHorizontal _instance = null;
 
     private TalonSRX _liftRearMotor;
+
+    private double targetPos;
+    private boolean adjusting;
 
     private LiftHorizontal() {
         _liftRearMotor = new TalonSRX(Addresses.LIFT_CIM_MOTOR);
@@ -40,35 +44,37 @@ public class LiftHorizontal extends Subsystem {
 
     @Override
     public void initDefaultCommand() {
+        //setDefaultCommand(new LiftHorizontalWithJoystick());
     }
 
     public void horizontalShift(double speed) {
+        if (adjusting) {
+            speed = OI.getInstance().applyPID(OI.getInstance().LIFT_HORIZONTAL_SYSTEM, 
+                                              getHorizontalPosition(), 
+                                              targetPos, 
+                                              Variables.getInstance().getHorizontalLiftKP(), 
+                                              Variables.getInstance().getHorizontalLiftKI(), 
+                                              Variables.getInstance().getHorizontalLiftKD(), 
+                                              0.5, 
+                                              -0.5);
+        } else if (speed > Variables.getInstance().DEADBAND_OPERATORSTICK) {
+            speed = 0.5;
+        } else if (speed < -Variables.getInstance().DEADBAND_OPERATORSTICK) {
+            speed = -0.5;
+        } else {
+            speed = 0.0;
+        }
+        
         if ((ProxSensors.getInstance().getLiftFrontLimit() && speed > 0)
-            || (ProxSensors.getInstance().getLiftRearLimit() && speed < 0)) {
+            || (ProxSensors.getInstance().getLiftRearLimit() && speed < 0)
+            || !OI.getInstance().getOperatorLiftHorizontal()) { // if button isn't pressed
             _liftRearMotor.set(ControlMode.PercentOutput, 0);
         } else {
             _liftRearMotor.set(ControlMode.PercentOutput, speed);
         }
 
-        if (ProxSensors.getInstance().getLiftFrontLimit()) {
+        if (ProxSensors.getInstance().getLiftRearLimit()) {
             setHorizontalPosition(0);
-        }
-    }
-
-    /**
-     * @param targetPosition, encoder counts
-     * @param speedMax, max speed that motor will run at 
-     */
-    public void horizontalShift(int targetPosition, double speedMax) {
-        double speed = OI.getInstance().applyPID(OI.getInstance().LIFT_HORIZONTAL_SYSTEM, getHorizontalPosition(), targetPosition, 
-            Variables.getInstance().getHorizontalLiftKP(), Variables.getInstance().getHorizontalLiftKI(), Variables.getInstance().getHorizontalLiftKD(), 
-            Math.abs(speedMax), -Math.abs(speedMax));
-
-        if ((ProxSensors.getInstance().getLiftFrontLimit() && speed > 0)
-            || (ProxSensors.getInstance().getLiftRearLimit() && speed < 0)) {
-            _liftRearMotor.set(ControlMode.PercentOutput, 0);
-        } else {
-            _liftRearMotor.set(ControlMode.PercentOutput, speed);
         }
     }
 
@@ -78,6 +84,18 @@ public class LiftHorizontal extends Subsystem {
 
     public int getHorizontalPosition() {
         return _liftRearMotor.getSelectedSensorPosition();
+    }
+
+    public void setTargetPosition(double target) {
+        targetPos = target;
+    }
+
+    public double getTargetPosition() {
+        return targetPos;
+    }
+
+    public void changeAdjustingBool(boolean bool) {
+        adjusting = bool;
     }
 
 }

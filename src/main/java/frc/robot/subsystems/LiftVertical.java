@@ -47,46 +47,30 @@ public class LiftVertical extends Subsystem {
 
     @Override
     public void initDefaultCommand() {
-        setDefaultCommand(new LiftVerticalWithJoystick(0.0)); // hopefully this runs every time then?
+        setDefaultCommand(new LiftVerticalWithJoystick());
     }
 
     public void verticalShift(double speed) {
-        if (!OI.getInstance().getOperatorLiftVertical()) { // if the button isn't pressed
-            speed = 0.0;
-        } else if (speed > 0) { // if the axis is at all positive
-            speed = 0.5;
-        } else if (speed < 0) { // if the axis is at all negative
-            speed = -0.1;
-        } else { // if the joystick reads nothing
-            speed = 0.0;
-        }
-
-        if ((ProxSensors.getInstance().getLiftTopLimit() && speed > 0) 
-            || (ProxSensors.getInstance().getLiftBottomLimit() && speed < 0)) {
-            speed = 0.0;
-        }
-
-        if (ProxSensors.getInstance().getLiftBottomLimit()) {
-            setVerticalPosition(0);
-        }
-
-        /**
-         * adjusting (the bool) is used for if we are in the middle of a vertical adjustment (caused by button press)
-         * the other check is simply for if we want to maintain the current angle
-         */
-        if (Math.abs(speed) < Variables.getInstance().DEADBAND_LIFT || adjusting) {
-           speed = OI.getInstance().applyPID(OI.getInstance().LIFT_VERTICAL_SYSTEM, 
+        if (!OI.getInstance().getOperatorLiftVertical() || Math.abs(speed) < Variables.getInstance().DEADBAND_OPERATORSTICK) {
+            speed = OI.getInstance().applyPID(OI.getInstance().LIFT_VERTICAL_SYSTEM, 
                                               getVerticalPosition(), 
                                               targetPos, 
                                               Variables.getInstance().getVerticalLiftKP(), 
                                               Variables.getInstance().getVerticalLiftKI(), 
                                               Variables.getInstance().getVerticalLiftKD(), 
-                                              .3, 
-                                              -.1);
-        } else {
-            targetPos = getVerticalPosition(); // set targetPos if the current pos changes (the speed changes enough)
+                                              0.5, 
+                                              -0.2);
+        } else if (speed > Variables.getInstance().DEADBAND_OPERATORSTICK) {
+            speed = 0.5;
+        } else if (speed < -Variables.getInstance().DEADBAND_OPERATORSTICK) {
+            speed = -0.2;
         }
-        
+
+        if ((ProxSensors.getInstance().getLiftTopLimit() && speed > 0.0)
+             || (ProxSensors.getInstance().getLiftBottomLimit() && speed < 0.0)) {
+            speed = 0.0;
+        }
+
         _liftLeftMotor.set(ControlMode.PercentOutput, speed);
         _liftRightMotor.set(ControlMode.PercentOutput, speed);
     }

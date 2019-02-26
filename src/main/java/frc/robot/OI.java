@@ -20,9 +20,7 @@ import frc.robot.commands.drivetrain.DriveSeconds;
 import frc.robot.commands.intake.IntakePosition;
 import frc.robot.commands.lift.LiftVerticalPosition;
 
-import frc.robot.commands.lift.VerticalShift;
 import frc.robot.commands.rearsolenoid.SetRearSolenoid;
-import frc.robot.commands.lift.HorizontalShift;
 import frc.robot.commands.lift.LiftHorizontalWithJoystick;
 import frc.robot.commands.lift.LiftVerticalWithJoystick;
 
@@ -69,7 +67,6 @@ public class OI {
 
     public boolean[] firstRun = new boolean[INTAKE_SYSTEM + 1];
     public double[] errorSum = new double[INTAKE_SYSTEM + 1];
-    public double[] lastOutput = new double[INTAKE_SYSTEM + 1];
     public double[] lastActual = new double[INTAKE_SYSTEM + 1];
     public double[][] errorLog = new double[INTAKE_SYSTEM + 1][NUM_LOG_ENTRIES];
 
@@ -90,7 +87,7 @@ public class OI {
         // Joystick combinations
         _operatorLiftVertical = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_LIFT_VERTICAL);
         _operatorLiftHorizontal = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_LIFT_HORIZONTAL);
-        _operatorLiftHorizontal.whenPressed(new LiftHorizontalWithJoystick());
+        //_operatorLiftHorizontal.whenPressed(new LiftHorizontalWithJoystick());
         _operatorIntakeRotate = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_INTAKE_ROTATE);
 
         // Cargo
@@ -305,6 +302,16 @@ public class OI {
                 SmartDashboard.putNumber("Rot PID Target", target);
                 SmartDashboard.putNumber("Rot PID Error", error);
                 break;
+            case LIFT_VERTICAL_SYSTEM:
+                SmartDashboard.putNumber("Vertical Lift Error", error);
+                SmartDashboard.putNumber("Vertical Lift PID Output", output);
+                SmartDashboard.putNumber("Vertical Lift PID Target", target);
+                break;
+            case LIFT_HORIZONTAL_SYSTEM:
+                SmartDashboard.putNumber("Horizontal Lift Error", error);
+                SmartDashboard.putNumber("Horizontal Lift PID Output", output);
+                SmartDashboard.putNumber("Horizontal Lift PID Target", target);
+                break;
             case VISION_X_SYSTEM:
                 SmartDashboard.putNumber("Vision PID Error X", error);
                 SmartDashboard.putNumber("Vision PID Output X", output);
@@ -316,11 +323,6 @@ public class OI {
             case VISION_ROT_SYSTEM:
                 SmartDashboard.putNumber("Vision PID Rotation Error", error);
                 SmartDashboard.putNumber("Vision PID Rotation Output", output);
-                break;
-            case LIFT_VERTICAL_SYSTEM:
-                SmartDashboard.putNumber("Vertical Lift Error", error);
-                SmartDashboard.putNumber("Vertical Lift PID Output", output);
-                SmartDashboard.putNumber("Vertical Lift PID Target", target);
                 break;
             case INTAKE_SYSTEM:
                 SmartDashboard.putNumber("Intake Error", error);
@@ -339,9 +341,14 @@ public class OI {
                     return false;
                 }
                 return true;
-            case VISION_ROT_SYSTEM:
-                if (DriveTrain.getInstance().getTurnInProgress() && Math.abs(error) < 3.0) {
-                    DriveTrain.getInstance().setTurnInProgress(false);
+            case LIFT_VERTICAL_SYSTEM:
+                if (Math.abs(error) < 350) {
+                    LiftVertical.getInstance().changeAdjustingBool(false);
+                }
+                return true;
+            case LIFT_HORIZONTAL_SYSTEM:
+                if (Math.abs(error) < 5000) { // this value definitely subject to change
+                    LiftHorizontal.getInstance().changeAdjustingBool(false);
                     return false;
                 }
                 return true;
@@ -355,16 +362,18 @@ public class OI {
                     return false;
                 }
                 return true;
-            case LIFT_VERTICAL_SYSTEM:
-                if (Math.abs(error) < 350) {
-                    LiftVertical.getInstance().changeAdjustingBool(false);
+            case VISION_ROT_SYSTEM:
+                if (DriveTrain.getInstance().getTurnInProgress() && Math.abs(error) < 3.0) {
+                    DriveTrain.getInstance().setTurnInProgress(false);
+                    return false;
                 }
                 return true;
             case INTAKE_SYSTEM:
                 if (Math.abs(error) < 1000) {
                     Intake.getInstance().changeAdjustingBool(false);
+                    return false;
                 }
-            default:
+            default: // we probably don't even need a default case lmao
                 return true;
         }
     }
@@ -393,7 +402,6 @@ public class OI {
 
         if (firstRun[system]) {
             lastActual[system] = current;
-            lastOutput[system] = termP;
             firstRun[system] = false;
         }
 
@@ -407,7 +415,7 @@ public class OI {
         termI = kI * errorSum[system];
 
         output = termP + termI + termD;
-
+        
         if (outputMax != outputMin) { // if we decide to use mins/maxes on outputs, then we can
             if (output > outputMax) {
                 output = outputMax;
@@ -419,8 +427,6 @@ public class OI {
         logErrorForIntegral(system, error);
 
         debugMessages(system, current, error, target, output); // made a new method so as not to clog up this method
-
-        lastOutput[system] = output;
 
         return output;
     }

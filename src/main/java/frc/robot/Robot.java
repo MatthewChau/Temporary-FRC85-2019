@@ -100,7 +100,6 @@ public class Robot extends TimedRobot {
 
         Arrays.fill(OI.getInstance().firstRun, true);
         Arrays.fill(OI.getInstance().errorSum, 0.0);
-        Arrays.fill(OI.getInstance().lastOutput, 0.0);
         Arrays.fill(OI.getInstance().lastActual, 0.0);
         
         Arrays.fill(OI.getInstance().stopArray, 0.0);

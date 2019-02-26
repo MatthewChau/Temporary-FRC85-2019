@@ -16,12 +16,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class LiftVerticalWithJoystick extends Command {
 
-    public LiftVerticalWithJoystick(double target) { // pass in 0.0 if you want stuff to work fine
+    public LiftVerticalWithJoystick() { // pass in 0.0 if you want stuff to work fine
         requires(LiftVertical.getInstance());
-        if (target != 0.0) {
-            LiftVertical.getInstance().setTargetPosition(target);
-            LiftVertical.getInstance().changeAdjustingBool(true);
-        }
     }
 
     // Called just before this Command runs the first time
