@@ -33,6 +33,8 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
+import frc.robot.commands.driverassistance.PlaceHatch;
+
 public class OI {
 
     private static OI _instance;
@@ -126,6 +128,8 @@ public class OI {
         
         FollowTwoTarget followTwoTarget;
         _driverControllerXButton.whileActive(followTwoTarget = new FollowTwoTarget());
+
+        _driverControllerAButton.whenPressed(new PlaceHatch(Variables.getInstance().HATCH_MIDDLE, Variables.getInstance().INTAKE_DEGREE_ONE));
 
         /*DriveSeconds driveSeconds;
         double[] shutupanddrive = {0.0, 0.0, 0.0, 0.0};
