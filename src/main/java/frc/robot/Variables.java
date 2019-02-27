@@ -24,7 +24,7 @@ public class Variables {
 
     public final double DEADBAND = 0.05;
     public final double DEADBAND_OPERATORSTICK = 0.05;
-    public final double TOLERANCE_ANGLE = 6.0;
+    public final double TOLERANCE_ANGLE = 10.0;
     public final int MAX_TURNS = 7; // if we go over 2520 degrees in either direction in one match then help.
 
     // LIFT
@@ -36,9 +36,9 @@ public class Variables {
     private final double kP_HLIFT = 0.025, kI_HLIFT = 0.0, kD_HLIFT = 0.0;
 
     // Lift Vertical Postitions
-    public final int HATCH_LOW = 1013;
-    public final int HATCH_MIDDLE = 8743;
-    public final int HATCH_HIGH = 16000;
+    public final int HATCH_LOW = 1565;
+    public final int HATCH_MIDDLE = 9732;
+    public final int HATCH_HIGH = 18144;
     public final int HATCH_FLOOR = 100;
     
     public final int CARGO_LOW = 6900;
