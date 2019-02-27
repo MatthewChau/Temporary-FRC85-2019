@@ -89,7 +89,6 @@ public class OI {
         // Joystick combinations
         _operatorLiftVertical = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_LIFT_VERTICAL);
         _operatorLiftHorizontal = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_LIFT_HORIZONTAL);
-        //_operatorLiftHorizontal.whenPressed(new LiftHorizontalWithJoystick());
         _operatorIntakeRotate = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_INTAKE_ROTATE);
 
         // Cargo
@@ -103,12 +102,16 @@ public class OI {
         _operatorCargoOut.whenReleased(new ActivateIntake(0));
 
         _operatorCargoOne = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_CARGO_ONE);
-        _operatorCargoOne.whenPressed(new SetBeltSolenoid(true));
+        //_operatorCargoOne.whenPressed(new IntakePosition(90));
+        //_operatorCargoOne.whenReleased(new LiftVerticalPosition(Variables.getInstance().HATCH_LOW));
         _operatorCargoTwo = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_CARGO_TWO);
-        _operatorCargoTwo.whenPressed(new BeltTrainDrive(0.60));
+        _operatorCargoTwo.whenPressed(new BeltTrainDrive(-0.60));
         _operatorCargoTwo.whenReleased(new BeltTrainDrive(0));
-        _operatorCargoThree = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_CARGO_THREE); 
-        _operatorCargoThree.whenPressed(new SetRearSolenoid(true));
+        //_operatorCargoTwo.whenPressed(new IntakePosition(90));
+        //_operatorCargoTwo.whenReleased(new LiftVerticalPosition(Variables.getInstance().HATCH_MIDDLE));
+        _operatorCargoThree = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_CARGO_THREE);
+        //_operatorCargoThree.whenPressed(new IntakePosition(90));
+        //_operatorCargoThree.whenReleased(new LiftVerticalPosition(Variables.getInstance().HATCH_HIGH));
 
         // Hatch
         _operatorHatchDefault = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_HATCH_DEFAULT);
@@ -116,12 +119,14 @@ public class OI {
         _operatorHatchRelease = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_HATCH_RELEASE);
 
         _operatorHatchOne = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_HATCH_ONE);
+        //_operatorHatchOne.whenPressed(new IntakePosition(10));
+        _operatorHatchOne.whenReleased(new LiftVerticalPosition(Variables.getInstance().HATCH_LOW));
         _operatorHatchTwo = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_HATCH_TWO);
-        _operatorCargoTwo.whenPressed(new BeltTrainDrive(-0.60));
-        _operatorCargoTwo.whenReleased(new BeltTrainDrive(0));
+        //_operatorHatchTwo.whenPressed(new IntakePosition(10));
+        _operatorHatchTwo.whenReleased(new LiftVerticalPosition(Variables.getInstance().HATCH_MIDDLE));
         _operatorHatchThree = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_HATCH_THREE);
-        //_operatorHatchThree.whenPressed(new IntakePosition(-500000));
-        //_operatorHatchThree.whenReleased(new LiftVerticalPosition(5000));
+        //_operatorHatchThree.whenPressed(new IntakePosition(10));
+        _operatorHatchThree.whenReleased(new LiftVerticalPosition(Variables.getInstance().HATCH_HIGH));
 
         FollowOneTarget followOneTarget;
         _driverControllerYButton.whileActive(followOneTarget = new FollowOneTarget()); //follows when pressed

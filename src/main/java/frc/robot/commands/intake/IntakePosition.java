@@ -12,11 +12,11 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class IntakePosition extends Command {
     
-    private int _target;
+    private double _target;
 
-    public IntakePosition(int target) {
+    public IntakePosition(int degrees) {
         requires(Intake.getInstance());
-        _target = target;
+        _target = -degrees * 100000 / 9.0; // this should be the degree conversion, from the top
     }
 
     @Override
