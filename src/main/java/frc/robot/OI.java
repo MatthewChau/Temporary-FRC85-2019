@@ -15,8 +15,8 @@ import frc.robot.commands.drivetrain.FollowOneTarget;
 import frc.robot.commands.drivetrain.FollowTwoTarget;
 import frc.robot.commands.drivetrain.DriveSeconds;
 import frc.robot.commands.intake.ActivateIntake;
-import frc.robot.commands.intake.IntakePosition;
-import frc.robot.commands.intake.IntakeWithJoystick;
+import frc.robot.commands.intake.WristPosition;
+import frc.robot.commands.intake.WristWithJoystick;
 import frc.robot.commands.lift.ElevatorPosition;
 import frc.robot.commands.lift.MastPosition;
 import frc.robot.commands.lift.MastWithJoystick;
@@ -57,8 +57,8 @@ public class OI {
     private double _gyroAngle;
 
     public final int ROT_SYSTEM = 0;
-    public final int LIFT_VERTICAL_SYSTEM = 1;
-    public final int LIFT_HORIZONTAL_SYSTEM = 2;
+    public final int ELEVATOR_SYSTEM = 1;
+    public final int MAST_SYSTEM = 2;
     public final int VISION_X_SYSTEM = 3;
     public final int VISION_Y_SYSTEM = 4;
     public final int VISION_ROT_SYSTEM = 5;
@@ -297,12 +297,12 @@ public class OI {
                 SmartDashboard.putNumber("Rot PID Target", target);
                 SmartDashboard.putNumber("Rot PID Error", error);
                 break;
-            case LIFT_VERTICAL_SYSTEM:
+            case ELEVATOR_SYSTEM:
                 SmartDashboard.putNumber("Vertical Lift Error", error);
                 SmartDashboard.putNumber("Vertical Lift PID Output", output);
                 SmartDashboard.putNumber("Vertical Lift PID Target", target);
                 break;
-            case LIFT_HORIZONTAL_SYSTEM:
+            case MAST_SYSTEM:
                 SmartDashboard.putNumber("Horizontal Lift Error", error);
                 SmartDashboard.putNumber("Horizontal Lift PID Output", output);
                 SmartDashboard.putNumber("Horizontal Lift PID Target", target);
@@ -336,12 +336,12 @@ public class OI {
                     return false;
                 }
                 return true;
-            case LIFT_VERTICAL_SYSTEM:
+            case ELEVATOR_SYSTEM:
                 if (Math.abs(error) < 450) {
                     Elevator.getInstance().changeAdjustingBool(false);
                 }
                 return true;
-            case LIFT_HORIZONTAL_SYSTEM:
+            case MAST_SYSTEM:
                 if (Math.abs(error) < 1000) { // this value definitely subject to change
                     Mast.getInstance().changeAdjustingBool(false);
                     return false;

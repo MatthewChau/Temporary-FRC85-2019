@@ -109,39 +109,39 @@ public class Variables {
     /**
      * get methods for changable variables
      */
-    public double getVerticalLiftKP() {
+    public double getElevatorKP() {
         return SmartDashboard.getNumber("kP_VLIFT", kP_VLIFT); // these are gonna have to be small af
     }
 
-    public double getVerticalLiftKI() {
+    public double getElevatorKI() {
         return SmartDashboard.getNumber("kI_VLIFT", kI_VLIFT);
     }
 
-    public double getVerticalLiftKD() {
+    public double getElevatorKD() {
         return SmartDashboard.getNumber("kD_VLIFT", kD_VLIFT);
     }
 
-    public double getHorizontalLiftKP() {
+    public double getMastKP() {
         return SmartDashboard.getNumber("kP_HLIFT", kP_HLIFT);
     }
 
-    public double getHorizontalLiftKI() {
+    public double getMastKI() {
         return SmartDashboard.getNumber("kI_HLIFT", kI_HLIFT);
     }
 
-    public double getHorizontalLiftKD() {
+    public double getMastKD() {
         return SmartDashboard.getNumber("kD_HLIFT", kD_HLIFT);
     }
 
-    public double getIntakeKP() {
+    public double getWristKP() {
         return SmartDashboard.getNumber("kP_INTAKE", kP_INTAKE);
     }
 
-    public double getIntakeKI() {
+    public double getWristKI() {
         return SmartDashboard.getNumber("kI_INTAKE", kI_INTAKE);
     }
 
-    public double getIntakeKD() {
+    public double getWristKD() {
         return SmartDashboard.getNumber("kD_INTAKE", kD_INTAKE);
     }
 

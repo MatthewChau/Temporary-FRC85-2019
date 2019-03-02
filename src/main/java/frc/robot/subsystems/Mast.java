@@ -24,15 +24,15 @@ public class Mast extends Subsystem {
 
     private static Mast _instance = null;
 
-    private TalonSRX _liftRearMotor;
+    private TalonSRX _mastMotor;
 
     private double targetPos;
     private boolean adjusting;
 
     private Mast() {
-        _liftRearMotor = new TalonSRX(Addresses.LIFT_CIM_MOTOR);
-        _liftRearMotor.setNeutralMode(NeutralMode.Brake);
-        _liftRearMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute);
+        _mastMotor = new TalonSRX(Addresses.LIFT_CIM_MOTOR);
+        _mastMotor.setNeutralMode(NeutralMode.Brake);
+        _mastMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute);
     }
 
     public static Mast getInstance() {
@@ -49,12 +49,12 @@ public class Mast extends Subsystem {
 
     public void horizontalShift(double speed) {
         if (adjusting && !OI.getInstance().getOperatorLiftHorizontal()) {
-            speed = OI.getInstance().applyPID(OI.getInstance().LIFT_HORIZONTAL_SYSTEM, 
+            speed = OI.getInstance().applyPID(OI.getInstance().MAST_SYSTEM, 
                                               getHorizontalPosition(), 
                                               targetPos, 
-                                              Variables.getInstance().getHorizontalLiftKP(), 
-                                              Variables.getInstance().getHorizontalLiftKI(), 
-                                              Variables.getInstance().getHorizontalLiftKD(), 
+                                              Variables.getInstance().getMastKP(), 
+                                              Variables.getInstance().getMastKI(), 
+                                              Variables.getInstance().getMastKD(), 
                                               0.5, 
                                               -0.5);
         } else if (speed > 0.0) {
@@ -71,9 +71,9 @@ public class Mast extends Subsystem {
             || (ProxSensors.getInstance().getLiftRearLimit() && speed < 0.0)
             || (!OI.getInstance().getOperatorLiftHorizontal() && !adjusting)
             || softLimits(speed)) {
-            _liftRearMotor.set(ControlMode.PercentOutput, 0);
+            _mastMotor.set(ControlMode.PercentOutput, 0);
         } else {
-            _liftRearMotor.set(ControlMode.PercentOutput, speed);
+            _mastMotor.set(ControlMode.PercentOutput, speed);
         }
 
         if (ProxSensors.getInstance().getLiftRearLimit()) {
@@ -81,8 +81,8 @@ public class Mast extends Subsystem {
         }
     }
 
-    public void setLiftMotor(double speed) {
-        _liftRearMotor.set(ControlMode.PercentOutput, speed);
+    public void setMastMotor(double speed) {
+        _mastMotor.set(ControlMode.PercentOutput, speed);
         setTargetPosition(getHorizontalPosition());
     }
 
@@ -101,11 +101,11 @@ public class Mast extends Subsystem {
     }
 
     public void setHorizontalPosition(int position) {
-        _liftRearMotor.setSelectedSensorPosition(position);
+        _mastMotor.setSelectedSensorPosition(position);
     }
 
     public int getHorizontalPosition() {
-        return _liftRearMotor.getSelectedSensorPosition();
+        return _mastMotor.getSelectedSensorPosition();
     }
 
     public void setTargetPosition(double target) {

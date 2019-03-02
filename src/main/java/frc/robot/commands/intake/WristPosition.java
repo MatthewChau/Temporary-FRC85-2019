@@ -10,11 +10,11 @@ import frc.robot.subsystems.Intake;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class IntakePosition extends Command {
+public class WristPosition extends Command {
     
     private double _target;
 
-    public IntakePosition(double target) {
+    public WristPosition(double target) {
         requires(Intake.getInstance());
         _target = target;
     }

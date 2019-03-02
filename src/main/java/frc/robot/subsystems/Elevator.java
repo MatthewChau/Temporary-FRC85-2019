@@ -52,12 +52,12 @@ public class Elevator extends Subsystem {
 
     public void verticalShift(double speed) {
         if (!OI.getInstance().getOperatorLiftVertical() || adjusting) {
-            speed = OI.getInstance().applyPID(OI.getInstance().LIFT_VERTICAL_SYSTEM, 
+            speed = OI.getInstance().applyPID(OI.getInstance().ELEVATOR_SYSTEM, 
                                               getVerticalPosition(), 
                                               targetPos, 
-                                              Variables.getInstance().getVerticalLiftKP(), 
-                                              Variables.getInstance().getVerticalLiftKI(), 
-                                              Variables.getInstance().getVerticalLiftKD(), 
+                                              Variables.getInstance().getElevatorKP(), 
+                                              Variables.getInstance().getElevatorKI(), 
+                                              Variables.getInstance().getElevatorKD(), 
                                               0.5, 
                                               -0.2);
         } else if (speed > Variables.getInstance().DEADBAND_OPERATORSTICK) {
@@ -103,6 +103,11 @@ public class Elevator extends Subsystem {
             return true;
         }
         return false;
+    }
+
+    public void setElevatorMotors(double speed) {
+        _liftLeftMotor.set(ControlMode.PercentOutput, speed);
+        _liftRightMotor.set(ControlMode.PercentOutput, speed);
     }
 
     public void stopMotors() {

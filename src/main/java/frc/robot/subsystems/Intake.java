@@ -10,7 +10,7 @@ package frc.robot.subsystems;
 import frc.robot.Addresses;
 import frc.robot.OI;
 import frc.robot.Variables;
-import frc.robot.commands.intake.IntakeWithJoystick;
+import frc.robot.commands.intake.WristWithJoystick;
 import frc.robot.sensors.ProxSensors;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -27,15 +27,15 @@ public class Intake extends Subsystem {
 
     private static Intake _instance = null;
 
-    private TalonSRX _flipper, _roller;
+    private TalonSRX _wrist, _roller;
 
     private boolean adjusting;
     private double targetPos;
 
     private Intake() {
-        _flipper = new TalonSRX(Addresses.INTAKE_FLIPPER);
-        _flipper.setNeutralMode(NeutralMode.Brake);
-        _flipper.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
+        _wrist = new TalonSRX(Addresses.INTAKE_FLIPPER);
+        _wrist.setNeutralMode(NeutralMode.Brake);
+        _wrist.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
         _roller = new TalonSRX(Addresses.INTAKE_ROLLER);
         _roller.setNeutralMode(NeutralMode.Brake);
     }
@@ -49,7 +49,7 @@ public class Intake extends Subsystem {
 
     @Override
     public void initDefaultCommand() {
-        setDefaultCommand(new IntakeWithJoystick());
+        setDefaultCommand(new WristWithJoystick());
     }
 
     public void setFlipper(double speed) {
@@ -57,9 +57,9 @@ public class Intake extends Subsystem {
             speed = OI.getInstance().applyPID(OI.getInstance().INTAKE_SYSTEM, 
                                               getFlipperPosition(), 
                                               targetPos, 
-                                              Variables.getInstance().getIntakeKP(), 
-                                              Variables.getInstance().getIntakeKI(), 
-                                              Variables.getInstance().getIntakeKD(), 
+                                              Variables.getInstance().getWristKP(), 
+                                              Variables.getInstance().getWristKI(), 
+                                              Variables.getInstance().getWristKD(), 
                                               Variables.getInstance().getMaxSpeedUpIntake(), 
                                               Variables.getInstance().getMaxSpeedDownIntake());
         } else if (speed > 0.0) {
@@ -76,9 +76,9 @@ public class Intake extends Subsystem {
             || (ProxSensors.getInstance().getIntakeTopLimit() && speed < 0) // if we trying to exceed bottom limit
             || (!OI.getInstance().getOperatorIntakeRotate() && !adjusting) // if the button isn't pressed and we are not adjusting
             || softLimits(speed)) {
-            _flipper.set(ControlMode.PercentOutput, 0);
+            _wrist.set(ControlMode.PercentOutput, 0);
         } else {
-            _flipper.set(ControlMode.PercentOutput, speed);
+            _wrist.set(ControlMode.PercentOutput, speed);
         }
     }
 
@@ -104,11 +104,11 @@ public class Intake extends Subsystem {
      * @param position in encoder counts
      */
     public void setFlipperPosition(int position) {
-        _flipper.setSelectedSensorPosition(position);
+        _wrist.setSelectedSensorPosition(position);
     }
 
     public double getFlipperPosition() {
-        return _flipper.getSelectedSensorPosition();
+        return _wrist.getSelectedSensorPosition();
     }
 
     public void setRoller(double speed) {

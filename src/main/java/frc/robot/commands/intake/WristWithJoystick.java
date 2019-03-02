@@ -13,8 +13,8 @@ import frc.robot.subsystems.Intake;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-public class IntakeWithJoystick extends Command {
-    public IntakeWithJoystick() {
+public class WristWithJoystick extends Command {
+    public WristWithJoystick() {
         requires(Intake.getInstance());
     }
 
