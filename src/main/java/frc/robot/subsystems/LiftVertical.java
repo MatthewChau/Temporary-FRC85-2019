@@ -94,8 +94,16 @@ public class LiftVertical extends Subsystem {
         targetPos = target;
     }
 
-    public void changeAdjustingBool(boolean on) {
-        adjusting = on;
+    public double getTargetPosition() {
+        return targetPos;
+    }
+
+    public void changeAdjustingBool(boolean bool) {
+        adjusting = bool;
+    }
+
+    public boolean getAdjustingBool() {
+        return adjusting;
     }
 
     public TalonSRX getIMUTalon() {

@@ -32,7 +32,7 @@ public class LiftHorizontal extends Subsystem {
     private LiftHorizontal() {
         _liftRearMotor = new TalonSRX(Addresses.LIFT_CIM_MOTOR);
         _liftRearMotor.setNeutralMode(NeutralMode.Brake);
-        _liftRearMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
+        _liftRearMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute);
     }
 
     public static LiftHorizontal getInstance() {
@@ -44,11 +44,11 @@ public class LiftHorizontal extends Subsystem {
 
     @Override
     public void initDefaultCommand() {
-        //setDefaultCommand(new LiftHorizontalWithJoystick());
+        setDefaultCommand(new LiftHorizontalWithJoystick());
     }
 
     public void horizontalShift(double speed) {
-        if (adjusting) {
+        if (adjusting && !OI.getInstance().getOperatorLiftHorizontal()) {
             speed = OI.getInstance().applyPID(OI.getInstance().LIFT_HORIZONTAL_SYSTEM, 
                                               getHorizontalPosition(), 
                                               targetPos, 
@@ -67,7 +67,7 @@ public class LiftHorizontal extends Subsystem {
         
         if ((ProxSensors.getInstance().getLiftFrontLimit() && speed > 0.0)
             || (ProxSensors.getInstance().getLiftRearLimit() && speed < 0.0)
-            || !OI.getInstance().getOperatorLiftHorizontal()) { // if button isn't pressed
+            || (!OI.getInstance().getOperatorLiftHorizontal() && !adjusting)) {
             _liftRearMotor.set(ControlMode.PercentOutput, 0);
         } else {
             _liftRearMotor.set(ControlMode.PercentOutput, speed);
@@ -96,6 +96,10 @@ public class LiftHorizontal extends Subsystem {
 
     public void changeAdjustingBool(boolean bool) {
         adjusting = bool;
+    }
+
+    public boolean getAdjustingBool() {
+        return adjusting;
     }
 
 }

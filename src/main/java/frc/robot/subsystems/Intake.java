@@ -103,4 +103,8 @@ public class Intake extends Subsystem {
         adjusting = bool;
     }
 
+    public boolean getAdjustingBool() {
+        return adjusting;
+    }
+
 }

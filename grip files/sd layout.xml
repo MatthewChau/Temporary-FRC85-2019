@@ -1,5 +1,35 @@
 <xml version="1.0">
 <dashboard>
+	<widget field="Horizontal Lift PID Target" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="361" y="341"/>
+	</widget>
+	<widget field="Horizontal Lift PID Output" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="361" y="320"/>
+	</widget>
+	<widget field="Horizontal Lift Error" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="361" y="299"/>
+	</widget>
+	<widget field="Lift Horizontal Adjusting" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="361" y="205"/>
+	</widget>
+	<widget field="Intake Adjusting" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="361" y="0"/>
+	</widget>
+	<widget field="Lift Vertical Adjusting" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="361" y="181"/>
+	</widget>
+	<widget field="Vision PID Rotation Output" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="361" y="160"/>
+	</widget>
+	<widget field="Vision PID Rotation Error" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="404" y="34"/>
+	</widget>
+	<widget field="Vision PID Error Distance" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="142" y="0"/>
+	</widget>
+	<widget field="Vision PID Target Distance" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="378"/>
+	</widget>
 	<widget field="Intake PID Target" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
 		<location x="303" y="131"/>
 	</widget>
@@ -164,8 +194,8 @@
 	</widget>
 </dashboard>
 <live-window>
-	<widget field="LiftHorizontal" type="LW Subsystem" class="edu.wpi.first.smartdashboard.livewindow.elements.LWSubsystem">
-		<location x="0" y="378"/>
+	<widget field="ProxSensors" type="LW Subsystem" class="edu.wpi.first.smartdashboard.livewindow.elements.LWSubsystem">
+		<location x="0" y="140"/>
 	</widget>
 	<widget field="BeltSolenoid" type="LW Subsystem" class="edu.wpi.first.smartdashboard.livewindow.elements.LWSubsystem">
 		<location x="0" y="355"/>
@@ -173,13 +203,13 @@
 	<widget field="BeltTrain" type="LW Subsystem" class="edu.wpi.first.smartdashboard.livewindow.elements.LWSubsystem">
 		<location x="0" y="332"/>
 	</widget>
-	<widget field="DriveTrain" type="LW Subsystem" class="edu.wpi.first.smartdashboard.livewindow.elements.LWSubsystem">
+	<widget field="LiftHorizontal" type="LW Subsystem" class="edu.wpi.first.smartdashboard.livewindow.elements.LWSubsystem">
 		<location x="0" y="309"/>
 	</widget>
 	<widget field="Intake" type="LW Subsystem" class="edu.wpi.first.smartdashboard.livewindow.elements.LWSubsystem">
 		<location x="0" y="286"/>
 	</widget>
-	<widget field="ProxSensors" type="LW Subsystem" class="edu.wpi.first.smartdashboard.livewindow.elements.LWSubsystem">
+	<widget field="DriveTrain" type="LW Subsystem" class="edu.wpi.first.smartdashboard.livewindow.elements.LWSubsystem">
 		<location x="0" y="263"/>
 	</widget>
 	<widget field="LiftVertical" type="LW Subsystem" class="edu.wpi.first.smartdashboard.livewindow.elements.LWSubsystem">
@@ -189,99 +219,59 @@
 		<location x="0" y="0"/>
 	</widget>
 	<widget field="Ungrouped" type="LW Subsystem" class="edu.wpi.first.smartdashboard.livewindow.elements.LWSubsystem">
-		<widget field="DigitalInput[0]" type="Digital Input" class="edu.wpi.first.smartdashboard.livewindow.elements.DigitalInputDisplay">
+		<widget field="DigitalInput[2]" type="Table" class="edu.wpi.first.smartdashboard.livewindow.elements.DigitalInputDisplay">
 			<location x="0" y="0"/>
 			<height>0</height>
 			<width>0</width>
 		</widget>
-		<widget field="DigitalInput[0]" type="Digital Input" class="edu.wpi.first.smartdashboard.livewindow.elements.DigitalInputDisplay">
-			<location x="0" y="0"/>
-			<height>0</height>
-			<width>0</width>
-		</widget>
-		<widget field="DigitalInput[5]" type="Digital Input" class="edu.wpi.first.smartdashboard.livewindow.elements.DigitalInputDisplay">
-			<location x="0" y="0"/>
-			<height>0</height>
-			<width>0</width>
-		</widget>
-		<widget field="DigitalInput[5]" type="Digital Input" class="edu.wpi.first.smartdashboard.livewindow.elements.DigitalInputDisplay">
+		<widget field="DigitalInput[2]" type="Table" class="edu.wpi.first.smartdashboard.livewindow.elements.DigitalInputDisplay">
 			<location x="0" y="0"/>
 			<height>0</height>
 			<width>0</width>
 		</widget>
 		<widget field="Solenoid[0,0]" type="Solenoid" class="edu.wpi.first.smartdashboard.livewindow.elements.DigitalOutputController">
-			<location x="0" y="0"/>
-			<height>0</height>
-			<width>0</width>
-		</widget>
-		<widget field="Solenoid[0,0]" type="Solenoid" class="edu.wpi.first.smartdashboard.livewindow.elements.DigitalOutputController">
-			<location x="0" y="0"/>
-			<height>0</height>
-			<width>0</width>
-		</widget>
-		<widget field="DigitalInput[6]" type="Digital Input" class="edu.wpi.first.smartdashboard.livewindow.elements.DigitalInputDisplay">
-			<location x="0" y="0"/>
-			<height>0</height>
-			<width>0</width>
-		</widget>
-		<widget field="DigitalInput[6]" type="Digital Input" class="edu.wpi.first.smartdashboard.livewindow.elements.DigitalInputDisplay">
-			<location x="0" y="0"/>
-			<height>0</height>
-			<width>0</width>
+			<location x="6" y="16"/>
+			<height>23</height>
+			<width>123</width>
 		</widget>
 		<widget field="Solenoid[0,1]" type="Solenoid" class="edu.wpi.first.smartdashboard.livewindow.elements.DigitalOutputController">
-			<location x="0" y="0"/>
-			<height>0</height>
-			<width>0</width>
+			<location x="6" y="39"/>
+			<height>23</height>
+			<width>123</width>
 		</widget>
-		<widget field="Solenoid[0,1]" type="Solenoid" class="edu.wpi.first.smartdashboard.livewindow.elements.DigitalOutputController">
-			<location x="0" y="0"/>
-			<height>0</height>
-			<width>0</width>
+		<widget field="DigitalInput[5]" type="Digital Input" class="edu.wpi.first.smartdashboard.livewindow.elements.DigitalInputDisplay">
+			<location x="6" y="62"/>
+			<height>20</height>
+			<width>123</width>
+		</widget>
+		<widget field="DigitalInput[0]" type="Digital Input" class="edu.wpi.first.smartdashboard.livewindow.elements.DigitalInputDisplay">
+			<location x="6" y="82"/>
+			<height>20</height>
+			<width>123</width>
 		</widget>
 		<widget field="DigitalInput[3]" type="Digital Input" class="edu.wpi.first.smartdashboard.livewindow.elements.DigitalInputDisplay">
-			<location x="0" y="0"/>
-			<height>0</height>
-			<width>0</width>
+			<location x="6" y="102"/>
+			<height>20</height>
+			<width>123</width>
 		</widget>
-		<widget field="DigitalInput[3]" type="Digital Input" class="edu.wpi.first.smartdashboard.livewindow.elements.DigitalInputDisplay">
-			<location x="0" y="0"/>
-			<height>0</height>
-			<width>0</width>
-		</widget>
-		<widget field="DigitalInput[4]" type="Digital Input" class="edu.wpi.first.smartdashboard.livewindow.elements.DigitalInputDisplay">
-			<location x="0" y="0"/>
-			<height>0</height>
-			<width>0</width>
-		</widget>
-		<widget field="DigitalInput[4]" type="Digital Input" class="edu.wpi.first.smartdashboard.livewindow.elements.DigitalInputDisplay">
-			<location x="0" y="0"/>
-			<height>0</height>
-			<width>0</width>
+		<widget field="DigitalInput[6]" type="Digital Input" class="edu.wpi.first.smartdashboard.livewindow.elements.DigitalInputDisplay">
+			<location x="6" y="122"/>
+			<height>20</height>
+			<width>123</width>
 		</widget>
 		<widget field="DigitalInput[1]" type="Digital Input" class="edu.wpi.first.smartdashboard.livewindow.elements.DigitalInputDisplay">
-			<location x="0" y="0"/>
-			<height>0</height>
-			<width>0</width>
+			<location x="6" y="142"/>
+			<height>20</height>
+			<width>123</width>
 		</widget>
-		<widget field="DigitalInput[1]" type="Digital Input" class="edu.wpi.first.smartdashboard.livewindow.elements.DigitalInputDisplay">
-			<location x="0" y="0"/>
-			<height>0</height>
-			<width>0</width>
-		</widget>
-		<widget field="DigitalInput[2]" type="Digital Input" class="edu.wpi.first.smartdashboard.livewindow.elements.DigitalInputDisplay">
-			<location x="0" y="0"/>
-			<height>0</height>
-			<width>0</width>
-		</widget>
-		<widget field="DigitalInput[2]" type="Digital Input" class="edu.wpi.first.smartdashboard.livewindow.elements.DigitalInputDisplay">
-			<location x="0" y="0"/>
-			<height>0</height>
-			<width>0</width>
+		<widget field="DigitalInput[4]" type="Digital Input" class="edu.wpi.first.smartdashboard.livewindow.elements.DigitalInputDisplay">
+			<location x="6" y="162"/>
+			<height>20</height>
+			<width>123</width>
 		</widget>
 		<location x="10" y="31"/>
 		<width>135</width>
-		<height>208</height>
+		<height>188</height>
 	</widget>
 </live-window>
 </xml>

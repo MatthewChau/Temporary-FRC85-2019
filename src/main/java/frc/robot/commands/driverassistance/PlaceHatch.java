@@ -13,10 +13,9 @@ import frc.robot.commands.drivetrain.FollowOneTarget;;
 
 public class PlaceHatch extends CommandGroup {
 
-    public PlaceHatch(int liftPosition) {
+    public PlaceHatch(int liftPos, int intakePos) {
         addSequential(new Wait(0.3));
-        addParallel(new IntakePosition(-500000)); //Need to move lift horizontally backwards while at the same time set the flipper position back to zero
-        addSequential(new LiftVerticalPosition(LiftVertical.getInstance().getVerticalPosition() - 5000)); 
-        addSequential(new DriveSeconds(0.2, 5));
+        addSequential(new IntakePosition(intakePos)); //Need to move lift horizontally backwards while at the same time set the flipper position back to zero
+        addSequential(new LiftVerticalPosition(liftPos));
     }
 }

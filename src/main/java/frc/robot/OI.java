@@ -21,6 +21,7 @@ import frc.robot.commands.intake.IntakePosition;
 import frc.robot.commands.lift.LiftVerticalPosition;
 
 import frc.robot.commands.rearsolenoid.SetRearSolenoid;
+import frc.robot.commands.lift.LiftHorizontalPosition;
 import frc.robot.commands.lift.LiftHorizontalWithJoystick;
 import frc.robot.commands.lift.LiftVerticalWithJoystick;
 
@@ -119,16 +120,14 @@ public class OI {
         _operatorHatchRelease = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_HATCH_RELEASE);
 
         _operatorHatchOne = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_HATCH_ONE);
-        _operatorHatchOne.whenPressed(new IntakePosition(10));
-        _operatorHatchOne.whenReleased(new LiftVerticalPosition(Variables.getInstance().HATCH_LOW));
-
+        //_operatorHatchOne.whenPressed(new LiftHorizontalPosition(400000));
+        //_operatorHatchOne.whenReleased(new LiftVerticalPosition(Variables.getInstance().HATCH_LOW));
         _operatorHatchTwo = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_HATCH_TWO);
-        _operatorHatchTwo.whenPressed(new IntakePosition(10));
-        _operatorHatchTwo.whenReleased(new LiftVerticalPosition(Variables.getInstance().HATCH_MIDDLE));
-        
+        //_operatorHatchTwo.whenPressed(new IntakePosition(-55555));
+        //_operatorHatchTwo.whenReleased(new LiftVerticalPosition(Variables.getInstance().HATCH_MIDDLE));
         _operatorHatchThree = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_HATCH_THREE);
-        _operatorHatchThree.whenPressed(new IntakePosition(10));
-        _operatorHatchThree.whenReleased(new LiftVerticalPosition(Variables.getInstance().HATCH_HIGH));
+        //_operatorHatchThree.whenPressed(new IntakePosition(-55555));
+        //_operatorHatchThree.whenReleased(new LiftVerticalPosition(Variables.getInstance().HATCH_HIGH));
 
         FollowOneTarget followOneTarget;
         _driverControllerYButton.whileActive(followOneTarget = new FollowOneTarget()); //follows when pressed
@@ -136,7 +135,7 @@ public class OI {
         FollowTwoTarget followTwoTarget;
         _driverControllerXButton.whileActive(followTwoTarget = new FollowTwoTarget());
 
-        _driverControllerAButton.whenPressed(new PlaceHatch(Variables.getInstance().HATCH_MIDDLE));
+        _driverControllerAButton.whenPressed(new PlaceHatch(Variables.getInstance().HATCH_MIDDLE, -500000));
 
         /*DriveSeconds driveSeconds;
         double[] shutupanddrive = {0.0, 0.0, 0.0, 0.0};
@@ -362,7 +361,7 @@ public class OI {
                 }
                 return true;
             case LIFT_HORIZONTAL_SYSTEM:
-                if (Math.abs(error) < 5000) { // this value definitely subject to change
+                if (Math.abs(error) < 1000) { // this value definitely subject to change
                     LiftHorizontal.getInstance().changeAdjustingBool(false);
                     return false;
                 }

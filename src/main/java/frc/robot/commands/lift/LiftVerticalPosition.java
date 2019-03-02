@@ -13,8 +13,8 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class LiftVerticalPosition extends Command {
 
-    private int _target;
-    public LiftVerticalPosition(int target) {
+    private double _target;
+    public LiftVerticalPosition(double target) {
         requires(LiftVertical.getInstance());
         _target = target;
     }
@@ -24,6 +24,7 @@ public class LiftVerticalPosition extends Command {
         super.execute();
         LiftVertical.getInstance().setTargetPosition(_target);
         LiftVertical.getInstance().changeAdjustingBool(true);
+        LiftVertical.getInstance().verticalShift(0.0);
     }
 
     // Make this return true when this Command no longer needs to run execute()

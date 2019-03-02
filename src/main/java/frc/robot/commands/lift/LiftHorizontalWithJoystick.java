@@ -26,9 +26,7 @@ public class LiftHorizontalWithJoystick extends Command {
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
-        if (SmartDashboard.getBoolean("Safe?", false)) {
-            LiftHorizontal.getInstance().horizontalShift(OI.getInstance().getOperatorJoystick());
-        }
+        LiftHorizontal.getInstance().horizontalShift(OI.getInstance().getOperatorJoystick());
     }
 
     // Make this return true when this Command no longer needs to run execute()

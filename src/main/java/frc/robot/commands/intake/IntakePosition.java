@@ -24,12 +24,13 @@ public class IntakePosition extends Command {
         super.execute();
         Intake.getInstance().setTargetPos(_target);
         Intake.getInstance().changeAdjustingBool(true);
+        Intake.getInstance().setFlipper(0.0);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     @Override
     protected boolean isFinished() {
-        return true;
+        return !Intake.getInstance().getAdjustingBool();
     }
 
 }
