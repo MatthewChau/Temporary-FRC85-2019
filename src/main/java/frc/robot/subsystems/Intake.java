@@ -83,8 +83,8 @@ public class Intake extends Subsystem {
     }
 
     private boolean softLimits(double speed) {
-        double mastPosition = LiftHorizontal.getInstance().getHorizontalPosition();
-        double verticalPosition = LiftVertical.getInstance().getVerticalPosition();
+        double mastPosition = Mast.getInstance().getHorizontalPosition();
+        double verticalPosition = Elevator.getInstance().getVerticalPosition();
         double intakePosition = getFlipperPosition();
 
         if ((verticalPosition < Variables.getInstance().CARGO_FLOOR

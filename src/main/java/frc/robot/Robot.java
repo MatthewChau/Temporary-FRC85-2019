@@ -19,9 +19,9 @@ import frc.robot.subsystems.BeltSolenoid;
 import frc.robot.subsystems.BeltTrain;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Intake;
-import frc.robot.subsystems.LiftVertical;
+import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.RearSolenoid;
-import frc.robot.subsystems.LiftHorizontal;
+import frc.robot.subsystems.Mast;
 import frc.robot.Vision;
 import frc.robot.commands.driverassistance.SendItBro;
 
@@ -48,8 +48,8 @@ public class Robot extends TimedRobot {
     public void robotInit() {
         DriveTrain.getInstance();
         Intake.getInstance();
-        LiftVertical.getInstance();
-        LiftHorizontal.getInstance();
+        Elevator.getInstance();
+        Mast.getInstance();
         OI.getInstance();
         IMU.getInstance();
         Vision.getInstance();
@@ -127,8 +127,8 @@ public class Robot extends TimedRobot {
 
     @Override
     public void disabledPeriodic() {
-        LiftVertical.getInstance().setTargetPosition(LiftVertical.getInstance().getVerticalPosition());
-        LiftHorizontal.getInstance().setTargetPosition(LiftHorizontal.getInstance().getHorizontalPosition());
+        Elevator.getInstance().setTargetPosition(Elevator.getInstance().getVerticalPosition());
+        Mast.getInstance().setTargetPosition(Mast.getInstance().getHorizontalPosition());
         Intake.getInstance().setFlipperPosition(0);
         Intake.getInstance().setTargetPos(Intake.getInstance().getFlipperPosition());
     }

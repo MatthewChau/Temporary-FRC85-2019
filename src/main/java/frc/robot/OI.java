@@ -17,15 +17,15 @@ import frc.robot.commands.drivetrain.DriveSeconds;
 import frc.robot.commands.intake.ActivateIntake;
 import frc.robot.commands.intake.IntakePosition;
 import frc.robot.commands.intake.IntakeWithJoystick;
-import frc.robot.commands.lift.LiftVerticalPosition;
-import frc.robot.commands.lift.LiftHorizontalPosition;
-import frc.robot.commands.lift.LiftHorizontalWithJoystick;
-import frc.robot.commands.lift.LiftVerticalWithJoystick;
+import frc.robot.commands.lift.ElevatorPosition;
+import frc.robot.commands.lift.MastPosition;
+import frc.robot.commands.lift.MastWithJoystick;
+import frc.robot.commands.lift.ElevatorWithJoystick;
 import frc.robot.commands.rearsolenoid.SetRearSolenoid;
 import frc.robot.sensors.IMU;
 import frc.robot.subsystems.DriveTrain;
-import frc.robot.subsystems.LiftVertical;
-import frc.robot.subsystems.LiftHorizontal;
+import frc.robot.subsystems.Elevator;
+import frc.robot.subsystems.Mast;
 import frc.robot.subsystems.Intake;
 
 import edu.wpi.first.wpilibj.Joystick;
@@ -110,7 +110,6 @@ public class OI {
         _operatorHatchRelease = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_HATCH_RELEASE);
 
         _operatorHatchOne = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_HATCH_ONE);
-        _operatorHatchOne.whenPressed(new LiftVerticalPosition(Variables.getInstance().HATCH_MIDDLE));
         _operatorHatchTwo = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_HATCH_TWO);
         _operatorHatchThree = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_HATCH_THREE);
 
@@ -339,12 +338,12 @@ public class OI {
                 return true;
             case LIFT_VERTICAL_SYSTEM:
                 if (Math.abs(error) < 450) {
-                    LiftVertical.getInstance().changeAdjustingBool(false);
+                    Elevator.getInstance().changeAdjustingBool(false);
                 }
                 return true;
             case LIFT_HORIZONTAL_SYSTEM:
                 if (Math.abs(error) < 1000) { // this value definitely subject to change
-                    LiftHorizontal.getInstance().changeAdjustingBool(false);
+                    Mast.getInstance().changeAdjustingBool(false);
                     return false;
                 }
                 return true;

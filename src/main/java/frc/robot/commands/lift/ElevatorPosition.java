@@ -7,29 +7,30 @@
 
 package frc.robot.commands.lift;
 
-import frc.robot.subsystems.LiftHorizontal;
+import frc.robot.subsystems.Elevator;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class LiftHorizontalPosition extends Command {
+public class ElevatorPosition extends Command {
 
-    private int _target;
-    public LiftHorizontalPosition(int target) {
-        requires(LiftHorizontal.getInstance());
+    private double _target;
+    public ElevatorPosition(double target) {
+        requires(Elevator.getInstance());
         _target = target;
     }
 
     @Override
     protected void execute() {
         super.execute();
-        LiftHorizontal.getInstance().setTargetPosition(_target);
-        LiftHorizontal.getInstance().changeAdjustingBool(true);
+        Elevator.getInstance().setTargetPosition(_target);
+        Elevator.getInstance().changeAdjustingBool(true);
+        Elevator.getInstance().verticalShift(0.0);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     @Override
     protected boolean isFinished() {
-        return true;
+        return !Elevator.getInstance().getAdjustingBool();
     }
 
 }

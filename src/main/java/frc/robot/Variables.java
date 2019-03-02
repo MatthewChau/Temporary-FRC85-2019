@@ -9,8 +9,8 @@ package frc.robot;
 
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Intake;
-import frc.robot.subsystems.LiftHorizontal;
-import frc.robot.subsystems.LiftVertical;
+import frc.robot.subsystems.Mast;
+import frc.robot.subsystems.Elevator;
 import frc.robot.sensors.ProxSensors;
 import frc.robot.sensors.IMU;
 
@@ -218,9 +218,9 @@ public class Variables {
 
         SmartDashboard.putNumber("Operator Joystick", OI.getInstance().getOperatorJoystick());
 
-        SmartDashboard.putNumber("Vertical Lift", LiftVertical.getInstance().getVerticalPosition());
+        SmartDashboard.putNumber("Vertical Lift", Elevator.getInstance().getVerticalPosition());
 
-        SmartDashboard.putNumber("Horizontal Lift", LiftHorizontal.getInstance().getHorizontalPosition());
+        SmartDashboard.putNumber("Horizontal Lift", Mast.getInstance().getHorizontalPosition());
         SmartDashboard.putBoolean("Front Prox Sensor", ProxSensors.getInstance().getLiftFrontLimit());
         SmartDashboard.putBoolean("Rear Prox Sensor", ProxSensors.getInstance().getLiftRearLimit());
 

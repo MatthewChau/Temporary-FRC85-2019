@@ -10,7 +10,7 @@ package frc.robot.subsystems;
 import frc.robot.OI;
 import frc.robot.Variables;
 import frc.robot.Addresses;
-import frc.robot.commands.lift.LiftHorizontalWithJoystick;
+import frc.robot.commands.lift.MastWithJoystick;
 import frc.robot.sensors.ProxSensors;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -20,31 +20,31 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 
-public class LiftHorizontal extends Subsystem {
+public class Mast extends Subsystem {
 
-    private static LiftHorizontal _instance = null;
+    private static Mast _instance = null;
 
     private TalonSRX _liftRearMotor;
 
     private double targetPos;
     private boolean adjusting;
 
-    private LiftHorizontal() {
+    private Mast() {
         _liftRearMotor = new TalonSRX(Addresses.LIFT_CIM_MOTOR);
         _liftRearMotor.setNeutralMode(NeutralMode.Brake);
         _liftRearMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute);
     }
 
-    public static LiftHorizontal getInstance() {
+    public static Mast getInstance() {
         if (_instance == null) {
-            _instance = new LiftHorizontal();
+            _instance = new Mast();
         }
         return _instance;
     }
 
     @Override
     public void initDefaultCommand() {
-        setDefaultCommand(new LiftHorizontalWithJoystick());
+        setDefaultCommand(new MastWithJoystick());
     }
 
     public void horizontalShift(double speed) {
@@ -59,8 +59,10 @@ public class LiftHorizontal extends Subsystem {
                                               -0.5);
         } else if (speed > 0.0) {
             speed = 0.5;
+            setTargetPosition(getHorizontalPosition());
         } else if (speed < 0.0) {
             speed = -0.5;
+            setTargetPosition(getHorizontalPosition());
         } else {
             speed = 0.0;
         }
@@ -79,9 +81,14 @@ public class LiftHorizontal extends Subsystem {
         }
     }
 
+    public void setLiftMotor(double speed) {
+        _liftRearMotor.set(ControlMode.PercentOutput, speed);
+        setTargetPosition(getHorizontalPosition());
+    }
+
     private boolean softLimits(double speed) {
         double mastPosition = getHorizontalPosition();
-        double verticalPosition = LiftVertical.getInstance().getVerticalPosition();
+        double verticalPosition = Elevator.getInstance().getVerticalPosition();
         double intakePosition = Intake.getInstance().getFlipperPosition();
 
         if (verticalPosition < Variables.getInstance().CARGO_FLOOR

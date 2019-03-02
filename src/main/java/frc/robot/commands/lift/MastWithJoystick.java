@@ -7,30 +7,38 @@
 
 package frc.robot.commands.lift;
 
-import frc.robot.subsystems.LiftVertical;
+import frc.robot.OI;
+import frc.robot.subsystems.Mast;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-public class LiftVerticalPosition extends Command {
-
-    private double _target;
-    public LiftVerticalPosition(double target) {
-        requires(LiftVertical.getInstance());
-        _target = target;
+public class MastWithJoystick extends Command {
+    public MastWithJoystick() {
+        requires(Mast.getInstance());
     }
 
+    // Called just before this Command runs the first time
+    @Override
+    protected void initialize() {
+    }
+
+    // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
-        super.execute();
-        LiftVertical.getInstance().setTargetPosition(_target);
-        LiftVertical.getInstance().changeAdjustingBool(true);
-        LiftVertical.getInstance().verticalShift(0.0);
+        Mast.getInstance().horizontalShift(OI.getInstance().getOperatorJoystick());
     }
 
     // Make this return true when this Command no longer needs to run execute()
     @Override
     protected boolean isFinished() {
-        return !LiftVertical.getInstance().getAdjustingBool();
+        return false;
+    }
+
+    // Called once after isFinished returns true
+    @Override
+    protected void end() {
+        Mast.getInstance().horizontalShift(0);
     }
 
 }

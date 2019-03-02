@@ -10,7 +10,7 @@ package frc.robot.subsystems;
 import frc.robot.OI;
 import frc.robot.Addresses;
 import frc.robot.Variables;
-import frc.robot.commands.lift.LiftVerticalWithJoystick;
+import frc.robot.commands.lift.ElevatorWithJoystick;
 import frc.robot.sensors.ProxSensors;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -20,9 +20,9 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 
-public class LiftVertical extends Subsystem {
+public class Elevator extends Subsystem {
 
-    private static LiftVertical _instance = null;
+    private static Elevator _instance = null;
 
     private TalonSRX _liftLeftMotor, _liftRightMotor;
 
@@ -30,7 +30,7 @@ public class LiftVertical extends Subsystem {
 
     private boolean adjusting;
   
-    private LiftVertical() {
+    private Elevator() {
         _liftLeftMotor = new TalonSRX(Addresses.LIFT_LEFT_MOTOR);
         _liftLeftMotor.setNeutralMode(NeutralMode.Brake);
         _liftRightMotor = new TalonSRX(Addresses.LIFT_RIGHT_MOTOR);
@@ -38,16 +38,16 @@ public class LiftVertical extends Subsystem {
         _liftRightMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
     }
 
-    public static LiftVertical getInstance() {
+    public static Elevator getInstance() {
         if (_instance == null) {
-            _instance = new LiftVertical();
+            _instance = new Elevator();
         }
         return _instance;
     }
 
     @Override
     public void initDefaultCommand() {
-        setDefaultCommand(new LiftVerticalWithJoystick());
+        setDefaultCommand(new ElevatorWithJoystick());
     }
 
     public void verticalShift(double speed) {
@@ -83,7 +83,7 @@ public class LiftVertical extends Subsystem {
     }
 
     private boolean softLimits(double speed) {
-        double mastPosition = LiftHorizontal.getInstance().getHorizontalPosition();
+        double mastPosition = Mast.getInstance().getHorizontalPosition();
         double verticalPosition = getVerticalPosition();
         double intakePosition = Intake.getInstance().getFlipperPosition();
 
