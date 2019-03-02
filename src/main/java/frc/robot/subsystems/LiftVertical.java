@@ -51,7 +51,7 @@ public class LiftVertical extends Subsystem {
     }
 
     public void verticalShift(double speed) {
-        if (!OI.getInstance().getOperatorLiftVertical() || speed == 0) {
+        if (!OI.getInstance().getOperatorLiftVertical() || adjusting) {
             speed = OI.getInstance().applyPID(OI.getInstance().LIFT_VERTICAL_SYSTEM, 
                                               getVerticalPosition(), 
                                               targetPos, 
@@ -69,12 +69,40 @@ public class LiftVertical extends Subsystem {
         }
 
         if ((ProxSensors.getInstance().getLiftTopLimit() && speed > 0.0)
-             || (ProxSensors.getInstance().getLiftBottomLimit() && speed < 0.0)) {
+             || (ProxSensors.getInstance().getLiftBottomLimit() && speed < 0.0)
+             || softLimits(speed)) {
             speed = 0.0;
+        }
+
+        if (ProxSensors.getInstance().getLiftBottomLimit()) {
+            setVerticalPosition(0);
         }
 
         _liftLeftMotor.set(ControlMode.PercentOutput, speed);
         _liftRightMotor.set(ControlMode.PercentOutput, speed);
+    }
+
+    private boolean softLimits(double speed) {
+        double mastPosition = LiftHorizontal.getInstance().getHorizontalPosition();
+        double verticalPosition = getVerticalPosition();
+        double intakePosition = Intake.getInstance().getFlipperPosition();
+
+        if (mastPosition < Variables.getInstance().MAST_PROTECTED) { // below mast protected, the vertical lift should have a different set of things
+            if (verticalPosition < Variables.getInstance().LIFT_MIN_FOR_MAST
+                && intakePosition < OI.getInstance().convertDegreesToIntake(10)
+                && speed < 0.0) {
+                return true;
+            }
+        } else if (mastPosition > Variables.getInstance().MAST_PROTECTED) { // above, it should be fine
+            if (verticalPosition < Variables.getInstance().CARGO_FLOOR
+                && intakePosition < OI.getInstance().convertDegreesToIntake(10)
+                && speed < 0.0) {
+                return true;
+            }
+        } else if (verticalPosition > Variables.getInstance().CARGO_HIGH) {
+            return true;
+        }
+        return false;
     }
 
     public void stopMotors() {

@@ -67,7 +67,8 @@ public class LiftHorizontal extends Subsystem {
         
         if ((ProxSensors.getInstance().getLiftFrontLimit() && speed > 0.0)
             || (ProxSensors.getInstance().getLiftRearLimit() && speed < 0.0)
-            || (!OI.getInstance().getOperatorLiftHorizontal() && !adjusting)) {
+            || (!OI.getInstance().getOperatorLiftHorizontal() && !adjusting)
+            || softLimits(speed)) {
             _liftRearMotor.set(ControlMode.PercentOutput, 0);
         } else {
             _liftRearMotor.set(ControlMode.PercentOutput, speed);
@@ -76,6 +77,20 @@ public class LiftHorizontal extends Subsystem {
         if (ProxSensors.getInstance().getLiftRearLimit()) {
             setHorizontalPosition(0);
         }
+    }
+
+    private boolean softLimits(double speed) {
+        double mastPosition = getHorizontalPosition();
+        double verticalPosition = LiftVertical.getInstance().getVerticalPosition();
+        double intakePosition = Intake.getInstance().getFlipperPosition();
+
+        if (verticalPosition < Variables.getInstance().CARGO_FLOOR
+            && intakePosition < OI.getInstance().convertDegreesToIntake(10)
+            && mastPosition < Variables.getInstance().MAST_PROTECTED
+            && speed < 0.0) {
+            return true;
+        }
+        return false;
     }
 
     public void setHorizontalPosition(int position) {

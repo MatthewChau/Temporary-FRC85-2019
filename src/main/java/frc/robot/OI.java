@@ -7,34 +7,32 @@
 
 package frc.robot;
 
+import frc.robot.commands.belttrain.BeltTrainDrive;
+import frc.robot.commands.belttrain.SetBeltSolenoid;
+import frc.robot.commands.driverassistance.Place;
+import frc.robot.commands.driverassistance.HatchRelease;
+import frc.robot.commands.drivetrain.FollowOneTarget;
+import frc.robot.commands.drivetrain.FollowTwoTarget;
+import frc.robot.commands.drivetrain.DriveSeconds;
+import frc.robot.commands.intake.ActivateIntake;
+import frc.robot.commands.intake.IntakePosition;
+import frc.robot.commands.intake.IntakeWithJoystick;
+import frc.robot.commands.lift.LiftVerticalPosition;
+import frc.robot.commands.lift.LiftHorizontalPosition;
+import frc.robot.commands.lift.LiftHorizontalWithJoystick;
+import frc.robot.commands.lift.LiftVerticalWithJoystick;
+import frc.robot.commands.rearsolenoid.SetRearSolenoid;
+import frc.robot.sensors.IMU;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.LiftVertical;
 import frc.robot.subsystems.LiftHorizontal;
 import frc.robot.subsystems.Intake;
-import frc.robot.sensors.IMU;
-import frc.robot.commands.belttrain.BeltTrainDrive;
-import frc.robot.commands.belttrain.SetBeltSolenoid;
-import frc.robot.commands.drivetrain.FollowOneTarget;
-import frc.robot.commands.drivetrain.FollowTwoTarget;
-import frc.robot.commands.drivetrain.DriveSeconds;
-import frc.robot.commands.intake.IntakePosition;
-import frc.robot.commands.lift.LiftVerticalPosition;
-
-import frc.robot.commands.rearsolenoid.SetRearSolenoid;
-import frc.robot.commands.lift.LiftHorizontalPosition;
-import frc.robot.commands.lift.LiftHorizontalWithJoystick;
-import frc.robot.commands.lift.LiftVerticalWithJoystick;
-
-import frc.robot.commands.intake.ActivateIntake;
-import frc.robot.commands.intake.IntakeWithJoystick;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Joystick.AxisType;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
-
-import frc.robot.commands.driverassistance.PlaceHatch;
 
 public class OI {
 
@@ -103,16 +101,8 @@ public class OI {
         _operatorCargoOut.whenReleased(new ActivateIntake(0));
 
         _operatorCargoOne = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_CARGO_ONE);
-        //_operatorCargoOne.whenPressed(new IntakePosition(90));
-        //_operatorCargoOne.whenReleased(new LiftVerticalPosition(Variables.getInstance().HATCH_LOW));
         _operatorCargoTwo = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_CARGO_TWO);
-        _operatorCargoTwo.whenPressed(new BeltTrainDrive(-0.60));
-        _operatorCargoTwo.whenReleased(new BeltTrainDrive(0));
-        //_operatorCargoTwo.whenPressed(new IntakePosition(90));
-        //_operatorCargoTwo.whenReleased(new LiftVerticalPosition(Variables.getInstance().HATCH_MIDDLE));
         _operatorCargoThree = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_CARGO_THREE);
-        //_operatorCargoThree.whenPressed(new IntakePosition(90));
-        //_operatorCargoThree.whenReleased(new LiftVerticalPosition(Variables.getInstance().HATCH_HIGH));
 
         // Hatch
         _operatorHatchDefault = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_HATCH_DEFAULT);
@@ -120,26 +110,18 @@ public class OI {
         _operatorHatchRelease = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_HATCH_RELEASE);
 
         _operatorHatchOne = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_HATCH_ONE);
-        //_operatorHatchOne.whenPressed(new LiftHorizontalPosition(400000));
-        //_operatorHatchOne.whenReleased(new LiftVerticalPosition(Variables.getInstance().HATCH_LOW));
+        _operatorHatchOne.whenPressed(new LiftVerticalPosition(Variables.getInstance().HATCH_MIDDLE));
         _operatorHatchTwo = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_HATCH_TWO);
-        //_operatorHatchTwo.whenPressed(new IntakePosition(-55555));
-        //_operatorHatchTwo.whenReleased(new LiftVerticalPosition(Variables.getInstance().HATCH_MIDDLE));
         _operatorHatchThree = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_HATCH_THREE);
-        //_operatorHatchThree.whenPressed(new IntakePosition(-55555));
-        //_operatorHatchThree.whenReleased(new LiftVerticalPosition(Variables.getInstance().HATCH_HIGH));
 
-        FollowOneTarget followOneTarget;
-        _driverControllerYButton.whileActive(followOneTarget = new FollowOneTarget()); //follows when pressed
+        //FollowOneTarget followOneTarget;
+        //_driverControllerYButton.whileActive(followOneTarget = new FollowOneTarget()); //follows when pressed
         
-        FollowTwoTarget followTwoTarget;
-        _driverControllerXButton.whileActive(followTwoTarget = new FollowTwoTarget());
+        //FollowTwoTarget followTwoTarget;
+        //_driverControllerXButton.whileActive(followTwoTarget = new FollowTwoTarget());
 
-        _driverControllerAButton.whenPressed(new PlaceHatch(Variables.getInstance().HATCH_MIDDLE, -500000));
-
-        /*DriveSeconds driveSeconds;
-        double[] shutupanddrive = {0.0, 0.0, 0.0, 0.0};
-        _driverControllerAButton.whileActive(driveSeconds = new DriveSeconds(shutupanddrive, 10.0));*/
+        _driverControllerAButton.whenPressed(new Place(Variables.getInstance().HATCH_MIDDLE, -500000));
+        _driverControllerBButton.whenPressed(new HatchRelease());
     }
 
     public static OI getInstance() {

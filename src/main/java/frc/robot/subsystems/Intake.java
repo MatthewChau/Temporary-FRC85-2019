@@ -13,6 +13,7 @@ import frc.robot.Variables;
 import frc.robot.commands.intake.IntakeWithJoystick;
 import frc.robot.sensors.ProxSensors;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
@@ -62,10 +63,10 @@ public class Intake extends Subsystem {
                                               Variables.getInstance().getMaxSpeedUpIntake(), 
                                               Variables.getInstance().getMaxSpeedDownIntake());
         } else if (speed > 0.0) {
-            speed = 0.3;
+            speed = 0.6;
             targetPos = getFlipperPosition();
         } else if (speed < 0.0) {
-            speed = -0.3;
+            speed = -0.6;
             targetPos = getFlipperPosition();
         } else {
             speed = 0.0;
@@ -73,11 +74,30 @@ public class Intake extends Subsystem {
 
         if ((ProxSensors.getInstance().getIntakeBottomLimit() && speed > 0) // if we trying to exceed top limit
             || (ProxSensors.getInstance().getIntakeTopLimit() && speed < 0) // if we trying to exceed bottom limit
-            || (!OI.getInstance().getOperatorIntakeRotate() && !adjusting)) { // if the button isn't pressed and we are not adjusting
+            || (!OI.getInstance().getOperatorIntakeRotate() && !adjusting) // if the button isn't pressed and we are not adjusting
+            || softLimits(speed)) {
             _flipper.set(ControlMode.PercentOutput, 0);
         } else {
             _flipper.set(ControlMode.PercentOutput, speed);
         }
+    }
+
+    private boolean softLimits(double speed) {
+        double mastPosition = LiftHorizontal.getInstance().getHorizontalPosition();
+        double verticalPosition = LiftVertical.getInstance().getVerticalPosition();
+        double intakePosition = getFlipperPosition();
+
+        if ((verticalPosition < Variables.getInstance().CARGO_FLOOR
+            || (mastPosition < Variables.getInstance().MAST_PROTECTED && verticalPosition < Variables.getInstance().LIFT_MIN_FOR_MAST))
+            && intakePosition < OI.getInstance().convertDegreesToIntake(10)
+            && speed < 0.0) {
+            return true;
+        } else if (intakePosition > 0.0 && speed > 0.0 && !SmartDashboard.getBoolean("sMASH ME DADDY", false)) {
+            return true;
+        } else if (intakePosition < OI.getInstance().convertDegreesToIntake(100) && speed < 0.0) {
+            return true;
+        }
+        return false;
     }
 
     /**

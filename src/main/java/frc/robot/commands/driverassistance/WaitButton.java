@@ -5,32 +5,41 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.lift;
-
-import frc.robot.subsystems.LiftVertical;
+package frc.robot.commands.driverassistance;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class LiftVerticalPosition extends Command {
+public class WaitButton extends Command {
 
-    private double _target;
-    public LiftVerticalPosition(double target) {
-        requires(LiftVertical.getInstance());
-        _target = target;
+    boolean _boolean;
+
+    /**
+     * @param button pass in a getButton, command ends when button == true 
+     * reverse button return boolean when calling this command.
+     */
+    public WaitButton(boolean button) {
+        _boolean = button;
+    }
+
+    @Override
+    protected void initialize() {
     }
 
     @Override
     protected void execute() {
-        super.execute();
-        LiftVertical.getInstance().setTargetPosition(_target);
-        LiftVertical.getInstance().changeAdjustingBool(true);
-        LiftVertical.getInstance().verticalShift(0.0);
     }
 
-    // Make this return true when this Command no longer needs to run execute()
     @Override
     protected boolean isFinished() {
-        return !LiftVertical.getInstance().getAdjustingBool();
+        return _boolean;
     }
 
+    @Override
+    protected void end() {
+    }
+
+    @Override
+    protected void interrupted() {
+    }
+    
 }

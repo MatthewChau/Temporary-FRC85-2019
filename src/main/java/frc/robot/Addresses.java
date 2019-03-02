@@ -10,11 +10,11 @@ package frc.robot;
 public class Addresses {
 
     // Drivestation
-    public static final int CONTROLLER_DRIVER = 0;
-    public static final int CONTROLLER_OPERATOR_BLACK = 1; // will change these later
-    public static final int CONTROLLER_OPERATOR_WHITE = 2; // will change these later
-    public static final int CONTROLLER_DRIVER_STICK_RIGHT = 0;
-    public static final int CONTROLLER_DRIVER_STICK_LEFT = 1;
+    public static final int CONTROLLER_DRIVER = 2;
+    public static final int CONTROLLER_OPERATOR_BLACK = 0;
+    public static final int CONTROLLER_OPERATOR_WHITE = 1;
+    public static final int CONTROLLER_DRIVER_STICK_RIGHT = 2;
+    public static final int CONTROLLER_DRIVER_STICK_LEFT = 3;
 
     // Black op station
     public static final int OPERATOR_LIFT_HORIZONTAL = 1;

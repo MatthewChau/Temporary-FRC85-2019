@@ -27,13 +27,13 @@ public class Variables {
     public final double TOLERANCE_ANGLE = 10.0;
     public final int MAX_TURNS = 7; // if we go over 2520 degrees in either direction in one match then help.
 
-    // LIFT
+    // PID
 
-    // Lift Vertical PID
     private final double kP_VLIFT = 0.00025, kI_VLIFT = 0.0, kD_VLIFT = 0.0;
 
-    // Lift Horizontal PID
     private final double kP_HLIFT = 0.025, kI_HLIFT = 0.0, kD_HLIFT = 0.0;
+
+    public static final double kP_INTAKE = 0.001, kI_INTAKE = 0.0, kD_INTAKE = 0.0;
 
     // Lift Vertical Postitions
     public final int HATCH_LOW = 1565;
@@ -41,10 +41,12 @@ public class Variables {
     public final int HATCH_HIGH = 18144;
     public final int HATCH_FLOOR = 100;
     
-    public final int CARGO_LOW = 6900;
-    public final int CARGO_MIDDLE = 15813;
-    public final int CARGO_HIGH = 22870;
-    public final int CARGO_FLOOR = 6100;
+    public final int CARGO_LOW = 0;
+    public final int CARGO_MIDDLE = 0;
+    public final int CARGO_HIGH = 0;
+    public final int CARGO_FLOOR = 1500;
+
+    public final int LIFT_MIN_FOR_MAST = 4000;
 
     public final double ROT_POS_1 = 90;
     public final double ROT_POS_2 = -90;
@@ -52,30 +54,15 @@ public class Variables {
     public final double ROT_POS_4 = 120;
 
     // Lift Horizontal Positions
-    public static int platform = 0;
-    public static int bumpers = 0;
-    public static int CENTER_DRIVE = 0;
-    public static int CLIMB_HAB = 0;
-
-    public static final int HORIZONTAL_PROTECTED = 7;
-    public static final int HORIZONTAL_UNPROTECTED = 0;
-    public static final int BUMPERS_TWO = 3;
-    public static final int range = 0;
+    public final int MAST_PROTECTED = 380000;
 
     // INTAKE
 
-    public final double MAX_SPEED_UP_INTAKE = 0.6;
-    public final double MAX_SPEED_DOWN_INTAKE = -0.6;
+    public final double MAX_SPEED_UP_INTAKE = 0.8;
+    public final double MAX_SPEED_DOWN_INTAKE = -0.8;
 
-    // Intake PID
-
-    public static final double kP_INTAKE = 0.001, kI_INTAKE = 0.0, kD_INTAKE = 0.0;
-
-    // Intake Positions and Degrees
-    public static final int INTAKE_DEGREE_ONE = 0;
-    public static final int INTAKE_DEGREE_TWO = 90;
-    public static final int INTAKE_DEGREE_THREE = 95;
-
+    public final int INTAKE_ENCODER_45 = -500000;
+    public final int INTAKE_ENCODER_HIGH = -908000;
 
     /**
      * Put variables here that should be changeable on the fly.
@@ -109,7 +96,7 @@ public class Variables {
         SmartDashboard.putNumber("MAX_SPEED_DOWN_INTAKE", MAX_SPEED_DOWN_INTAKE);
 
         SmartDashboard.putBoolean("Joysticks Enabled", false);
-        SmartDashboard.putBoolean("Safe?", false);
+        SmartDashboard.putBoolean("sMASH ME DADDY", false);
     }
 
     public static Variables getInstance() {

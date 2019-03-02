@@ -89,6 +89,8 @@ public class Robot extends TimedRobot {
     public void teleopInit() {
         IMU.getInstance().setFusedHeading(0);
 
+        Scheduler.getInstance().removeAll();
+
         // Pneumatics
 
         BeltSolenoid.getInstance().setBeltSolenoid(false);
