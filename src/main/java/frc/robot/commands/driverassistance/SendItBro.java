@@ -7,14 +7,12 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 
 public class SendItBro extends CommandGroup {
 
-    double _speed[] = {0.0, -0.5, 0.0, 0.0};
-
     // i guess this is what we are doing for future reference
 
     public SendItBro() {
         addSequential(new Wait(0.3));
-        addParallel(new DriveSeconds(_speed, 5.0));
-        addSequential(new BeltTrainDrive(.5, 5.0));
+        addParallel(new DriveSeconds(-0.5, 2.0));
+        addSequential(new BeltTrainDrive(.5, 2.0));
     }
     
 }

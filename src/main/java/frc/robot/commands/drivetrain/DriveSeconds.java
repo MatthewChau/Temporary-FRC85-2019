@@ -13,16 +13,15 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class DriveSeconds extends Command {
 
-    double[] _speed = new double[4];
-    double[] _stop = OI.getInstance().stopArray;
+    double _speed;
 
     /**
      * @param timeout in seconds
      * @param speed list of speed values
      */
-    public DriveSeconds(double[] speed, double timeout) {
+    public DriveSeconds(double ySpeed, double timeout) {
         requires(DriveTrain.getInstance());
-        _speed = speed;
+        _speed = ySpeed;
         setTimeout(timeout);
     }
 
@@ -32,7 +31,7 @@ public class DriveSeconds extends Command {
 
     @Override
     protected void execute() {
-        DriveTrain.getInstance().cartDrive(_speed);
+        DriveTrain.getInstance().cartDrive(0, _speed, 0, 0);
     }
 
     @Override
@@ -42,7 +41,7 @@ public class DriveSeconds extends Command {
 
     @Override
     protected void end() {
-        DriveTrain.getInstance().cartDrive(_stop);
+        DriveTrain.getInstance().cartDrive(0, 0, 0, 0);
     }
 
     @Override

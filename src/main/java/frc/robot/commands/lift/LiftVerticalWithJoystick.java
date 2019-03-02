@@ -28,9 +28,9 @@ public class LiftVerticalWithJoystick extends Command {
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
-        if (SmartDashboard.getBoolean("Safe?", false)) {
+        //if (SmartDashboard.getBoolean("Safe?", false)) {
             LiftVertical.getInstance().verticalShift(OI.getInstance().getOperatorJoystick()); // finally run the method for it
-        }
+        //}
     }
 
     // Make this return true when this Command no longer needs to run execute()

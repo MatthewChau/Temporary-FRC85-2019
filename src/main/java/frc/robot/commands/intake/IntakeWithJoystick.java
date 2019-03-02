@@ -26,9 +26,7 @@ public class IntakeWithJoystick extends Command {
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
-        if (SmartDashboard.getBoolean("Safe?", false)) {
-            Intake.getInstance().setFlipper(OI.getInstance().getOperatorJoystick());
-        }
+        Intake.getInstance().setFlipper(OI.getInstance().getOperatorJoystick());
     }
 
     // Make this return true when this Command no longer needs to run execute()

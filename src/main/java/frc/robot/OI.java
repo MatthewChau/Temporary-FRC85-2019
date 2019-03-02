@@ -119,13 +119,15 @@ public class OI {
         _operatorHatchRelease = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_HATCH_RELEASE);
 
         _operatorHatchOne = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_HATCH_ONE);
-        //_operatorHatchOne.whenPressed(new IntakePosition(10));
+        _operatorHatchOne.whenPressed(new IntakePosition(10));
         _operatorHatchOne.whenReleased(new LiftVerticalPosition(Variables.getInstance().HATCH_LOW));
+
         _operatorHatchTwo = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_HATCH_TWO);
-        //_operatorHatchTwo.whenPressed(new IntakePosition(10));
+        _operatorHatchTwo.whenPressed(new IntakePosition(10));
         _operatorHatchTwo.whenReleased(new LiftVerticalPosition(Variables.getInstance().HATCH_MIDDLE));
+        
         _operatorHatchThree = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_HATCH_THREE);
-        //_operatorHatchThree.whenPressed(new IntakePosition(10));
+        _operatorHatchThree.whenPressed(new IntakePosition(10));
         _operatorHatchThree.whenReleased(new LiftVerticalPosition(Variables.getInstance().HATCH_HIGH));
 
         FollowOneTarget followOneTarget;
@@ -134,7 +136,7 @@ public class OI {
         FollowTwoTarget followTwoTarget;
         _driverControllerXButton.whileActive(followTwoTarget = new FollowTwoTarget());
 
-        _driverControllerAButton.whenPressed(new PlaceHatch(Variables.getInstance().HATCH_MIDDLE, Variables.getInstance().INTAKE_DEGREE_ONE));
+        _driverControllerAButton.whenPressed(new PlaceHatch(Variables.getInstance().HATCH_MIDDLE));
 
         /*DriveSeconds driveSeconds;
         double[] shutupanddrive = {0.0, 0.0, 0.0, 0.0};
@@ -278,6 +280,10 @@ public class OI {
 
     public boolean getOperatorHatchRelease() {
         return _operatorHatchRelease.get();
+    }
+
+    public int convertDegreesToIntake(int degrees) {
+        return (-degrees * 100000 / 9);
     }
 
     public double fixArcTangent(double angle, double x, double y) { // fix an angle output by arctan

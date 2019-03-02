@@ -64,6 +64,11 @@ public class DriveTrain extends Subsystem {
         setDefaultCommand(new DriveWithJoystick());
     }
 
+    public void cartDrive(double xSpeed, double ySpeed, double zRotation, double gyroAngle) {
+        double[] speed = {xSpeed, ySpeed, zRotation, gyroAngle};
+        cartDrive(speed);
+    }
+
     /** 
      * args for inputs: 
      * 0 - xSpeed - positive is right

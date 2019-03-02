@@ -14,9 +14,9 @@ public class IntakePosition extends Command {
     
     private double _target;
 
-    public IntakePosition(int degrees) {
+    public IntakePosition(int target) {
         requires(Intake.getInstance());
-        _target = -degrees * 100000 / 9.0; // this should be the degree conversion, from the top
+        _target = target; // this should be the degree conversion, from the top
     }
 
     @Override

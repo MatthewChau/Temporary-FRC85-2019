@@ -125,6 +125,10 @@ public class Robot extends TimedRobot {
 
     @Override
     public void disabledPeriodic() {
+        LiftVertical.getInstance().setTargetPosition(LiftVertical.getInstance().getVerticalPosition());
+        LiftHorizontal.getInstance().setTargetPosition(LiftHorizontal.getInstance().getHorizontalPosition());
+        Intake.getInstance().setFlipperPosition(0);
+        Intake.getInstance().setTargetPos(Intake.getInstance().getFlipperPosition());
     }
 
 }
