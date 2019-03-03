@@ -100,6 +100,10 @@ public class Intake extends Subsystem {
         return false;
     }
 
+    public void setWristMotor(double speed) {
+        _wrist.set(ControlMode.PercentOutput, speed);
+    }
+
     /**
      * @param position in encoder counts
      */

@@ -5,31 +5,31 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.drivetrain;
+package frc.robot.commands.intake;
 
-import frc.robot.OI;
-import frc.robot.sensors.IMU;
-import frc.robot.subsystems.DriveTrain;
+import frc.robot.subsystems.Intake;
+
 import edu.wpi.first.wpilibj.command.Command;
 
-public class DriveSeconds extends Command {
+public class ActivateWrist extends Command {
 
-    double _speed, _timeout;
-    
-    public DriveSeconds(double ySpeed, double timeout) {
-        requires(DriveTrain.getInstance());
-        _speed = ySpeed;
-        _timeout = timeout;
+    private double _speed, _timeout;
+
+    public ActivateWrist(double speed, double seconds) {
+        requires(Intake.getInstance());
+        _speed = speed;
+        _timeout = seconds;
     }
 
     @Override
     protected void initialize() {
-        setTimeout(_timeout);
+       setTimeout(_timeout); 
     }
 
     @Override
     protected void execute() {
-        DriveTrain.getInstance().cartDrive(0, _speed, 0, IMU.getInstance().getFusedHeading());
+        super.execute();
+        Intake.getInstance().setWristMotor(_speed);
     }
 
     @Override
@@ -37,14 +37,4 @@ public class DriveSeconds extends Command {
         return isTimedOut();
     }
 
-    @Override
-    protected void end() {
-        DriveTrain.getInstance().cartDrive(0, 0, 0, 0);
-    }
-
-    @Override
-    protected void interrupted() {
-        end();
-    }
-    
 }

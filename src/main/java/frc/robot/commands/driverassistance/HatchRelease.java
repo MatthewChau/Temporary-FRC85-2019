@@ -7,6 +7,9 @@ import frc.robot.commands.drivetrain.FollowTwoTarget;
 import frc.robot.commands.intake.WristPosition;
 import frc.robot.commands.lift.MastPosition;
 import frc.robot.commands.lift.ElevatorPosition;
+import frc.robot.commands.intake.ActivateWrist;
+import frc.robot.commands.lift.ActivateMast;
+import frc.robot.commands.lift.ActivateElevator;
 import frc.robot.subsystems.Mast;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.Intake;
@@ -15,9 +18,12 @@ import frc.robot.commands.drivetrain.FollowOneTarget;;
 
 public class HatchRelease extends CommandGroup {
 
-    public HatchRelease() { // this doesn't work ok, will redo
-        addParallel(new WristPosition(Intake.getInstance().getFlipperPosition() - 100000));
-        addParallel(new ElevatorPosition(Elevator.getInstance().getVerticalPosition() - 1000));
-        addSequential(new MastPosition(Mast.getInstance().getHorizontalPosition() - 10000));
+    public HatchRelease() { // this should work ok
+        addParallel(new ActivateWrist(-0.6, 0.25));
+        addParallel(new ActivateElevator(-0.2, 0.0));
+        addSequential(new ActivateMast(-0.5, 0.75));
+        addParallel(new WristPosition(0.0));
+        addSequential(new ElevatorPosition(0.0));
+        //addSequential(new MastPosition(Variables.getInstance().MAST_PROTECTED));
     }
 }

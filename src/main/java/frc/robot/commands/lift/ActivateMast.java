@@ -5,21 +5,20 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.drivetrain;
+package frc.robot.commands.lift;
 
-import frc.robot.OI;
-import frc.robot.sensors.IMU;
-import frc.robot.subsystems.DriveTrain;
+import frc.robot.subsystems.Mast;
+
 import edu.wpi.first.wpilibj.command.Command;
 
-public class DriveSeconds extends Command {
+public class ActivateMast extends Command {
 
-    double _speed, _timeout;
+    private double _speed, _timeout;
     
-    public DriveSeconds(double ySpeed, double timeout) {
-        requires(DriveTrain.getInstance());
-        _speed = ySpeed;
-        _timeout = timeout;
+    public ActivateMast(double speed, double seconds) {
+        requires(Mast.getInstance());
+        _speed = speed;
+        _timeout = seconds;
     }
 
     @Override
@@ -29,7 +28,8 @@ public class DriveSeconds extends Command {
 
     @Override
     protected void execute() {
-        DriveTrain.getInstance().cartDrive(0, _speed, 0, IMU.getInstance().getFusedHeading());
+        super.execute();
+        Mast.getInstance().setMastMotor(_speed);
     }
 
     @Override
@@ -37,14 +37,4 @@ public class DriveSeconds extends Command {
         return isTimedOut();
     }
 
-    @Override
-    protected void end() {
-        DriveTrain.getInstance().cartDrive(0, 0, 0, 0);
-    }
-
-    @Override
-    protected void interrupted() {
-        end();
-    }
-    
 }
