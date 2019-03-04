@@ -89,7 +89,7 @@ public class Mast extends Subsystem {
     private boolean softLimits(double speed) {
         double mastPosition = getHorizontalPosition();
         double verticalPosition = Elevator.getInstance().getVerticalPosition();
-        double intakePosition = Intake.getInstance().getFlipperPosition();
+        double intakePosition = Intake.getInstance().getWristPosition();
 
         if (verticalPosition < Variables.getInstance().CARGO_FLOOR
             && intakePosition < OI.getInstance().convertDegreesToIntake(10)

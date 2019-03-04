@@ -26,7 +26,7 @@ public class WristWithJoystick extends Command {
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
-        Intake.getInstance().setFlipper(OI.getInstance().getOperatorJoystick());
+        Intake.getInstance().setWrist(OI.getInstance().getOperatorJoystick());
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -38,7 +38,7 @@ public class WristWithJoystick extends Command {
     // Called once after isFinished returns true
     @Override
     protected void end() {
-        Intake.getInstance().setFlipper(0.0);
+        Intake.getInstance().setWrist(0.0);
     }
 
 }

@@ -96,7 +96,7 @@ public class Robot extends TimedRobot {
         BeltSolenoid.getInstance().setBeltSolenoid(false);
         RearSolenoid.getInstance().setRearSolenoid(false);
         
-        Intake.getInstance().setFlipperPosition(0);
+        Intake.getInstance().setWristPosition(0);
 
         // init the pid stuff 
 
@@ -116,6 +116,10 @@ public class Robot extends TimedRobot {
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
         Variables.getInstance().outputVariables();
+
+        if (OI.getInstance().getOperatorCargoDefault()) {
+            Intake.getInstance().setWristPosition(0);
+        }
     }
 
     /**
@@ -129,8 +133,8 @@ public class Robot extends TimedRobot {
     public void disabledPeriodic() {
         Elevator.getInstance().setTargetPosition(Elevator.getInstance().getVerticalPosition());
         Mast.getInstance().setTargetPosition(Mast.getInstance().getHorizontalPosition());
-        Intake.getInstance().setFlipperPosition(0);
-        Intake.getInstance().setTargetPos(Intake.getInstance().getFlipperPosition());
+        Intake.getInstance().setWristPosition(0);
+        Intake.getInstance().setTargetPos(Intake.getInstance().getWristPosition());
     }
 
 }

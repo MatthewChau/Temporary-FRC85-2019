@@ -137,19 +137,19 @@ public class DriveTrain extends Subsystem {
      * Returns the selected motor's encoder position (count)
      * 1 Rotation = 4096 counts
      */
-    public double getLeftFrontPosition() {
+    public int getLeftFrontPosition() {
         return _leftFrontMotor.getSelectedSensorPosition();
     }
 
-    public double getLeftBackPosition() {
+    public int getLeftBackPosition() {
         return _leftBackMotor.getSelectedSensorPosition();
     }
 
-    public double getRightFrontPosition() {
+    public int getRightFrontPosition() {
         return _rightFrontMotor.getSelectedSensorPosition();
     }
 
-    public double getRightBackPosition() {
+    public int getRightBackPosition() {
         return _rightBackMotor.getSelectedSensorPosition();
     }
 

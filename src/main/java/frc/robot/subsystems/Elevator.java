@@ -85,7 +85,7 @@ public class Elevator extends Subsystem {
     private boolean softLimits(double speed) {
         double mastPosition = Mast.getInstance().getHorizontalPosition();
         double verticalPosition = getVerticalPosition();
-        double intakePosition = Intake.getInstance().getFlipperPosition();
+        double intakePosition = Intake.getInstance().getWristPosition();
 
         if (mastPosition < Variables.getInstance().MAST_PROTECTED) { // below mast protected, the vertical lift should have a different set of things
             if (verticalPosition < Variables.getInstance().LIFT_MIN_FOR_MAST
@@ -99,7 +99,7 @@ public class Elevator extends Subsystem {
                 && speed < 0.0) {
                 return true;
             }
-        } else if (verticalPosition > Variables.getInstance().CARGO_HIGH) {
+        } else if (verticalPosition > Variables.getInstance().CARGO_THREE) {
             return true;
         }
         return false;

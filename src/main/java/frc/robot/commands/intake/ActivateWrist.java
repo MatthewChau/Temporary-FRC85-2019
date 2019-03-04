@@ -28,7 +28,6 @@ public class ActivateWrist extends Command {
 
     @Override
     protected void execute() {
-        super.execute();
         Intake.getInstance().setWristMotor(_speed);
     }
 

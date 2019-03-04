@@ -33,7 +33,7 @@ public class Intake extends Subsystem {
     private double targetPos;
 
     private Intake() {
-        _wrist = new TalonSRX(Addresses.INTAKE_FLIPPER);
+        _wrist = new TalonSRX(Addresses.INTAKE_WRIST);
         _wrist.setNeutralMode(NeutralMode.Brake);
         _wrist.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
         _roller = new TalonSRX(Addresses.INTAKE_ROLLER);
@@ -52,10 +52,10 @@ public class Intake extends Subsystem {
         setDefaultCommand(new WristWithJoystick());
     }
 
-    public void setFlipper(double speed) {
+    public void setWrist(double speed) {
         if (adjusting) { // if we are adjusting
             speed = OI.getInstance().applyPID(OI.getInstance().INTAKE_SYSTEM, 
-                                              getFlipperPosition(), 
+                                              getWristPosition(), 
                                               targetPos, 
                                               Variables.getInstance().getWristKP(), 
                                               Variables.getInstance().getWristKI(), 
@@ -64,10 +64,10 @@ public class Intake extends Subsystem {
                                               Variables.getInstance().getMaxSpeedDownIntake());
         } else if (speed > 0.0) {
             speed = 0.6;
-            targetPos = getFlipperPosition();
+            targetPos = getWristPosition();
         } else if (speed < 0.0) {
             speed = -0.6;
-            targetPos = getFlipperPosition();
+            targetPos = getWristPosition();
         } else {
             speed = 0.0;
         }
@@ -85,7 +85,7 @@ public class Intake extends Subsystem {
     private boolean softLimits(double speed) {
         double mastPosition = Mast.getInstance().getHorizontalPosition();
         double verticalPosition = Elevator.getInstance().getVerticalPosition();
-        double intakePosition = getFlipperPosition();
+        double intakePosition = getWristPosition();
 
         if ((verticalPosition < Variables.getInstance().CARGO_FLOOR
             || (mastPosition < Variables.getInstance().MAST_PROTECTED && verticalPosition < Variables.getInstance().LIFT_MIN_FOR_MAST))
@@ -107,11 +107,11 @@ public class Intake extends Subsystem {
     /**
      * @param position in encoder counts
      */
-    public void setFlipperPosition(int position) {
+    public void setWristPosition(int position) {
         _wrist.setSelectedSensorPosition(position);
     }
 
-    public double getFlipperPosition() {
+    public int getWristPosition() {
         return _wrist.getSelectedSensorPosition();
     }
 

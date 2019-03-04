@@ -7,13 +7,20 @@
 
 package frc.robot;
 
-import frc.robot.commands.belttrain.BeltTrainDrive;
-import frc.robot.commands.belttrain.SetBeltSolenoid;
-import frc.robot.commands.driverassistance.Place;
-import frc.robot.commands.driverassistance.HatchRelease;
+import frc.robot.Variables;
+
+import frc.robot.subsystems.DriveTrain;
+import frc.robot.subsystems.Elevator;
+import frc.robot.subsystems.Mast;
+import frc.robot.subsystems.Intake;
+
+import frc.robot.sensors.IMU;
+
 import frc.robot.commands.drivetrain.FollowOneTarget;
 import frc.robot.commands.drivetrain.FollowTwoTarget;
 import frc.robot.commands.drivetrain.DriveSeconds;
+import frc.robot.commands.belttrain.BeltTrainDrive;
+import frc.robot.commands.belttrain.SetBeltSolenoid;
 import frc.robot.commands.intake.ActivateIntake;
 import frc.robot.commands.intake.WristPosition;
 import frc.robot.commands.intake.WristWithJoystick;
@@ -22,11 +29,8 @@ import frc.robot.commands.lift.MastPosition;
 import frc.robot.commands.lift.MastWithJoystick;
 import frc.robot.commands.lift.ElevatorWithJoystick;
 import frc.robot.commands.rearsolenoid.SetRearSolenoid;
-import frc.robot.sensors.IMU;
-import frc.robot.subsystems.DriveTrain;
-import frc.robot.subsystems.Elevator;
-import frc.robot.subsystems.Mast;
-import frc.robot.subsystems.Intake;
+import frc.robot.commands.driverassistance.Place;
+import frc.robot.commands.driverassistance.HatchRelease;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Joystick.AxisType;
@@ -101,17 +105,26 @@ public class OI {
         _operatorCargoOut.whenReleased(new ActivateIntake(0));
 
         _operatorCargoOne = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_CARGO_ONE);
+        _operatorCargoOne.whenPressed(new Place(Variables.getInstance().CARGO_ONE, Variables.getInstance().INTAKE_90));
         _operatorCargoTwo = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_CARGO_TWO);
+        _operatorCargoTwo.whenPressed(new Place(Variables.getInstance().CARGO_TWO, Variables.getInstance().INTAKE_90));
         _operatorCargoThree = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_CARGO_THREE);
+        _operatorCargoThree.whenPressed(new Place(Variables.getInstance().CARGO_THREE, Variables.getInstance().INTAKE_90));
+
 
         // Hatch
         _operatorHatchDefault = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_HATCH_DEFAULT);
+        _operatorHatchDefault.whenPressed(new WristPosition(Intake.getInstance().getWristPosition() - 150000));
         _operatorHatchFloor = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_HATCH_FLOOR);
         _operatorHatchRelease = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_HATCH_RELEASE);
+        _operatorHatchRelease.whenPressed(new HatchRelease());
 
         _operatorHatchOne = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_HATCH_ONE);
+        _operatorHatchOne.whenPressed(new Place(Variables.getInstance().HATCH_ONE, Variables.getInstance().INTAKE_0));
         _operatorHatchTwo = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_HATCH_TWO);
+        _operatorHatchTwo.whenPressed(new Place(Variables.getInstance().HATCH_TWO, Variables.getInstance().INTAKE_0));
         _operatorHatchThree = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_HATCH_THREE);
+        _operatorHatchThree.whenPressed(new Place(Variables.getInstance().HATCH_THREE, Variables.getInstance().INTAKE_0));
 
         //FollowOneTarget followOneTarget;
         //_driverControllerYButton.whileActive(followOneTarget = new FollowOneTarget()); //follows when pressed
@@ -119,8 +132,8 @@ public class OI {
         //FollowTwoTarget followTwoTarget;
         //_driverControllerXButton.whileActive(followTwoTarget = new FollowTwoTarget());
 
-        _driverControllerAButton.whenPressed(new Place(Variables.getInstance().HATCH_MIDDLE, -500000));
-        _driverControllerBButton.whenPressed(new HatchRelease());
+        //_driverControllerAButton.whenPressed(new Place(Variables.getInstance().HATCH_TWO, -500000));
+        //_driverControllerBButton.whenPressed(new HatchRelease());
     }
 
     public static OI getInstance() {
@@ -262,6 +275,10 @@ public class OI {
         return _operatorHatchRelease.get();
     }
 
+    public boolean getOperatorCargoDefault() {
+        return _operatorCargoDefault.get();
+    }
+
     public int convertDegreesToIntake(int degrees) {
         return (-degrees * 100000 / 9);
     }
@@ -364,7 +381,7 @@ public class OI {
                 }
                 return true;
             case INTAKE_SYSTEM:
-                if (Math.abs(error) < 1000) {
+                if (Math.abs(error) < 10000) {
                     Intake.getInstance().changeAdjustingBool(false);
                     return false;
                 }

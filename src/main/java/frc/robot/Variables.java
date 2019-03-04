@@ -36,14 +36,14 @@ public class Variables {
     public static final double kP_INTAKE = 0.001, kI_INTAKE = 0.0, kD_INTAKE = 0.0;
 
     // Lift Vertical Postitions
-    public final int HATCH_LOW = 1565;
-    public final int HATCH_MIDDLE = 9732;
-    public final int HATCH_HIGH = 18144;
+    public final int HATCH_ONE = 1565;
+    public final int HATCH_TWO = 9732;
+    public final int HATCH_THREE = 18144;
     public final int HATCH_FLOOR = 100;
     
-    public final int CARGO_LOW = 0;
-    public final int CARGO_MIDDLE = 0;
-    public final int CARGO_HIGH = 0;
+    public final int CARGO_ONE = 6900;
+    public final int CARGO_TWO = 15813;
+    public final int CARGO_THREE = 22870;
     public final int CARGO_FLOOR = 1500;
 
     public final int LIFT_MIN_FOR_MAST = 4000;
@@ -61,8 +61,9 @@ public class Variables {
     public final double MAX_SPEED_UP_INTAKE = 0.8;
     public final double MAX_SPEED_DOWN_INTAKE = -0.8;
 
-    public final int INTAKE_ENCODER_45 = -500000;
-    public final int INTAKE_ENCODER_HIGH = -908000;
+    public final int INTAKE_0 = 0;
+    public final int INTAKE_45 = -500000;
+    public final int INTAKE_90 = -908000;
 
     /**
      * Put variables here that should be changeable on the fly.
@@ -224,7 +225,7 @@ public class Variables {
         SmartDashboard.putBoolean("Front Prox Sensor", ProxSensors.getInstance().getLiftFrontLimit());
         SmartDashboard.putBoolean("Rear Prox Sensor", ProxSensors.getInstance().getLiftRearLimit());
 
-        SmartDashboard.putNumber("Intake Encoder", Intake.getInstance().getFlipperPosition());
+        SmartDashboard.putNumber("Intake Encoder", Intake.getInstance().getWristPosition());
 
         //SmartDashboard.putBoolean("Prox me OwO", ProxSensors.getInstance().getTopLimit());
     }

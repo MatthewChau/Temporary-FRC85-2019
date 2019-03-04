@@ -59,7 +59,7 @@ public class Addresses {
     public static final int LIFT_BACK_LIMIT = 4;
 
     // Intake 
-    public static final int INTAKE_FLIPPER = 31;
+    public static final int INTAKE_WRIST = 31;
     public static final int INTAKE_ROLLER = 32;
 
     public static final int INTAKE_ONE_SOLENOID = 2;
