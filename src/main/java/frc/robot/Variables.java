@@ -122,7 +122,7 @@ public class Variables {
         SmartDashboard.putNumber("MAX_SPEED_DOWN_INTAKE", MAX_SPEED_DOWN_INTAKE);
 
         SmartDashboard.putBoolean("Joysticks Enabled", false);
-        SmartDashboard.putBoolean("sMASH ME DADDY", false);
+        SmartDashboard.putBoolean("Disable Intake Top Limit", false);
     }
 
     public static Variables getInstance() {

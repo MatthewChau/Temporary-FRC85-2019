@@ -8,28 +8,28 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
-import frc.robot.commands.driverassistance.Interupt;
+import frc.robot.commands.driverassistance.Interrupt;
 
 /**
  * The intake subsystem
  */
-public class Interuptable extends Subsystem {
+public class Interruptable extends Subsystem {
 
-    private static Interuptable _instance = null;
+    private static Interruptable _instance = null;
 
-    private Interuptable() {
+    private Interruptable() {
         
     }
 
-    public static Interuptable getInstance() {
+    public static Interruptable getInstance() {
         if (_instance == null) {
-            _instance = new Interuptable();
+            _instance = new Interruptable();
         }
         return _instance;
     }
 
     @Override
     public void initDefaultCommand() {
-        setDefaultCommand(new Interupt());
+        setDefaultCommand(new Interrupt());
     }
 }

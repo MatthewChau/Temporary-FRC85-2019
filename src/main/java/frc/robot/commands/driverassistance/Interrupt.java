@@ -7,14 +7,14 @@
 
 package frc.robot.commands.driverassistance;
 
-import frc.robot.subsystems.Interuptable;
+import frc.robot.subsystems.Interruptable;
 import edu.wpi.first.wpilibj.command.Command;
 
-public class Interupt extends Command {
+public class Interrupt extends Command {
 
 
-    public Interupt() {
-        requires(Interuptable.getInstance());
+    public Interrupt() {
+        requires(Interruptable.getInstance());
     }
 
     // Called just before this Command runs the first time

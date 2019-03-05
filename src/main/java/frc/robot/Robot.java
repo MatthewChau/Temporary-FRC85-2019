@@ -19,7 +19,7 @@ import frc.robot.subsystems.BeltSolenoid;
 import frc.robot.subsystems.BeltTrain;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Intake;
-import frc.robot.subsystems.Interuptable;
+import frc.robot.subsystems.Interruptable;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.RearSolenoid;
 import frc.robot.subsystems.Mast;
@@ -57,7 +57,7 @@ public class Robot extends TimedRobot {
         BeltSolenoid.getInstance();
         BeltTrain.getInstance();
         RearSolenoid.getInstance();
-        Interuptable.getInstance();
+        Interruptable.getInstance();
     }
 
     /**

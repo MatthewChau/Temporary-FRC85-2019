@@ -32,7 +32,7 @@ import frc.robot.commands.rearsolenoid.SetRearSolenoid;
 import frc.robot.commands.driverassistance.Place;
 import frc.robot.commands.driverassistance.HatchRelease;
 import frc.robot.commands.driverassistance.Testing;
-import frc.robot.commands.driverassistance.Interupt;
+import frc.robot.commands.driverassistance.Interrupt;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Joystick.AxisType;
