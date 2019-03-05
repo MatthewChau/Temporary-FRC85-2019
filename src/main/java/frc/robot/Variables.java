@@ -53,13 +53,38 @@ public class Variables {
     public final double ROT_POS_3 = 60;
     public final double ROT_POS_4 = 120;
 
+    //Elevator position limits
+    public static final int ELEVATOR_MAX_POS = 21500;
+    public static final int ELEVATOR_MIN_POS_MAST_PROTECTED = 5000;
+    public static final int ELEVATOR_MIN_POS_MAST_FORWARD_CARGO = 1100;
+    public static final int ELEVATOR_MIN_POS_MAST_FORWARD_HATCH = 0;
+    //Elevator Speed Limits 
+    public static final double ELEVATOR_MAX_SPEED = .5;
+    public static final double ELEVATOR_MIN_SPEED = -.2;
+    
+
     // Lift Horizontal Positions
     public final int MAST_PROTECTED = 380000;
 
-    // INTAKE
+    //Mast position limits
+    public static final int MAST_MIN_POS = 0;
+    public static final int MAST_ELEVATOR_BREAKPOINT = 600000;
+    public static final int MAST_MAX_POS = 871000;
+    //Mast speed limits
+    public static final double MAST_MAX_SPEED = .5;
+    public static final double MAST_MIN_SPEED = -.5;
 
+    // INTAKE
     public final double MAX_SPEED_UP_INTAKE = 0.8;
     public final double MAX_SPEED_DOWN_INTAKE = -0.8;
+
+    //Wrist position limits
+    public static final int WRIST_MAX_POS = 0;
+    public static final int WRIST_ELEVATOR_BREAKPOINT = -50000;
+    public static final int WRIST_MIN_POS = -112400;
+    //Wrist speed limits
+    public static final double WRIST_MAX_SPEED = .6;
+    public static final double WRIST_MIN_SPEED = -.6;
 
     public final int INTAKE_0 = 0;
     public final int INTAKE_45 = -500000;

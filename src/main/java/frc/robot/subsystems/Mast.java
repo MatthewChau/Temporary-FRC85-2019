@@ -67,6 +67,8 @@ public class Mast extends Subsystem {
             speed = 0.0;
         }
         
+        
+
         if ((ProxSensors.getInstance().getLiftFrontLimit() && speed > 0.0)
             || (ProxSensors.getInstance().getLiftRearLimit() && speed < 0.0)
             || (!OI.getInstance().getOperatorLiftHorizontal() && !adjusting)
@@ -91,16 +93,44 @@ public class Mast extends Subsystem {
         double verticalPosition = Elevator.getInstance().getVerticalPosition();
         double intakePosition = Intake.getInstance().getWristPosition();
 
-        if (verticalPosition < Variables.getInstance().CARGO_FLOOR
+        /*if (verticalPosition < Variables.getInstance().CARGO_FLOOR
             && intakePosition < OI.getInstance().convertDegreesToIntake(10)
             && mastPosition < Variables.getInstance().MAST_PROTECTED
             && speed < 0.0) {
             return true;
         }
+        return false;*/
+        //NEW: use the limits we defined to prevent manually driving the mast unsafely
+        if (verticalPosition > Variables.ELEVATOR_MIN_POS_MAST_PROTECTED 
+            &&  mastPosition >= Variables.MAST_MAX_POS 
+            && speed > 0)
+        {
+            return true;
+        }
+        if (verticalPosition > Variables.ELEVATOR_MIN_POS_MAST_PROTECTED 
+            &&  mastPosition <= Variables.MAST_MIN_POS 
+            && speed < 0) 
+        {
+            return true;
+        }
+        if (verticalPosition <= Variables.ELEVATOR_MIN_POS_MAST_PROTECTED 
+            &&  mastPosition >= Variables.MAST_MAX_POS 
+            && speed > 0)
+        {
+            return true;
+        }
+        if (verticalPosition <= Variables.ELEVATOR_MIN_POS_MAST_PROTECTED 
+            &&  mastPosition <= Variables.MAST_ELEVATOR_BREAKPOINT 
+            && speed < 0) 
+        {
+            return true;
+        }
+
         return false;
     }
 
     public void setHorizontalPosition(int position) {
+        
         _mastMotor.setSelectedSensorPosition(position);
     }
 
@@ -109,6 +139,21 @@ public class Mast extends Subsystem {
     }
 
     public void setTargetPosition(double target) {
+        //NEW: (... and untested!) If you assign a position beyond the max/min, set it to the max/min instead
+        if (Elevator.getInstance().getVerticalPosition() > Variables.ELEVATOR_MIN_POS_MAST_PROTECTED)
+        {
+            if (target < Variables.MAST_MIN_POS)
+                target = Variables.MAST_MIN_POS;
+            if (target > Variables.MAST_MAX_POS)
+                target = Variables.MAST_MAX_POS;
+            }
+        else {
+            //If the elevator is down, we have a different minimum value for the mast
+            if (target < Variables.MAST_ELEVATOR_BREAKPOINT)
+                target = Variables.MAST_ELEVATOR_BREAKPOINT;
+            if (target > Variables.MAST_MAX_POS)
+                target = Variables.MAST_MAX_POS;
+        }
         targetPos = target;
     }
 

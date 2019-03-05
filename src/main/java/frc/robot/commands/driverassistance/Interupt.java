@@ -5,26 +5,22 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.intake;
+package frc.robot.commands.driverassistance;
 
-import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Interuptable;
 import edu.wpi.first.wpilibj.command.Command;
 
-public class ActivateIntake extends Command {
+public class Interupt extends Command {
 
-    private double _speed;
 
-    public ActivateIntake(double speed) {
+    public Interupt() {
         requires(Interuptable.getInstance());
-        requires(Intake.getInstance());
-        _speed = speed;
     }
 
     // Called just before this Command runs the first time
     @Override
     protected void initialize() {
-        Intake.getInstance().setRoller(_speed);
+       
     }
 
     // Make this return true when this Command no longer needs to run execute()

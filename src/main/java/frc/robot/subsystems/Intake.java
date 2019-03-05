@@ -87,7 +87,7 @@ public class Intake extends Subsystem {
         double verticalPosition = Elevator.getInstance().getVerticalPosition();
         double intakePosition = getWristPosition();
 
-        if ((verticalPosition < Variables.getInstance().CARGO_FLOOR
+        /*if ((verticalPosition < Variables.getInstance().CARGO_FLOOR
             || (mastPosition < Variables.getInstance().MAST_PROTECTED && verticalPosition < Variables.getInstance().LIFT_MIN_FOR_MAST))
             && intakePosition < OI.getInstance().convertDegreesToIntake(10)
             && speed < 0.0) {
@@ -95,6 +95,27 @@ public class Intake extends Subsystem {
         } else if (intakePosition > 0.0 && speed > 0.0 && !SmartDashboard.getBoolean("sMASH ME DADDY", false)) {
             return true;
         } else if (intakePosition < OI.getInstance().convertDegreesToIntake(100) && speed < 0.0) {
+            return true;
+        }
+        return false;*/
+
+        //NEW: Enforce positional limits
+        if(!SmartDashboard.getBoolean("sMASH ME DADDY", false)
+            && intakePosition >= Variables.WRIST_MAX_POS
+            && speed < 0) 
+        {
+            return true;
+        }
+        if(verticalPosition > Variables.ELEVATOR_MIN_POS_MAST_FORWARD_CARGO
+            && intakePosition <= Variables.WRIST_MIN_POS
+            && speed > 0) 
+        {
+            return true;
+        }
+        if(verticalPosition <= Variables.ELEVATOR_MIN_POS_MAST_FORWARD_CARGO
+            && intakePosition <= Variables.WRIST_ELEVATOR_BREAKPOINT
+            && speed > 0) 
+        {
             return true;
         }
         return false;
@@ -119,7 +140,20 @@ public class Intake extends Subsystem {
         _roller.set(ControlMode.PercentOutput, -speed);
     }
 
+    //NEW: (... and untested!)  Enforce positional limits
     public void setTargetPos(double target) {
+        if(Elevator.getInstance().getVerticalPosition() > Variables.ELEVATOR_MIN_POS_MAST_FORWARD_CARGO) {
+            if( target > Variables.WRIST_MAX_POS)
+                target = Variables.WRIST_MAX_POS;
+            if(target < Variables.WRIST_MIN_POS)
+                target = Variables.WRIST_MIN_POS;
+        }
+        else {
+            if(target < Variables.WRIST_ELEVATOR_BREAKPOINT)
+                target = Variables.WRIST_ELEVATOR_BREAKPOINT;
+            if(target > Variables.WRIST_MAX_POS)
+                target = Variables.WRIST_MAX_POS;
+        }
         targetPos = target;
     }
 
