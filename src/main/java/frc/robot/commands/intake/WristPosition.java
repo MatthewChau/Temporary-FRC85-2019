@@ -14,18 +14,11 @@ public class WristPosition extends Command {
     
     private int _target;
 
-    private int __target;
-
     public WristPosition(int target) {
         requires(Intake.getInstance());
         _target = target;
     }
-/*
-    @Override
-    protected void initialize() {
-        __target = _target;
-    }
-*/
+
     @Override
     protected void execute() {
         Intake.getInstance().setTargetPos(_target);
