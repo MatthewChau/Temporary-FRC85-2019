@@ -51,7 +51,7 @@ public class Elevator extends Subsystem {
     }
 
     public void verticalShift(double speed) {
-        if (!OI.getInstance().getOperatorLiftVertical() || adjusting) {
+        if (!OI.getInstance().getOperatorLiftVertical() || adjusting || softLimits(speed)) {
             speed = OI.getInstance().applyPID(OI.getInstance().ELEVATOR_SYSTEM, 
                                               getVerticalPosition(), 
                                               targetPos, 
@@ -69,8 +69,7 @@ public class Elevator extends Subsystem {
         }
 
         if ((ProxSensors.getInstance().getLiftTopLimit() && speed > 0.0)
-             || (ProxSensors.getInstance().getLiftBottomLimit() && speed < 0.0)
-             || softLimits(speed)) {
+             || (ProxSensors.getInstance().getLiftBottomLimit() && speed < 0.0)) {
             speed = 0.0;
         }
 
@@ -86,23 +85,6 @@ public class Elevator extends Subsystem {
         double mastPosition = Mast.getInstance().getHorizontalPosition();
         double verticalPosition = getVerticalPosition();
         double intakePosition = Intake.getInstance().getWristPosition();
-
-        /*if (mastPosition < Variables.getInstance().MAST_PROTECTED) { // below mast protected, the vertical lift should have a different set of things
-            if (verticalPosition < Variables.getInstance().LIFT_MIN_FOR_MAST
-                && intakePosition < OI.getInstance().convertDegreesToIntake(10)
-                && speed < 0.0) {
-                return true;
-            }
-        } else if (mastPosition > Variables.getInstance().MAST_PROTECTED) { // above, it should be fine
-            if (verticalPosition < Variables.getInstance().CARGO_FLOOR
-                && intakePosition < OI.getInstance().convertDegreesToIntake(10)
-                && speed < 0.0) {
-                return true;
-            }
-        } else if (verticalPosition > Variables.getInstance().CARGO_THREE) {
-            return true;
-        }
-        return false;*/
 
         //NEW: Enforce positional limits 
         //max is always the same for the elevator

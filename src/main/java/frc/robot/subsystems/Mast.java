@@ -91,15 +91,7 @@ public class Mast extends Subsystem {
     private boolean softLimits(double speed) {
         double mastPosition = getHorizontalPosition();
         double verticalPosition = Elevator.getInstance().getVerticalPosition();
-        double intakePosition = Intake.getInstance().getWristPosition();
-
-        /*if (verticalPosition < Variables.getInstance().CARGO_FLOOR
-            && intakePosition < OI.getInstance().convertDegreesToIntake(10)
-            && mastPosition < Variables.getInstance().MAST_PROTECTED
-            && speed < 0.0) {
-            return true;
-        }
-        return false;*/
+        
         //NEW: use the limits we defined to prevent manually driving the mast unsafely
         if (verticalPosition > Variables.ELEVATOR_MIN_POS_MAST_PROTECTED 
             &&  mastPosition >= Variables.MAST_MAX_POS 
