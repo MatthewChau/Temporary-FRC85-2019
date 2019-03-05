@@ -22,7 +22,6 @@ import frc.robot.commands.drivetrain.DriveSeconds;
 import frc.robot.commands.belttrain.BeltTrainDrive;
 import frc.robot.commands.belttrain.SetBeltSolenoid;
 import frc.robot.commands.intake.ActivateIntake;
-import frc.robot.commands.intake.ActivateWrist;
 import frc.robot.commands.intake.WristPosition;
 import frc.robot.commands.intake.WristWithJoystick;
 import frc.robot.commands.lift.ElevatorPosition;
@@ -31,6 +30,7 @@ import frc.robot.commands.lift.MastWithJoystick;
 import frc.robot.commands.lift.ElevatorWithJoystick;
 import frc.robot.commands.rearsolenoid.SetRearSolenoid;
 import frc.robot.commands.driverassistance.Place;
+import frc.robot.commands.driverassistance.HatchRelease;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Joystick.AxisType;
@@ -117,7 +117,7 @@ public class OI {
         _operatorHatchDefault.whenPressed(new WristPosition(Intake.getInstance().getWristPosition() - 150000));
         _operatorHatchFloor = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_HATCH_FLOOR);
         _operatorHatchRelease = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_HATCH_RELEASE);
-        _operatorHatchRelease.whenPressed(new ActivateWrist(-0.6, 0.25));
+        _operatorHatchRelease.whenPressed(new HatchRelease());
 
         _operatorHatchOne = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_HATCH_ONE);
         _operatorHatchOne.whenPressed(new Place(Variables.getInstance().HATCH_ONE, Variables.getInstance().INTAKE_0));
