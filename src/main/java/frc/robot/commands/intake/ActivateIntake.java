@@ -8,7 +8,6 @@
 package frc.robot.commands.intake;
 
 import frc.robot.subsystems.Intake;
-import frc.robot.subsystems.Interuptable;
 import edu.wpi.first.wpilibj.command.Command;
 
 public class ActivateIntake extends Command {
@@ -16,7 +15,6 @@ public class ActivateIntake extends Command {
     private double _speed;
 
     public ActivateIntake(double speed) {
-        requires(Interuptable.getInstance());
         requires(Intake.getInstance());
         _speed = speed;
     }

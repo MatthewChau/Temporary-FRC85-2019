@@ -107,11 +107,13 @@ public class OI {
         _operatorCargoOut.whenReleased(new ActivateIntake(0));
 
         _operatorCargoOne = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_CARGO_ONE);
-        //_operatorCargoOne.whenPressed(new Place(Variables.getInstance().CARGO_ONE, Variables.getInstance().INTAKE_90));
+        _operatorCargoOne.whenPressed(new Place(Variables.getInstance().CARGO_ONE, Variables.getInstance().INTAKE_90));
         //************************** */
-        _operatorCargoOne.whenPressed(new Testing());
-        _operatorCargoOne.whenReleased(new Interupt());
-        //********************* */
+        //This demonstrates how to interupt a command group. Add the Interupt command to any group(like Testing()),
+        //then any subsequent calls to Interupt will cancel any running CommandGroup
+        //_operatorCargoOne.whenPressed(new Testing());
+        //_operatorCargoOne.whenReleased(new Interupt());
+        //************************** */
         _operatorCargoTwo = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_CARGO_TWO);
         _operatorCargoTwo.whenPressed(new Place(Variables.getInstance().CARGO_TWO, Variables.getInstance().INTAKE_90));
         _operatorCargoThree = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_CARGO_THREE);
