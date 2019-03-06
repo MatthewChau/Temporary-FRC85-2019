@@ -30,6 +30,8 @@ import frc.robot.commands.lift.MastWithJoystick;
 import frc.robot.commands.lift.ElevatorWithJoystick;
 import frc.robot.commands.rearsolenoid.SetRearSolenoid;
 import frc.robot.commands.driverassistance.Place;
+import frc.robot.commands.driverassistance.CargoStation1;
+import frc.robot.commands.driverassistance.CargoStation2;
 import frc.robot.commands.driverassistance.HatchGround;
 import frc.robot.commands.driverassistance.HatchRelease;
 import frc.robot.commands.driverassistance.HatchStation1;
@@ -122,6 +124,8 @@ public class OI {
         _operatorCargoThree = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_CARGO_THREE);
         _operatorCargoThree.whenPressed(new Place(Variables.getInstance().CARGO_THREE, Variables.getInstance().INTAKE_90));
 
+        _operatorCargoDefault.whenPressed(new CargoStation1());
+        _operatorCargoDefault.whenReleased(new CargoStation2());
 
         // Hatch
         _operatorHatchDefault = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_HATCH_DEFAULT);

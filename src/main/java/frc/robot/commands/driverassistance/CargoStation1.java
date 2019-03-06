@@ -10,7 +10,11 @@ import frc.robot.commands.intake.ActivateIntake;
 import frc.robot.commands.driverassistance.Wait;
 
 //Sequence of commands used for loading cargo from the station
-public class CargoStation extends CommandGroup {
-    public CargoStation() {
+public class CargoStation1 extends CommandGroup {
+    public CargoStation1() {
+        addSequential(new Interrupt());
+        addSequential(new ElevatorPosition(Variables.getInstance().CARGO_ONE));
+        addSequential(new WristPosition(0));
+        addSequential(new ActivateIntake(-.33));
     }
 }
