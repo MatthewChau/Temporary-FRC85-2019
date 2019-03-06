@@ -15,8 +15,9 @@ import frc.robot.commands.drivetrain.FollowOneTarget;
 
 public class Place extends CommandGroup {
 
-    public Place(int liftPos, int intakePos) {
+    public Place(int liftPos, int intakePos/*, int mastPos*/) {
         addParallel(new WristPosition(intakePos));
+        //addParallel(new MastPosition(mastPos));
         addSequential(new ElevatorPosition(liftPos));
 
         //addSequential(new WaitButton(!OI.getInstance().getOperatorHatchRelease()));

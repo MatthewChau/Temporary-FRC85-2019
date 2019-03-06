@@ -13,16 +13,22 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class ElevatorPosition extends Command {
 
-    private double _target;
+    private double _target, __target;
+
     public ElevatorPosition(double target) {
         requires(Elevator.getInstance());
         _target = target;
     }
 
     @Override
+    protected void initialize() {
+        __target = _target;
+    }
+
+    @Override
     protected void execute() {
         super.execute();
-        Elevator.getInstance().setTargetPosition(_target);
+        Elevator.getInstance().setTargetPosition(__target);
         Elevator.getInstance().changeAdjustingBool(true);
         Elevator.getInstance().verticalShift(0.0);
     }

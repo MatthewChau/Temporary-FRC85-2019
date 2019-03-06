@@ -13,16 +13,22 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class MastPosition extends Command {
 
-    private int _target;
+    private int _target, __target;
+
     public MastPosition(int target) {
         requires(Mast.getInstance());
         _target = target;
     }
 
     @Override
+    protected void initialize() {
+        __target = _target;
+    }
+
+    @Override
     protected void execute() {
         super.execute();
-        Mast.getInstance().setTargetPosition(_target);
+        Mast.getInstance().setTargetPosition(__target);
         Mast.getInstance().changeAdjustingBool(true);
         Mast.getInstance().horizontalShift(0.0);
     }
