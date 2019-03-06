@@ -132,17 +132,20 @@ public class Mast extends Subsystem {
 
     public void setTargetPosition(double target) {
         //NEW: (... and untested!) If you assign a position beyond the max/min, set it to the max/min instead
+        // BROOKE AND SCOTT WERE also HERE, HIIIIIIIIIIIIIII
+        // commented out some of the logic so that we don't jump to limits automatically
+        // may need further testing...
         if (Elevator.getInstance().getVerticalPosition() > Variables.ELEVATOR_MIN_POS_MAST_PROTECTED)
         {
-            if (target < Variables.MAST_MIN_POS)
-                target = Variables.MAST_MIN_POS;
+            /*if (target < Variables.MAST_MIN_POS)
+                target = Variables.MAST_MIN_POS;*/
             if (target > Variables.MAST_MAX_POS)
                 target = Variables.MAST_MAX_POS;
             }
         else {
             //If the elevator is down, we have a different minimum value for the mast
-            if (target < Variables.MAST_ELEVATOR_BREAKPOINT)
-                target = Variables.MAST_ELEVATOR_BREAKPOINT;
+            /*if (target < Variables.MAST_ELEVATOR_BREAKPOINT)
+                target = Variables.MAST_ELEVATOR_BREAKPOINT;*/
             if (target > Variables.MAST_MAX_POS)
                 target = Variables.MAST_MAX_POS;
         }

@@ -30,6 +30,7 @@ import frc.robot.commands.lift.MastWithJoystick;
 import frc.robot.commands.lift.ElevatorWithJoystick;
 import frc.robot.commands.rearsolenoid.SetRearSolenoid;
 import frc.robot.commands.driverassistance.Place;
+import frc.robot.commands.driverassistance.HatchGround;
 import frc.robot.commands.driverassistance.HatchRelease;
 import frc.robot.commands.driverassistance.Testing;
 import frc.robot.commands.driverassistance.Interrupt;
@@ -112,7 +113,7 @@ public class OI {
         //This demonstrates how to interupt a command group. Add the Interupt command to any group(like Testing()),
         //then any subsequent calls to Interupt will cancel any running CommandGroup
         //_operatorCargoOne.whenPressed(new Testing());
-        //_operatorCargoOne.whenReleased(new Interupt());
+        //_operatorCargoOne.whenReleased(new Interrupt());
         //************************** */
         _operatorCargoTwo = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_CARGO_TWO);
         _operatorCargoTwo.whenPressed(new Place(Variables.getInstance().CARGO_TWO, Variables.getInstance().INTAKE_90));
@@ -124,6 +125,8 @@ public class OI {
         _operatorHatchDefault = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_HATCH_DEFAULT);
         _operatorHatchDefault.whenPressed(new WristPosition(Intake.getInstance().getWristPosition() - 150000));
         _operatorHatchFloor = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_HATCH_FLOOR);
+        _operatorHatchFloor.whenPressed(new HatchGround());
+        _operatorHatchFloor.whenReleased(new Interrupt());
         _operatorHatchRelease = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_HATCH_RELEASE);
         _operatorHatchRelease.whenPressed(new HatchRelease());
 

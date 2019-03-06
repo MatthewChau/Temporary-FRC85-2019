@@ -29,7 +29,10 @@ public class Variables {
 
     // PID
 
-    private final double kP_VLIFT = 0.00025, kI_VLIFT = 0.0, kD_VLIFT = 0.0;
+// BROOKE AND SCOTT WERE HERE, HIIIIIIIIIIIIIII
+// We tuned the PID loop a little more, original values: P: 2.5E-04, I: 0 D: 0
+
+    private final double kP_VLIFT = 0.0004, kI_VLIFT = 0.00000004, kD_VLIFT = 0.0009;
 
     private final double kP_HLIFT = 0.025, kI_HLIFT = 0.0, kD_HLIFT = 0.0;
 
@@ -80,12 +83,14 @@ public class Variables {
 
     //Wrist position limits
     public static final int WRIST_MAX_POS = 0;
-    public static final int WRIST_ELEVATOR_BREAKPOINT = -50000;
-    public static final int WRIST_MIN_POS = -112400;
+    public static final int WRIST_ELEVATOR_BREAKPOINT = -500000;
+    public static final int WRIST_MIN_POS = -1124000;
     //Wrist speed limits
     public static final double WRIST_MAX_SPEED = .6;
     public static final double WRIST_MIN_SPEED = -.6;
 
+    //Wrist positions
+    public static final int Wrist_Floor_Pickup_Pos = -1000000;
     public final int INTAKE_0 = 0;
     public final int INTAKE_45 = -500000;
     public final int INTAKE_90 = -908000;
