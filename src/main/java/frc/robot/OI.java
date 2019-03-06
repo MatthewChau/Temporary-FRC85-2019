@@ -32,6 +32,8 @@ import frc.robot.commands.rearsolenoid.SetRearSolenoid;
 import frc.robot.commands.driverassistance.Place;
 import frc.robot.commands.driverassistance.HatchGround;
 import frc.robot.commands.driverassistance.HatchRelease;
+import frc.robot.commands.driverassistance.HatchStation1;
+import frc.robot.commands.driverassistance.HatchStation2;
 import frc.robot.commands.driverassistance.Testing;
 import frc.robot.commands.driverassistance.Interrupt;
 
@@ -148,7 +150,9 @@ public class OI {
         _operatorClimbFront.whenPressed(new SetBeltSolenoid(true));
         _operatorClimbFront.whenReleased(new SetBeltSolenoid(false));
 
-
+        _operatorHatchDefault.whenPressed(new HatchStation1());
+        _operatorHatchDefault.whenReleased(new HatchStation2());
+        
         //FollowOneTarget followOneTarget;
         //_driverControllerYButton.whileActive(followOneTarget = new FollowOneTarget()); //follows when pressed
         
