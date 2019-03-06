@@ -67,11 +67,11 @@ public class Variables {
     
 
     // Lift Horizontal Positions
-    public final int MAST_PROTECTED = 380000;
+    public final int MAST_FORWARD_POS = 700000;
 
     //Mast position limits
     public static final int MAST_MIN_POS = 0;
-    public static final int MAST_ELEVATOR_BREAKPOINT = 600000;
+    public static final int MAST_ELEVATOR_BREAKPOINT = 400000;
     public static final int MAST_MAX_POS = 871000;
     //Mast speed limits
     public static final double MAST_MAX_SPEED = .5;

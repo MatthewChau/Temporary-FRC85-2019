@@ -29,7 +29,7 @@ public class HatchGround extends CommandGroup {
         addSequential(new Interrupt());
 
         addParallel(new ElevatorPosition(Variables.getInstance().CARGO_ONE));
-        addSequential(new MastPosition(Variables.getInstance().MAST_MAX_POS));
+        addSequential(new MastPosition(Variables.getInstance().MAST_FORWARD_POS));
         addSequential(new WristPosition(Variables.getInstance().Wrist_Floor_Pickup_Pos));
 
 

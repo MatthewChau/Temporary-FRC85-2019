@@ -28,6 +28,8 @@ public class Addresses {
     public static final int OPERATOR_HATCH_TWO = 7;
     public static final int OPERATOR_HATCH_ONE = 8;
 
+    public static final int OPERATOR_CLIMB_AUTO = 9;
+
     // White operator station
     public static final int OPERATOR_LIFT_VERTICAL = 1;
 
@@ -39,6 +41,9 @@ public class Addresses {
     public static final int OPERATOR_CARGO_THREE = 6;
     public static final int OPERATOR_CARGO_TWO = 7;
     public static final int OPERATOR_CARGO_ONE = 8;
+
+    public static final int OPERATOR_CLIMB_BACK = 9;
+    public static final int OPERATOR_CLIMB_FRONT = 10;
 
     // DriveTrain
     public static final int DRIVETRAIN_LEFT_FRONT_MOTOR = 11;
