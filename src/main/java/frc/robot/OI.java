@@ -57,11 +57,13 @@ public class OI {
     // White
     private JoystickButton _operatorCargoDefault, _operatorCargoFloor, _operatorCargoIn, _operatorCargoOut,
         _operatorCargoOne, _operatorCargoTwo, _operatorCargoThree,  
-         _operatorLiftVertical;
+        _operatorLiftVertical,
+        _operatorClimbFront, _operatorClimbBack;
     // Black
     private JoystickButton _operatorHatchDefault, _operatorHatchFloor, _operatorHatchRelease, 
         _operatorHatchOne, _operatorHatchTwo, _operatorHatchThree,
-        _operatorLiftHorizontal, _operatorIntakeRotate;
+        _operatorLiftHorizontal, _operatorIntakeRotate,
+        _operatorClimbAuto;
 
     private double _xSpeed = 0, _ySpeed = 0, _zRotation = 0;
 
@@ -143,8 +145,18 @@ public class OI {
         _operatorHatchThree = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_HATCH_THREE);
         _operatorHatchThree.whenPressed(new Place(Variables.getInstance().HATCH_THREE, Variables.getInstance().INTAKE_0));
 
+        // Climb
+        _operatorClimbAuto = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_CLIMB_AUTO);
+        _operatorClimbBack = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_CLIMB_BACK);
+        _operatorClimbBack.whenPressed(new SetRearSolenoid(true));
+        _operatorClimbBack.whenReleased(new SetRearSolenoid(false));
+        _operatorClimbFront = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_CLIMB_FRONT);
+        _operatorClimbFront.whenPressed(new SetBeltSolenoid(true));
+        _operatorClimbFront.whenReleased(new SetBeltSolenoid(false));
+
         _operatorHatchDefault.whenPressed(new HatchStation1());
         _operatorHatchDefault.whenReleased(new HatchStation2());
+        
         //FollowOneTarget followOneTarget;
         //_driverControllerYButton.whileActive(followOneTarget = new FollowOneTarget()); //follows when pressed
         
