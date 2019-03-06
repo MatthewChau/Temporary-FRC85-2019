@@ -84,9 +84,9 @@ public class DriveTrain extends Subsystem {
             setTurn90TargetAngle(true, inputs[3]); // turn left
         } else if (OI.getInstance().getTurnRight90()) {
             setTurn90TargetAngle(false, inputs[3]); // turn right
-        } else if (Math.abs(inputs[0]) > Variables.getInstance().DEADBAND 
-            || Math.abs(inputs[1]) > Variables.getInstance().DEADBAND
-            || Math.abs(inputs[2]) > Variables.getInstance().DEADBAND
+        } else if (Math.abs(inputs[0]) > Variables.getInstance().DEADBAND_DRIVERSTICK
+            || Math.abs(inputs[1]) > Variables.getInstance().DEADBAND_DRIVERSTICK
+            || Math.abs(inputs[2]) > Variables.getInstance().DEADBAND_Z_DRIVERSTICK
             || turnInProgress) {
             for (i = 0; i < 2; i++) { // normalize axis inputs (just in case)
                 if (inputs[i] > 1.0) {
@@ -103,7 +103,7 @@ public class DriveTrain extends Subsystem {
             
             if (turnInProgress) { // note that this block exists for the sole purpose of overriding things when they are in progress
                 inputs[2] = OI.getInstance().applyPID(OI.getInstance().ROT_SYSTEM, inputs[3], targetAngle, Variables.getInstance().getDriveKP(), Variables.getInstance().getDriveKI(), Variables.getInstance().getDriveKD());
-            } else if (Math.abs(inputs[2]) < Variables.getInstance().DEADBAND && !OI.getInstance().isHeadless()) { // we will deal with headless later ahaha
+            } else if (Math.abs(inputs[2]) < Variables.getInstance().DEADBAND_DRIVERSTICK && !OI.getInstance().isHeadless()) { // we will deal with headless later ahaha
                 if (OI.getInstance().isForwardOnlyMode()) { // finally we check if we are in that specific mode
                     setForwardOnlyTargetAngle();
                     fixTargetAngle(inputs[3]);

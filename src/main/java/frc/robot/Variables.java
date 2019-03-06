@@ -22,7 +22,8 @@ public class Variables {
     
     // DRIVETRAIN
 
-    public final double DEADBAND = 0.05;
+    public final double DEADBAND_DRIVERSTICK = 0.1;
+    public final double DEADBAND_Z_DRIVERSTICK = 0.2;  
     public final double DEADBAND_OPERATORSTICK = 0.05;
     public final double TOLERANCE_ANGLE = 10.0;
     public final int MAX_TURNS = 7; // if we go over 2520 degrees in either direction in one match then help.
@@ -126,7 +127,7 @@ public class Variables {
         SmartDashboard.putNumber("MAX_SPEED_UP_INTAKE", MAX_SPEED_UP_INTAKE);
         SmartDashboard.putNumber("MAX_SPEED_DOWN_INTAKE", MAX_SPEED_DOWN_INTAKE);
 
-        SmartDashboard.putBoolean("Joysticks Enabled", false);
+        SmartDashboard.putBoolean("Joysticks Enabled", true);
         SmartDashboard.putBoolean("Disable Intake Top Limit", false);
     }
 
