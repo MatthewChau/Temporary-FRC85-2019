@@ -32,6 +32,8 @@ import frc.robot.commands.rearsolenoid.SetRearSolenoid;
 import frc.robot.commands.driverassistance.Place;
 import frc.robot.commands.driverassistance.HatchGround;
 import frc.robot.commands.driverassistance.HatchRelease;
+import frc.robot.commands.driverassistance.HatchStation1;
+import frc.robot.commands.driverassistance.HatchStation2;
 import frc.robot.commands.driverassistance.Testing;
 import frc.robot.commands.driverassistance.Interrupt;
 
@@ -137,6 +139,8 @@ public class OI {
         _operatorHatchThree = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_HATCH_THREE);
         _operatorHatchThree.whenPressed(new Place(Variables.getInstance().HATCH_THREE, Variables.getInstance().INTAKE_0));
 
+        _operatorHatchDefault.whenPressed(new HatchStation1());
+        _operatorHatchDefault.whenReleased(new HatchStation2());
         //FollowOneTarget followOneTarget;
         //_driverControllerYButton.whileActive(followOneTarget = new FollowOneTarget()); //follows when pressed
         
