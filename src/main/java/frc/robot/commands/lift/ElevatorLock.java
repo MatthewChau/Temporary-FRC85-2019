@@ -7,41 +7,30 @@
 
 package frc.robot.commands.lift;
 
-import frc.robot.OI;
 import frc.robot.Variables;
 import frc.robot.subsystems.Elevator;
 
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-public class ElevatorWithJoystick extends Command {
-
-    public ElevatorWithJoystick() { // pass in 0.0 if you want stuff to work fine
+public class ElevatorLock extends Command {
+    public ElevatorLock() {
         requires(Elevator.getInstance());
     }
 
-    // Called just before this Command runs the first time
     @Override
     protected void initialize() {
+        Elevator.getInstance().setServo(Variables.getInstance().ELEVATOR_LOCKED);
     }
 
-    // Called repeatedly when this Command is scheduled to run
-    @Override
-    protected void execute() {
-        //if (SmartDashboard.getBoolean("Safe?", false)) {
-            Elevator.getInstance().verticalShift(OI.getInstance().getOperatorJoystick()); // finally run the method for it
-        //}
-    }
-
-    // Make this return true when this Command no longer needs to run execute()
     @Override
     protected boolean isFinished() {
-        return !OI.getInstance().getOperatorLiftVertical();
+        return false;
     }
 
-    // Called once after isFinished returns true
+    // Called when another command which requires one or more of the same
+    // subsystems is scheduled to run
     @Override
-    protected void end() {
+    protected void interrupted() {
+        Elevator.getInstance().setServo(Variables.getInstance().ELEVATOR_UNLOCKED);
     }
-
 }

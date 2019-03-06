@@ -51,6 +51,8 @@ public class Addresses {
     public static final int LIFT_RIGHT_MOTOR = 22;
     public static final int LIFT_CIM_MOTOR = 23;
 
+    public static final int LIFT_SERVO = 0;
+
     // Lift Proximity Sensors (DigitalInputOutputs)
     public static final int LIFT_TOP_LIMIT = 0;
     public static final int LIFT_CENTER_LIMIT = 1;
