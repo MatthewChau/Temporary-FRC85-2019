@@ -16,8 +16,8 @@ import edu.wpi.first.wpilibj.DriverStation;
 import frc.robot.sensors.IMU;
 import frc.robot.sensors.ProxSensors;
 import frc.robot.subsystems.DriveTrain;
-import frc.robot.subsystems.LiftHorizontal;
-import frc.robot.subsystems.LiftVertical;
+import frc.robot.subsystems.Mast;
+import frc.robot.subsystems.Elevator;
 
 public class Diagnostics {
 
@@ -78,8 +78,8 @@ public class Diagnostics {
             String liftFrontLimit = Boolean.toString(ProxSensors.getInstance().getLiftFrontLimit());
             String liftRearLimit = Boolean.toString(ProxSensors.getInstance().getLiftRearLimit());
 
-            String liftVerticalPos = Integer.toString(LiftVertical.getInstance().getVerticalPosition());
-            String liftHorizontalPos = Integer.toString(LiftHorizontal.getInstance().getHorizontalPosition());
+            String liftVerticalPos = Integer.toString(Elevator.getInstance().getVerticalPosition());
+            String liftHorizontalPos = Integer.toString(Mast.getInstance().getHorizontalPosition());
 
             String intakeTopLimit = Boolean.toString(ProxSensors.getInstance().getIntakeTopLimit());
             String intakeBottomLimit = Boolean.toString(ProxSensors.getInstance().getIntakeBottomLimit());

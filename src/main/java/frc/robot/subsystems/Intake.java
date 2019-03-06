@@ -10,9 +10,10 @@ package frc.robot.subsystems;
 import frc.robot.Addresses;
 import frc.robot.OI;
 import frc.robot.Variables;
+import frc.robot.commands.intake.WristWithJoystick;
 import frc.robot.sensors.ProxSensors;
-import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
@@ -26,20 +27,17 @@ public class Intake extends Subsystem {
 
     private static Intake _instance = null;
 
-    private TalonSRX _flipper, _roller;
+    private TalonSRX _wrist, _roller;
 
-    private Solenoid _solenoidOne, _solenoidTwo;
+    private boolean adjusting;
+    private double targetPos;
 
     private Intake() {
-        _flipper = new TalonSRX(Addresses.INTAKE_FLIPPER);
-        _flipper.setNeutralMode(NeutralMode.Brake);
-        _flipper.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
+        _wrist = new TalonSRX(Addresses.INTAKE_WRIST);
+        _wrist.setNeutralMode(NeutralMode.Brake);
+        _wrist.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
         _roller = new TalonSRX(Addresses.INTAKE_ROLLER);
         _roller.setNeutralMode(NeutralMode.Brake);
-
-        // Two stage solenoid
-        _solenoidOne = new Solenoid(Addresses.INTAKE_ONE_SOLENOID);
-        _solenoidTwo = new Solenoid(Addresses.INTAKE_TWO_SOLENOID);
     }
 
     public static Intake getInstance() {
@@ -51,57 +49,107 @@ public class Intake extends Subsystem {
 
     @Override
     public void initDefaultCommand() {
+        setDefaultCommand(new WristWithJoystick());
     }
 
-    public void setFlipper(double speed) {
-        if ((ProxSensors.getInstance().getIntakeBottomLimit() && speed < 0)
-            || (ProxSensors.getInstance().getIntakeTopLimit() && speed > 0)
-            || (speed == 0)) {
-            _flipper.set(ControlMode.PercentOutput, Variables.getInstance().getIntakeStall());
+    public void setWrist(double speed) {
+        if (adjusting) { // if we are adjusting
+            speed = OI.getInstance().applyPID(OI.getInstance().INTAKE_SYSTEM, 
+                                              getWristPosition(), 
+                                              targetPos, 
+                                              Variables.getInstance().getWristKP(), 
+                                              Variables.getInstance().getWristKI(), 
+                                              Variables.getInstance().getWristKD(), 
+                                              Variables.getInstance().getMaxSpeedUpIntake(), 
+                                              Variables.getInstance().getMaxSpeedDownIntake());
+        } else if (speed > 0.0) {
+            speed = 0.6;
+            targetPos = getWristPosition();
+        } else if (speed < 0.0) {
+            speed = -0.6;
+            targetPos = getWristPosition();
         } else {
-            _flipper.set(ControlMode.PercentOutput, -speed);
+            speed = 0.0;
+        }
+
+        if ((ProxSensors.getInstance().getIntakeBottomLimit() && speed > 0) // if we trying to exceed top limit
+            || (ProxSensors.getInstance().getIntakeTopLimit() && speed < 0) // if we trying to exceed bottom limit
+            || (!OI.getInstance().getOperatorIntakeRotate() && !adjusting) // if the button isn't pressed and we are not adjusting
+            || softLimits(speed)) {
+            _wrist.set(ControlMode.PercentOutput, 0);
+        } else {
+            _wrist.set(ControlMode.PercentOutput, speed);
         }
     }
 
-    public void setFlipper(double targetPosition, double maxSpeed) {
-        double speed = OI.getInstance().applyPID(OI.getInstance().INTAKE_SYSTEM, getFlipperPosition(), targetPosition, 
-            Variables.getInstance().getIntakeKP(), Variables.getInstance().getIntakeKI(), Variables.getInstance().getIntakeKD(), 
-            Math.abs(maxSpeed), -Math.abs(maxSpeed));
+    private boolean softLimits(double speed) {
+        double verticalPosition = Elevator.getInstance().getVerticalPosition();
+        double intakePosition = getWristPosition();
 
-        if ((ProxSensors.getInstance().getIntakeBottomLimit() && speed > 0) 
-            || (ProxSensors.getInstance().getIntakeTopLimit() && speed < 0)) {
-             _flipper.set(ControlMode.PercentOutput, 0);
-        } else {
-            _flipper.set(ControlMode.PercentOutput, speed);
+        //NEW: Enforce positional limits
+        if(!SmartDashboard.getBoolean("Disable Intake Top Limit", false)
+            && intakePosition >= Variables.WRIST_MAX_POS
+            && speed < 0) 
+        {
+            return true;
         }
+        if(verticalPosition > Variables.ELEVATOR_MIN_POS_MAST_FORWARD_CARGO 
+            && intakePosition <= Variables.WRIST_MIN_POS
+            && speed > 0) 
+        {
+            return true;
+        }
+        if(verticalPosition <= Variables.ELEVATOR_MIN_POS_MAST_FORWARD_CARGO
+            && intakePosition <= Variables.WRIST_ELEVATOR_BREAKPOINT
+            && speed > 0) 
+        {
+            return true;
+        }
+        return false;
+    }
+
+    public void setWristMotor(double speed) {
+        _wrist.set(ControlMode.PercentOutput, speed);
     }
 
     /**
      * @param position in encoder counts
      */
-    public void setFlipperPosition(int position) {
-        _flipper.setSelectedSensorPosition(position);
+    public void setWristPosition(int position) {
+        _wrist.setSelectedSensorPosition(position);
     }
 
-    public double getFlipperPosition() {
-        return _flipper.getSelectedSensorPosition();
+    public int getWristPosition() {
+        return _wrist.getSelectedSensorPosition();
     }
 
     public void setRoller(double speed) {
         _roller.set(ControlMode.PercentOutput, -speed);
     }
 
-    public void setIntakeSolenoid(boolean activated) {
-        _solenoidOne.set(activated);
-        _solenoidTwo.set(!activated);
+    //NEW: (... and untested!)  Enforce positional limits
+    public void setTargetPos(double target) {
+        if(Elevator.getInstance().getVerticalPosition() > Variables.ELEVATOR_MIN_POS_MAST_FORWARD_CARGO) {
+            if( target > Variables.WRIST_MAX_POS)
+                target = Variables.WRIST_MAX_POS;
+            if(target < Variables.WRIST_MIN_POS)
+                target = Variables.WRIST_MIN_POS;
+        }
+        else {
+            if(target < Variables.WRIST_ELEVATOR_BREAKPOINT)
+                target = Variables.WRIST_ELEVATOR_BREAKPOINT;
+            if(target > Variables.WRIST_MAX_POS)
+                target = Variables.WRIST_MAX_POS;
+        }
+        targetPos = target;
     }
 
-    public boolean getIntakeOneSolenoid() {
-        return _solenoidOne.get();
+    public void changeAdjustingBool(boolean bool) {
+        adjusting = bool;
     }
 
-    public boolean getIntakeTwoSolenoid() {
-        return _solenoidTwo.get();
+    public boolean getAdjustingBool() {
+        return adjusting;
     }
 
 }

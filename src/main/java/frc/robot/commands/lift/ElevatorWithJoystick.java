@@ -8,13 +8,16 @@
 package frc.robot.commands.lift;
 
 import frc.robot.OI;
-import frc.robot.subsystems.LiftHorizontal;
+import frc.robot.Variables;
+import frc.robot.subsystems.Elevator;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-public class LiftHorizontalWithJoystick extends Command {
-    public LiftHorizontalWithJoystick() {
-        requires(LiftHorizontal.getInstance());
+public class ElevatorWithJoystick extends Command {
+
+    public ElevatorWithJoystick() { // pass in 0.0 if you want stuff to work fine
+        requires(Elevator.getInstance());
     }
 
     // Called just before this Command runs the first time
@@ -25,23 +28,20 @@ public class LiftHorizontalWithJoystick extends Command {
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
-        LiftHorizontal.getInstance().horizontalShift(OI.getInstance().getOperatorJoystick() * 0.25);
+        //if (SmartDashboard.getBoolean("Safe?", false)) {
+            Elevator.getInstance().verticalShift(OI.getInstance().getOperatorJoystick()); // finally run the method for it
+        //}
     }
 
     // Make this return true when this Command no longer needs to run execute()
     @Override
     protected boolean isFinished() {
-        if (!OI.getInstance().getOperatorLiftHorizontal() || OI.getInstance().getOperatorLiftVertical() || OI.getInstance().getOperatorIntakeRotate()) {
-            return true;
-        } else {
-            return false;
-        }    
+        return false;
     }
 
     // Called once after isFinished returns true
     @Override
     protected void end() {
-        LiftHorizontal.getInstance().horizontalShift(0);
     }
 
 }

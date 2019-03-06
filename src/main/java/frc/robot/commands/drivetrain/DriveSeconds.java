@@ -8,45 +8,43 @@
 package frc.robot.commands.drivetrain;
 
 import frc.robot.OI;
+import frc.robot.sensors.IMU;
 import frc.robot.subsystems.DriveTrain;
 import edu.wpi.first.wpilibj.command.Command;
 
 public class DriveSeconds extends Command {
 
-    double[] _speed = new double[4];
-    double[] _stop = OI.getInstance().stopArray;
-
-    /**
-     * @param timeout in seconds
-     * @param speed list of speed values
-     */
-    public DriveSeconds(double[] speed, double timeout) {
+    double _speed, _timeout;
+    
+    public DriveSeconds(double ySpeed, double timeout) {
         requires(DriveTrain.getInstance());
-        _speed = speed;
-        setTimeout(timeout);
+        _speed = ySpeed;
+        _timeout = timeout;
     }
 
     @Override
     protected void initialize() {
+        setTimeout(_timeout);
     }
 
     @Override
     protected void execute() {
-        DriveTrain.getInstance().cartDrive(_speed);
+        DriveTrain.getInstance().cartDrive(0, _speed, 0, IMU.getInstance().getFusedHeading());
     }
 
     @Override
     protected boolean isFinished() {
-        return false;
+        return isTimedOut();
     }
 
     @Override
     protected void end() {
-        DriveTrain.getInstance().cartDrive(_stop);
+        DriveTrain.getInstance().cartDrive(0, 0, 0, 0);
     }
 
     @Override
     protected void interrupted() {
+        end();
     }
     
 }

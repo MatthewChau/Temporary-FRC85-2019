@@ -5,28 +5,40 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.intake;
+package frc.robot.commands.lift;
 
-import frc.robot.subsystems.Intake;
+import frc.robot.OI;
+import frc.robot.subsystems.Mast;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-public class ToggleIntakeSolenoid extends Command {
-
-    public ToggleIntakeSolenoid() {
-        requires(Intake.getInstance());
+public class MastWithJoystick extends Command {
+    public MastWithJoystick() {
+        requires(Mast.getInstance());
     }
 
     // Called just before this Command runs the first time
     @Override
     protected void initialize() {
-        Intake.getInstance().setIntakeSolenoid(!Intake.getInstance().getIntakeOneSolenoid());
+    }
+
+    // Called repeatedly when this Command is scheduled to run
+    @Override
+    protected void execute() {
+        Mast.getInstance().horizontalShift(OI.getInstance().getOperatorJoystick());
     }
 
     // Make this return true when this Command no longer needs to run execute()
     @Override
     protected boolean isFinished() {
-        return true;
+        return false;
+    }
+
+    // Called once after isFinished returns true
+    @Override
+    protected void end() {
+        Mast.getInstance().horizontalShift(0);
     }
 
 }

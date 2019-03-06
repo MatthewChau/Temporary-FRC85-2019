@@ -5,30 +5,41 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.intake;
+package frc.robot.commands.driverassistance;
 
-import frc.robot.subsystems.Intake;
 import edu.wpi.first.wpilibj.command.Command;
 
-public class ActivateIntake extends Command {
+public class WaitButton extends Command {
 
-    private double _speed;
+    boolean _boolean;
 
-    public ActivateIntake(double speed) {
-        requires(Intake.getInstance());
-        _speed = speed;
+    /**
+     * @param button pass in a getButton, command ends when button == true 
+     * reverse button return boolean when calling this command.
+     */
+    public WaitButton(boolean button) {
+        _boolean = button;
     }
 
-    // Called just before this Command runs the first time
     @Override
     protected void initialize() {
-        Intake.getInstance().setRoller(_speed);
     }
 
-    // Make this return true when this Command no longer needs to run execute()
+    @Override
+    protected void execute() {
+    }
+
     @Override
     protected boolean isFinished() {
-        return true;
+        return _boolean;
     }
 
+    @Override
+    protected void end() {
+    }
+
+    @Override
+    protected void interrupted() {
+    }
+    
 }

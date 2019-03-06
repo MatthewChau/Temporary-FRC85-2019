@@ -5,27 +5,35 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.intake;
+package frc.robot.commands.spike;
 
-import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Spike;
+
+import edu.wpi.first.wpilibj.Relay.Value;
 import edu.wpi.first.wpilibj.command.Command;
 
-public class ActivateIntake extends Command {
+public class SetSpike extends Command {
 
-    private double _speed;
+    private Value value;
 
-    public ActivateIntake(double speed) {
-        requires(Intake.getInstance());
-        _speed = speed;
+    private boolean _activated;
+
+    public SetSpike(boolean activated) {
+        requires(Spike.getInstance());
+        _activated = activated;
     }
 
-    // Called just before this Command runs the first time
     @Override
     protected void initialize() {
-        Intake.getInstance().setRoller(_speed);
+        if (_activated) {
+            value = Value.kOn;
+        } else {
+            value = Value.kOff;
+        }
+
+        Spike.getInstance().setRelay(value);
     }
 
-    // Make this return true when this Command no longer needs to run execute()
     @Override
     protected boolean isFinished() {
         return true;

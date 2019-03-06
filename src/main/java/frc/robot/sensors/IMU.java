@@ -8,6 +8,7 @@
 package frc.robot.sensors;
 
 import frc.robot.Addresses;
+import frc.robot.subsystems.Elevator;
  
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -28,7 +29,7 @@ public class IMU {
     private double[] _initialYPR = new double[3];
 
     private IMU() {
-        _pigeon = new PigeonIMU(Addresses.LIFT_LEFT_MOTOR);
+        _pigeon = new PigeonIMU(Elevator.getInstance().getIMUTalon());
     }
 
     public static IMU getInstance() {
@@ -49,6 +50,7 @@ public class IMU {
     public void setFusedHeading(double ang) {
         _pigeon.setFusedHeading(ang);
     }
+    
     public double getFusedHeading() {
         return _pigeon.getFusedHeading();
     }

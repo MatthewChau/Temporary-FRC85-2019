@@ -19,11 +19,12 @@ import frc.robot.subsystems.BeltSolenoid;
 import frc.robot.subsystems.BeltTrain;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Intake;
-import frc.robot.subsystems.LiftVertical;
+import frc.robot.subsystems.Interruptable;
+import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.RearSolenoid;
-import frc.robot.subsystems.LiftHorizontal;
+import frc.robot.subsystems.Mast;
 import frc.robot.Vision;
-import frc.robot.commands.SendItBro;
+import frc.robot.commands.driverassistance.SendItBro;
 
 import java.util.Arrays;
 
@@ -48,14 +49,15 @@ public class Robot extends TimedRobot {
     public void robotInit() {
         DriveTrain.getInstance();
         Intake.getInstance();
-        LiftVertical.getInstance();
-        LiftHorizontal.getInstance();
+        Elevator.getInstance();
+        Mast.getInstance();
         OI.getInstance();
         IMU.getInstance();
         Vision.getInstance();
         BeltSolenoid.getInstance();
         BeltTrain.getInstance();
         RearSolenoid.getInstance();
+        Interruptable.getInstance();
     }
 
     /**
@@ -89,17 +91,19 @@ public class Robot extends TimedRobot {
     public void teleopInit() {
         IMU.getInstance().setFusedHeading(0);
 
+        Scheduler.getInstance().removeAll();
+
         // Pneumatics
 
-        Intake.getInstance().setIntakeSolenoid(false);
         BeltSolenoid.getInstance().setBeltSolenoid(false);
         RearSolenoid.getInstance().setRearSolenoid(false);
+        
+        Intake.getInstance().setWristPosition(0);
 
         // init the pid stuff 
 
         Arrays.fill(OI.getInstance().firstRun, true);
         Arrays.fill(OI.getInstance().errorSum, 0.0);
-        Arrays.fill(OI.getInstance().lastOutput, 0.0);
         Arrays.fill(OI.getInstance().lastActual, 0.0);
         
         Arrays.fill(OI.getInstance().stopArray, 0.0);
@@ -114,6 +118,10 @@ public class Robot extends TimedRobot {
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
         Variables.getInstance().outputVariables();
+
+        if (OI.getInstance().getOperatorCargoDefault()) {
+            Intake.getInstance().setWristPosition(0);
+        }
     }
 
     /**
@@ -125,6 +133,10 @@ public class Robot extends TimedRobot {
 
     @Override
     public void disabledPeriodic() {
+        Elevator.getInstance().setTargetPosition(Elevator.getInstance().getVerticalPosition());
+        Mast.getInstance().setTargetPosition(Mast.getInstance().getHorizontalPosition());
+        Intake.getInstance().setWristPosition(0);
+        Intake.getInstance().setTargetPos(Intake.getInstance().getWristPosition());
     }
 
 }

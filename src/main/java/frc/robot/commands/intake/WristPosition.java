@@ -6,29 +6,37 @@
 /*----------------------------------------------------------------------------*/
 
 package frc.robot.commands.intake;
-
 import frc.robot.subsystems.Intake;
+
 import edu.wpi.first.wpilibj.command.Command;
 
-public class ActivateIntake extends Command {
+public class WristPosition extends Command {
+    
+    private int _target;
 
-    private double _speed;
+    private int __target;
 
-    public ActivateIntake(double speed) {
+    public WristPosition(int target) {
         requires(Intake.getInstance());
-        _speed = speed;
+        _target = target;
     }
-
-    // Called just before this Command runs the first time
+/*
     @Override
     protected void initialize() {
-        Intake.getInstance().setRoller(_speed);
+        __target = _target;
+    }
+*/
+    @Override
+    protected void execute() {
+        Intake.getInstance().setTargetPos(_target);
+        Intake.getInstance().changeAdjustingBool(true);
+        Intake.getInstance().setWrist(0.0);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     @Override
     protected boolean isFinished() {
-        return true;
+        return !Intake.getInstance().getAdjustingBool();
     }
 
 }

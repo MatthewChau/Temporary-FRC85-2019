@@ -7,41 +7,33 @@
 
 package frc.robot.commands.intake;
 
-import frc.robot.OI;
 import frc.robot.subsystems.Intake;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class IntakeWithJoystick extends Command {
-    public IntakeWithJoystick() {
+public class ActivateWrist extends Command {
+
+    private double _speed, _timeout;
+
+    public ActivateWrist(double speed, double seconds) {
         requires(Intake.getInstance());
+        _speed = speed;
+        _timeout = seconds;
     }
 
-    // Called just before this Command runs the first time
     @Override
     protected void initialize() {
+       setTimeout(_timeout); 
     }
 
-    // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
-        Intake.getInstance().setFlipper(OI.getInstance().getOperatorJoystick() * 0.25);
+        Intake.getInstance().setWristMotor(_speed);
     }
 
-    // Make this return true when this Command no longer needs to run execute()
     @Override
     protected boolean isFinished() {
-        if (!OI.getInstance().getOperatorIntakeRotate() || OI.getInstance().getOperatorLiftHorizontal() || OI.getInstance().getOperatorLiftVertical()) {
-            return true;
-        } else {
-            return false;
-        }    
-    }
-
-    // Called once after isFinished returns true
-    @Override
-    protected void end() {
-        Intake.getInstance().setFlipper(0);
+        return isTimedOut();
     }
 
 }

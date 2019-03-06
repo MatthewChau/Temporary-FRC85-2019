@@ -5,20 +5,17 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.lift;
+package frc.robot.commands.intake;
 
 import frc.robot.OI;
-import frc.robot.Variables;
-import frc.robot.subsystems.LiftVertical;
+import frc.robot.subsystems.Intake;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-public class LiftVerticalWithJoystick extends Command {
-
-    double _speed = 0;
-
-    public LiftVerticalWithJoystick() {
-        requires(LiftVertical.getInstance());
+public class WristWithJoystick extends Command {
+    public WristWithJoystick() {
+        requires(Intake.getInstance());
     }
 
     // Called just before this Command runs the first time
@@ -29,31 +26,19 @@ public class LiftVerticalWithJoystick extends Command {
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
-        _speed = OI.getInstance().getOperatorJoystick();
-
-        if (_speed > 0) {
-            _speed = 0.40;
-        } else if (_speed < 0) {
-            _speed = -0.15;
-        }
-
-        LiftVertical.getInstance().verticalShift(_speed);
+        Intake.getInstance().setWrist(OI.getInstance().getOperatorJoystick());
     }
 
     // Make this return true when this Command no longer needs to run execute()
     @Override
     protected boolean isFinished() {
-        if (!OI.getInstance().getOperatorLiftVertical() || OI.getInstance().getOperatorLiftHorizontal() || OI.getInstance().getOperatorIntakeRotate()) {
-            return true;
-        } else {
-            return false;
-        }
+        return false; 
     }
 
     // Called once after isFinished returns true
     @Override
     protected void end() {
-        LiftVertical.getInstance().verticalShift(0);
+        Intake.getInstance().setWrist(0.0);
     }
 
 }

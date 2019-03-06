@@ -5,30 +5,32 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.intake;
+package frc.robot.commands.lift;
 
-import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Elevator;
+
 import edu.wpi.first.wpilibj.command.Command;
 
-public class ActivateIntake extends Command {
+public class ElevatorPosition extends Command {
 
-    private double _speed;
-
-    public ActivateIntake(double speed) {
-        requires(Intake.getInstance());
-        _speed = speed;
+    private double _target;
+    public ElevatorPosition(double target) {
+        requires(Elevator.getInstance());
+        _target = target;
     }
 
-    // Called just before this Command runs the first time
     @Override
-    protected void initialize() {
-        Intake.getInstance().setRoller(_speed);
+    protected void execute() {
+        super.execute();
+        Elevator.getInstance().setTargetPosition(_target);
+        Elevator.getInstance().changeAdjustingBool(true);
+        Elevator.getInstance().verticalShift(0.0);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     @Override
     protected boolean isFinished() {
-        return true;
+        return !Elevator.getInstance().getAdjustingBool();
     }
 
 }

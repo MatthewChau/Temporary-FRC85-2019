@@ -10,11 +10,11 @@ package frc.robot;
 public class Addresses {
 
     // Drivestation
-    public static final int CONTROLLER_DRIVER = 0;
-    public static final int CONTROLLER_OPERATOR_BLACK = 1; // will change these later
-    public static final int CONTROLLER_OPERATOR_WHITE = 2; // will change these later
-    public static final int CONTROLLER_DRIVER_STICK_RIGHT = 0;
-    public static final int CONTROLLER_DRIVER_STICK_LEFT = 1;
+    public static final int CONTROLLER_DRIVER = 2;
+    public static final int CONTROLLER_OPERATOR_BLACK = 0;
+    public static final int CONTROLLER_OPERATOR_WHITE = 1;
+    public static final int CONTROLLER_DRIVER_STICK_RIGHT = 2;
+    public static final int CONTROLLER_DRIVER_STICK_LEFT = 3;
 
     // Black op station
     public static final int OPERATOR_LIFT_HORIZONTAL = 1;
@@ -59,7 +59,7 @@ public class Addresses {
     public static final int LIFT_BACK_LIMIT = 4;
 
     // Intake 
-    public static final int INTAKE_FLIPPER = 31;
+    public static final int INTAKE_WRIST = 31;
     public static final int INTAKE_ROLLER = 32;
 
     public static final int INTAKE_ONE_SOLENOID = 2;
@@ -79,4 +79,7 @@ public class Addresses {
     // Rear Solenoid
     public static final int REAR_SOLENOID = 1;
    
+    // LED Spike Relay
+    public static final int LIGHT_RELAY = 0;
+
 }

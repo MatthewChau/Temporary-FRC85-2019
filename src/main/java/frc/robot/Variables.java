@@ -9,8 +9,8 @@ package frc.robot;
 
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Intake;
-import frc.robot.subsystems.LiftHorizontal;
-import frc.robot.subsystems.LiftVertical;
+import frc.robot.subsystems.Mast;
+import frc.robot.subsystems.Elevator;
 import frc.robot.sensors.ProxSensors;
 import frc.robot.sensors.IMU;
 
@@ -22,65 +22,78 @@ public class Variables {
     
     // DRIVETRAIN
 
-    public final double DEADBAND = 0.1;
-    public final double TOLERANCE_ANGLE = 6.0;
+    public final double DEADBAND = 0.05;
+    public final double DEADBAND_OPERATORSTICK = 0.05;
+    public final double TOLERANCE_ANGLE = 10.0;
     public final int MAX_TURNS = 7; // if we go over 2520 degrees in either direction in one match then help.
 
-    // LIFT
+    // PID
 
-    // Lift Vertical PID
-    private static final double kP_VLIFT = 0.1, kI_VLIFT = 0.000001, kD_VLIFT = 0.2;
+// BROOKE AND SCOTT WERE HERE, HIIIIIIIIIIIIIII
+// We tuned the PID loop a little more, original values: P: 2.5E-04, I: 0 D: 0
 
-    // Lift Horizontal PID
-    private static final double kP_HLIFT = 0.1, kI_HLIFT = 0.000001, kD_HLIFT = 0.2;
+    private final double kP_VLIFT = 0.0004, kI_VLIFT = 0.00000004, kD_VLIFT = 0.0009;
 
-    private static final double LIFT_STALL_SPEED = 0.18;
+    private final double kP_HLIFT = 0.025, kI_HLIFT = 0.0, kD_HLIFT = 0.0;
 
-    private static final double LIFT_UP_SPEED = 0.25;
+    public static final double kP_INTAKE = 0.001, kI_INTAKE = 0.0, kD_INTAKE = 0.0;
 
     // Lift Vertical Postitions
-    public static final int HATCH_LOW = 10;
-    public static final int HATCH_MIDDLE = 100;
-    public static final int HATCH_HIGH = 1000;
-    public static final int HATCH_LOADING_STATION = 15;
-    public static final int HATCH_FLOOR = 5;
-    public static final int HATCH_DROP = 5;
+    public final int HATCH_ONE = 1565;
+    public final int HATCH_TWO = 9732;
+    public final int HATCH_THREE = 18144;
+    public final int HATCH_FLOOR = 100;
     
-    public static final int CARGO_LOW = 20;
-    public static final int CARGO_MIDDLE = 120;
-    public static final int CARGO_HIGH = 1200;
-    public static final int CARGO_LOADING_STATION = 95;
-    public static final int CARGO_FLOOR = 5;
+    public final int CARGO_ONE = 6900;
+    public final int CARGO_TWO = 15813;
+    public final int CARGO_THREE = 22870;
+    public final int CARGO_FLOOR = 1500;
 
-    public static final double ROT_POS_1 = 90;
-    public static final double ROT_POS_2 = -90;
-    public static final double ROT_POS_3 = 60;
-    public static final double ROT_POS_4 = 120;
+    public final int LIFT_MIN_FOR_MAST = 4000;
+
+    public final double ROT_POS_1 = 90;
+    public final double ROT_POS_2 = -90;
+    public final double ROT_POS_3 = 60;
+    public final double ROT_POS_4 = 120;
+
+    //Elevator position limits
+    public static final int ELEVATOR_MAX_POS = 21500;
+    public static final int ELEVATOR_MIN_POS_MAST_PROTECTED = 5000;
+    public static final int ELEVATOR_MIN_POS_MAST_FORWARD_CARGO = 1100;
+    public static final int ELEVATOR_MIN_POS_MAST_FORWARD_HATCH = 0;
+    //Elevator Speed Limits 
+    public static final double ELEVATOR_MAX_SPEED = .5;
+    public static final double ELEVATOR_MIN_SPEED = -.2;
+    
 
     // Lift Horizontal Positions
-    public static int platform = 0;
-    public static int bumpers = 0;
-    public static int CENTER_DRIVE = 0;
-    public static int CLIMB_HAB = 0;
+    public final int MAST_PROTECTED = 380000;
 
-    public static final int HORIZONTAL_PROTECTED = 7;
-    public static final int HORIZONTAL_UNPROTECTED = 0;
-    public static final int BUMPERS_TWO = 3;
-    public static final int range = 0;
+    //Mast position limits
+    public static final int MAST_MIN_POS = 0;
+    public static final int MAST_ELEVATOR_BREAKPOINT = 600000;
+    public static final int MAST_MAX_POS = 871000;
+    //Mast speed limits
+    public static final double MAST_MAX_SPEED = .5;
+    public static final double MAST_MIN_SPEED = -.5;
 
     // INTAKE
+    public final double MAX_SPEED_UP_INTAKE = 0.8;
+    public final double MAX_SPEED_DOWN_INTAKE = -0.8;
 
-    // Intake PID
+    //Wrist position limits
+    public static final int WRIST_MAX_POS = 0;
+    public static final int WRIST_ELEVATOR_BREAKPOINT = -500000;
+    public static final int WRIST_MIN_POS = -1124000;
+    //Wrist speed limits
+    public static final double WRIST_MAX_SPEED = .6;
+    public static final double WRIST_MIN_SPEED = -.6;
 
-    public static final double kP_INTAKE = 0.1, kI_INTAKE = 0.000001, kD_INTAKE = 0.2;
-
-    public static final double INTAKE_STALL_SPEED = 0.2;
-
-    // Intake Positions and Degrees
-    public static final int INTAKE_DEGREE_ONE = 0;
-    public static final int INTAKE_DEGREE_TWO = 90;
-    public static final int INTAKE_DEGREE_THREE = 95;
-
+    //Wrist positions
+    public static final int Wrist_Floor_Pickup_Pos = -1000000;
+    public final int INTAKE_0 = 0;
+    public final int INTAKE_45 = -500000;
+    public final int INTAKE_90 = -908000;
 
     /**
      * Put variables here that should be changeable on the fly.
@@ -98,13 +111,23 @@ public class Variables {
         SmartDashboard.putNumber("kI_INTAKE", kI_INTAKE);
         SmartDashboard.putNumber("kD_INTAKE", kD_INTAKE);
 
-        SmartDashboard.putNumber("LIFT_UP_SPEED", LIFT_UP_SPEED);
+        SmartDashboard.putNumber("kP_DRIVE", 0.05);
+        SmartDashboard.putNumber("kI_DRIVE", 0.0);
+        SmartDashboard.putNumber("kD_DRIVE", 0.0);
 
-        SmartDashboard.putNumber("LIFT_STALL_SPEED", LIFT_STALL_SPEED);
+        SmartDashboard.putNumber("kP_VISION", 0.05);
+        SmartDashboard.putNumber("kI_VISION", 0.0);
+        SmartDashboard.putNumber("kD_VISION", 0.0);
 
-        SmartDashboard.putNumber("INTAKE_STALL_SPEED", INTAKE_STALL_SPEED);
+        SmartDashboard.putNumber("kP_VISION_ROT", 0.012);
+        SmartDashboard.putNumber("kI_VISION_ROT", 0.0);
+        SmartDashboard.putNumber("kD_VISION_ROT", 0.2);
+
+        SmartDashboard.putNumber("MAX_SPEED_UP_INTAKE", MAX_SPEED_UP_INTAKE);
+        SmartDashboard.putNumber("MAX_SPEED_DOWN_INTAKE", MAX_SPEED_DOWN_INTAKE);
 
         SmartDashboard.putBoolean("Joysticks Enabled", false);
+        SmartDashboard.putBoolean("Disable Intake Top Limit", false);
     }
 
     public static Variables getInstance() {
@@ -117,52 +140,84 @@ public class Variables {
     /**
      * get methods for changable variables
      */
-    public double getVerticalLiftKP() {
-        return SmartDashboard.getNumber("kP_VLIFT", kP_VLIFT);
+    public double getElevatorKP() {
+        return SmartDashboard.getNumber("kP_VLIFT", kP_VLIFT); // these are gonna have to be small af
     }
 
-    public double getVerticalLiftKI() {
+    public double getElevatorKI() {
         return SmartDashboard.getNumber("kI_VLIFT", kI_VLIFT);
     }
 
-    public double getVerticalLiftKD() {
+    public double getElevatorKD() {
         return SmartDashboard.getNumber("kD_VLIFT", kD_VLIFT);
     }
 
-    public double getHorizontalLiftKP() {
+    public double getMastKP() {
         return SmartDashboard.getNumber("kP_HLIFT", kP_HLIFT);
     }
 
-    public double getHorizontalLiftKI() {
+    public double getMastKI() {
         return SmartDashboard.getNumber("kI_HLIFT", kI_HLIFT);
     }
 
-    public double getHorizontalLiftKD() {
+    public double getMastKD() {
         return SmartDashboard.getNumber("kD_HLIFT", kD_HLIFT);
     }
 
-    public double getIntakeKP() {
+    public double getWristKP() {
         return SmartDashboard.getNumber("kP_INTAKE", kP_INTAKE);
     }
 
-    public double getIntakeKI() {
+    public double getWristKI() {
         return SmartDashboard.getNumber("kI_INTAKE", kI_INTAKE);
     }
 
-    public double getIntakeKD() {
+    public double getWristKD() {
         return SmartDashboard.getNumber("kD_INTAKE", kD_INTAKE);
     }
 
-    public double getVerticalLiftUpSpeed() {
-        return SmartDashboard.getNumber("LIFT_UP_SPEED", LIFT_UP_SPEED);
+    public double getDriveKP() {
+        return SmartDashboard.getNumber("kP_DRIVE", 0.05);
     }
 
-    public double getVerticalStall() {
-        return SmartDashboard.getNumber("LIFT_STALL_SPEED", LIFT_STALL_SPEED);
+    public double getDriveKI() {
+        return SmartDashboard.getNumber("kI_DRIVE", 0.0);
     }
 
-    public double getIntakeStall() {
-        return SmartDashboard.getNumber("INTAKE_STALL_SPEED", INTAKE_STALL_SPEED);
+    public double getDriveKD() {
+        return SmartDashboard.getNumber("kD_DRIVE", 0.0);
+    }
+
+    public double getVisionKP() {
+        return SmartDashboard.getNumber("kP_VISION", 0.05);
+    }
+
+    public double getVisionKI() {
+        return SmartDashboard.getNumber("kI_VISION", 0.0);
+    }
+
+    public double getVisionKD() {
+        return SmartDashboard.getNumber("kD_VISION", 0.0);
+    }
+
+    public double getVisionRotKP() {
+        return SmartDashboard.getNumber("kP_VISION_ROT", 0.012);
+    }
+
+    public double getVisionRotKI() {
+        return SmartDashboard.getNumber("kI_VISION_ROT", 0.0);
+    }
+
+    public double getVisionRotKD() {
+        return SmartDashboard.getNumber("kD_VISION_ROT", 0.2);
+    }
+
+    public double getMaxSpeedUpIntake() {
+        return SmartDashboard.getNumber("MAX_SPEED_UP_INTAKE", MAX_SPEED_UP_INTAKE);
+    }
+
+    public double getMaxSpeedDownIntake() {
+        return SmartDashboard.getNumber("MAX_SPEED_DOWN_INTAKE", MAX_SPEED_DOWN_INTAKE);
     }
 
     /**
@@ -194,11 +249,13 @@ public class Variables {
 
         SmartDashboard.putNumber("Operator Joystick", OI.getInstance().getOperatorJoystick());
 
-        SmartDashboard.putNumber("Vertical Lift", LiftVertical.getInstance().getVerticalPosition());
+        SmartDashboard.putNumber("Vertical Lift", Elevator.getInstance().getVerticalPosition());
 
-        SmartDashboard.putNumber("Horizontal Lift", LiftHorizontal.getInstance().getHorizontalPosition());
+        SmartDashboard.putNumber("Horizontal Lift", Mast.getInstance().getHorizontalPosition());
+        SmartDashboard.putBoolean("Front Prox Sensor", ProxSensors.getInstance().getLiftFrontLimit());
+        SmartDashboard.putBoolean("Rear Prox Sensor", ProxSensors.getInstance().getLiftRearLimit());
 
-        SmartDashboard.putNumber("Intake Encoder", Intake.getInstance().getFlipperPosition());
+        SmartDashboard.putNumber("Intake Encoder", Intake.getInstance().getWristPosition());
 
         //SmartDashboard.putBoolean("Prox me OwO", ProxSensors.getInstance().getTopLimit());
     }
