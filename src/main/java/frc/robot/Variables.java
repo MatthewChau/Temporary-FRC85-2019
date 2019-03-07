@@ -66,8 +66,8 @@ public class Variables {
     public static final double ELEVATOR_MAX_SPEED = .5;
     public static final double ELEVATOR_MIN_SPEED = -.2;
 
-    public final double ELEVATOR_LOCKED = 0.5;
-    public final double ELEVATOR_UNLOCKED = 0.0;
+    public final double ELEVATOR_LOCKED = 90;
+    public final double ELEVATOR_UNLOCKED = 180;
 
     // Lift Horizontal Positions
     public final int MAST_FORWARD_POS = 700000;
@@ -129,7 +129,10 @@ public class Variables {
         SmartDashboard.putNumber("MAX_SPEED_UP_INTAKE", MAX_SPEED_UP_INTAKE);
         SmartDashboard.putNumber("MAX_SPEED_DOWN_INTAKE", MAX_SPEED_DOWN_INTAKE);
 
-        SmartDashboard.putBoolean("Joysticks Enabled", true);
+        SmartDashboard.putNumber("UNLOCKED", ELEVATOR_UNLOCKED);
+        SmartDashboard.putNumber("LOCKED", ELEVATOR_LOCKED);
+
+        SmartDashboard.putBoolean("Joysticks Enabled", false);
         SmartDashboard.putBoolean("Disable Intake Top Limit", false);
     }
 
@@ -213,6 +216,14 @@ public class Variables {
 
     public double getVisionRotKD() {
         return SmartDashboard.getNumber("kD_VISION_ROT", 0.2);
+    }
+
+    public double getElevatorUnlocked() {
+        return SmartDashboard.getNumber("UNLOCKED", ELEVATOR_UNLOCKED);
+    }
+
+    public double getElevatorLocked() {
+        return SmartDashboard.getNumber("LOCKED", ELEVATOR_LOCKED);
     }
 
     public double getMaxSpeedUpIntake() {

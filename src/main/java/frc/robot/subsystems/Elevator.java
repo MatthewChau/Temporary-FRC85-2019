@@ -84,7 +84,7 @@ public class Elevator extends Subsystem {
             setVerticalPosition(0);
         }
 
-        if (Math.abs(getServo() - Variables.getInstance().ELEVATOR_UNLOCKED) < 0.1) {
+        if (Math.abs(getServo() - Variables.getInstance().getElevatorLocked()) < 30) {
             speed = 0;
         }
 
@@ -185,12 +185,12 @@ public class Elevator extends Subsystem {
         return adjusting;
     }
 
-    public void setServo(double angle) {
-        _liftServo.set(angle);
+    public void setServo(double degree) {
+        _liftServo.setAngle(degree);
     }
 
     public double getServo() {
-        return _liftServo.get();
+        return _liftServo.getAngle();
     }
 
     public TalonSRX getIMUTalon() {

@@ -19,7 +19,7 @@ public class ElevatorLock extends Command {
 
     @Override
     protected void initialize() {
-        Elevator.getInstance().setServo(Variables.getInstance().ELEVATOR_LOCKED);
+        Elevator.getInstance().setServo(Variables.getInstance().getElevatorLocked());
     }
 
     @Override
@@ -31,6 +31,6 @@ public class ElevatorLock extends Command {
     // subsystems is scheduled to run
     @Override
     protected void interrupted() {
-        Elevator.getInstance().setServo(Variables.getInstance().ELEVATOR_UNLOCKED);
+        Elevator.getInstance().setServo(Variables.getInstance().getElevatorUnlocked());
     }
 }
