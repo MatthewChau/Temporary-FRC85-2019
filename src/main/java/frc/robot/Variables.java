@@ -22,7 +22,7 @@ public class Variables {
     
     // DRIVETRAIN
 
-    public final double DEADBAND = 0.05;
+    public final double DEADBAND = 0.1;
     public final double DEADBAND_OPERATORSTICK = 0.05;
     public final double TOLERANCE_ANGLE = 10.0;
     public final int MAX_TURNS = 7; // if we go over 2520 degrees in either direction in one match then help.
@@ -65,8 +65,8 @@ public class Variables {
     public static final double ELEVATOR_MAX_SPEED = .5;
     public static final double ELEVATOR_MIN_SPEED = -.2;
 
-    public final double ELEVATOR_LOCKED = 0.5;
-    public final double ELEVATOR_UNLOCKED = 0.0;
+    public final double ELEVATOR_LOCKED = 90;
+    public final double ELEVATOR_UNLOCKED = 180;
 
     // Lift Horizontal Positions
     public final int MAST_PROTECTED = 380000;
@@ -127,6 +127,9 @@ public class Variables {
 
         SmartDashboard.putNumber("MAX_SPEED_UP_INTAKE", MAX_SPEED_UP_INTAKE);
         SmartDashboard.putNumber("MAX_SPEED_DOWN_INTAKE", MAX_SPEED_DOWN_INTAKE);
+
+        SmartDashboard.putNumber("UNLOCKED", ELEVATOR_UNLOCKED);
+        SmartDashboard.putNumber("LOCKED", ELEVATOR_LOCKED);
 
         SmartDashboard.putBoolean("Joysticks Enabled", false);
         SmartDashboard.putBoolean("Disable Intake Top Limit", false);
@@ -212,6 +215,14 @@ public class Variables {
 
     public double getVisionRotKD() {
         return SmartDashboard.getNumber("kD_VISION_ROT", 0.2);
+    }
+
+    public double getElevatorUnlocked() {
+        return SmartDashboard.getNumber("UNLOCKED", ELEVATOR_UNLOCKED);
+    }
+
+    public double getElevatorLocked() {
+        return SmartDashboard.getNumber("LOCKED", ELEVATOR_LOCKED);
     }
 
     public double getMaxSpeedUpIntake() {
