@@ -20,6 +20,7 @@ public class ElevatorLock extends Command {
     @Override
     protected void initialize() {
         Elevator.getInstance().setServo(Variables.getInstance().getElevatorLocked());
+        Elevator.getInstance().setTargetPosition(Elevator.getInstance().getVerticalPosition());
     }
 
     @Override
@@ -32,5 +33,6 @@ public class ElevatorLock extends Command {
     @Override
     protected void interrupted() {
         Elevator.getInstance().setServo(Variables.getInstance().getElevatorUnlocked());
+        Elevator.getInstance().setTargetPosition(Elevator.getInstance().getVerticalPosition());
     }
 }

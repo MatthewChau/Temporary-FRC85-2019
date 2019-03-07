@@ -14,6 +14,7 @@ import frc.robot.commands.lift.MastWithJoystick;
 import frc.robot.sensors.ProxSensors;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
@@ -55,13 +56,13 @@ public class Mast extends Subsystem {
                                               Variables.getInstance().getMastKP(), 
                                               Variables.getInstance().getMastKI(), 
                                               Variables.getInstance().getMastKD(), 
-                                              0.5, 
-                                              -0.5);
+                                              0.75, 
+                                              -0.75);
         } else if (speed > 0.0) {
-            speed = 0.5;
+            speed = 0.75;
             setTargetPosition(getHorizontalPosition());
         } else if (speed < 0.0) {
-            speed = -0.5;
+            speed = -0.75;
             setTargetPosition(getHorizontalPosition());
         } else {
             speed = 0.0;
@@ -72,7 +73,7 @@ public class Mast extends Subsystem {
         if ((ProxSensors.getInstance().getLiftFrontLimit() && speed > 0.0)
             || (ProxSensors.getInstance().getLiftRearLimit() && speed < 0.0)
             || (!OI.getInstance().getOperatorLiftHorizontal() && !adjusting)
-            || softLimits(speed)) {
+            || (softLimits(speed) && !SmartDashboard.getBoolean("Disable Mast Soft Limits", false))) {
             _mastMotor.set(ControlMode.PercentOutput, 0);
         } else {
             _mastMotor.set(ControlMode.PercentOutput, speed);

@@ -17,6 +17,7 @@ import frc.robot.commands.lift.ElevatorWithJoystick;
 
 import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
@@ -58,7 +59,7 @@ public class Elevator extends Subsystem {
     }
 
     public void verticalShift(double speed) {
-        if (!OI.getInstance().getOperatorLiftVertical() || adjusting || softLimits(speed)) {
+        if (adjusting || (OI.getInstance().getOperatorLiftVertical() && speed == 0.0)) {
             speed = OI.getInstance().applyPID(OI.getInstance().ELEVATOR_SYSTEM, 
                                               getVerticalPosition(), 
                                               targetPos, 
@@ -76,7 +77,8 @@ public class Elevator extends Subsystem {
         }
 
         if ((ProxSensors.getInstance().getLiftTopLimit() && speed > 0.0)
-             || (ProxSensors.getInstance().getLiftBottomLimit() && speed < 0.0)) {
+             || (ProxSensors.getInstance().getLiftBottomLimit() && speed < 0.0)
+             || (softLimits(speed) && !SmartDashboard.getBoolean("Disable Elevator Soft Limits", false))) {
             speed = 0.0;
         }
 
@@ -84,7 +86,7 @@ public class Elevator extends Subsystem {
             setVerticalPosition(0);
         }
 
-        if (Math.abs(getServo() - Variables.getInstance().getElevatorLocked()) < 30) {
+        if (Math.abs(getServo() - Variables.getInstance().getElevatorLocked()) < 30) { // doesn't work
             speed = 0;
         }
 
@@ -99,19 +101,19 @@ public class Elevator extends Subsystem {
 
         //NEW: Enforce positional limits 
         //max is always the same for the elevator
-        if(verticalPosition > Variables.ELEVATOR_MAX_POS
+        if(verticalPosition > Variables.ELEVATOR_MAX_POS // top limit
             && speed > 0) 
         {
             return true;
         }
-        if(mastPosition < Variables.MAST_ELEVATOR_BREAKPOINT
+        if(mastPosition < Variables.MAST_ELEVATOR_BREAKPOINT // bottom limit back
             && verticalPosition <= Variables.ELEVATOR_MIN_POS_MAST_PROTECTED
             && speed < 0)
         {
             return true;
         }
-        if(mastPosition > Variables.MAST_ELEVATOR_BREAKPOINT
-            && intakePosition <= Variables.WRIST_ELEVATOR_BREAKPOINT
+        if(mastPosition > Variables.MAST_ELEVATOR_BREAKPOINT // bottom limit front
+            && intakePosition <= Variables.WRIST_ELEVATOR_BREAKPOINT // would this be necessary?
             && verticalPosition <= Variables.ELEVATOR_MIN_POS_MAST_FORWARD_CARGO
             && speed < 0)
         {

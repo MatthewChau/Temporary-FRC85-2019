@@ -75,7 +75,7 @@ public class Intake extends Subsystem {
         if ((ProxSensors.getInstance().getIntakeBottomLimit() && speed > 0) // if we trying to exceed top limit
             || (ProxSensors.getInstance().getIntakeTopLimit() && speed < 0) // if we trying to exceed bottom limit
             || (!OI.getInstance().getOperatorIntakeRotate() && !adjusting) // if the button isn't pressed and we are not adjusting
-            || softLimits(speed)) {
+            || (softLimits(speed) && !SmartDashboard.getBoolean("Disable Intake Soft Limits", false))) {
             _wrist.set(ControlMode.PercentOutput, 0);
         } else {
             _wrist.set(ControlMode.PercentOutput, speed);
@@ -101,7 +101,7 @@ public class Intake extends Subsystem {
         }
         if(verticalPosition <= Variables.ELEVATOR_MIN_POS_MAST_FORWARD_CARGO
             && intakePosition <= Variables.WRIST_ELEVATOR_BREAKPOINT
-            && speed > 0) 
+            && speed < 0) 
         {
             return true;
         }

@@ -42,6 +42,7 @@ public class ElevatorWithJoystick extends Command {
     // Called once after isFinished returns true
     @Override
     protected void end() {
+        Elevator.getInstance().verticalShift(0.0);
     }
 
 }

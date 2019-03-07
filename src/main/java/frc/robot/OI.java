@@ -161,8 +161,8 @@ public class OI {
         _operatorHatchDefault.whenPressed(new HatchStation1());
         _operatorHatchDefault.whenReleased(new HatchStation2());
 
-        _driverControllerAButton.whenPressed(new HatchGround());
-        _driverControllerAButton.whenReleased(new Interrupt());
+        //_driverControllerAButton.whenPressed(new HatchGround1());
+        //_driverControllerAButton.whenReleased(new Interrupt());
 
         //FollowOneTarget followOneTarget;
         //_driverControllerYButton.whileActive(followOneTarget = new FollowOneTarget()); //follows when pressed

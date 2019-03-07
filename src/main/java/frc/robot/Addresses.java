@@ -43,7 +43,7 @@ public class Addresses {
     public static final int OPERATOR_CARGO_ONE = 8;
 
     public static final int OPERATOR_CLIMB_BACK = 9;
-    public static final int OPERATOR_CLIMB_FRONT = 10; // on the black joystick
+    public static final int OPERATOR_CLIMB_FRONT = 9; // on the black joystick
 
     // DriveTrain
     public static final int DRIVETRAIN_LEFT_FRONT_MOTOR = 11;

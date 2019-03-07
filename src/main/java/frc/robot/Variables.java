@@ -23,9 +23,9 @@ public class Variables {
     // DRIVETRAIN
 
     public final double DEADBAND_DRIVERSTICK = 0.1;
-    public final double DEADBAND_Z_DRIVERSTICK = 0.2;  
+    public final double DEADBAND_Z_DRIVERSTICK = 0.3;  
     public final double DEADBAND_OPERATORSTICK = 0.05;
-    public final double TOLERANCE_ANGLE = 10.0;
+    public final double TOLERANCE_ANGLE = 5.0;
     public final int MAX_TURNS = 7; // if we go over 2520 degrees in either direction in one match then help.
 
     // PID
@@ -66,7 +66,7 @@ public class Variables {
     public static final double ELEVATOR_MAX_SPEED = .5;
     public static final double ELEVATOR_MIN_SPEED = -.2;
 
-    public final double ELEVATOR_LOCKED = 90;
+    public final double ELEVATOR_LOCKED = 70;
     public final double ELEVATOR_UNLOCKED = 180;
 
     // Lift Horizontal Positions
@@ -97,6 +97,8 @@ public class Variables {
     public final int INTAKE_0 = 0;
     public final int INTAKE_45 = -500000;
     public final int INTAKE_90 = -908000;
+
+    
 
     /**
      * Put variables here that should be changeable on the fly.
@@ -134,6 +136,10 @@ public class Variables {
 
         SmartDashboard.putBoolean("Joysticks Enabled", false);
         SmartDashboard.putBoolean("Disable Intake Top Limit", false);
+
+        SmartDashboard.putBoolean("Disable Intake Soft Limits", false);
+        SmartDashboard.putBoolean("Disable Mast Soft Limits", false);
+        SmartDashboard.putBoolean("Disable Elevator Soft Limits", false);
     }
 
     public static Variables getInstance() {
