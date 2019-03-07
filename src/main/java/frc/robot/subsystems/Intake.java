@@ -152,4 +152,20 @@ public class Intake extends Subsystem {
         return adjusting;
     }
 
+    public double getWristMotorVoltage() {
+        return _wrist.getMotorOutputVoltage();
+    }
+
+    public double getRollerMotorVoltage() {
+        return _roller.getMotorOutputVoltage();
+    }
+
+    public double getWristMotorCurrent() {
+        return _wrist.getOutputCurrent();
+    }
+
+    public double getRollerMotorCurrent() {
+        return _roller.getOutputCurrent();
+    }
+
 }

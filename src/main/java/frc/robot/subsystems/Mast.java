@@ -130,6 +130,14 @@ public class Mast extends Subsystem {
         return _mastMotor.getSelectedSensorPosition();
     }
 
+    public double getMastMotorVoltage() {
+        return _mastMotor.getMotorOutputVoltage();
+    }
+
+    public double getMastMotorCurrent() {
+        return _mastMotor.getOutputCurrent();
+    }
+
     public void setTargetPosition(double target) {
         //NEW: (... and untested!) If you assign a position beyond the max/min, set it to the max/min instead
         // BROOKE AND SCOTT WERE also HERE, HIIIIIIIIIIIIIII
