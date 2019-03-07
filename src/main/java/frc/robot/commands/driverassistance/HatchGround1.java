@@ -24,15 +24,14 @@ import frc.robot.commands.lift.MastPosition;
 // Started a sequence to pick up hatch panels from ground by moving to a safe position.
 // ... The last addsequential will not run unless the others are commented out so
 // we think we might be dealing with some limit issues on the prev. addsequential.
-public class HatchGround extends CommandGroup {
-    public HatchGround() {
+public class HatchGround1 extends CommandGroup {
+    public HatchGround1() {
         addSequential(new Interrupt());
 
-        addParallel(new ElevatorPosition(Variables.getInstance().CARGO_ONE));
-        addSequential(new MastPosition(Variables.getInstance().MAST_FORWARD_POS));
+        addParallel(new ElevatorPosition(Variables.getInstance().HATCH_ONE));
         addSequential(new WristPosition(Variables.getInstance().Wrist_Floor_Pickup_Pos));
-
-
-
+        addSequential(new MastPosition(Variables.getInstance().MAST_FORWARD_POS));
+        
+        
     }
 }
