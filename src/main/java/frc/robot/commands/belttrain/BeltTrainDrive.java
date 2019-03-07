@@ -37,7 +37,7 @@ public class BeltTrainDrive extends Command {
 
     @Override
     protected boolean isFinished() {
-        return false;
+        return isTimedOut();
     }
 
     @Override

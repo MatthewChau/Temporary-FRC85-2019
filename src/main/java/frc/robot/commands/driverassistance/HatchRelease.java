@@ -21,7 +21,7 @@ public class HatchRelease extends CommandGroup {
     //Deprecated
 
     public HatchRelease() { // this should work ok
-        addSequential(new ActivateWrist(-0.6, 0.25));
+        addSequential(new ActivateWrist(-0.7, 0.25));
         //addSequential(new MastPosition(Variables.getInstance().MAST_PROTECTED));
     }
 

@@ -8,7 +8,7 @@
 package frc.robot.commands.belttrain;
 
 import frc.robot.OI;
-import frc.robot.subsystems.BeltTrain;;
+import frc.robot.subsystems.BeltTrain;
 
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;

@@ -87,19 +87,19 @@ public class Intake extends Subsystem {
         double intakePosition = getWristPosition();
 
         //NEW: Enforce positional limits
-        if(!SmartDashboard.getBoolean("Disable Intake Top Limit", false)
+        if(!SmartDashboard.getBoolean("Disable Intake Top Limit", false) // top limit
             && intakePosition >= Variables.WRIST_MAX_POS
-            && speed < 0) 
-        {
-            return true;
-        }
-        if(verticalPosition > Variables.ELEVATOR_MIN_POS_MAST_FORWARD_CARGO 
-            && intakePosition <= Variables.WRIST_MIN_POS
             && speed > 0) 
         {
             return true;
         }
-        if(verticalPosition <= Variables.ELEVATOR_MIN_POS_MAST_FORWARD_CARGO
+        if(verticalPosition > Variables.ELEVATOR_MIN_POS_MAST_FORWARD_CARGO // bottom limit when mast is forward
+            && intakePosition <= Variables.WRIST_MIN_POS
+            && speed < 0) 
+        {
+            return true;
+        }
+        if(verticalPosition <= Variables.ELEVATOR_MIN_POS_MAST_FORWARD_CARGO // bottom limit when mast is behind
             && intakePosition <= Variables.WRIST_ELEVATOR_BREAKPOINT
             && speed < 0) 
         {

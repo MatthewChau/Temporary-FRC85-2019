@@ -118,17 +118,11 @@ public class OI {
         _operatorCargoOut.whenReleased(new ActivateIntake(0));
 
         _operatorCargoOne = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_CARGO_ONE);
-        _operatorCargoOne.whenPressed(new Place(Variables.getInstance().CARGO_ONE, Variables.getInstance().INTAKE_90));
-        //************************** */
-        //This demonstrates how to interupt a command group. Add the Interupt command to any group(like Testing()),
-        //then any subsequent calls to Interupt will cancel any running CommandGroup
-        //_operatorCargoOne.whenPressed(new Testing());
-        //_operatorCargoOne.whenReleased(new Interrupt());
-        //************************** */
+        _operatorCargoOne.whenPressed(new Place(Variables.getInstance().CARGO_ONE, Variables.getInstance().WRIST_ANGLE_FOR_CARGO));
         _operatorCargoTwo = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_CARGO_TWO);
-        _operatorCargoTwo.whenPressed(new Place(Variables.getInstance().CARGO_TWO, Variables.getInstance().INTAKE_90));
+        _operatorCargoTwo.whenPressed(new Place(Variables.getInstance().CARGO_TWO, Variables.getInstance().WRIST_ANGLE_FOR_CARGO));
         _operatorCargoThree = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_CARGO_THREE);
-        _operatorCargoThree.whenPressed(new Place(Variables.getInstance().CARGO_THREE, Variables.getInstance().INTAKE_90));
+        _operatorCargoThree.whenPressed(new Place(Variables.getInstance().CARGO_THREE, Variables.getInstance().WRIST_ANGLE_FOR_CARGO));
 
         _operatorCargoDefault.whenPressed(new CargoStation1());
         _operatorCargoDefault.whenReleased(new CargoStation2());
@@ -137,8 +131,8 @@ public class OI {
         _operatorHatchDefault = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_HATCH_DEFAULT);
         _operatorHatchDefault.whenPressed(new WristPosition(Intake.getInstance().getWristPosition() - 150000));
         _operatorHatchFloor = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_HATCH_FLOOR);
-        _operatorHatchFloor.whenPressed(new HatchGround1());
-        _operatorHatchFloor.whenReleased(new HatchGround2());
+        //_operatorHatchFloor.whenPressed(new HatchGround1());
+        //_operatorHatchFloor.whenReleased(new HatchGround2());
         _operatorHatchRelease = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_HATCH_RELEASE);
         _operatorHatchRelease.whenPressed(new HatchRelease());
 

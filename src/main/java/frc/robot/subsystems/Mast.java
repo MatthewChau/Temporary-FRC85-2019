@@ -94,25 +94,28 @@ public class Mast extends Subsystem {
         double verticalPosition = Elevator.getInstance().getVerticalPosition();
         
         //NEW: use the limits we defined to prevent manually driving the mast unsafely
-        if (verticalPosition > Variables.ELEVATOR_MIN_POS_MAST_PROTECTED 
-            &&  mastPosition >= Variables.MAST_MAX_POS 
+
+        // mast limits don't make sense without the intake position.  there's no reason to limit the mast's movement without the intakepos
+
+        if (verticalPosition > Variables.ELEVATOR_MIN_POS_MAST_PROTECTED // top limit
+            && mastPosition >= Variables.MAST_MAX_POS 
             && speed > 0)
         {
             return true;
         }
-        if (verticalPosition > Variables.ELEVATOR_MIN_POS_MAST_PROTECTED 
+        if (verticalPosition > Variables.ELEVATOR_MIN_POS_MAST_PROTECTED // lift above a certain point limit
             &&  mastPosition <= Variables.MAST_MIN_POS 
             && speed < 0) 
         {
             return true;
         }
-        if (verticalPosition <= Variables.ELEVATOR_MIN_POS_MAST_PROTECTED 
+        if (verticalPosition <= Variables.ELEVATOR_MIN_POS_MAST_PROTECTED // if lift is below the certain point
             &&  mastPosition >= Variables.MAST_MAX_POS 
             && speed > 0)
         {
             return true;
         }
-        if (verticalPosition <= Variables.ELEVATOR_MIN_POS_MAST_PROTECTED 
+        if (verticalPosition <= Variables.ELEVATOR_MIN_POS_MAST_PROTECTED
             &&  mastPosition <= Variables.MAST_ELEVATOR_BREAKPOINT 
             && speed < 0) 
         {

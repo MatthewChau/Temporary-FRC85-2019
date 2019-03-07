@@ -106,20 +106,20 @@ public class Elevator extends Subsystem {
         {
             return true;
         }
-        if(mastPosition < Variables.MAST_ELEVATOR_BREAKPOINT // bottom limit back
+        if(mastPosition < Variables.MAST_ELEVATOR_BREAKPOINT // bottom limit back?
             && verticalPosition <= Variables.ELEVATOR_MIN_POS_MAST_PROTECTED
             && speed < 0)
         {
             return true;
         }
-        if(mastPosition > Variables.MAST_ELEVATOR_BREAKPOINT // bottom limit front
-            && intakePosition <= Variables.WRIST_ELEVATOR_BREAKPOINT // would this be necessary?
+        if(mastPosition > Variables.MAST_ELEVATOR_BREAKPOINT // bottom limit front for cargo
+            && intakePosition <= Variables.WRIST_ELEVATOR_BREAKPOINT
             && verticalPosition <= Variables.ELEVATOR_MIN_POS_MAST_FORWARD_CARGO
             && speed < 0)
         {
             return true;
         }
-        if(mastPosition > Variables.MAST_ELEVATOR_BREAKPOINT
+        if(mastPosition > Variables.MAST_ELEVATOR_BREAKPOINT // bottom limit for hatch stuff
             && intakePosition >= Variables.WRIST_ELEVATOR_BREAKPOINT
             && verticalPosition <= Variables.ELEVATOR_MIN_POS_MAST_FORWARD_HATCH
             && speed < 0)

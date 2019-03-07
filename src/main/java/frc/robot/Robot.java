@@ -74,6 +74,7 @@ public class Robot extends TimedRobot {
 
     @Override
     public void autonomousInit() {
+        teleopInit();
         _sendItBro = new SendItBro();
         _sendItBro.start();
     }
@@ -83,8 +84,9 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void autonomousPeriodic() {
-        Scheduler.getInstance().run();
-        Variables.getInstance().outputVariables();
+        teleopPeriodic();
+        //Scheduler.getInstance().run();
+        //Variables.getInstance().outputVariables();
     }
 
     @Override

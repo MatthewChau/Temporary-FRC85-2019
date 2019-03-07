@@ -41,13 +41,13 @@ public class Variables {
 
     // Lift Vertical Postitions
     public final int HATCH_ONE = 1565;
-    public final int HATCH_TWO = 9732;
-    public final int HATCH_THREE = 18144;
+    public final int HATCH_TWO = 8850;
+    public final int HATCH_THREE = 17097;
     public final int HATCH_FLOOR = 100;
     
-    public final int CARGO_ONE = 6900;
-    public final int CARGO_TWO = 15813;
-    public final int CARGO_THREE = 22870;
+    public final int CARGO_ONE = 5300;
+    public final int CARGO_TWO = 13540;
+    public final int CARGO_THREE = 21612;
     public final int CARGO_FLOOR = 1500;
 
     public final int LIFT_MIN_FOR_MAST = 4000;
@@ -88,6 +88,9 @@ public class Variables {
     public static final int WRIST_MAX_POS = 0;
     public static final int WRIST_ELEVATOR_BREAKPOINT = -500000;
     public static final int WRIST_MIN_POS = -1124000;
+
+    public static final int WRIST_ANGLE_FOR_CARGO = -767000;
+
     //Wrist speed limits
     public static final double WRIST_MAX_SPEED = .6;
     public static final double WRIST_MIN_SPEED = -.6;
