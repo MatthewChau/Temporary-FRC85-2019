@@ -1,7 +1,8 @@
 package frc.robot.subsystems;
     
 import frc.robot.Addresses;
-
+import frc.robot.OI;
+import frc.robot.commands.belttrain.BeltTrainWithJoystick;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
@@ -31,6 +32,7 @@ public class BeltTrain extends Subsystem {
 
     @Override
     public void initDefaultCommand() {
+        setDefaultCommand(new BeltTrainWithJoystick());
     }
 
     public void DriveBelt(double speed) {

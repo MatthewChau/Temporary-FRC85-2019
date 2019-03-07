@@ -215,6 +215,13 @@ public class OI {
         return _driverJoystickLeft.getRawAxis(1);
     }
 
+    public double getBeltInputJoystick() {
+        if (Math.abs(_driverJoystickRight.getRawAxis(1)) > 0.1) {
+            return _driverJoystickRight.getRawAxis(1);
+        }
+        return 0.0;
+    }
+
     public boolean isHeadless() {
         if (SmartDashboard.getBoolean("Joysticks Enabled", false)) { 
             return getLeftStickTrigger();

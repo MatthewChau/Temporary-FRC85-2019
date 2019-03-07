@@ -134,12 +134,12 @@ public class Variables {
         SmartDashboard.putNumber("UNLOCKED", ELEVATOR_UNLOCKED);
         SmartDashboard.putNumber("LOCKED", ELEVATOR_LOCKED);
 
-        SmartDashboard.putBoolean("Joysticks Enabled", false);
-        SmartDashboard.putBoolean("Disable Intake Top Limit", false);
+        SmartDashboard.putBoolean("Joysticks Enabled", true);
+        SmartDashboard.putBoolean("Disable Intake Top Limit", true);
 
-        SmartDashboard.putBoolean("Disable Intake Soft Limits", false);
-        SmartDashboard.putBoolean("Disable Mast Soft Limits", false);
-        SmartDashboard.putBoolean("Disable Elevator Soft Limits", false);
+        SmartDashboard.putBoolean("Disable Intake Soft Limits", true);
+        SmartDashboard.putBoolean("Disable Mast Soft Limits", true);
+        SmartDashboard.putBoolean("Disable Elevator Soft Limits", true);
     }
 
     public static Variables getInstance() {
