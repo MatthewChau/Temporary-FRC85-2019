@@ -22,8 +22,10 @@ import frc.robot.commands.drivetrain.DriveSeconds;
 import frc.robot.commands.belttrain.BeltTrainDrive;
 import frc.robot.commands.belttrain.SetBeltSolenoid;
 import frc.robot.commands.intake.ActivateIntake;
+import frc.robot.commands.intake.ActivateWrist;
 import frc.robot.commands.intake.WristPosition;
 import frc.robot.commands.intake.WristWithJoystick;
+import frc.robot.commands.lift.ActivateMast;
 import frc.robot.commands.lift.ElevatorPosition;
 import frc.robot.commands.lift.MastPosition;
 import frc.robot.commands.lift.MastWithJoystick;
@@ -142,17 +144,20 @@ public class OI {
         _operatorHatchThree.whenPressed(new Place(Variables.getInstance().HATCH_THREE, Variables.getInstance().INTAKE_0));
 
         // Climb
-        _operatorClimbAuto = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_CLIMB_AUTO);
+        _operatorClimbAuto = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_CLIMB_AUTO);
         _operatorClimbBack = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_CLIMB_BACK);
         _operatorClimbBack.whenPressed(new SetRearSolenoid(true));
         _operatorClimbBack.whenReleased(new SetRearSolenoid(false));
-        _operatorClimbFront = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_CLIMB_FRONT);
+        _operatorClimbFront = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_CLIMB_FRONT);
         _operatorClimbFront.whenPressed(new SetBeltSolenoid(true));
         _operatorClimbFront.whenReleased(new SetBeltSolenoid(false));
 
         _operatorHatchDefault.whenPressed(new HatchStation1());
         _operatorHatchDefault.whenReleased(new HatchStation2());
-        
+
+        _driverControllerAButton.whenPressed(new HatchGround());
+        _driverControllerAButton.whenReleased(new Interrupt());
+
         //FollowOneTarget followOneTarget;
         //_driverControllerYButton.whileActive(followOneTarget = new FollowOneTarget()); //follows when pressed
         
