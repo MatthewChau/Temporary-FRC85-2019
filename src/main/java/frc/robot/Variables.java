@@ -65,7 +65,9 @@ public class Variables {
     //Elevator Speed Limits 
     public static final double ELEVATOR_MAX_SPEED = .5;
     public static final double ELEVATOR_MIN_SPEED = -.2;
-    
+
+    public final double ELEVATOR_LOCKED = 0.5;
+    public final double ELEVATOR_UNLOCKED = 0.0;
 
     // Lift Horizontal Positions
     public final int MAST_FORWARD_POS = 700000;

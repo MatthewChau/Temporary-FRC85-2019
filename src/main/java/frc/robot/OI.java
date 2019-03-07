@@ -103,6 +103,7 @@ public class OI {
 
         // Joystick combinations
         _operatorLiftVertical = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_LIFT_VERTICAL);
+        _operatorLiftVertical.whenPressed(new ElevatorWithJoystick());
         _operatorLiftHorizontal = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_LIFT_HORIZONTAL);
         _operatorIntakeRotate = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_INTAKE_ROTATE);
 

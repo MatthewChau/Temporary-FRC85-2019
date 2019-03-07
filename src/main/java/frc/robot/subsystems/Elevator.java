@@ -10,9 +10,12 @@ package frc.robot.subsystems;
 import frc.robot.OI;
 import frc.robot.Addresses;
 import frc.robot.Variables;
-import frc.robot.commands.lift.ElevatorWithJoystick;
 import frc.robot.sensors.ProxSensors;
 
+import frc.robot.commands.lift.ElevatorLock;
+import frc.robot.commands.lift.ElevatorWithJoystick;
+
+import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
@@ -26,6 +29,8 @@ public class Elevator extends Subsystem {
 
     private TalonSRX _liftLeftMotor, _liftRightMotor;
 
+    private Servo _liftServo;
+
     private double targetPos;
 
     private boolean adjusting;
@@ -36,6 +41,8 @@ public class Elevator extends Subsystem {
         _liftRightMotor = new TalonSRX(Addresses.LIFT_RIGHT_MOTOR);
         _liftRightMotor.setNeutralMode(NeutralMode.Brake);
         _liftRightMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
+
+        _liftServo = new Servo(Addresses.LIFT_SERVO);
     }
 
     public static Elevator getInstance() {
@@ -47,7 +54,7 @@ public class Elevator extends Subsystem {
 
     @Override
     public void initDefaultCommand() {
-        setDefaultCommand(new ElevatorWithJoystick());
+        setDefaultCommand(new ElevatorLock());
     }
 
     public void verticalShift(double speed) {
@@ -75,6 +82,10 @@ public class Elevator extends Subsystem {
 
         if (ProxSensors.getInstance().getLiftBottomLimit()) {
             setVerticalPosition(0);
+        }
+
+        if (Math.abs(getServo() - Variables.getInstance().ELEVATOR_UNLOCKED) < 0.1) {
+            speed = 0;
         }
 
         _liftLeftMotor.set(ControlMode.PercentOutput, speed);
@@ -172,6 +183,14 @@ public class Elevator extends Subsystem {
 
     public boolean getAdjustingBool() {
         return adjusting;
+    }
+
+    public void setServo(double angle) {
+        _liftServo.set(angle);
+    }
+
+    public double getServo() {
+        return _liftServo.get();
     }
 
     public TalonSRX getIMUTalon() {
