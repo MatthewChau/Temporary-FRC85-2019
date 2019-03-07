@@ -32,7 +32,10 @@ import frc.robot.commands.lift.MastWithJoystick;
 import frc.robot.commands.lift.ElevatorWithJoystick;
 import frc.robot.commands.rearsolenoid.SetRearSolenoid;
 import frc.robot.commands.driverassistance.Place;
-import frc.robot.commands.driverassistance.HatchGround;
+import frc.robot.commands.driverassistance.CargoStation1;
+import frc.robot.commands.driverassistance.CargoStation2;
+import frc.robot.commands.driverassistance.HatchGround2;
+import frc.robot.commands.driverassistance.HatchGround1;
 import frc.robot.commands.driverassistance.HatchRelease;
 import frc.robot.commands.driverassistance.HatchStation1;
 import frc.robot.commands.driverassistance.HatchStation2;
@@ -126,13 +129,15 @@ public class OI {
         _operatorCargoThree = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_CARGO_THREE);
         _operatorCargoThree.whenPressed(new Place(Variables.getInstance().CARGO_THREE, Variables.getInstance().INTAKE_90));
 
+        _operatorCargoDefault.whenPressed(new CargoStation1());
+        _operatorCargoDefault.whenReleased(new CargoStation2());
 
         // Hatch
         _operatorHatchDefault = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_HATCH_DEFAULT);
         _operatorHatchDefault.whenPressed(new WristPosition(Intake.getInstance().getWristPosition() - 150000));
         _operatorHatchFloor = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_HATCH_FLOOR);
-        _operatorHatchFloor.whenPressed(new HatchGround());
-        _operatorHatchFloor.whenReleased(new Interrupt());
+        _operatorHatchFloor.whenPressed(new HatchGround1());
+        _operatorHatchFloor.whenReleased(new HatchGround2());
         _operatorHatchRelease = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_HATCH_RELEASE);
         _operatorHatchRelease.whenPressed(new HatchRelease());
 
