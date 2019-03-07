@@ -63,6 +63,7 @@ if __name__ == "__main__":
 
     topCamera = startCamera("top", "/dev/video0", None)
     bottomCamera = startCamera("bottom", "/dev/video1", None)
+    driverAssistCamera = startCamera("driver_assist", "/dev/video2", None)
 
     topSink = cs.getVideo(camera=topCamera)
     bottomSink = cs.getVideo(camera=bottomCamera)
