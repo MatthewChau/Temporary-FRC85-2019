@@ -85,23 +85,21 @@ public class Intake extends Subsystem {
     private boolean softLimits(double speed) {
         double verticalPosition = Elevator.getInstance().getVerticalPosition();
         double intakePosition = getWristPosition();
+        double mastPosition = Mast.getInstance().getHorizontalPosition();
 
-        //NEW: Enforce positional limits
         if(!SmartDashboard.getBoolean("Disable Intake Top Limit", false) // top limit
             && intakePosition >= Variables.WRIST_MAX_POS
             && speed > 0) 
         {
             return true;
-        }
-        if(verticalPosition > Variables.ELEVATOR_MIN_POS_MAST_FORWARD_CARGO // bottom limit when mast is forward
-            && intakePosition <= Variables.WRIST_MIN_POS
-            && speed < 0) 
+        } else if(mastPosition < Variables.MAST_BREAKPOINT // bottom limit when mast is back, takes into account verticalPos
+                  && intakePosition <= Variables.WRIST_MIN_POS_MAST_BACK
+                  && verticalPosition <= Variables.ELEVATOR_MIN_POS_MAST_PROTECTED
+                  && speed < 0) 
         {
             return true;
-        }
-        if(verticalPosition <= Variables.ELEVATOR_MIN_POS_MAST_FORWARD_CARGO // bottom limit when mast is behind
-            && intakePosition <= Variables.WRIST_ELEVATOR_BREAKPOINT
-            && speed < 0) 
+        } else if(intakePosition <= Variables.WRIST_MIN_POS // general bottom limit
+                  && speed < 0) 
         {
             return true;
         }
@@ -136,8 +134,8 @@ public class Intake extends Subsystem {
                 target = Variables.WRIST_MIN_POS;
         }
         else {
-            if(target < Variables.WRIST_ELEVATOR_BREAKPOINT)
-                target = Variables.WRIST_ELEVATOR_BREAKPOINT;
+            if(target < Variables.WRIST_MIN_POS_MAST_BACK)
+                target = Variables.WRIST_MIN_POS_MAST_BACK;
             if(target > Variables.WRIST_MAX_POS)
                 target = Variables.WRIST_MAX_POS;
         }

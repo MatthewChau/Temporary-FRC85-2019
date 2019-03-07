@@ -30,16 +30,22 @@ public class Variables {
 
     // PID
 
-// BROOKE AND SCOTT WERE HERE, HIIIIIIIIIIIIIII
-// We tuned the PID loop a little more, original values: P: 2.5E-04, I: 0 D: 0
-
     private final double kP_VLIFT = 0.0004, kI_VLIFT = 0.00000004, kD_VLIFT = 0.0009;
 
     private final double kP_HLIFT = 0.025, kI_HLIFT = 0.0, kD_HLIFT = 0.0;
 
     public static final double kP_INTAKE = 0.001, kI_INTAKE = 0.0, kD_INTAKE = 0.0;
 
-    // Lift Vertical Postitions
+    // ANGLES FOR VISION
+
+    public final double ROT_POS_1 = 90;
+    public final double ROT_POS_2 = -90;
+    public final double ROT_POS_3 = 60;
+    public final double ROT_POS_4 = 120;
+
+    // ELEVATOR
+
+    // elevator positions
     public final int HATCH_ONE = 1565;
     public final int HATCH_TWO = 8850;
     public final int HATCH_THREE = 17097;
@@ -50,58 +56,51 @@ public class Variables {
     public final int CARGO_THREE = 21612;
     public final int CARGO_FLOOR = 1500;
 
-    public final int LIFT_MIN_FOR_MAST = 4000;
-
-    public final double ROT_POS_1 = 90;
-    public final double ROT_POS_2 = -90;
-    public final double ROT_POS_3 = 60;
-    public final double ROT_POS_4 = 120;
-
     //Elevator position limits
     public static final int ELEVATOR_MAX_POS = 21500;
-    public static final int ELEVATOR_MIN_POS_MAST_PROTECTED = 5000;
+    public static final int ELEVATOR_MIN_POS_MAST_PROTECTED = 4000;
     public static final int ELEVATOR_MIN_POS_MAST_FORWARD_CARGO = 1100;
     public static final int ELEVATOR_MIN_POS_MAST_FORWARD_HATCH = 0;
+
     //Elevator Speed Limits 
     public static final double ELEVATOR_MAX_SPEED = .5;
     public static final double ELEVATOR_MIN_SPEED = -.2;
 
+    //Servo Angles for LiftLock
     public final double ELEVATOR_LOCKED = 70;
     public final double ELEVATOR_UNLOCKED = 180;
 
-    // Lift Horizontal Positions
-    public final int MAST_FORWARD_POS = 700000;
+    // MAST
+
+    //Mast Positions
+    public static final int MAST_FORWARD_POS = 700000;
 
     //Mast position limits
     public static final int MAST_MIN_POS = 0;
-    public static final int MAST_ELEVATOR_BREAKPOINT = 400000;
+    public static final int MAST_BREAKPOINT = 400000;
     public static final int MAST_MAX_POS = 871000;
+
     //Mast speed limits
     public static final double MAST_MAX_SPEED = .5;
     public static final double MAST_MIN_SPEED = -.5;
 
-    // INTAKE
-    public final double MAX_SPEED_UP_INTAKE = 0.8;
-    public final double MAX_SPEED_DOWN_INTAKE = -0.8;
+    // WRIST
 
-    //Wrist position limits
-    public static final int WRIST_MAX_POS = 0;
-    public static final int WRIST_ELEVATOR_BREAKPOINT = -500000;
-    public static final int WRIST_MIN_POS = -1124000;
-
+    // wrist positions
     public static final int WRIST_ANGLE_FOR_CARGO = -767000;
-
-    //Wrist speed limits
-    public static final double WRIST_MAX_SPEED = .6;
-    public static final double WRIST_MIN_SPEED = -.6;
-
-    //Wrist positions
     public static final int Wrist_Floor_Pickup_Pos = -1000000;
     public final int INTAKE_0 = 0;
     public final int INTAKE_45 = -500000;
     public final int INTAKE_90 = -908000;
 
-    
+    //Wrist position limits
+    public static final int WRIST_MAX_POS = 0;
+    public static final int WRIST_MIN_POS_MAST_BACK = -200000;
+    public static final int WRIST_MIN_POS = -1124000;
+
+    // wrist speed limits
+    public final double WRIST_MAX_SPEED_UP = 0.8;
+    public final double WRIST_MAX_SPEED_DOWN = -0.8;
 
     /**
      * Put variables here that should be changeable on the fly.
@@ -131,8 +130,8 @@ public class Variables {
         SmartDashboard.putNumber("kI_VISION_ROT", 0.0);
         SmartDashboard.putNumber("kD_VISION_ROT", 0.2);
 
-        SmartDashboard.putNumber("MAX_SPEED_UP_INTAKE", MAX_SPEED_UP_INTAKE);
-        SmartDashboard.putNumber("MAX_SPEED_DOWN_INTAKE", MAX_SPEED_DOWN_INTAKE);
+        SmartDashboard.putNumber("MAX_SPEED_UP_INTAKE", WRIST_MAX_SPEED_UP);
+        SmartDashboard.putNumber("MAX_SPEED_DOWN_INTAKE", WRIST_MAX_SPEED_DOWN);
 
         SmartDashboard.putNumber("UNLOCKED", ELEVATOR_UNLOCKED);
         SmartDashboard.putNumber("LOCKED", ELEVATOR_LOCKED);
@@ -236,11 +235,11 @@ public class Variables {
     }
 
     public double getMaxSpeedUpIntake() {
-        return SmartDashboard.getNumber("MAX_SPEED_UP_INTAKE", MAX_SPEED_UP_INTAKE);
+        return SmartDashboard.getNumber("MAX_SPEED_UP_INTAKE", WRIST_MAX_SPEED_UP);
     }
 
     public double getMaxSpeedDownIntake() {
-        return SmartDashboard.getNumber("MAX_SPEED_DOWN_INTAKE", MAX_SPEED_DOWN_INTAKE);
+        return SmartDashboard.getNumber("MAX_SPEED_DOWN_INTAKE", WRIST_MAX_SPEED_DOWN);
     }
 
     /**
@@ -270,7 +269,7 @@ public class Variables {
         SmartDashboard.putBoolean("Lift Bottom", ProxSensors.getInstance().getLiftBottomLimit());
         SmartDashboard.putBoolean("Lift Front", ProxSensors.getInstance().getLiftFrontLimit());
 
-        SmartDashboard.putNumber("Operator Joystick", OI.getInstance().getOperatorJoystick());
+        SmartDashboard.putNumber("Operator Joystick", OI.getInstance().getOperatorJoystickY());
 
         SmartDashboard.putNumber("Vertical Lift", Elevator.getInstance().getVerticalPosition());
 

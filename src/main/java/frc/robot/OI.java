@@ -104,11 +104,16 @@ public class OI {
         // Joystick combinations
         _operatorLiftVertical = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_LIFT_VERTICAL);
         _operatorLiftVertical.whenPressed(new ElevatorWithJoystick());
+        _operatorLiftVertical.whenPressed(new Interrupt());
         _operatorLiftHorizontal = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_LIFT_HORIZONTAL);
+        _operatorLiftHorizontal.whenPressed(new Interrupt());
         _operatorIntakeRotate = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_INTAKE_ROTATE);
+        _operatorIntakeRotate.whenPressed(new Interrupt());
 
         // Cargo
         _operatorCargoDefault = new JoystickButton(_operatorControllerWhite, 3);
+        //_operatorCargoDefault.whenPressed(new CargoStation1());
+        //_operatorCargoDefault.whenReleased(new CargoStation2());
         _operatorCargoFloor = new JoystickButton(_operatorControllerWhite, 5);
         _operatorCargoIn = new JoystickButton(_operatorControllerWhite, 2);
         _operatorCargoIn.whenPressed(new ActivateIntake(0.8));
@@ -124,9 +129,6 @@ public class OI {
         _operatorCargoThree = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_CARGO_THREE);
         _operatorCargoThree.whenPressed(new Place(Variables.getInstance().CARGO_THREE, Variables.getInstance().WRIST_ANGLE_FOR_CARGO));
 
-        _operatorCargoDefault.whenPressed(new CargoStation1());
-        _operatorCargoDefault.whenReleased(new CargoStation2());
-
         // Hatch
         _operatorHatchDefault = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_HATCH_DEFAULT);
         _operatorHatchDefault.whenPressed(new WristPosition(Intake.getInstance().getWristPosition() - 150000));
@@ -135,6 +137,7 @@ public class OI {
         //_operatorHatchFloor.whenReleased(new HatchGround2());
         _operatorHatchRelease = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_HATCH_RELEASE);
         _operatorHatchRelease.whenPressed(new HatchRelease());
+        _operatorHatchRelease.whenReleased(new MastPosition(Variables.MAST_FORWARD_POS));
 
         _operatorHatchOne = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_HATCH_ONE);
         _operatorHatchOne.whenPressed(new Place(Variables.getInstance().HATCH_ONE, Variables.getInstance().INTAKE_0));
@@ -249,33 +252,31 @@ public class OI {
     }
 
     public boolean getBButton() {
-        //SmartDashboard.putBoolean("90 Right", _driverController.getRawButton(2));
         return _driverController.getRawButton(2);
     }
 
     public boolean getTurnLeft90() {
-        if (SmartDashboard.getBoolean("Joysticks Enabled", false)) {
-            return false;//getTurn90LeftButton();
-        } else {
-            return false;//getXButton();
-        }
+        //if (SmartDashboard.getBoolean("Joysticks Enabled", false)) {
+            return getTurn90LeftButton();
+        //} else {
+        //    return false;//getXButton();
+        //}
     }
 
     public boolean getTurnRight90() {
-        if (SmartDashboard.getBoolean("Joysticks Enabled", false)) {
-            return false;//getTurn90RightButton();
-        } else {
-            return false;//getBButton();
-        }
+        //if (SmartDashboard.getBoolean("Joysticks Enabled", false)) {
+            return getTurn90RightButton();
+        //} else {
+        //    return false;//getBButton();
+        //}
     }
 
     private boolean getXButton() {
-        //SmartDashboard.putBoolean("90 Left", _driverController.getRawButton(3));
         return _driverController.getRawButton(3);
     }
 
     private boolean getTurn90LeftButton() {
-        return _driverJoystickRight.getRawButton(5);
+        return _driverJoystickLeft.getRawButton(4);
     }
 
     public boolean getYButton() {
@@ -283,13 +284,27 @@ public class OI {
     }
 
     private boolean getTurn90RightButton() {
-        return _driverJoystickRight.getRawButton(6);
+        return _driverJoystickLeft.getRawButton(5);
+    }
+
+    public boolean getTurn180Button() {
+        return _driverJoystickLeft.getRawButton(2);
     }
 
     // Operator Control Board
 
-    public double getOperatorJoystick() {
+    public double getOperatorJoystickY() {
         double axis = _operatorControllerBlack.getRawAxis(1);
+
+        if (Math.abs(axis) < Variables.getInstance().DEADBAND_OPERATORSTICK) {
+            axis = 0;
+        }
+
+        return axis;
+    }
+
+    public double getOperatorJoystickX() {
+        double axis = _operatorControllerBlack.getRawAxis(2); // probably?
 
         if (Math.abs(axis) < Variables.getInstance().DEADBAND_OPERATORSTICK) {
             axis = 0;

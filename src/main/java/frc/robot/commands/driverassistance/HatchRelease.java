@@ -18,9 +18,11 @@ import frc.robot.commands.drivetrain.FollowOneTarget;;
 
 public class HatchRelease extends CommandGroup {
 
-    //Deprecated
+    public HatchRelease() {
+        addSequential(new Interrupt());
 
-    public HatchRelease() { // this should work ok
+        addSequential(new ElevatorPosition(Elevator.getInstance().getTargetPosition() - 1300));
+        addParallel(new MastPosition(Mast.getInstance().getHorizontalPosition() - 5000));
         addSequential(new ActivateWrist(-0.7, 0.25));
         //addSequential(new MastPosition(Variables.getInstance().MAST_PROTECTED));
     }

@@ -92,33 +92,22 @@ public class Mast extends Subsystem {
     private boolean softLimits(double speed) {
         double mastPosition = getHorizontalPosition();
         double verticalPosition = Elevator.getInstance().getVerticalPosition();
-        
-        //NEW: use the limits we defined to prevent manually driving the mast unsafely
+        double intakePosition = Intake.getInstance().getWristPosition();
 
-        // mast limits don't make sense without the intake position.  there's no reason to limit the mast's movement without the intakepos
+        // mast limits need a front limit, a rear limit, & a thing if both wrist & elevator are low 
 
-        if (verticalPosition > Variables.ELEVATOR_MIN_POS_MAST_PROTECTED // top limit
-            && mastPosition >= Variables.MAST_MAX_POS 
+        if (mastPosition >= Variables.MAST_MAX_POS // front limit
             && speed > 0)
         {
             return true;
-        }
-        if (verticalPosition > Variables.ELEVATOR_MIN_POS_MAST_PROTECTED // lift above a certain point limit
-            &&  mastPosition <= Variables.MAST_MIN_POS 
-            && speed < 0) 
+        } else if (verticalPosition <= Variables.ELEVATOR_MIN_POS_MAST_PROTECTED // can't move back if both wrist and elevator are low enough
+                   && intakePosition <= Variables.WRIST_MIN_POS_MAST_BACK
+                   && mastPosition <= Variables.MAST_BREAKPOINT
+                   && speed < 0) 
         {
             return true;
-        }
-        if (verticalPosition <= Variables.ELEVATOR_MIN_POS_MAST_PROTECTED // if lift is below the certain point
-            &&  mastPosition >= Variables.MAST_MAX_POS 
-            && speed > 0)
-        {
-            return true;
-        }
-        if (verticalPosition <= Variables.ELEVATOR_MIN_POS_MAST_PROTECTED
-            &&  mastPosition <= Variables.MAST_ELEVATOR_BREAKPOINT 
-            && speed < 0) 
-        {
+        } else if (mastPosition <= Variables.MAST_MIN_POS // rear limit
+                   && speed < 0) {
             return true;
         }
 

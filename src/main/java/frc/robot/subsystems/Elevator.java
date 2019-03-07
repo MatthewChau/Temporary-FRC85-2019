@@ -99,31 +99,25 @@ public class Elevator extends Subsystem {
         double verticalPosition = getVerticalPosition();
         double intakePosition = Intake.getInstance().getWristPosition();
 
-        //NEW: Enforce positional limits 
-        //max is always the same for the elevator
+        // lift needs a top limit, a bottom limit,
+        // if the wrist is down and the mast is back
+        // if the wrist is down and the mast is forward
         if(verticalPosition > Variables.ELEVATOR_MAX_POS // top limit
             && speed > 0) 
         {
             return true;
-        }
-        if(mastPosition < Variables.MAST_ELEVATOR_BREAKPOINT // bottom limit back?
-            && verticalPosition <= Variables.ELEVATOR_MIN_POS_MAST_PROTECTED
-            && speed < 0)
-        {
+        } else if(mastPosition < Variables.MAST_BREAKPOINT // mast is back & wrist is down
+                  && intakePosition < Variables.WRIST_MIN_POS_MAST_BACK
+                  && verticalPosition < Variables.ELEVATOR_MIN_POS_MAST_PROTECTED
+                  && speed < 0) {
             return true;
-        }
-        if(mastPosition > Variables.MAST_ELEVATOR_BREAKPOINT // bottom limit front for cargo
-            && intakePosition <= Variables.WRIST_ELEVATOR_BREAKPOINT
-            && verticalPosition <= Variables.ELEVATOR_MIN_POS_MAST_FORWARD_CARGO
-            && speed < 0)
-        {
+        } else if(mastPosition >= Variables.MAST_BREAKPOINT // mast is forward & wrist is down
+                  && intakePosition < Variables.WRIST_MIN_POS_MAST_BACK
+                  && verticalPosition < Variables.ELEVATOR_MIN_POS_MAST_FORWARD_CARGO
+                  && speed < 0) {
             return true;
-        }
-        if(mastPosition > Variables.MAST_ELEVATOR_BREAKPOINT // bottom limit for hatch stuff
-            && intakePosition >= Variables.WRIST_ELEVATOR_BREAKPOINT
-            && verticalPosition <= Variables.ELEVATOR_MIN_POS_MAST_FORWARD_HATCH
-            && speed < 0)
-        {
+        } else if(verticalPosition < Variables.ELEVATOR_MIN_POS_MAST_FORWARD_HATCH // general bottom limit
+                  && speed < 0) {
             return true;
         }
         return false;
@@ -157,13 +151,13 @@ public class Elevator extends Subsystem {
             target = Variables.ELEVATOR_MAX_POS;
         }
         //if mast is protected, use a special minimum value for the elevator
-        else if(Mast.getInstance().getHorizontalPosition() < Variables.MAST_ELEVATOR_BREAKPOINT){
+        else if(Mast.getInstance().getHorizontalPosition() < Variables.MAST_BREAKPOINT){
             /*if(target < Variables.ELEVATOR_MIN_POS_MAST_PROTECTED)
                 target = Variables.ELEVATOR_MIN_POS_MAST_PROTECTED;*/
         }
         //otherwise, minimum value is determined by the wrist
         else{
-            if(Intake.getInstance().getWristPosition() > Variables.WRIST_ELEVATOR_BREAKPOINT) {
+            if(Intake.getInstance().getWristPosition() > Variables.WRIST_MIN_POS_MAST_BACK) {
                 /*if(target < Variables.ELEVATOR_MIN_POS_MAST_FORWARD_HATCH) 
                     target = Variables.ELEVATOR_MIN_POS_MAST_FORWARD_HATCH;*/
             }

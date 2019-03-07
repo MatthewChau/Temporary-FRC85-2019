@@ -26,7 +26,7 @@ public class MastWithJoystick extends Command {
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
-        Mast.getInstance().horizontalShift(OI.getInstance().getOperatorJoystick());
+        Mast.getInstance().horizontalShift(OI.getInstance().getOperatorJoystickY());
     }
 
     // Make this return true when this Command no longer needs to run execute()

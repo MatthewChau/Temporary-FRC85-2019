@@ -12,21 +12,21 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class WristPosition extends Command {
     
-    private int _target, __target;
+    private int _target, _initial;
     
     public WristPosition(int target) {
         requires(Intake.getInstance());
-        _target = target;
+        _initial = target;
     }
 
     @Override
     protected void initialize() {
-        __target = _target;
+        _target = _initial;
     }
 
     @Override
     protected void execute() {
-        Intake.getInstance().setTargetPos(__target);
+        Intake.getInstance().setTargetPos(_target);
         Intake.getInstance().changeAdjustingBool(true);
         Intake.getInstance().setWrist(0.0);
     }
