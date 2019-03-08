@@ -102,20 +102,20 @@ public class Elevator extends Subsystem {
         // lift needs a top limit, a bottom limit,
         // if the wrist is down and the mast is back
         // if the wrist is down and the mast is forward
-        if(verticalPosition > Variables.ELEVATOR_MAX_POS // top limit
+        if (verticalPosition > Variables.ELEVATOR_MAX_POS // top limit
             && speed > 0) {
             return true;
-        } else if(mastPosition < Variables.MAST_BREAKPOINT // mast is back & wrist is down
+        } else if (mastPosition < Variables.MAST_BREAKPOINT // mast is back & wrist is down
                   && intakePosition < Variables.WRIST_MIN_POS_MAST_BACK
                   && verticalPosition < Variables.ELEVATOR_MIN_POS_MAST_PROTECTED
                   && speed < 0) {
             return true;
-        } else if(mastPosition >= Variables.MAST_BREAKPOINT // mast is forward & wrist is down
+        } else if (mastPosition >= Variables.MAST_BREAKPOINT // mast is forward & wrist is down
                   && intakePosition < Variables.WRIST_MIN_POS_MAST_BACK
                   && verticalPosition < Variables.ELEVATOR_MIN_POS_MAST_FORWARD_CARGO
                   && speed < 0) {
             return true;
-        } else if(verticalPosition < Variables.ELEVATOR_MIN_POS_MAST_FORWARD_HATCH // general bottom limit
+        } else if (verticalPosition < Variables.ELEVATOR_MIN_POS_MAST_FORWARD_HATCH // general bottom limit
                   && speed < 0) {
             return true;
         }
@@ -156,32 +156,29 @@ public class Elevator extends Subsystem {
         return _liftRightMotor.getOutputCurrent();
     }
 
-    //NEW: (... and untested!)  Enforce positional limits
-    // BROOKE AND SCOTT WERE also HERE, HIIIIIIIIIIIIIII
-    // commented out some of the logic so that we don't jump to limits automatically
-    // may need further testing...
     public void setTargetPosition(double target) {
         //max is always the same for the elevator
         if(target > Variables.ELEVATOR_MAX_POS) {
             target = Variables.ELEVATOR_MAX_POS;
         }
         //if mast is protected, use a special minimum value for the elevator
-        else if(Mast.getInstance().getHorizontalPosition() < Variables.MAST_BREAKPOINT){
-            /*if(target < Variables.ELEVATOR_MIN_POS_MAST_PROTECTED)
-                target = Variables.ELEVATOR_MIN_POS_MAST_PROTECTED;*/
+        /*else if(Mast.getInstance().getHorizontalPosition() < Variables.MAST_BREAKPOINT){
+            if(target < Variables.ELEVATOR_MIN_POS_MAST_PROTECTED)
+                target = Variables.ELEVATOR_MIN_POS_MAST_PROTECTED;
         }
         //otherwise, minimum value is determined by the wrist
         else{
             if(Intake.getInstance().getWristPosition() > Variables.WRIST_MIN_POS_MAST_BACK) {
-                /*if(target < Variables.ELEVATOR_MIN_POS_MAST_FORWARD_HATCH) 
-                    target = Variables.ELEVATOR_MIN_POS_MAST_FORWARD_HATCH;*/
+                if(target < Variables.ELEVATOR_MIN_POS_MAST_FORWARD_HATCH) 
+                    target = Variables.ELEVATOR_MIN_POS_MAST_FORWARD_HATCH;
             }
             else {
-                /*if(target < Variables.ELEVATOR_MIN_POS_MAST_FORWARD_CARGO) 
-                    target = Variables.ELEVATOR_MIN_POS_MAST_FORWARD_CARGO;*/
+                if(target < Variables.ELEVATOR_MIN_POS_MAST_FORWARD_CARGO) 
+                    target = Variables.ELEVATOR_MIN_POS_MAST_FORWARD_CARGO;
             }
+        }*/ else {
+            targetPos = target;
         }
-        targetPos = target;
     }
 
     public double getTargetPosition() {

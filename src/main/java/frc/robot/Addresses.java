@@ -69,9 +69,6 @@ public class Addresses {
     public static final int INTAKE_WRIST = 31;
     public static final int INTAKE_ROLLER = 32;
 
-    public static final int INTAKE_ONE_SOLENOID = 2;
-    public static final int INTAKE_TWO_SOLENOID = 3;
-
     // Intake Proximity Sensors
     public static final int INTAKE_TOP_LIMIT = 5;
     public static final int INTAKE_BOTTOM_LIMIT = 6;
@@ -84,7 +81,8 @@ public class Addresses {
     public static final int BELTTRAIN_SOLENOID = 0;
 
     // Rear Solenoid
-    public static final int REAR_SOLENOID = 1;
+    public static final int REAR_SOLENOID_1 = 1;
+    public static final int REAR_SOLENOID_2 = 2;
    
     // LED Spike Relay
     public static final int LIGHT_RELAY = 0;

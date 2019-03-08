@@ -72,8 +72,7 @@ public class Intake extends Subsystem {
             speed = 0.0;
         }
 
-        if ((ProxSensors.getInstance().getIntakeBottomLimit() && speed < 0) // if we trying to exceed top limit
-            || (ProxSensors.getInstance().getIntakeTopLimit() && speed > 0) // if we trying to exceed bottom limit
+        if ((ProxSensors.getInstance().getIntakeTopLimit() && speed > 0) // if we trying to exceed top limit
             || (!OI.getInstance().getOperatorIntakeRotate() && !adjusting) // if the button isn't pressed and we are not adjusting
             || (softLimits(speed) && !SmartDashboard.getBoolean("Disable Intake Soft Limits", false))) {
             _wrist.set(ControlMode.PercentOutput, 0);

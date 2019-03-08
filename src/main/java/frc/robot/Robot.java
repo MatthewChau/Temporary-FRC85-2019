@@ -23,6 +23,7 @@ import frc.robot.subsystems.Interruptable;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.RearSolenoid;
 import frc.robot.subsystems.Mast;
+import frc.robot.Diagnostics;
 import frc.robot.Vision;
 import frc.robot.commands.driverassistance.SendItBro;
 
@@ -38,6 +39,8 @@ import java.util.Arrays;
 public class Robot extends TimedRobot {
 
     public static boolean overrideLimits = false;
+
+    private Diagnostics _diagnostics;
 
     private SendItBro _sendItBro;
 
@@ -58,6 +61,8 @@ public class Robot extends TimedRobot {
         BeltTrain.getInstance();
         RearSolenoid.getInstance();
         Interruptable.getInstance();
+
+        _diagnostics = new Diagnostics();
     }
 
     /**
@@ -75,6 +80,7 @@ public class Robot extends TimedRobot {
     @Override
     public void autonomousInit() {
         teleopInit();
+        
         //_sendItBro = new SendItBro();
         //_sendItBro.start();
     }
@@ -85,6 +91,8 @@ public class Robot extends TimedRobot {
     @Override
     public void autonomousPeriodic() {
         teleopPeriodic();
+        
+        //_diagnostics.log();
         //Scheduler.getInstance().run();
         //Variables.getInstance().outputVariables();
     }
@@ -121,9 +129,7 @@ public class Robot extends TimedRobot {
         Scheduler.getInstance().run();
         Variables.getInstance().outputVariables();
 
-        if (OI.getInstance().getOperatorCargoDefault()) {
-            Intake.getInstance().setWristPosition(0);
-        }
+        _diagnostics.log();
     }
 
     /**
@@ -139,6 +145,8 @@ public class Robot extends TimedRobot {
         Mast.getInstance().setTargetPosition(Mast.getInstance().getHorizontalPosition());
         Intake.getInstance().setWristPosition(0);
         Intake.getInstance().setTargetPos(Intake.getInstance().getWristPosition());
+
+        _diagnostics.close();
     }
 
 }

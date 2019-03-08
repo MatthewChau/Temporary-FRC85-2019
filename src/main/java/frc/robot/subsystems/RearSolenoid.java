@@ -9,10 +9,11 @@ public class RearSolenoid extends Subsystem {
     
     public static RearSolenoid _instance = null;
 
-    private Solenoid _rearSolenoid;
+    private Solenoid _rearSolenoid1, _rearSolenoid2;
 
     public RearSolenoid() {
-        _rearSolenoid = new Solenoid(Addresses.REAR_SOLENOID);
+        _rearSolenoid1 = new Solenoid(Addresses.REAR_SOLENOID_1);
+        _rearSolenoid2 = new Solenoid(Addresses.REAR_SOLENOID_2);
     }
 
     public static RearSolenoid getInstance() {
@@ -27,11 +28,16 @@ public class RearSolenoid extends Subsystem {
     }
 
     public void setRearSolenoid(boolean activated) {
-        _rearSolenoid.set(activated);
+        _rearSolenoid1.set(activated);
+        _rearSolenoid2.set(!activated);
     }
 
-    public boolean getRearSolenoid() {
-        return _rearSolenoid.get();
+    public boolean getRearSolenoidOne() { // this should be the state of the system as a whole anyway
+        return _rearSolenoid1.get();
+    }
+
+    public boolean getRearSolenoidTwo() {
+        return _rearSolenoid2.get();
     }
    
 }

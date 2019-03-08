@@ -17,7 +17,7 @@ public class ProxSensors extends Subsystem {
     private static ProxSensors _instance = null;
     private DigitalInput _liftTopLimit, _liftCenterLimit, _liftBottomLimit, _liftFrontLimit, _liftRearLimit;
 
-    private DigitalInput _intakeTopLimit, _intakeBottomLimit;
+    private DigitalInput _intakeTopLimit;
 
     private ProxSensors() {
         _liftTopLimit = new DigitalInput(Addresses.LIFT_TOP_LIMIT);
@@ -28,7 +28,6 @@ public class ProxSensors extends Subsystem {
         _liftRearLimit = new DigitalInput(Addresses.LIFT_BACK_LIMIT);
 
         _intakeTopLimit = new DigitalInput(Addresses.INTAKE_TOP_LIMIT);
-        _intakeBottomLimit = new DigitalInput(Addresses.INTAKE_BOTTOM_LIMIT);
     }
 
     public static ProxSensors getInstance() {
@@ -64,10 +63,6 @@ public class ProxSensors extends Subsystem {
 
     public boolean getIntakeTopLimit() {
         return !_intakeTopLimit.get();
-    }
-
-    public boolean getIntakeBottomLimit() {
-        return !_intakeBottomLimit.get();
     }
 
 }
