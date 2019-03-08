@@ -103,8 +103,7 @@ public class Elevator extends Subsystem {
         // if the wrist is down and the mast is back
         // if the wrist is down and the mast is forward
         if(verticalPosition > Variables.ELEVATOR_MAX_POS // top limit
-            && speed > 0) 
-        {
+            && speed > 0) {
             return true;
         } else if(mastPosition < Variables.MAST_BREAKPOINT // mast is back & wrist is down
                   && intakePosition < Variables.WRIST_MIN_POS_MAST_BACK

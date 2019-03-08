@@ -56,13 +56,13 @@ public class Mast extends Subsystem {
                                               Variables.getInstance().getMastKP(), 
                                               Variables.getInstance().getMastKI(), 
                                               Variables.getInstance().getMastKD(), 
-                                              0.75, 
-                                              -0.75);
+                                              0.6, 
+                                              -0.6);
         } else if (speed > 0.0) {
-            speed = 0.75;
+            speed = 0.6;
             setTargetPosition(getHorizontalPosition());
         } else if (speed < 0.0) {
-            speed = -0.75;
+            speed = -0.6;
             setTargetPosition(getHorizontalPosition());
         } else {
             speed = 0.0;
@@ -97,14 +97,12 @@ public class Mast extends Subsystem {
         // mast limits need a front limit, a rear limit, & a thing if both wrist & elevator are low 
 
         if (mastPosition >= Variables.MAST_MAX_POS // front limit
-            && speed > 0)
-        {
+            && speed > 0) {
             return true;
         } else if (verticalPosition <= Variables.ELEVATOR_MIN_POS_MAST_PROTECTED // can't move back if both wrist and elevator are low enough
                    && intakePosition <= Variables.WRIST_MIN_POS_MAST_BACK
                    && mastPosition <= Variables.MAST_BREAKPOINT
-                   && speed < 0) 
-        {
+                   && speed < 0) {
             return true;
         } else if (mastPosition <= Variables.MAST_MIN_POS // rear limit
                    && speed < 0) {

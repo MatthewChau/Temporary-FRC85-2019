@@ -123,11 +123,11 @@ public class OI {
         _operatorCargoOut.whenReleased(new ActivateIntake(0));
 
         _operatorCargoOne = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_CARGO_ONE);
-        _operatorCargoOne.whenPressed(new Place(Variables.getInstance().CARGO_ONE, Variables.getInstance().WRIST_ANGLE_FOR_CARGO));
+        _operatorCargoOne.whenPressed(new Place(Variables.getInstance().CARGO_ONE, Variables.WRIST_ANGLE_FOR_CARGO));
         _operatorCargoTwo = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_CARGO_TWO);
-        _operatorCargoTwo.whenPressed(new Place(Variables.getInstance().CARGO_TWO, Variables.getInstance().WRIST_ANGLE_FOR_CARGO));
+        _operatorCargoTwo.whenPressed(new Place(Variables.getInstance().CARGO_TWO, Variables.WRIST_ANGLE_FOR_CARGO));
         _operatorCargoThree = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_CARGO_THREE);
-        _operatorCargoThree.whenPressed(new Place(Variables.getInstance().CARGO_THREE, Variables.getInstance().WRIST_ANGLE_FOR_CARGO));
+        _operatorCargoThree.whenPressed(new Place(Variables.getInstance().CARGO_THREE, Variables.WRIST_ANGLE_FOR_CARGO));
 
         // Hatch
         _operatorHatchDefault = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_HATCH_DEFAULT);
@@ -148,10 +148,10 @@ public class OI {
 
         // Climb
         _operatorClimbAuto = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_CLIMB_AUTO);
-        _operatorClimbBack = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_CLIMB_BACK);
+        _operatorClimbBack = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_CLIMB_BACK);
         _operatorClimbBack.whenPressed(new SetRearSolenoid(true));
         _operatorClimbBack.whenReleased(new SetRearSolenoid(false));
-        _operatorClimbFront = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_CLIMB_FRONT);
+        _operatorClimbFront = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_CLIMB_FRONT);
         _operatorClimbFront.whenPressed(new SetBeltSolenoid(true));
         _operatorClimbFront.whenReleased(new SetBeltSolenoid(false));
 

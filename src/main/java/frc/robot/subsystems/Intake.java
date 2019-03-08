@@ -72,13 +72,17 @@ public class Intake extends Subsystem {
             speed = 0.0;
         }
 
-        if ((ProxSensors.getInstance().getIntakeBottomLimit() && speed > 0) // if we trying to exceed top limit
-            || (ProxSensors.getInstance().getIntakeTopLimit() && speed < 0) // if we trying to exceed bottom limit
+        if ((ProxSensors.getInstance().getIntakeBottomLimit() && speed < 0) // if we trying to exceed top limit
+            || (ProxSensors.getInstance().getIntakeTopLimit() && speed > 0) // if we trying to exceed bottom limit
             || (!OI.getInstance().getOperatorIntakeRotate() && !adjusting) // if the button isn't pressed and we are not adjusting
             || (softLimits(speed) && !SmartDashboard.getBoolean("Disable Intake Soft Limits", false))) {
             _wrist.set(ControlMode.PercentOutput, 0);
         } else {
             _wrist.set(ControlMode.PercentOutput, speed);
+        }
+
+        if (ProxSensors.getInstance().getIntakeTopLimit()) {
+            setWristPosition(0);
         }
     }
 
@@ -89,18 +93,15 @@ public class Intake extends Subsystem {
 
         if(!SmartDashboard.getBoolean("Disable Intake Top Limit", false) // top limit
             && intakePosition >= Variables.WRIST_MAX_POS
-            && speed > 0) 
-        {
+            && speed > 0) {
             return true;
         } else if(mastPosition < Variables.MAST_BREAKPOINT // bottom limit when mast is back, takes into account verticalPos
                   && intakePosition <= Variables.WRIST_MIN_POS_MAST_BACK
                   && verticalPosition <= Variables.ELEVATOR_MIN_POS_MAST_PROTECTED
-                  && speed < 0) 
-        {
+                  && speed < 0) {
             return true;
         } else if(intakePosition <= Variables.WRIST_MIN_POS // general bottom limit
-                  && speed < 0) 
-        {
+                  && speed < 0) {
             return true;
         }
         return false;

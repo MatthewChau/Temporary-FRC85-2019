@@ -11,8 +11,8 @@ public class SendItBro extends CommandGroup {
 
     public SendItBro() {
         addSequential(new Wait(0.3));
-        addParallel(new DriveSeconds(-0.5, 2.0));
-        addSequential(new BeltTrainDrive(.5, 2.0));
+        addParallel(new DriveSeconds(-0.5, 1.0));
+        addSequential(new BeltTrainDrive(.5, 1.0));
     }
     
 }

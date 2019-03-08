@@ -75,8 +75,8 @@ public class Robot extends TimedRobot {
     @Override
     public void autonomousInit() {
         teleopInit();
-        _sendItBro = new SendItBro();
-        _sendItBro.start();
+        //_sendItBro = new SendItBro();
+        //_sendItBro.start();
     }
 
     /**

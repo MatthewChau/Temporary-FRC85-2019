@@ -19,10 +19,10 @@ import frc.robot.commands.drivetrain.FollowOneTarget;;
 public class HatchRelease extends CommandGroup {
 
     public HatchRelease() {
-        addSequential(new Interrupt());
+        //addSequential(new Interrupt());
 
-        addSequential(new ElevatorPosition(Elevator.getInstance().getTargetPosition() - 1300));
-        addParallel(new MastPosition(Mast.getInstance().getHorizontalPosition() - 5000));
+        //addSequential(new ElevatorPosition(Elevator.getInstance().getTargetPosition() - 1300));
+        //addParallel(new MastPosition(Mast.getInstance().getHorizontalPosition() - 5000));
         addSequential(new ActivateWrist(-0.7, 0.25));
         //addSequential(new MastPosition(Variables.getInstance().MAST_PROTECTED));
     }
