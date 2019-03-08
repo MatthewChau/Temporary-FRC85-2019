@@ -304,7 +304,7 @@ public class OI {
     }
 
     public double getOperatorJoystickX() {
-        double axis = _operatorControllerBlack.getRawAxis(2); // probably?
+        double axis = _operatorControllerBlack.getRawAxis(0);
 
         if (Math.abs(axis) < Variables.getInstance().DEADBAND_OPERATORSTICK) {
             axis = 0;
