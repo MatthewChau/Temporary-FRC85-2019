@@ -140,6 +140,22 @@ public class Elevator extends Subsystem {
         return _liftRightMotor.getSelectedSensorPosition();
     }
 
+    public double getElevatorLeftVoltage() {
+        return _liftLeftMotor.getMotorOutputVoltage();
+    }
+
+    public double getElevatorRightVoltage() {
+        return _liftRightMotor.getMotorOutputVoltage();
+    }
+
+    public double getElevatorLeftCurrent() {
+        return _liftLeftMotor.getOutputCurrent();
+    }
+
+    public double getElevatorRightCurrent() {
+        return _liftRightMotor.getOutputCurrent();
+    }
+
     //NEW: (... and untested!)  Enforce positional limits
     // BROOKE AND SCOTT WERE also HERE, HIIIIIIIIIIIIIII
     // commented out some of the logic so that we don't jump to limits automatically

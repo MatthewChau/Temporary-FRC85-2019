@@ -134,6 +134,46 @@ public class DriveTrain extends Subsystem {
     }
 
     /**
+     * this is the voltage stuff that is 
+     * really only for diagnostics
+     */
+    public double getLeftFrontVoltage() {
+        return _leftFrontMotor.getMotorOutputVoltage();
+    }
+
+    public double getLeftBackVoltage() {
+        return _leftBackMotor.getMotorOutputVoltage();
+    }
+
+    public double getRightFrontVoltage() {
+        return _rightFrontMotor.getMotorOutputVoltage();
+    }
+
+    public double getRightBackVoltage() {
+        return _rightBackMotor.getMotorOutputVoltage();
+    }
+
+    /**
+     * this is the current draw stuff
+     * that is also only really for diagnostics
+     */
+    public double getLeftFrontCurrent() {
+        return _leftFrontMotor.getOutputCurrent();
+    }
+
+    public double getLeftBackCurrent() {
+        return _leftBackMotor.getOutputCurrent();
+    }
+
+    public double getRightFrontCurrent() {
+        return _rightFrontMotor.getOutputCurrent();
+    }
+
+    public double getRightBackCurrent() {
+        return _rightBackMotor.getOutputCurrent();
+    }
+
+    /**
      * Returns the selected motor's encoder position (count)
      * 1 Rotation = 4096 counts
      */

@@ -55,5 +55,13 @@ public class BeltTrain extends Subsystem {
     public double getRightMotorVoltage() {
         return _rightMotor.getMotorOutputVoltage();
     }
+
+    public double getLeftMotorCurrent() {
+        return _leftMotor.getOutputCurrent();
+    }
+
+    public double getRightMotorCurrent() {
+        return _rightMotor.getOutputCurrent();
+    }
      
 }
