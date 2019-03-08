@@ -56,6 +56,7 @@ public class Variables {
     public final int HATCH_FLOOR = 100;
     
     public final int CARGO_ONE = 5300;
+    public final int CARGO_SHIP = 12040; // unloading cargo ship pos
     public final int CARGO_TWO = 13540;
     public final int CARGO_THREE = 21612;
     public final int CARGO_FLOOR = 1500;

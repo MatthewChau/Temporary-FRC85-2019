@@ -84,6 +84,8 @@ public class DriveTrain extends Subsystem {
             setTurn90TargetAngle(true, inputs[3]); // turn left
         } else if (OI.getInstance().getTurnRight90()) {
             setTurn90TargetAngle(false, inputs[3]); // turn right
+        } else if (OI.getInstance().getTurn180Button()) {
+            setTurn180TargetAngle(inputs[3]);
         } else if (Math.abs(inputs[0]) > Variables.getInstance().DEADBAND_DRIVERSTICK
             || Math.abs(inputs[1]) > Variables.getInstance().DEADBAND_DRIVERSTICK
             || Math.abs(inputs[2]) > Variables.getInstance().DEADBAND_Z_DRIVERSTICK
@@ -283,6 +285,16 @@ public class DriveTrain extends Subsystem {
                 targetAngle = gyroAngle - 90;
             }
             turnInProgress = true;
+        }
+    }
+
+    public void setTurn180TargetAngle(double gyroAngle) {
+        if (!turnInProgress) {
+            if (gyroAngle < 0) {
+                targetAngle = gyroAngle + 180;
+            } else {
+                targetAngle = gyroAngle - 180;
+            }
         }
     }
 

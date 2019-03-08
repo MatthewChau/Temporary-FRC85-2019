@@ -93,7 +93,7 @@ public class Intake extends Subsystem {
             && intakePosition >= Variables.WRIST_MAX_POS
             && speed > 0) {
             return true;
-        } else if (mastPosition < Variables.MAST_BREAKPOINT // bottom limit when mast is back, takes into account verticalPos
+        } else if (mastPosition < Variables.MAST_BREAKPOINT // bottom limit when mast is back
                   && intakePosition <= Variables.WRIST_MIN_POS_MAST_BACK
                   && verticalPosition <= Variables.ELEVATOR_MIN_POS_MAST_PROTECTED
                   && speed < 0) {

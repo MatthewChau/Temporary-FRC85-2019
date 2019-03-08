@@ -116,7 +116,7 @@ public class OI {
 
         // Cargo
         _operatorCargoDefault = new JoystickButton(_operatorControllerWhite, 3);
-        _operatorCargoDefault.whenPressed(new Place((Variables.getInstance().CARGO_TWO - 1000), Variables.WRIST_90));
+        _operatorCargoDefault.whenPressed(new Place((Variables.getInstance().CARGO_SHIP), Variables.WRIST_POS_FLOOR_PICKUP));
         //_operatorCargoDefault.whenPressed(new CargoStation1());
         //_operatorCargoDefault.whenReleased(new CargoStation2());
         _operatorCargoFloor = new JoystickButton(_operatorControllerWhite, 5);
