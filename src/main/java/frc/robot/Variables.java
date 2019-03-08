@@ -27,6 +27,10 @@ public class Variables {
     public final double DEADBAND_OPERATORSTICK = 0.05;
     public final double TOLERANCE_ANGLE = 5.0;
     public final int MAX_TURNS = 7; // if we go over 2520 degrees in either direction in one match then help.
+    public static double A_POLYNOMIAL = .60929309069026; // polynomial stuff
+    public static double B_POLYNOMIAL = 0;
+    public static double C_POLYNOMIAL = .377931548393;
+    public static double D_POLYNOMIAL = 0;
 
     // PID
 
@@ -58,7 +62,7 @@ public class Variables {
 
     //Elevator position limits
     public static final int ELEVATOR_MAX_POS = 21500;
-    public static final int ELEVATOR_MIN_POS_MAST_PROTECTED = 4000;
+    public static final int ELEVATOR_MIN_POS_MAST_PROTECTED = 2500;
     public static final int ELEVATOR_MIN_POS_MAST_FORWARD_CARGO = 1100;
     public static final int ELEVATOR_MIN_POS_MAST_FORWARD_HATCH = 0;
 

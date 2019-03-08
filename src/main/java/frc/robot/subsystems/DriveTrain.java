@@ -101,11 +101,13 @@ public class DriveTrain extends Subsystem {
                 inputs[2] /= Variables.getInstance().DEADBAND_Z_DRIVERSTICK;
             }*/
             
-            
+            /*for (i = 0; i < 2; i++) { // scale everything using a polynomial
+                inputs[i] = ((Variables.A_POLYNOMIAL * Math.pow(inputs[i], 3)) + (Variables.B_POLYNOMIAL * Math.pow(inputs[i], 2)) + (Variables.C_POLYNOMIAL * inputs[i]) + (Variables.D_POLYNOMIAL));
+            }*/
 
-            if (OI.getInstance().getRightStickTrigger()) { // trigger for lowering speed
-                inputs[0] *= 0.45;
-                inputs[1] *= 0.45;
+            if (OI.getInstance().getLeftStickTrigger()) { // trigger for lowering speed
+                inputs[0] *= 0.33;
+                inputs[1] *= 0.33;
                 inputs[2] *= 0.45;
             }
 

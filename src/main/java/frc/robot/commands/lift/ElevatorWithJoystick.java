@@ -29,7 +29,7 @@ public class ElevatorWithJoystick extends Command {
     @Override
     protected void execute() {
         //if (SmartDashboard.getBoolean("Safe?", false)) {
-            Elevator.getInstance().verticalShift(OI.getInstance().getOperatorJoystickY()); // finally run the method for it
+            Elevator.getInstance().verticalShift(OI.getInstance().getOperatorJoystickY());
         //}
     }
 
