@@ -89,9 +89,11 @@ public class Variables {
     // wrist positions
     public static final int WRIST_ANGLE_FOR_CARGO = -767000;
     public static final int WRIST_POS_FLOOR_PICKUP = -1000000;
-    public final int INTAKE_0 = 0;
-    public final int INTAKE_45 = -500000;
-    public final int INTAKE_90 = -908000;
+    public static final int WRIST_0 = 0;
+    public static final int WRIST_30 = -333333;
+    public static final int WRIST_45 = -500000;
+    public static final int WRIST_60 = -666666;
+    public static final int WRIST_90 = -908000;
 
     //Wrist position limits
     public static final int WRIST_MAX_POS = 0;

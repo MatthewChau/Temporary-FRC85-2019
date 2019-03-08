@@ -34,6 +34,11 @@ public class BeltTrainWithJoystick extends Command {
         return false; 
     }
 
+    @Override
+    protected void interrupted() {
+        end();
+    }
+
     // Called once after isFinished returns true
     @Override
     protected void end() {

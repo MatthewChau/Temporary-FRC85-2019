@@ -39,8 +39,8 @@ import frc.robot.commands.driverassistance.CargoStation2;
 import frc.robot.commands.driverassistance.HatchGround2;
 import frc.robot.commands.driverassistance.HatchGround1;
 import frc.robot.commands.driverassistance.HatchRelease;
-import frc.robot.commands.driverassistance.HatchStation1;
-import frc.robot.commands.driverassistance.HatchStation2;
+import frc.robot.commands.driverassistance.HatchStationOne;
+import frc.robot.commands.driverassistance.HatchStationTwo;
 import frc.robot.commands.driverassistance.Testing;
 import frc.robot.commands.driverassistance.Interrupt;
 
@@ -62,12 +62,12 @@ public class OI {
     // White
     private JoystickButton _operatorCargoDefault, _operatorCargoFloor, _operatorCargoIn, _operatorCargoOut,
         _operatorCargoOne, _operatorCargoTwo, _operatorCargoThree,  
-        _operatorLiftVertical,
+        _operatorElevator,
         _operatorClimbFront, _operatorClimbBack;
     // Black
     private JoystickButton _operatorHatchDefault, _operatorHatchFloor, _operatorHatchRelease, 
         _operatorHatchOne, _operatorHatchTwo, _operatorHatchThree,
-        _operatorLiftHorizontal, _operatorIntakeRotate,
+        _operatorMast, _operatorWrist,
         _operatorClimbAuto;
 
     private double _xSpeed = 0, _ySpeed = 0, _zRotation = 0;
@@ -104,16 +104,19 @@ public class OI {
         _driverControllerYButton = new JoystickButton(_driverController, 4);
 
         // Joystick combinations
-        _operatorLiftVertical = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_LIFT_VERTICAL);
-        _operatorLiftVertical.whenPressed(new ElevatorWithJoystick());
-        _operatorLiftVertical.whenPressed(new Interrupt());
-        _operatorLiftHorizontal = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_LIFT_HORIZONTAL);
-        _operatorLiftHorizontal.whenPressed(new Interrupt());
-        _operatorIntakeRotate = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_INTAKE_ROTATE);
-        _operatorIntakeRotate.whenPressed(new Interrupt());
+        _operatorElevator = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_LIFT_VERTICAL);
+        _operatorElevator.whenPressed(new ElevatorWithJoystick());
+        _operatorElevator.whenPressed(new Interrupt());
+        _operatorMast = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_LIFT_HORIZONTAL);
+        _operatorMast.whenPressed(new MastWithJoystick());
+        _operatorMast.whenPressed(new Interrupt());
+        _operatorWrist = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_INTAKE_ROTATE);
+        _operatorWrist.whenPressed(new WristWithJoystick());
+        _operatorWrist.whenPressed(new Interrupt());
 
         // Cargo
         _operatorCargoDefault = new JoystickButton(_operatorControllerWhite, 3);
+        _operatorCargoDefault.whenPressed(new Place((Variables.getInstance().CARGO_TWO - 1000), Variables.WRIST_90));
         //_operatorCargoDefault.whenPressed(new CargoStation1());
         //_operatorCargoDefault.whenReleased(new CargoStation2());
         _operatorCargoFloor = new JoystickButton(_operatorControllerWhite, 5);
@@ -133,7 +136,8 @@ public class OI {
 
         // Hatch
         _operatorHatchDefault = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_HATCH_DEFAULT);
-        _operatorHatchDefault.whenPressed(new WristPosition(Intake.getInstance().getWristPosition() - 150000));
+        _operatorHatchDefault.whenPressed(new HatchStationOne());
+        _operatorHatchDefault.whenReleased(new HatchStationTwo());
         _operatorHatchFloor = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_HATCH_FLOOR);
         //_operatorHatchFloor.whenPressed(new HatchGround1());
         //_operatorHatchFloor.whenReleased(new HatchGround2());
@@ -141,11 +145,11 @@ public class OI {
         _operatorHatchRelease.whenPressed(new HatchRelease());
 
         _operatorHatchOne = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_HATCH_ONE);
-        _operatorHatchOne.whenPressed(new Place(Variables.getInstance().HATCH_ONE, Variables.getInstance().INTAKE_0));
+        _operatorHatchOne.whenPressed(new Place(Variables.getInstance().HATCH_ONE, Variables.WRIST_0));
         _operatorHatchTwo = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_HATCH_TWO);
-        _operatorHatchTwo.whenPressed(new Place(Variables.getInstance().HATCH_TWO, Variables.getInstance().INTAKE_0));
+        _operatorHatchTwo.whenPressed(new Place(Variables.getInstance().HATCH_TWO, Variables.WRIST_0));
         _operatorHatchThree = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_HATCH_THREE);
-        _operatorHatchThree.whenPressed(new Place(Variables.getInstance().HATCH_THREE, Variables.getInstance().INTAKE_0));
+        _operatorHatchThree.whenPressed(new Place(Variables.getInstance().HATCH_THREE, Variables.WRIST_0));
 
         // Climb
         _operatorClimbAuto = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_CLIMB_AUTO);
@@ -317,16 +321,30 @@ public class OI {
         return axis;
     }
 
+    public double getOpStickModifier() {
+        double modifier;
+
+        if (getOperatorJoystickX() > 0) {
+            modifier = 0.5;
+        } else if (getOperatorJoystickX() < 0) {
+            modifier = 1.25;
+        } else {
+            modifier = 1.0;
+        }
+
+        return 1.0;
+    }
+
     public boolean getOperatorLiftHorizontal() {
-        return _operatorLiftHorizontal.get();
+        return _operatorMast.get();
     }
 
     public boolean getOperatorLiftVertical() {
-        return _operatorLiftVertical.get();
+        return _operatorElevator.get();
     }
 
-    public boolean getOperatorIntakeRotate() {
-        return _operatorIntakeRotate.get();
+    public boolean getOperatorWristRotate() {
+        return _operatorWrist.get();
     }
 
     public boolean getOperatorHatchRelease() {

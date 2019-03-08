@@ -49,7 +49,6 @@ public class Intake extends Subsystem {
 
     @Override
     public void initDefaultCommand() {
-        setDefaultCommand(new WristWithJoystick());
     }
 
     public void setWrist(double speed) {
@@ -63,17 +62,17 @@ public class Intake extends Subsystem {
                                               Variables.getInstance().getMaxSpeedUpIntake(), 
                                               Variables.getInstance().getMaxSpeedDownIntake());
         } else if (speed > 0.0) {
-            speed = 0.6;
+            speed = 0.6;// * OI.getInstance().getOpStickModifier();
             targetPos = getWristPosition();
         } else if (speed < 0.0) {
-            speed = -0.6;
+            speed = -0.6;// * OI.getInstance().getOpStickModifier();
             targetPos = getWristPosition();
         } else {
             speed = 0.0;
         }
 
-        if ((ProxSensors.getInstance().getIntakeTopLimit() && speed > 0 && !SmartDashboard.getBoolean("Disable Intake Prox Limit", true)) // if we trying to exceed top limit
-            || (!OI.getInstance().getOperatorIntakeRotate() && !adjusting) // if the button isn't pressed and we are not adjusting
+        if ((ProxSensors.getInstance().getIntakeTopLimit() && !SmartDashboard.getBoolean("Disable Intake Prox Limit", true) && speed > 0) // if we trying to exceed top limit
+            || (!OI.getInstance().getOperatorWristRotate() && !adjusting) // if the button isn't pressed and we are not adjusting
             || (softLimits(speed) && !SmartDashboard.getBoolean("Disable Intake Soft Limits", false))) {
             _wrist.set(ControlMode.PercentOutput, 0);
         } else {

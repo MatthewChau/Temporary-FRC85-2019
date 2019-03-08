@@ -1,13 +1,16 @@
 package frc.robot.commands.driverassistance;
+
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import frc.robot.Variables;
 import frc.robot.commands.intake.WristPosition;
 import frc.robot.commands.lift.ElevatorPosition;
 
-public class HatchStation2 extends CommandGroup {
-    public HatchStation2() {
+public class HatchStationTwo extends CommandGroup {
+
+    public HatchStationTwo() {
         addSequential(new Interrupt());
-        addSequential(new WristPosition(0)); //Default position of intake
-        addSequential(new ElevatorPosition(Variables.getInstance().HATCH_TWO));
+
+        addParallel(new WristPosition(Variables.getInstance().WRIST_0));
+        addSequential(new ElevatorPosition(Variables.getInstance().HATCH_ONE + 500));
     }
 }

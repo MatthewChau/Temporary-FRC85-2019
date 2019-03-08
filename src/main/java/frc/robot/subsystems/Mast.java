@@ -45,7 +45,6 @@ public class Mast extends Subsystem {
 
     @Override
     public void initDefaultCommand() {
-        setDefaultCommand(new MastWithJoystick());
     }
 
     public void horizontalShift(double speed) {
@@ -56,13 +55,13 @@ public class Mast extends Subsystem {
                                               Variables.getInstance().getMastKP(), 
                                               Variables.getInstance().getMastKI(), 
                                               Variables.getInstance().getMastKD(), 
-                                              0.6, 
-                                              -0.6);
+                                              0.7, 
+                                              -0.7);
         } else if (speed > 0.0) {
-            speed = 0.6;
+            speed = 0.7;// * OI.getInstance().getOpStickModifier();
             setTargetPosition(getHorizontalPosition());
         } else if (speed < 0.0) {
-            speed = -0.6;
+            speed = -0.7;// * OI.getInstance().getOpStickModifier();
             setTargetPosition(getHorizontalPosition());
         } else {
             speed = 0.0;

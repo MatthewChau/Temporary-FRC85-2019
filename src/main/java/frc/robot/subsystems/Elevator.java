@@ -70,10 +70,10 @@ public class Elevator extends Subsystem {
                                               0.6, 
                                               -0.3);
         } else if (speed > Variables.getInstance().DEADBAND_OPERATORSTICK) {
-            speed = 0.5;
+            speed = 0.5;// * OI.getInstance().getOpStickModifier();
             targetPos = getVerticalPosition();
         } else if (speed < -Variables.getInstance().DEADBAND_OPERATORSTICK) {
-            speed = -0.2;
+            speed = -0.2;// * OI.getInstance().getOpStickModifier();
             targetPos = getVerticalPosition();
         }
 

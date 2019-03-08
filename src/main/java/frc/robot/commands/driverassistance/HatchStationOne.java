@@ -10,13 +10,13 @@ import frc.robot.commands.intake.ActivateIntake;
 import frc.robot.commands.driverassistance.Wait;
 
 //Sequence of commands used for loading hatch panels from station
-public class HatchStation1 extends CommandGroup {
-
+public class HatchStationOne extends CommandGroup {
     
-    public HatchStation1() {
+    public HatchStationOne() {
         addSequential(new Interrupt());
-        addSequential(new ElevatorPosition(Variables.getInstance().HATCH_ONE));
-        addSequential(new WristPosition(15)); //15 degrees for now
+
+        addParallel(new ElevatorPosition(Variables.getInstance().HATCH_ONE));
+        addSequential(new WristPosition(Variables.WRIST_30));
     }
 }
 

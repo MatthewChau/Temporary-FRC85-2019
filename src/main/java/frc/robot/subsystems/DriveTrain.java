@@ -96,10 +96,17 @@ public class DriveTrain extends Subsystem {
                 }
             }
 
+            /*if (Math.abs(inputs[2]) > Variables.getInstance().DEADBAND_Z_DRIVERSTICK) { // scale z input
+                inputs[2] -= Variables.getInstance().DEADBAND_Z_DRIVERSTICK;
+                inputs[2] /= Variables.getInstance().DEADBAND_Z_DRIVERSTICK;
+            }*/
+            
+            
+
             if (OI.getInstance().getRightStickTrigger()) { // trigger for lowering speed
-                inputs[0] *= 0.33;
-                inputs[1] *= 0.33;
-                inputs[2] *= 0.33;
+                inputs[0] *= 0.45;
+                inputs[1] *= 0.45;
+                inputs[2] *= 0.45;
             }
 
             Vector2d vector = new Vector2d(-inputs[1], inputs[0]);
@@ -306,7 +313,7 @@ public class DriveTrain extends Subsystem {
             }
         }
 
-        if (maxMagnitude > 1.0) { // this thus normalizes the speeds proportionally speaking
+        if (maxMagnitude > 0.8) { // this thus normalizes the speeds proportionally speaking
             for (i = 0; i < 3; i++) {
                 speeds[i] = speeds[i] / maxMagnitude;
             }
