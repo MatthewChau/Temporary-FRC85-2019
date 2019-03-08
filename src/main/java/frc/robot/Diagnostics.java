@@ -21,6 +21,7 @@ import java.io.FileWriter;
 import java.text.SimpleDateFormat;
 
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Diagnostics {
 
@@ -59,6 +60,7 @@ public class Diagnostics {
             out.newLine();
         } catch (Exception ex) {
             System.out.println("Error creating log file: " + ex.toString());
+            SmartDashboard.putString("Diagnostics Error Creating File", ex.toString());
         }
     }
 
@@ -140,6 +142,7 @@ public class Diagnostics {
             out.newLine();
         } catch (Exception ex) {
             System.out.println("Error writing diagnostic log: " + ex.toString());
+            SmartDashboard.putString("Diagnostics Error Writing", ex.toString());
         }
     }
 
@@ -150,6 +153,7 @@ public class Diagnostics {
                 out = null;
             } catch (Exception ex) {
                 System.out.println("Error closing file: " + ex.toString());
+                SmartDashboard.putString("Diagnostics Error Closing", ex.toString());
             }
         }
     }
