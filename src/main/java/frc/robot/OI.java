@@ -21,6 +21,7 @@ import frc.robot.commands.drivetrain.FollowTwoTarget;
 import frc.robot.commands.drivetrain.DriveSeconds;
 import frc.robot.commands.belttrain.BeltTrainDrive;
 import frc.robot.commands.belttrain.SetBeltSolenoid;
+import frc.robot.commands.belttrain.ToggleBeltSolenoid;
 import frc.robot.commands.intake.ActivateIntake;
 import frc.robot.commands.intake.ActivateWrist;
 import frc.robot.commands.intake.WristPosition;
@@ -31,6 +32,7 @@ import frc.robot.commands.lift.MastPosition;
 import frc.robot.commands.lift.MastWithJoystick;
 import frc.robot.commands.lift.ElevatorWithJoystick;
 import frc.robot.commands.rearsolenoid.SetRearSolenoid;
+import frc.robot.commands.rearsolenoid.ToggleRearSolenoid;
 import frc.robot.commands.driverassistance.Place;
 import frc.robot.commands.driverassistance.CargoStation1;
 import frc.robot.commands.driverassistance.CargoStation2;
@@ -137,7 +139,6 @@ public class OI {
         //_operatorHatchFloor.whenReleased(new HatchGround2());
         _operatorHatchRelease = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_HATCH_RELEASE);
         _operatorHatchRelease.whenPressed(new HatchRelease());
-        _operatorHatchRelease.whenReleased(new MastPosition(Variables.MAST_FORWARD_POS));
 
         _operatorHatchOne = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_HATCH_ONE);
         _operatorHatchOne.whenPressed(new Place(Variables.getInstance().HATCH_ONE, Variables.getInstance().INTAKE_0));
@@ -149,11 +150,9 @@ public class OI {
         // Climb
         _operatorClimbAuto = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_CLIMB_AUTO);
         _operatorClimbBack = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_CLIMB_BACK);
-        _operatorClimbBack.whenPressed(new SetRearSolenoid(true));
-        _operatorClimbBack.whenReleased(new SetRearSolenoid(false));
+        _operatorClimbBack.whenPressed(new ToggleRearSolenoid());
         _operatorClimbFront = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_CLIMB_FRONT);
-        _operatorClimbFront.whenPressed(new SetBeltSolenoid(true));
-        _operatorClimbFront.whenReleased(new SetBeltSolenoid(false));
+        _operatorClimbFront.whenPressed(new ToggleBeltSolenoid());
 
         _operatorHatchDefault.whenPressed(new HatchStation1());
         _operatorHatchDefault.whenReleased(new HatchStation2());

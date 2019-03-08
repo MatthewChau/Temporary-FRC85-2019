@@ -71,7 +71,6 @@ public class Addresses {
 
     // Intake Proximity Sensors
     public static final int INTAKE_TOP_LIMIT = 5;
-    public static final int INTAKE_BOTTOM_LIMIT = 6;
 
     // BeltTrain
     public static final int BELTTRAIN_LEFT_MOTOR = 41;

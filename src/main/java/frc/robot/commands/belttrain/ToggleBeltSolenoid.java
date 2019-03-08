@@ -11,18 +11,15 @@ import frc.robot.subsystems.BeltSolenoid;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class SetBeltSolenoid extends Command {
+public class ToggleBeltSolenoid extends Command {
 
-    private boolean _activated;
-
-    public SetBeltSolenoid(boolean activated) {
+    public ToggleBeltSolenoid() {
         requires(BeltSolenoid.getInstance());
-        _activated = activated;
     }
 
     @Override
     protected void initialize() {
-        BeltSolenoid.getInstance().setBeltSolenoid(_activated);
+        BeltSolenoid.getInstance().setBeltSolenoid(!BeltSolenoid.getInstance().getBeltSolenoid());
     }
 
     @Override
