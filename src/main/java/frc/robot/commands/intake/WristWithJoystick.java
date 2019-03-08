@@ -41,4 +41,9 @@ public class WristWithJoystick extends Command {
         Intake.getInstance().setWrist(0.0);
     }
 
+    @Override
+    protected void interrupted() {
+        end();
+    }
+
 }

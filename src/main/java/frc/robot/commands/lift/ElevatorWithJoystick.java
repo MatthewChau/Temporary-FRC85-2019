@@ -39,15 +39,15 @@ public class ElevatorWithJoystick extends Command {
         return !OI.getInstance().getOperatorLiftVertical();
     }
 
-    @Override
-    protected void interrupted() {
-        end();
-    }
-
     // Called once after isFinished returns true
     @Override
     protected void end() {
         Elevator.getInstance().verticalShift(0.0);
+    }
+
+    @Override
+    protected void interrupted() {
+        end();
     }
 
 }
