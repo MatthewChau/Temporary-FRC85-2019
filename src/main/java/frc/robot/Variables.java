@@ -34,11 +34,17 @@ public class Variables {
 
     // PID
 
-    private final double kP_VLIFT = 0.0004, kI_VLIFT = 0.00000004, kD_VLIFT = 0.0009;
+    private static final double kP_ELEVATOR = 0.0004, kI_ELEVATOR = 0.00000004, kD_ELEVATOR = 0.0009;
 
-    private final double kP_HLIFT = 0.025, kI_HLIFT = 0.0, kD_HLIFT = 0.0;
+    private static final double kP_MAST = 0.025, kI_MAST = 0.0, kD_MAST = 0.0;
 
-    public static final double kP_INTAKE = 0.001, kI_INTAKE = 0.0, kD_INTAKE = 0.0;
+    private static final double kP_INTAKE = 0.001, kI_INTAKE = 0.0, kD_INTAKE = 0.0;
+
+    private static final double kP_DRIVE = 0.05, kI_DRIVE = 0.0, kD_DRIVE = 0.0;
+
+    private static final double kP_VISION = 0.05, kI_VISION = 0.0, kD_VISION = 0.0;
+
+    private static final double kP_VISION_ROT = 0.05, kI_VISION_ROT = 0.0, kD_VISION_ROT = 0.0;
 
     // ANGLES FOR VISION
 
@@ -113,29 +119,29 @@ public class Variables {
      * Put variables here that should be changeable on the fly.
      */
     private Variables() {
-        SmartDashboard.putNumber("kP_VLIFT", kP_VLIFT);
-        SmartDashboard.putNumber("kI_VLIFT", kI_VLIFT);
-        SmartDashboard.putNumber("kD_VLIFT", kD_VLIFT);
+        SmartDashboard.putNumber("kP_VLIFT", kP_ELEVATOR);
+        SmartDashboard.putNumber("kI_VLIFT", kI_ELEVATOR);
+        SmartDashboard.putNumber("kD_VLIFT", kD_ELEVATOR);
 
-        SmartDashboard.putNumber("kP_HLIFT", kP_HLIFT);
-        SmartDashboard.putNumber("kI_HLIFT", kI_HLIFT);
-        SmartDashboard.putNumber("kD_HLIFT", kD_HLIFT);
+        SmartDashboard.putNumber("kP_HLIFT", kP_MAST);
+        SmartDashboard.putNumber("kI_HLIFT", kI_MAST);
+        SmartDashboard.putNumber("kD_HLIFT", kD_MAST);
         
         SmartDashboard.putNumber("kP_INTAKE", kP_INTAKE);
         SmartDashboard.putNumber("kI_INTAKE", kI_INTAKE);
         SmartDashboard.putNumber("kD_INTAKE", kD_INTAKE);
 
-        SmartDashboard.putNumber("kP_DRIVE", 0.05);
-        SmartDashboard.putNumber("kI_DRIVE", 0.0);
-        SmartDashboard.putNumber("kD_DRIVE", 0.0);
+        SmartDashboard.putNumber("kP_DRIVE", kP_DRIVE);
+        SmartDashboard.putNumber("kI_DRIVE", kI_DRIVE);
+        SmartDashboard.putNumber("kD_DRIVE", kD_DRIVE);
 
-        SmartDashboard.putNumber("kP_VISION", 0.05);
-        SmartDashboard.putNumber("kI_VISION", 0.0);
-        SmartDashboard.putNumber("kD_VISION", 0.0);
+        SmartDashboard.putNumber("kP_VISION", kP_VISION);
+        SmartDashboard.putNumber("kI_VISION", kI_VISION);
+        SmartDashboard.putNumber("kD_VISION", kD_VISION);
 
-        SmartDashboard.putNumber("kP_VISION_ROT", 0.012);
-        SmartDashboard.putNumber("kI_VISION_ROT", 0.0);
-        SmartDashboard.putNumber("kD_VISION_ROT", 0.2);
+        SmartDashboard.putNumber("kP_VISION_ROT", kP_VISION_ROT);
+        SmartDashboard.putNumber("kI_VISION_ROT", kI_VISION_ROT);
+        SmartDashboard.putNumber("kD_VISION_ROT", kD_VISION_ROT);
 
         SmartDashboard.putNumber("MAX_SPEED_UP_INTAKE", WRIST_MAX_SPEED_UP);
         SmartDashboard.putNumber("MAX_SPEED_DOWN_INTAKE", WRIST_MAX_SPEED_DOWN);
@@ -164,27 +170,27 @@ public class Variables {
      * get methods for changable variables
      */
     public double getElevatorKP() {
-        return SmartDashboard.getNumber("kP_VLIFT", kP_VLIFT); // these are gonna have to be small af
+        return SmartDashboard.getNumber("kP_VLIFT", kP_ELEVATOR); // these are gonna have to be small af
     }
 
     public double getElevatorKI() {
-        return SmartDashboard.getNumber("kI_VLIFT", kI_VLIFT);
+        return SmartDashboard.getNumber("kI_VLIFT", kI_ELEVATOR);
     }
 
     public double getElevatorKD() {
-        return SmartDashboard.getNumber("kD_VLIFT", kD_VLIFT);
+        return SmartDashboard.getNumber("kD_VLIFT", kD_ELEVATOR);
     }
 
     public double getMastKP() {
-        return SmartDashboard.getNumber("kP_HLIFT", kP_HLIFT);
+        return SmartDashboard.getNumber("kP_HLIFT", kP_MAST);
     }
 
     public double getMastKI() {
-        return SmartDashboard.getNumber("kI_HLIFT", kI_HLIFT);
+        return SmartDashboard.getNumber("kI_HLIFT", kI_MAST);
     }
 
     public double getMastKD() {
-        return SmartDashboard.getNumber("kD_HLIFT", kD_HLIFT);
+        return SmartDashboard.getNumber("kD_HLIFT", kD_MAST);
     }
 
     public double getWristKP() {
