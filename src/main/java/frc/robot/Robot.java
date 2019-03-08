@@ -80,7 +80,7 @@ public class Robot extends TimedRobot {
     @Override
     public void autonomousInit() {
         teleopInit();
-        
+
         //_sendItBro = new SendItBro();
         //_sendItBro.start();
     }
@@ -107,8 +107,6 @@ public class Robot extends TimedRobot {
 
         BeltSolenoid.getInstance().setBeltSolenoid(false);
         RearSolenoid.getInstance().setRearSolenoid(false);
-        
-        Intake.getInstance().setWristPosition(0);
 
         // init the pid stuff 
 

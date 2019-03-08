@@ -96,6 +96,12 @@ public class DriveTrain extends Subsystem {
                 }
             }
 
+            if (OI.getInstance().getRightStickTrigger()) { // trigger for lowering speed
+                inputs[0] *= 0.33;
+                inputs[1] *= 0.33;
+                inputs[2] *= 0.33;
+            }
+
             Vector2d vector = new Vector2d(-inputs[1], inputs[0]);
             if (OI.getInstance().isHeadless() || OI.getInstance().isForwardOnlyMode()) { // if headless/forward only, account for it
                 vector.rotate(inputs[3]);

@@ -154,8 +154,8 @@ public class OI {
         _operatorClimbFront = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_CLIMB_FRONT);
         _operatorClimbFront.whenPressed(new ToggleBeltSolenoid());
 
-        _operatorHatchDefault.whenPressed(new HatchStation1());
-        _operatorHatchDefault.whenReleased(new HatchStation2());
+        //_operatorHatchDefault.whenPressed(new HatchStation1());
+        //_operatorHatchDefault.whenReleased(new HatchStation2());
 
         //_driverControllerAButton.whenPressed(new HatchGround1());
         //_driverControllerAButton.whenReleased(new Interrupt());
@@ -219,11 +219,12 @@ public class OI {
     }
 
     public boolean isHeadless() {
-        if (SmartDashboard.getBoolean("Joysticks Enabled", false)) { 
+        /*if (SmartDashboard.getBoolean("Joysticks Enabled", false)) { 
             return getLeftStickTrigger();
         } else {
             return getRightBumper();
-        }
+        }*/
+        return false;
     }
     
     private boolean getRightBumper() {
@@ -232,6 +233,10 @@ public class OI {
     
     public boolean getLeftStickTrigger() {
         return _driverJoystickLeft.getRawButton(1);
+    }
+
+    public boolean getRightStickTrigger() {
+        return _driverJoystickRight.getRawButton(1);
     }
 
     public boolean isForwardOnlyMode() {

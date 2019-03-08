@@ -137,7 +137,9 @@ public class Variables {
         SmartDashboard.putNumber("LOCKED", ELEVATOR_LOCKED);
 
         SmartDashboard.putBoolean("Joysticks Enabled", true);
+
         SmartDashboard.putBoolean("Disable Intake Top Limit", true);
+        SmartDashboard.putBoolean("Disable Intake Prox Limit", false);
 
         SmartDashboard.putBoolean("Disable Intake Soft Limits", true);
         SmartDashboard.putBoolean("Disable Mast Soft Limits", true);
@@ -267,7 +269,6 @@ public class Variables {
         SmartDashboard.putBoolean("Lift Top", ProxSensors.getInstance().getLiftTopLimit());
         SmartDashboard.putBoolean("Lift Center", ProxSensors.getInstance().getLiftCenterLimit());
         SmartDashboard.putBoolean("Lift Bottom", ProxSensors.getInstance().getLiftBottomLimit());
-        SmartDashboard.putBoolean("Lift Front", ProxSensors.getInstance().getLiftFrontLimit());
 
         SmartDashboard.putNumber("Operator Joystick", OI.getInstance().getOperatorJoystickY());
 
@@ -276,6 +277,7 @@ public class Variables {
         SmartDashboard.putNumber("Horizontal Lift", Mast.getInstance().getHorizontalPosition());
         SmartDashboard.putBoolean("Front Prox Sensor", ProxSensors.getInstance().getLiftFrontLimit());
         SmartDashboard.putBoolean("Rear Prox Sensor", ProxSensors.getInstance().getLiftRearLimit());
+        SmartDashboard.putBoolean("Intake Top Prox Sensor", ProxSensors.getInstance().getIntakeTopLimit());
 
         SmartDashboard.putNumber("Intake Encoder", Intake.getInstance().getWristPosition());
 

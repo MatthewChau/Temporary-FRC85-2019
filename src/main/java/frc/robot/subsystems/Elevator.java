@@ -82,7 +82,7 @@ public class Elevator extends Subsystem {
             speed = 0.0;
         }
 
-        if (getServo() == Variables.getInstance().getElevatorUnlocked()) {
+        if (getServo() == Variables.getInstance().getElevatorLocked()) {
             speed = 0.0;
         }
 
