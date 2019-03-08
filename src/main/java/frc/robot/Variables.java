@@ -206,39 +206,39 @@ public class Variables {
     }
 
     public double getDriveKP() {
-        return SmartDashboard.getNumber("kP_DRIVE", 0.05);
+        return SmartDashboard.getNumber("kP_DRIVE", kP_DRIVE);
     }
 
     public double getDriveKI() {
-        return SmartDashboard.getNumber("kI_DRIVE", 0.0);
+        return SmartDashboard.getNumber("kI_DRIVE", kI_DRIVE);
     }
 
     public double getDriveKD() {
-        return SmartDashboard.getNumber("kD_DRIVE", 0.0);
+        return SmartDashboard.getNumber("kD_DRIVE", kD_DRIVE);
     }
 
     public double getVisionKP() {
-        return SmartDashboard.getNumber("kP_VISION", 0.05);
+        return SmartDashboard.getNumber("kP_VISION", kP_VISION);
     }
 
     public double getVisionKI() {
-        return SmartDashboard.getNumber("kI_VISION", 0.0);
+        return SmartDashboard.getNumber("kI_VISION", kI_VISION);
     }
 
     public double getVisionKD() {
-        return SmartDashboard.getNumber("kD_VISION", 0.0);
+        return SmartDashboard.getNumber("kD_VISION", kD_VISION);
     }
 
     public double getVisionRotKP() {
-        return SmartDashboard.getNumber("kP_VISION_ROT", 0.012);
+        return SmartDashboard.getNumber("kP_VISION_ROT", kP_VISION_ROT);
     }
 
     public double getVisionRotKI() {
-        return SmartDashboard.getNumber("kI_VISION_ROT", 0.0);
+        return SmartDashboard.getNumber("kI_VISION_ROT", kI_VISION_ROT);
     }
 
     public double getVisionRotKD() {
-        return SmartDashboard.getNumber("kD_VISION_ROT", 0.2);
+        return SmartDashboard.getNumber("kD_VISION_ROT", kD_VISION_ROT);
     }
 
     public double getElevatorUnlocked() {
@@ -291,10 +291,6 @@ public class Variables {
         SmartDashboard.putBoolean("Front Prox Sensor", ProxSensors.getInstance().getLiftFrontLimit());
         SmartDashboard.putBoolean("Rear Prox Sensor", ProxSensors.getInstance().getLiftRearLimit());
         SmartDashboard.putBoolean("Intake Top Prox Sensor", ProxSensors.getInstance().getIntakeTopLimit());
-
-        SmartDashboard.putNumber("Intake Encoder", Intake.getInstance().getWristPosition());
-
-        //SmartDashboard.putBoolean("Prox me OwO", ProxSensors.getInstance().getTopLimit());
     }
 
 }
