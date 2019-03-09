@@ -10,7 +10,6 @@ package frc.robot.subsystems;
 import frc.robot.OI;
 import frc.robot.Variables;
 import frc.robot.Addresses;
-import frc.robot.commands.lift.MastWithJoystick;
 import frc.robot.sensors.ProxSensors;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -66,8 +65,6 @@ public class Mast extends Subsystem {
         } else {
             speed = 0.0;
         }
-        
-        
 
         if ((ProxSensors.getInstance().getLiftFrontLimit() && speed > 0.0)
             || (ProxSensors.getInstance().getLiftRearLimit() && speed < 0.0)
@@ -112,7 +109,6 @@ public class Mast extends Subsystem {
     }
 
     public void setHorizontalPosition(int position) {
-        
         _mastMotor.setSelectedSensorPosition(position);
     }
 
@@ -129,10 +125,6 @@ public class Mast extends Subsystem {
     }
 
     public void setTargetPosition(double target) {
-        //NEW: (... and untested!) If you assign a position beyond the max/min, set it to the max/min instead
-        // BROOKE AND SCOTT WERE also HERE, HIIIIIIIIIIIIIII
-        // commented out some of the logic so that we don't jump to limits automatically
-        // may need further testing...
         if (Elevator.getInstance().getVerticalPosition() > Variables.ELEVATOR_MIN_POS_MAST_PROTECTED)
         {
             /*if (target < Variables.MAST_MIN_POS)
