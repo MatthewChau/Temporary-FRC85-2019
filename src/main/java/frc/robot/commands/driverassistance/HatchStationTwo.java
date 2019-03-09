@@ -10,7 +10,7 @@ public class HatchStationTwo extends CommandGroup {
     public HatchStationTwo() {
         addSequential(new Interrupt());
 
-        addParallel(new WristPosition(Variables.WRIST_0));
+        addSequential(new WristPosition(Variables.WRIST_0));
         addSequential(new ElevatorPosition(Variables.HATCH_ONE + 500));
     }
 }

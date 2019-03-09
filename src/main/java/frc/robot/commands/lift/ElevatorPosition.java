@@ -39,4 +39,14 @@ public class ElevatorPosition extends Command {
         return !Elevator.getInstance().getAdjustingBool();
     }
 
+    @Override
+    protected void end() {
+        Elevator.getInstance().setElevatorMotors(0.0);
+    }
+
+    @Override
+    protected void interrupted() {
+        end();
+    }
+
 }

@@ -14,7 +14,7 @@ public class HatchStationOne extends CommandGroup {
     public HatchStationOne() {
         addSequential(new Interrupt());
 
-        addParallel(new ElevatorPosition(Variables.HATCH_ONE));
+        addSequential(new ElevatorPosition(Variables.HATCH_ONE + 200));
         addSequential(new WristPosition(Variables.WRIST_30));
     }
 }

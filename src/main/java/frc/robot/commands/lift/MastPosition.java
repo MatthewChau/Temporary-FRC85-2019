@@ -39,4 +39,14 @@ public class MastPosition extends Command {
         return !Mast.getInstance().getAdjustingBool();
     }
 
+    @Override
+    protected void end() {
+        Mast.getInstance().setMastMotor(0.0);
+    }
+
+    @Override
+    protected void interrupted() {
+        end();
+    }
+
 }

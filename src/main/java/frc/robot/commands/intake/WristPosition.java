@@ -37,4 +37,14 @@ public class WristPosition extends Command {
         return !Intake.getInstance().getAdjustingBool();
     }
 
+    @Override
+    protected void end() {
+        Intake.getInstance().setWristMotor(0.0);
+    }
+
+    @Override
+    protected void interrupted() {
+        end();
+    }
+
 }

@@ -14,16 +14,16 @@ import frc.robot.subsystems.Mast;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.Intake;
 import frc.robot.commands.drivetrain.DriveSeconds;
-import frc.robot.commands.drivetrain.FollowOneTarget;;
+import frc.robot.commands.drivetrain.FollowOneTarget;
 
 public class HatchRelease extends CommandGroup {
 
     public HatchRelease() {
-        //addSequential(new Interrupt());
+        addSequential(new Interrupt());
 
         //addSequential(new ElevatorPosition(Elevator.getInstance().getTargetPosition() - 1300));
         //addParallel(new MastPosition(Mast.getInstance().getHorizontalPosition() - 5000));
-        addSequential(new ActivateWrist(-0.7, 0.25));
+        addSequential(new WristPosition(Variables.WRIST_30));
         //addSequential(new MastPosition(Variables.getInstance().MAST_PROTECTED));
     }
 
