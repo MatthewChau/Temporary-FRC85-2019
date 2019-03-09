@@ -42,6 +42,10 @@ public class RearClimb extends Subsystem {
     
     // CLIMB MOTOR
 
+    public void moveRearClimb(double speed) {
+        // decide that pid exists here
+    }
+
     public void setRearClimbMotor(double speed) {
         _rearClimbMotor.set(speed);
     }
@@ -55,6 +59,10 @@ public class RearClimb extends Subsystem {
     }
 
     // CLIMB DRIVE MOTOR
+
+    public void moveRearClimbDrive(double speed) {
+        // decide that pid exists here
+    }
 
     public void setRearClimbDriveMotor(double speed) {
         _rearClimbDriveMotor.set(ControlMode.PercentOutput, speed);

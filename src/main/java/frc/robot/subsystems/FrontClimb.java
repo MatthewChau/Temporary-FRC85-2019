@@ -37,6 +37,10 @@ public class FrontClimb extends Subsystem {
     public void initDefaultCommand() {
     }
 
+    public void moveFrontClimb(double speed) {
+        // more pid things i guess
+    }
+
     public void setFrontClimbMotors(double speed) {
         _frontClimbMotorOne.set(speed);
         _frontClimbMotorTwo.set(speed);
