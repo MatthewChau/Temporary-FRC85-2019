@@ -53,7 +53,7 @@ public class Intake extends Subsystem {
 
     public void setWrist(double speed) {
         if (adjusting) { // if we are adjusting
-            speed = OI.getInstance().applyPID(OI.getInstance().INTAKE_SYSTEM, 
+            speed = OI.getInstance().applyPID(OI.INTAKE_SYSTEM, 
                                               getWristPosition(), 
                                               targetPos, 
                                               Variables.getInstance().getWristKP(), 

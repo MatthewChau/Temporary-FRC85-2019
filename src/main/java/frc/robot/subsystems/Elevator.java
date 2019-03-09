@@ -61,7 +61,7 @@ public class Elevator extends Subsystem {
     public void verticalShift(double speed) {
         if (adjusting || (OI.getInstance().getOperatorLiftVertical() && speed == 0.0)
             || (softLimits(speed) && !SmartDashboard.getBoolean("Disable Elevator Soft Limits", false))) {
-            speed = OI.getInstance().applyPID(OI.getInstance().ELEVATOR_SYSTEM, 
+            speed = OI.getInstance().applyPID(OI.ELEVATOR_SYSTEM, 
                                               getVerticalPosition(), 
                                               targetPos, 
                                               Variables.getInstance().getElevatorKP(), 
