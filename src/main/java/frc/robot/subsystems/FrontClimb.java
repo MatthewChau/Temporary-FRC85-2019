@@ -4,7 +4,6 @@ import frc.robot.Addresses;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 
-import com.revrobotics.CANEncoder;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel;
 import com.revrobotics.CANSparkMax.IdleMode;
@@ -20,10 +19,9 @@ public class FrontClimb extends Subsystem {
     private FrontClimb() {
         _frontClimbMotorOne = new CANSparkMax(Addresses.FRONT_CLIMB_MOTOR_ONE, CANSparkMaxLowLevel.MotorType.kBrushless);
         _frontClimbMotorOne.setIdleMode(IdleMode.kBrake);
-//        _frontClimbEncoderOne = new CANEncoder(_frontClimbMotorOne);
         _frontClimbMotorTwo = new CANSparkMax(Addresses.FRONT_CLIMB_MOTOR_TWO, CANSparkMaxLowLevel.MotorType.kBrushless);
-        _frontClimbMotorOne.setIdleMode(IdleMode.kBrake);
-//        _frontClimbEncoderTwo = new CANEncoder(_frontClimbMotorTwo);
+        _frontClimbMotorTwo.setIdleMode(IdleMode.kBrake);
+//        _frontClimbMotorTwo.follow(_frontClimbMotorOne);
     }
 
     public static FrontClimb getInstance() {
@@ -41,9 +39,13 @@ public class FrontClimb extends Subsystem {
         // more pid things i guess
     }
 
-    public void setFrontClimbMotors(double speed) {
-        _frontClimbMotorOne.set(speed);
-        _frontClimbMotorTwo.set(speed);
+    /* aight friendos let's talk about how dumb this is going to be
+       basically we need a pid loop to keep us stable
+       one between front and back
+       one between left and right
+    */
+
+    public void setFrontClimbMotors(double speed) { // this is gonna be the pid method lmao
     }
 
     public double getFrontClimbOnePosition() {

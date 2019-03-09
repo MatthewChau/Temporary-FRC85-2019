@@ -133,7 +133,6 @@ public class OI {
         _operatorHatchRelease = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_HATCH_RELEASE);
         _operatorHatchRelease.whenPressed(new Place(Elevator.getInstance().getVerticalPosition(), Variables.WRIST_30));
         _operatorHatchRelease.whenReleased(new Place(Elevator.getInstance().getVerticalPosition(), Variables.WRIST_0));
-        //_operatorHatchRelease.whenReleased(new Interrupt());
 
         _operatorHatchOne = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_HATCH_ONE);
         _operatorHatchOne.whenPressed(new Place(Variables.HATCH_ONE, Variables.WRIST_0));
@@ -147,20 +146,11 @@ public class OI {
         _operatorClimbBack = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_CLIMB_BACK);
         _operatorClimbFront = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_CLIMB_FRONT);
 
-        //_operatorHatchDefault.whenPressed(new HatchStation1());
-        //_operatorHatchDefault.whenReleased(new HatchStation2());
-
-        //_driverControllerAButton.whenPressed(new HatchGround1());
-        //_driverControllerAButton.whenReleased(new Interrupt());
-
         //FollowOneTarget followOneTarget;
         //_driverControllerYButton.whileActive(followOneTarget = new FollowOneTarget()); //follows when pressed
         
         //FollowTwoTarget followTwoTarget;
         //_driverControllerXButton.whileActive(followTwoTarget = new FollowTwoTarget());
-
-        //_driverControllerAButton.whenPressed(new Place(Variables.getInstance().HATCH_TWO, -500000));
-        //_driverControllerBButton.whenPressed(new HatchRelease());
     }
 
     public static OI getInstance() {
