@@ -62,7 +62,7 @@ public class Variables {
     public static final int HATCH_FLOOR = 100;
     
     public static final int CARGO_ONE = 7016;
-    public static final int CARGO_SHIP = 12040;
+    public static final int CARGO_SHIP = 11740;
     public static final int CARGO_TWO = 14752;
     public static final int CARGO_THREE = 22112;
     public static final int CARGO_FLOOR = 1500;

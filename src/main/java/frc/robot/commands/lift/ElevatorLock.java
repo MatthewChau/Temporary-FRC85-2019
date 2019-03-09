@@ -22,6 +22,7 @@ public class ElevatorLock extends Command {
     protected void initialize() {
         Elevator.getInstance().setServo(Variables.getInstance().getElevatorLocked());
         Elevator.getInstance().setTargetPosition(Elevator.getInstance().getVerticalPosition());
+        Elevator.getInstance().setElevatorMotors(0.0);
     }
 
     @Override
