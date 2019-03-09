@@ -7,47 +7,34 @@
 
 package frc.robot.commands.lift;
 
-import frc.robot.OI;
-import frc.robot.Variables;
 import frc.robot.subsystems.Elevator;
 
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-public class ElevatorWithJoystick extends Command {
+public class WaitForElevator extends Command {
 
-    public ElevatorWithJoystick() { // pass in 0.0 if you want stuff to work fine
+    public WaitForElevator(double timeout) {
         requires(Elevator.getInstance());
+        setTimeout(timeout);
     }
 
-    // Called just before this Command runs the first time
     @Override
     protected void initialize() {
+        Elevator.getInstance().setTargetPosition(Elevator.getInstance().getVerticalPosition());
     }
 
-    // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
-        //if (SmartDashboard.getBoolean("Safe?", false)) {
-            Elevator.getInstance().verticalShift(OI.getInstance().getOperatorJoystickY());
-        //}
+        Elevator.getInstance().verticalShift(0.0); // run the pid
     }
 
-    // Make this return true when this Command no longer needs to run execute()
     @Override
     protected boolean isFinished() {
-        return !OI.getInstance().getOperatorLiftVertical();
-    }
-
-    // Called once after isFinished returns true
-    @Override
-    protected void end() {
-        Elevator.getInstance().setElevatorMotors(0.0);
+        return isTimedOut();
     }
 
     @Override
     protected void interrupted() {
-        end();
     }
 
 }

@@ -59,7 +59,8 @@ public class Elevator extends Subsystem {
     }
 
     public void verticalShift(double speed) {
-        if (adjusting || (OI.getInstance().getOperatorLiftVertical() && speed == 0.0)
+        if (adjusting
+            || speed == 0.0
             || (softLimits(speed) && !SmartDashboard.getBoolean("Disable Elevator Soft Limits", false))) {
             speed = OI.getInstance().applyPID(OI.ELEVATOR_SYSTEM, 
                                               getVerticalPosition(), 
@@ -69,10 +70,10 @@ public class Elevator extends Subsystem {
                                               Variables.getInstance().getElevatorKD(), 
                                               0.6, 
                                               -0.3);
-        } else if (speed > Variables.DEADBAND_OPERATORSTICK) {
+        } else if (speed > 0) {
             speed = 0.5;// * OI.getInstance().getOpStickModifier();
             targetPos = getVerticalPosition();
-        } else if (speed < -Variables.DEADBAND_OPERATORSTICK) {
+        } else if (speed < 0) {
             speed = -0.2;// * OI.getInstance().getOpStickModifier();
             targetPos = getVerticalPosition();
         }
@@ -162,9 +163,9 @@ public class Elevator extends Subsystem {
 
     public void setTargetPosition(double target) {
         //max is always the same for the elevator
-        if(target > Variables.ELEVATOR_MAX_POS) {
-            target = Variables.ELEVATOR_MAX_POS;
-        }
+        //if(target > Variables.ELEVATOR_MAX_POS) {
+        //    target = Variables.ELEVATOR_MAX_POS;
+        //}
         //if mast is protected, use a special minimum value for the elevator
         /*else if(Mast.getInstance().getHorizontalPosition() < Variables.MAST_BREAKPOINT){
             if(target < Variables.ELEVATOR_MIN_POS_MAST_PROTECTED)
@@ -180,9 +181,9 @@ public class Elevator extends Subsystem {
                 if(target < Variables.ELEVATOR_MIN_POS_MAST_FORWARD_CARGO) 
                     target = Variables.ELEVATOR_MIN_POS_MAST_FORWARD_CARGO;
             }
-        }*/ else {
+        } else {*/
             targetPos = target;
-        }
+        //}
     }
 
     public double getTargetPosition() {
