@@ -106,18 +106,18 @@ public class OI {
 
         // Joystick combinations
         _operatorElevator = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_LIFT_VERTICAL);
-        _operatorElevator.whenPressed(new ElevatorWithJoystick());
         _operatorElevator.whenPressed(new Interrupt());
+        _operatorElevator.whenPressed(new ElevatorWithJoystick());
         _operatorMast = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_LIFT_HORIZONTAL);
-        _operatorMast.whenPressed(new MastWithJoystick());
         _operatorMast.whenPressed(new Interrupt());
+        _operatorMast.whenPressed(new MastWithJoystick());
         _operatorWrist = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_INTAKE_ROTATE);
-        _operatorWrist.whenPressed(new WristWithJoystick());
         _operatorWrist.whenPressed(new Interrupt());
+        _operatorWrist.whenPressed(new WristWithJoystick());
 
         // Cargo
         _operatorCargoDefault = new JoystickButton(_operatorControllerWhite, 3);
-        _operatorCargoDefault.whenPressed(new Place((Variables.CARGO_SHIP), Variables.WRIST_POS_FLOOR_PICKUP));
+        _operatorCargoDefault.whenPressed(new Place(Variables.CARGO_SHIP, Variables.WRIST_POS_FLOOR_PICKUP));
         //_operatorCargoDefault.whenPressed(new CargoStation1());
         //_operatorCargoDefault.whenReleased(new CargoStation2());
         _operatorCargoFloor = new JoystickButton(_operatorControllerWhite, 5);
