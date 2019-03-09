@@ -80,7 +80,8 @@ public class OI {
     public static final int VISION_X_SYSTEM = 3;
     public static final int VISION_Y_SYSTEM = 4;
     public static final int VISION_ROT_SYSTEM = 5;
-    public static final int INTAKE_SYSTEM = 6;
+    public static final int CLIMB_SYSTEM = 6;
+    public static final int INTAKE_SYSTEM = 7;
 
     private int NUM_LOG_ENTRIES = 5;
 
@@ -388,10 +389,10 @@ public class OI {
 
     private void debugMessages(int system, double current, double error, double target, double output) {
         switch(system) {
-            case ROT_SYSTEM:
+            /*case ROT_SYSTEM:
                 SmartDashboard.putNumber("Rot PID Target", target);
                 SmartDashboard.putNumber("Rot PID Error", error);
-                break;
+                break;*/
             case ELEVATOR_SYSTEM:
                 SmartDashboard.putNumber("Vertical Lift Error", error);
                 SmartDashboard.putNumber("Vertical Lift PID Output", output);
@@ -402,7 +403,7 @@ public class OI {
                 SmartDashboard.putNumber("Horizontal Lift PID Output", output);
                 SmartDashboard.putNumber("Horizontal Lift PID Target", target);
                 break;
-            case VISION_X_SYSTEM:
+            /*case VISION_X_SYSTEM:
                 SmartDashboard.putNumber("Vision PID Error X", error);
                 SmartDashboard.putNumber("Vision PID Output X", output);
                 break;
@@ -413,6 +414,11 @@ public class OI {
             case VISION_ROT_SYSTEM:
                 SmartDashboard.putNumber("Vision PID Rotation Error", error);
                 SmartDashboard.putNumber("Vision PID Rotation Output", output);
+                break;*/
+            case CLIMB_SYSTEM:
+                SmartDashboard.putNumber("Climb Error", error);
+                SmartDashboard.putNumber("Climb PID Output", output);
+                SmartDashboard.putNumber("Climb PID Target", target);
                 break;
             case INTAKE_SYSTEM:
                 SmartDashboard.putNumber("Intake Error", error);
