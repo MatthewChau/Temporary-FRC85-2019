@@ -20,7 +20,7 @@ public class Addresses {
     public static final int OPERATOR_LIFT_HORIZONTAL = 1;
     public static final int OPERATOR_INTAKE_ROTATE = 2;
 
-    public static final int OPERATOR_HATCH_DEFAULT = 3;
+    public static final int OPERATOR_HATCH_STATION = 3;
     public static final int OPERATOR_HATCH_RELEASE = 4;
     public static final int OPERATOR_HATCH_FLOOR = 5;
 

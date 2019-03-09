@@ -34,8 +34,6 @@ import frc.robot.commands.driverassistance.CargoStation2;
 import frc.robot.commands.driverassistance.HatchGround2;
 import frc.robot.commands.driverassistance.HatchGround1;
 import frc.robot.commands.driverassistance.HatchRelease;
-import frc.robot.commands.driverassistance.HatchStationOne;
-import frc.robot.commands.driverassistance.HatchStationTwo;
 import frc.robot.commands.driverassistance.Interrupt;
 
 import edu.wpi.first.wpilibj.Joystick;
@@ -54,12 +52,12 @@ public class OI {
     private JoystickButton _driverLeftBumper, _driverControllerAButton, _driverControllerBButton, _driverControllerXButton, _driverControllerYButton;
 
     // White
-    private JoystickButton _operatorCargoDefault, _operatorCargoFloor, _operatorCargoIn, _operatorCargoOut,
+    private JoystickButton _operatorCargoShip, _operatorCargoFloor, _operatorCargoIn, _operatorCargoOut,
         _operatorCargoOne, _operatorCargoTwo, _operatorCargoThree,  
         _operatorElevator,
         _operatorClimbFront, _operatorClimbBack;
     // Black
-    private JoystickButton _operatorHatchDefault, _operatorHatchFloor, _operatorHatchRelease, 
+    private JoystickButton _operatorHatchStation, _operatorHatchFloor, _operatorHatchRelease, 
         _operatorHatchOne, _operatorHatchTwo, _operatorHatchThree,
         _operatorMast, _operatorWrist,
         _operatorClimbAuto;
@@ -110,10 +108,8 @@ public class OI {
         _operatorWrist.whenPressed(new WristWithJoystick());
 
         // Cargo
-        _operatorCargoDefault = new JoystickButton(_operatorControllerWhite, 3);
-        _operatorCargoDefault.whenPressed(new Place(Variables.CARGO_SHIP, Variables.WRIST_POS_FLOOR_PICKUP));
-        //_operatorCargoDefault.whenPressed(new CargoStation1());
-        //_operatorCargoDefault.whenReleased(new CargoStation2());
+        _operatorCargoShip = new JoystickButton(_operatorControllerWhite, 3);
+        _operatorCargoShip.whenPressed(new Place(Variables.CARGO_SHIP, Variables.WRIST_POS_FLOOR_PICKUP));
         _operatorCargoFloor = new JoystickButton(_operatorControllerWhite, 5);
         _operatorCargoIn = new JoystickButton(_operatorControllerWhite, 2);
         _operatorCargoIn.whenPressed(new ActivateIntake(0.8));
@@ -130,14 +126,13 @@ public class OI {
         _operatorCargoThree.whenPressed(new Place(Variables.CARGO_THREE, Variables.WRIST_ANGLE_FOR_CARGO));
 
         // Hatch
-        _operatorHatchDefault = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_HATCH_DEFAULT);
-        _operatorHatchDefault.whenPressed(new HatchStationOne());
-        _operatorHatchDefault.whenReleased(new HatchStationTwo());
+        _operatorHatchStation = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_HATCH_STATION);
+        _operatorHatchStation.whenPressed(new Place((Variables.HATCH_ONE + 200), Variables.WRIST_30));
+        _operatorHatchStation.whenReleased(new Place((Variables.HATCH_ONE + 500), Variables.WRIST_0));
         _operatorHatchFloor = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_HATCH_FLOOR);
-        //_operatorHatchFloor.whenPressed(new HatchGround1());
-        //_operatorHatchFloor.whenReleased(new HatchGround2());
         _operatorHatchRelease = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_HATCH_RELEASE);
-        _operatorHatchRelease.whenPressed(new HatchRelease());
+        _operatorHatchRelease.whenPressed(new Place(Elevator.getInstance().getVerticalPosition(), Variables.WRIST_30));
+        _operatorHatchRelease.whenReleased(new Place(Elevator.getInstance().getVerticalPosition(), Variables.WRIST_0));
         //_operatorHatchRelease.whenReleased(new Interrupt());
 
         _operatorHatchOne = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_HATCH_ONE);
@@ -347,7 +342,7 @@ public class OI {
     }
 
     public boolean getOperatorCargoDefault() {
-        return _operatorCargoDefault.get();
+        return _operatorCargoShip.get();
     }
 
     public int convertDegreesToIntake(int degrees) {
