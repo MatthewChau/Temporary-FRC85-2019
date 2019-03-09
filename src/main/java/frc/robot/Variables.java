@@ -57,13 +57,13 @@ public class Variables {
 
     // elevator positions
     public static final int HATCH_ONE = 1565;
-    public static final int HATCH_TWO = 8850;
-    public static final int HATCH_THREE = 17097;
+    public static final int HATCH_TWO = 9373;
+    public static final int HATCH_THREE = 17571;
     public static final int HATCH_FLOOR = 100;
     
     public static final int CARGO_ONE = 5300;
     public static final int CARGO_SHIP = 12040;
-    public static final int CARGO_TWO = 13540;
+    public static final int CARGO_TWO = 13840;
     public static final int CARGO_THREE = 21612;
     public static final int CARGO_FLOOR = 1500;
 

@@ -8,6 +8,7 @@
 package frc.robot.commands.lift;
 
 import frc.robot.Variables;
+import frc.robot.sensors.ProxSensors;
 import frc.robot.subsystems.Elevator;
 
 import edu.wpi.first.wpilibj.command.Command;
@@ -21,6 +22,13 @@ public class ElevatorLock extends Command {
     protected void initialize() {
         Elevator.getInstance().setServo(Variables.getInstance().getElevatorLocked());
         Elevator.getInstance().setTargetPosition(Elevator.getInstance().getVerticalPosition());
+    }
+
+    @Override
+    protected void execute() {
+        if (ProxSensors.getInstance().getLiftBottomLimit()) {
+            Elevator.getInstance().setVerticalPosition(0);
+        }
     }
 
     @Override
