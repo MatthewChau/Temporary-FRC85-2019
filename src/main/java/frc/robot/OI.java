@@ -19,9 +19,6 @@ import frc.robot.sensors.IMU;
 import frc.robot.commands.drivetrain.FollowOneTarget;
 import frc.robot.commands.drivetrain.FollowTwoTarget;
 import frc.robot.commands.drivetrain.DriveSeconds;
-import frc.robot.commands.belttrain.BeltTrainDrive;
-import frc.robot.commands.belttrain.SetBeltSolenoid;
-import frc.robot.commands.belttrain.ToggleBeltSolenoid;
 import frc.robot.commands.intake.ActivateIntake;
 import frc.robot.commands.intake.ActivateWrist;
 import frc.robot.commands.intake.WristPosition;
@@ -31,8 +28,6 @@ import frc.robot.commands.lift.ElevatorPosition;
 import frc.robot.commands.lift.MastPosition;
 import frc.robot.commands.lift.MastWithJoystick;
 import frc.robot.commands.lift.ElevatorWithJoystick;
-import frc.robot.commands.rearsolenoid.SetRearSolenoid;
-import frc.robot.commands.rearsolenoid.ToggleRearSolenoid;
 import frc.robot.commands.driverassistance.Place;
 import frc.robot.commands.driverassistance.CargoStation1;
 import frc.robot.commands.driverassistance.CargoStation2;
@@ -41,7 +36,6 @@ import frc.robot.commands.driverassistance.HatchGround1;
 import frc.robot.commands.driverassistance.HatchRelease;
 import frc.robot.commands.driverassistance.HatchStationOne;
 import frc.robot.commands.driverassistance.HatchStationTwo;
-import frc.robot.commands.driverassistance.Testing;
 import frc.robot.commands.driverassistance.Interrupt;
 
 import edu.wpi.first.wpilibj.Joystick;
@@ -156,9 +150,7 @@ public class OI {
         // Climb
         _operatorClimbAuto = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_CLIMB_AUTO);
         _operatorClimbBack = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_CLIMB_BACK);
-        _operatorClimbBack.whenPressed(new ToggleRearSolenoid());
         _operatorClimbFront = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_CLIMB_FRONT);
-        _operatorClimbFront.whenPressed(new ToggleBeltSolenoid());
 
         //_operatorHatchDefault.whenPressed(new HatchStation1());
         //_operatorHatchDefault.whenReleased(new HatchStation2());

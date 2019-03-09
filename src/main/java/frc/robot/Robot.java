@@ -15,13 +15,10 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.sensors.IMU;
-import frc.robot.subsystems.BeltSolenoid;
-import frc.robot.subsystems.BeltTrain;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Interruptable;
 import frc.robot.subsystems.Elevator;
-import frc.robot.subsystems.RearSolenoid;
 import frc.robot.subsystems.Mast;
 import frc.robot.Diagnostics;
 import frc.robot.Vision;
@@ -57,9 +54,6 @@ public class Robot extends TimedRobot {
         OI.getInstance();
         IMU.getInstance();
         Vision.getInstance();
-        BeltSolenoid.getInstance();
-        BeltTrain.getInstance();
-        RearSolenoid.getInstance();
         Interruptable.getInstance();
 
         //_diagnostics = new Diagnostics();
@@ -102,11 +96,6 @@ public class Robot extends TimedRobot {
         IMU.getInstance().setFusedHeading(0);
 
         Scheduler.getInstance().removeAll();
-
-        // Pneumatics
-
-        BeltSolenoid.getInstance().setBeltSolenoid(false);
-        RearSolenoid.getInstance().setRearSolenoid(false);
 
         // init the pid stuff 
 
