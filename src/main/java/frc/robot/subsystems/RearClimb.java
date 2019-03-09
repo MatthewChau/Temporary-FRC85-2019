@@ -11,6 +11,7 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel;
+import com.revrobotics.CANSparkMax.IdleMode;
 
 public class RearClimb extends Subsystem {
 
@@ -22,8 +23,10 @@ public class RearClimb extends Subsystem {
 
     private RearClimb() {
         _rearClimbMotor = new CANSparkMax(Addresses.REAR_CLIMB_MOTOR, CANSparkMaxLowLevel.MotorType.kBrushless);
-
+        _rearClimbMotor.setIdleMode(IdleMode.kBrake);
         _rearClimbDriveMotor = new TalonSRX(Addresses.REAR_CLIMB_MOTOR);
+        _rearClimbDriveMotor.setNeutralMode(NeutralMode.Coast);
+        _rearClimbDriveMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
     }
 
     public static RearClimb getInstance() {
@@ -36,16 +39,33 @@ public class RearClimb extends Subsystem {
     @Override
     public void initDefaultCommand() {
     }
+    
+    // CLIMB MOTOR
 
     public void setRearClimbMotor(double speed) {
         _rearClimbMotor.set(speed);
     }
 
-    public int getRearClimbPosition() {
-        return 0;
+    public double getRearClimbPosition() {
+        return _rearClimbMotor.getEncoder().getPosition();
     }
 
-    public void setRearClimbPosition(int position) {
+    public void setRearClimbPosition(double position) {
+        _rearClimbMotor.setEncPosition(position);
+    }
+
+    // CLIMB DRIVE MOTOR
+
+    public void setRearClimbDriveMotor(double speed) {
+        _rearClimbDriveMotor.set(ControlMode.PercentOutput, speed);
+    }
+
+    public int getRearClimbDriveMotorPosition() {
+        return _rearClimbDriveMotor.getSelectedSensorPosition();
+    }
+
+    public void setRearClimbDriveMotorPosition(int position) {
+        _rearClimbDriveMotor.setSelectedSensorPosition(position);
     }
 
 }
