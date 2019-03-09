@@ -61,14 +61,14 @@ public class Variables {
     public static final int HATCH_THREE = 17571;
     public static final int HATCH_FLOOR = 100;
     
-    public static final int CARGO_ONE = 5300;
+    public static final int CARGO_ONE = 7016;
     public static final int CARGO_SHIP = 12040;
-    public static final int CARGO_TWO = 13840;
-    public static final int CARGO_THREE = 21612;
+    public static final int CARGO_TWO = 14752;
+    public static final int CARGO_THREE = 22112;
     public static final int CARGO_FLOOR = 1500;
 
     //Elevator position limits
-    public static final int ELEVATOR_MAX_POS = 21500;
+    public static final int ELEVATOR_MAX_POS = (CARGO_THREE + 1000);
     public static final int ELEVATOR_MIN_POS_MAST_PROTECTED = 2500;
     public static final int ELEVATOR_MIN_POS_MAST_FORWARD_CARGO = 1100;
     public static final int ELEVATOR_MIN_POS_MAST_FORWARD_HATCH = 0;
