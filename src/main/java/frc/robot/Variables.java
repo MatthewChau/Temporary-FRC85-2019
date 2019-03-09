@@ -11,6 +11,8 @@ import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Mast;
 import frc.robot.subsystems.Elevator;
+import frc.robot.subsystems.RearClimb;
+import frc.robot.subsystems.FrontClimb;
 import frc.robot.sensors.ProxSensors;
 import frc.robot.sensors.IMU;
 
@@ -45,6 +47,8 @@ public class Variables {
     private static final double kP_VISION = 0.05, kI_VISION = 0.0, kD_VISION = 0.0;
 
     private static final double kP_VISION_ROT = 0.05, kI_VISION_ROT = 0.0, kD_VISION_ROT = 0.0;
+
+    private static final double kP_CLIMB = 0.05, kI_CLIMB = 0.0, kD_CLIMB = 0.0;
 
     // ANGLES FOR VISION
 
@@ -115,6 +119,16 @@ public class Variables {
     public static final double WRIST_MAX_SPEED_UP = 0.8;
     public static final double WRIST_MAX_SPEED_DOWN = -0.8;
 
+    // CLIMB
+
+    // climb positions
+    public static final int CLIMB_LEVEL_TWO = 0;
+    public static final int CLIMB_LEVEL_THREE = 0;
+
+    // climb position limits
+    public static final int CLIMB_MAX = 0;
+    public static final int CLIMB_MIN = 0;
+
     /**
      * Put variables here that should be changeable on the fly.
      */
@@ -142,6 +156,10 @@ public class Variables {
         SmartDashboard.putNumber("kP_VISION_ROT", kP_VISION_ROT);
         SmartDashboard.putNumber("kI_VISION_ROT", kI_VISION_ROT);
         SmartDashboard.putNumber("kD_VISION_ROT", kD_VISION_ROT);
+
+        SmartDashboard.putNumber("kP_CLIMB", kP_CLIMB);
+        SmartDashboard.putNumber("kI_CLIMB", kI_CLIMB);
+        SmartDashboard.putNumber("kD_CLIMB", kD_CLIMB);
 
         SmartDashboard.putNumber("MAX_SPEED_UP_INTAKE", WRIST_MAX_SPEED_UP);
         SmartDashboard.putNumber("MAX_SPEED_DOWN_INTAKE", WRIST_MAX_SPEED_DOWN);
@@ -241,6 +259,18 @@ public class Variables {
         return SmartDashboard.getNumber("kD_VISION_ROT", kD_VISION_ROT);
     }
 
+    public double getClimbkP() {
+        return SmartDashboard.getNumber("kP_CLIMB", kP_CLIMB);
+    }
+
+    public double getClimbkI() {
+        return SmartDashboard.getNumber("kI_CLIMB", kI_CLIMB);
+    }
+
+    public double getClimbkD() {
+        return SmartDashboard.getNumber("kD_CLIMB", kD_CLIMB);
+    }
+
     public double getElevatorUnlocked() {
         return SmartDashboard.getNumber("UNLOCKED", ELEVATOR_UNLOCKED);
     }
@@ -291,6 +321,11 @@ public class Variables {
         SmartDashboard.putBoolean("Front Prox Sensor", ProxSensors.getInstance().getLiftFrontLimit());
         SmartDashboard.putBoolean("Rear Prox Sensor", ProxSensors.getInstance().getLiftRearLimit());
         SmartDashboard.putBoolean("Intake Top Prox Sensor", ProxSensors.getInstance().getIntakeTopLimit());
+
+        SmartDashboard.putNumber("Front Climb One Position", FrontClimb.getInstance().getFrontClimbOnePosition());
+        SmartDashboard.putNumber("Front Climb Two Position", FrontClimb.getInstance().getFrontClimbTwoPosition());
+
+        SmartDashboard.putNumber("Rear Climb Position", RearClimb.getInstance().getRearClimbPosition());
     }
 
 }
