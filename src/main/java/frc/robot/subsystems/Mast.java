@@ -48,7 +48,7 @@ public class Mast extends Subsystem {
 
     public void horizontalShift(double speed) {
         if (adjusting && !OI.getInstance().getOperatorLiftHorizontal()) {
-            speed = OI.getInstance().applyPID(OI.getInstance().MAST_SYSTEM, 
+            speed = OI.getInstance().applyPID(OI.MAST_SYSTEM, 
                                               getHorizontalPosition(), 
                                               targetPos, 
                                               Variables.getInstance().getMastKP(), 

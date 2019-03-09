@@ -31,7 +31,7 @@ public class FollowOneTarget extends Command {
             DriveTrain.getInstance().fixAngles(gyroAngle);
         }
 
-        xSpeed = -OI.getInstance().applyPID(OI.getInstance().VISION_X_SYSTEM, 
+        xSpeed = -OI.getInstance().applyPID(OI.VISION_X_SYSTEM, 
                                             Vision.getInstance().oneTargetCenter(), 
                                             160.0, // appears to be the center of the camera
                                             Variables.getInstance().getVisionKP(), 
@@ -42,7 +42,7 @@ public class FollowOneTarget extends Command {
 
         ySpeed = 0.0;
 
-        zRotation = OI.getInstance().applyPID(OI.getInstance().VISION_ROT_SYSTEM,
+        zRotation = OI.getInstance().applyPID(OI.VISION_ROT_SYSTEM,
                                               gyroAngle, 
                                               DriveTrain.getInstance().targetAngle,
                                               Variables.getInstance().getVisionRotKP(),

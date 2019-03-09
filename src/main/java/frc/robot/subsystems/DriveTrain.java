@@ -108,7 +108,7 @@ public class DriveTrain extends Subsystem {
             }*/
 
             if (OI.getInstance().getLeftStickTrigger()) { // trigger for lowering speed
-                inputs[0] *= 0.33;
+                inputs[0] *= 0.4;
                 inputs[1] *= 0.33;
                 inputs[2] *= 0.45;
             }
@@ -119,15 +119,15 @@ public class DriveTrain extends Subsystem {
             }
             
             if (turnInProgress) { // note that this block exists for the sole purpose of overriding things when they are in progress
-                inputs[2] = OI.getInstance().applyPID(OI.getInstance().ROT_SYSTEM, inputs[3], targetAngle, Variables.getInstance().getDriveKP(), Variables.getInstance().getDriveKI(), Variables.getInstance().getDriveKD());
+                inputs[2] = OI.getInstance().applyPID(OI.ROT_SYSTEM, inputs[3], targetAngle, Variables.getInstance().getDriveKP(), Variables.getInstance().getDriveKI(), Variables.getInstance().getDriveKD());
             } else if (Math.abs(inputs[2]) < Variables.DEADBAND_DRIVERSTICK && !OI.getInstance().isHeadless()) { // we will deal with headless later ahaha
                 if (OI.getInstance().isForwardOnlyMode()) { // finally we check if we are in that specific mode
                     setForwardOnlyTargetAngle();
                     fixTargetAngle(inputs[3]);
-                    inputs[2] = OI.getInstance().applyPID(OI.getInstance().ROT_SYSTEM, inputs[3], targetAngle, Variables.getInstance().getDriveKP(), Variables.getInstance().getDriveKI(), Variables.getInstance().getDriveKD(), 1.0, -1.0);
+                    inputs[2] = OI.getInstance().applyPID(OI.ROT_SYSTEM, inputs[3], targetAngle, Variables.getInstance().getDriveKP(), Variables.getInstance().getDriveKI(), Variables.getInstance().getDriveKD(), 1.0, -1.0);
                 } else { // normal movement
                     setTargetAngleMoving(inputs[3]);
-                    inputs[2] = OI.getInstance().applyPID(OI.getInstance().ROT_SYSTEM, inputs[3], targetAngle, Variables.getInstance().getDriveKP(), Variables.getInstance().getDriveKI(), Variables.getInstance().getDriveKD(), kMaxOuputRot, kMinOuputRot);
+                    inputs[2] = OI.getInstance().applyPID(OI.ROT_SYSTEM, inputs[3], targetAngle, Variables.getInstance().getDriveKP(), Variables.getInstance().getDriveKI(), Variables.getInstance().getDriveKD(), kMaxOuputRot, kMinOuputRot);
                 }
             }
 

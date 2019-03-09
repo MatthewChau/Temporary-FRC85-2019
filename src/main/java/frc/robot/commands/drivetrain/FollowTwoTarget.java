@@ -24,7 +24,7 @@ public class FollowTwoTarget extends Command {
         double targetDistance = 50.0;
         double targetCenter = 0.0;
 
-        xSpeed = OI.getInstance().applyPID(OI.getInstance().VISION_X_SYSTEM,
+        xSpeed = OI.getInstance().applyPID(OI.VISION_X_SYSTEM,
                                            Vision.getInstance().twoTargetCenter(), 
                                            targetCenter, 
                                            Variables.getInstance().getVisionKP(), 
@@ -33,7 +33,7 @@ public class FollowTwoTarget extends Command {
                                            .5, 
                                            -.5);
         
-        ySpeed = OI.getInstance().applyPID(OI.getInstance().VISION_Y_SYSTEM, 
+        ySpeed = OI.getInstance().applyPID(OI.VISION_Y_SYSTEM, 
                                            Vision.getInstance().twoTargetDistance(), 
                                            targetDistance, 
                                            Variables.getInstance().getVisionKP(), 
@@ -42,7 +42,7 @@ public class FollowTwoTarget extends Command {
                                            .5, 
                                            -.5);
         
-        zRotation = -OI.getInstance().applyPID(OI.getInstance().VISION_ROT_SYSTEM, 
+        zRotation = -OI.getInstance().applyPID(OI.VISION_ROT_SYSTEM, 
                                                Vision.getInstance().getAreaDifference(), 
                                                0.0, 
                                                Variables.getInstance().getVisionRotKP(), 
