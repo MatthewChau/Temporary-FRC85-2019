@@ -116,7 +116,7 @@ public class OI {
 
         // Cargo
         _operatorCargoDefault = new JoystickButton(_operatorControllerWhite, 3);
-        _operatorCargoDefault.whenPressed(new Place((Variables.getInstance().CARGO_SHIP), Variables.WRIST_POS_FLOOR_PICKUP));
+        _operatorCargoDefault.whenPressed(new Place((Variables.CARGO_SHIP), Variables.WRIST_POS_FLOOR_PICKUP));
         //_operatorCargoDefault.whenPressed(new CargoStation1());
         //_operatorCargoDefault.whenReleased(new CargoStation2());
         _operatorCargoFloor = new JoystickButton(_operatorControllerWhite, 5);
@@ -128,11 +128,11 @@ public class OI {
         _operatorCargoOut.whenReleased(new ActivateIntake(0));
 
         _operatorCargoOne = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_CARGO_ONE);
-        _operatorCargoOne.whenPressed(new Place(Variables.getInstance().CARGO_ONE, Variables.WRIST_ANGLE_FOR_CARGO));
+        _operatorCargoOne.whenPressed(new Place(Variables.CARGO_ONE, Variables.WRIST_ANGLE_FOR_CARGO));
         _operatorCargoTwo = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_CARGO_TWO);
-        _operatorCargoTwo.whenPressed(new Place(Variables.getInstance().CARGO_TWO, Variables.WRIST_ANGLE_FOR_CARGO));
+        _operatorCargoTwo.whenPressed(new Place(Variables.CARGO_TWO, Variables.WRIST_ANGLE_FOR_CARGO));
         _operatorCargoThree = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_CARGO_THREE);
-        _operatorCargoThree.whenPressed(new Place(Variables.getInstance().CARGO_THREE, Variables.WRIST_ANGLE_FOR_CARGO));
+        _operatorCargoThree.whenPressed(new Place(Variables.CARGO_THREE, Variables.WRIST_ANGLE_FOR_CARGO));
 
         // Hatch
         _operatorHatchDefault = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_HATCH_DEFAULT);
@@ -145,11 +145,11 @@ public class OI {
         _operatorHatchRelease.whenPressed(new HatchRelease());
 
         _operatorHatchOne = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_HATCH_ONE);
-        _operatorHatchOne.whenPressed(new Place(Variables.getInstance().HATCH_ONE, Variables.WRIST_0));
+        _operatorHatchOne.whenPressed(new Place(Variables.HATCH_ONE, Variables.WRIST_0));
         _operatorHatchTwo = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_HATCH_TWO);
-        _operatorHatchTwo.whenPressed(new Place(Variables.getInstance().HATCH_TWO, Variables.WRIST_0));
+        _operatorHatchTwo.whenPressed(new Place(Variables.HATCH_TWO, Variables.WRIST_0));
         _operatorHatchThree = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_HATCH_THREE);
-        _operatorHatchThree.whenPressed(new Place(Variables.getInstance().HATCH_THREE, Variables.WRIST_0));
+        _operatorHatchThree.whenPressed(new Place(Variables.HATCH_THREE, Variables.WRIST_0));
 
         // Climb
         _operatorClimbAuto = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_CLIMB_AUTO);
@@ -216,7 +216,7 @@ public class OI {
     }
 
     public double getBeltInputJoystick() {
-        if (Math.abs(_driverJoystickRight.getRawAxis(1)) > 0.1) {
+        if (Math.abs(_driverJoystickRight.getRawAxis(1)) > Variables.DEADBAND_Z_DRIVERSTICK) {
             return _driverJoystickRight.getRawAxis(1);
         }
         return 0.0;
@@ -244,11 +244,12 @@ public class OI {
     }
 
     public boolean isForwardOnlyMode() {
-        if (SmartDashboard.getBoolean("Joysticks Enabled", false)) {
+        /*if (SmartDashboard.getBoolean("Joysticks Enabled", false)) {
             return getLeftJoystickForwardOnlyMode();
         } else {
             return getAButton();
-        }
+        }*/
+        return false;
     }
 
     private boolean getAButton() {
@@ -304,7 +305,7 @@ public class OI {
     public double getOperatorJoystickY() {
         double axis = _operatorControllerBlack.getRawAxis(1);
 
-        if (Math.abs(axis) < Variables.getInstance().DEADBAND_OPERATORSTICK) {
+        if (Math.abs(axis) < Variables.DEADBAND_OPERATORSTICK) {
             axis = 0;
         }
 
@@ -314,7 +315,7 @@ public class OI {
     public double getOperatorJoystickX() {
         double axis = _operatorControllerBlack.getRawAxis(0);
 
-        if (Math.abs(axis) < Variables.getInstance().DEADBAND_OPERATORSTICK) {
+        if (Math.abs(axis) < Variables.DEADBAND_OPERATORSTICK) {
             axis = 0;
         }
 

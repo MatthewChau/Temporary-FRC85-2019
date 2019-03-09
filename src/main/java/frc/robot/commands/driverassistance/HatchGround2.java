@@ -8,6 +8,6 @@ public class HatchGround2 extends CommandGroup {
     public HatchGround2() {
         addSequential(new Interrupt());
         addSequential(new WristPosition(0));
-        addSequential(new ElevatorPosition(Variables.getInstance().HATCH_ONE));
+        addSequential(new ElevatorPosition(Variables.HATCH_ONE));
     }
 }

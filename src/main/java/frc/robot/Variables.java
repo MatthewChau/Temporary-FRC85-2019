@@ -22,11 +22,11 @@ public class Variables {
     
     // DRIVETRAIN
 
-    public final double DEADBAND_DRIVERSTICK = 0.1;
-    public final double DEADBAND_Z_DRIVERSTICK = 0.3;  
-    public final double DEADBAND_OPERATORSTICK = 0.05;
-    public final double TOLERANCE_ANGLE = 5.0;
-    public final int MAX_TURNS = 7; // if we go over 2520 degrees in either direction in one match then help.
+    public static final double DEADBAND_DRIVERSTICK = 0.1;
+    public static final double DEADBAND_Z_DRIVERSTICK = 0.3;  
+    public static final double DEADBAND_OPERATORSTICK = 0.05;
+    public static final double TOLERANCE_ANGLE = 5.0;
+    public static final int MAX_TURNS = 7; // if we go over 2520 degrees in either direction in one match then help.
     public static double A_POLYNOMIAL = .60929309069026; // polynomial stuff
     public static double B_POLYNOMIAL = 0;
     public static double C_POLYNOMIAL = .377931548393;
@@ -48,24 +48,24 @@ public class Variables {
 
     // ANGLES FOR VISION
 
-    public final double ROT_POS_1 = 90;
-    public final double ROT_POS_2 = -90;
-    public final double ROT_POS_3 = 60;
-    public final double ROT_POS_4 = 120;
+    public static final double ROT_POS_1 = 90;
+    public static final double ROT_POS_2 = -90;
+    public static final double ROT_POS_3 = 60;
+    public static final double ROT_POS_4 = 120;
 
     // ELEVATOR
 
     // elevator positions
-    public final int HATCH_ONE = 1565;
-    public final int HATCH_TWO = 8850;
-    public final int HATCH_THREE = 17097;
-    public final int HATCH_FLOOR = 100;
+    public static final int HATCH_ONE = 1565;
+    public static final int HATCH_TWO = 8850;
+    public static final int HATCH_THREE = 17097;
+    public static final int HATCH_FLOOR = 100;
     
-    public final int CARGO_ONE = 5300;
-    public final int CARGO_SHIP = 12040; // unloading cargo ship pos
-    public final int CARGO_TWO = 13540;
-    public final int CARGO_THREE = 21612;
-    public final int CARGO_FLOOR = 1500;
+    public static final int CARGO_ONE = 5300;
+    public static final int CARGO_SHIP = 12040;
+    public static final int CARGO_TWO = 13540;
+    public static final int CARGO_THREE = 21612;
+    public static final int CARGO_FLOOR = 1500;
 
     //Elevator position limits
     public static final int ELEVATOR_MAX_POS = 21500;
@@ -78,8 +78,8 @@ public class Variables {
     public static final double ELEVATOR_MIN_SPEED = -.2;
 
     //Servo Angles for LiftLock
-    public final double ELEVATOR_LOCKED = 70;
-    public final double ELEVATOR_UNLOCKED = 180;
+    public static final double ELEVATOR_LOCKED = 70;
+    public static final double ELEVATOR_UNLOCKED = 180;
 
     // MAST
 
@@ -112,8 +112,8 @@ public class Variables {
     public static final int WRIST_MIN_POS = -1124000;
 
     // wrist speed limits
-    public final double WRIST_MAX_SPEED_UP = 0.8;
-    public final double WRIST_MAX_SPEED_DOWN = -0.8;
+    public static final double WRIST_MAX_SPEED_UP = 0.8;
+    public static final double WRIST_MAX_SPEED_DOWN = -0.8;
 
     /**
      * Put variables here that should be changeable on the fly.

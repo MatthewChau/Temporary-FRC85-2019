@@ -86,9 +86,9 @@ public class DriveTrain extends Subsystem {
             setTurn90TargetAngle(false, inputs[3]); // turn right
         } else if (OI.getInstance().getTurn180Button()) {
             setTurn180TargetAngle(inputs[3]);
-        } else if (Math.abs(inputs[0]) > Variables.getInstance().DEADBAND_DRIVERSTICK
-            || Math.abs(inputs[1]) > Variables.getInstance().DEADBAND_DRIVERSTICK
-            || Math.abs(inputs[2]) > Variables.getInstance().DEADBAND_Z_DRIVERSTICK
+        } else if (Math.abs(inputs[0]) > Variables.DEADBAND_DRIVERSTICK
+            || Math.abs(inputs[1]) > Variables.DEADBAND_DRIVERSTICK
+            || Math.abs(inputs[2]) > Variables.DEADBAND_Z_DRIVERSTICK
             || turnInProgress) {
             for (i = 0; i < 2; i++) { // normalize axis inputs (just in case)
                 if (inputs[i] > 1.0) {
@@ -120,7 +120,7 @@ public class DriveTrain extends Subsystem {
             
             if (turnInProgress) { // note that this block exists for the sole purpose of overriding things when they are in progress
                 inputs[2] = OI.getInstance().applyPID(OI.getInstance().ROT_SYSTEM, inputs[3], targetAngle, Variables.getInstance().getDriveKP(), Variables.getInstance().getDriveKI(), Variables.getInstance().getDriveKD());
-            } else if (Math.abs(inputs[2]) < Variables.getInstance().DEADBAND_DRIVERSTICK && !OI.getInstance().isHeadless()) { // we will deal with headless later ahaha
+            } else if (Math.abs(inputs[2]) < Variables.DEADBAND_DRIVERSTICK && !OI.getInstance().isHeadless()) { // we will deal with headless later ahaha
                 if (OI.getInstance().isForwardOnlyMode()) { // finally we check if we are in that specific mode
                     setForwardOnlyTargetAngle();
                     fixTargetAngle(inputs[3]);
@@ -230,7 +230,7 @@ public class DriveTrain extends Subsystem {
     }
 
     private void setTargetAngleMoving(double gyroAngle) { // if necessary, change the target angle
-        if (Math.abs(Math.abs(gyroAngle) - Math.abs(targetAngle)) > Variables.getInstance().TOLERANCE_ANGLE) {
+        if (Math.abs(Math.abs(gyroAngle) - Math.abs(targetAngle)) > Variables.TOLERANCE_ANGLE) {
             targetAngle = gyroAngle;
         }
     }
@@ -257,7 +257,7 @@ public class DriveTrain extends Subsystem {
             joystickAngle = OI.getInstance().fixArcTangent(joystickAngle, OI.getInstance().getXInputController(), OI.getInstance().getYInputController()); // fix the arctan angle so that we get a full 360 degrees
         }
 
-        if (Math.abs((Math.abs(targetAngle) % 360) - Math.abs(joystickAngle)) > Variables.getInstance().TOLERANCE_ANGLE) { // if the new angle differs "significantly"
+        if (Math.abs((Math.abs(targetAngle) % 360) - Math.abs(joystickAngle)) > Variables.TOLERANCE_ANGLE) { // if the new angle differs "significantly"
             targetAngle = joystickAngle;
         }
     }
@@ -267,7 +267,7 @@ public class DriveTrain extends Subsystem {
         double newTargetAngle = 0.0;
         int i;
 
-        for (i = -Variables.getInstance().MAX_TURNS; i < Variables.getInstance().MAX_TURNS; i++) {
+        for (i = -Variables.MAX_TURNS; i < Variables.MAX_TURNS; i++) {
             if (Math.abs(targetAngle + 360 * i - gyroAngle) < minDiff) { // if the new diff is less than the recorded minimum thus far
                 minDiff = (targetAngle + 360 * i - gyroAngle);
                 newTargetAngle = targetAngle + 360 * i; // note that we can't edit targetAngle directly while the loop is happening
@@ -339,7 +339,7 @@ public class DriveTrain extends Subsystem {
         double newTargetAngle = 0.0;
         int i;
 
-        for (i = -Variables.getInstance().MAX_TURNS; i < Variables.getInstance().MAX_TURNS; i++) {
+        for (i = -Variables.MAX_TURNS; i < Variables.MAX_TURNS; i++) {
             if (Math.abs(targetAngle + 360 * i - gyroAngle) < minDiff) {
                 minDiff = (targetAngle + 360 * i - gyroAngle);
                 newTargetAngle = targetAngle + 360 * i; // note that we can't edit targetAngle directly

@@ -69,10 +69,10 @@ public class Elevator extends Subsystem {
                                               Variables.getInstance().getElevatorKD(), 
                                               0.6, 
                                               -0.3);
-        } else if (speed > Variables.getInstance().DEADBAND_OPERATORSTICK) {
+        } else if (speed > Variables.DEADBAND_OPERATORSTICK) {
             speed = 0.5;// * OI.getInstance().getOpStickModifier();
             targetPos = getVerticalPosition();
-        } else if (speed < -Variables.getInstance().DEADBAND_OPERATORSTICK) {
+        } else if (speed < -Variables.DEADBAND_OPERATORSTICK) {
             speed = -0.2;// * OI.getInstance().getOpStickModifier();
             targetPos = getVerticalPosition();
         }
@@ -107,19 +107,19 @@ public class Elevator extends Subsystem {
             setTargetPosition(Variables.ELEVATOR_MAX_POS);
             return true;
         } else if (mastPosition < Variables.MAST_BREAKPOINT // mast is back & wrist is down
-                  && intakePosition < Variables.WRIST_MIN_POS_MAST_BACK
-                  && verticalPosition < Variables.ELEVATOR_MIN_POS_MAST_PROTECTED
-                  && speed < 0) {
+                   && intakePosition < Variables.WRIST_MIN_POS_MAST_BACK
+                   && verticalPosition < Variables.ELEVATOR_MIN_POS_MAST_PROTECTED
+                   && speed < 0) {
             setTargetPosition(Variables.ELEVATOR_MIN_POS_MAST_PROTECTED);
             return true;
         } else if (mastPosition >= Variables.MAST_BREAKPOINT // mast is forward & wrist is down
-                  && intakePosition < Variables.WRIST_MIN_POS_MAST_BACK
-                  && verticalPosition < Variables.ELEVATOR_MIN_POS_MAST_FORWARD_CARGO
-                  && speed < 0) {
+                   && intakePosition < Variables.WRIST_MIN_POS_MAST_BACK
+                   && verticalPosition < Variables.ELEVATOR_MIN_POS_MAST_FORWARD_CARGO
+                   && speed < 0) {
             setTargetPosition(Variables.ELEVATOR_MIN_POS_MAST_FORWARD_CARGO);
             return true;
         } else if (verticalPosition < Variables.ELEVATOR_MIN_POS_MAST_FORWARD_HATCH // general bottom limit
-                  && speed < 0) {
+                   && speed < 0) {
             setTargetPosition(Variables.ELEVATOR_MIN_POS_MAST_FORWARD_HATCH);
             return true;
         }

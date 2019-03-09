@@ -13,7 +13,7 @@ import frc.robot.commands.driverassistance.Wait;
 public class CargoStation1 extends CommandGroup {
     public CargoStation1() {
         addSequential(new Interrupt());
-        addSequential(new ElevatorPosition(Variables.getInstance().CARGO_ONE));
+        addSequential(new ElevatorPosition(Variables.CARGO_ONE));
         addSequential(new WristPosition(0));
         addSequential(new ActivateIntake(-.33));
     }
