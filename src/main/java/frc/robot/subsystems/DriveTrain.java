@@ -348,4 +348,44 @@ public class DriveTrain extends Subsystem {
         targetAngle = newTargetAngle;
     }
 
+    public void tankDrive(double leftSpeed, double rightSpeed) {
+        if (leftSpeed < Variables.DEADBAND_DRIVERSTICK) {
+            leftSpeed = 0.0;
+        }
+        if (rightSpeed < Variables.DEADBAND_DRIVERSTICK) {
+            rightSpeed = 0.0;
+        }
+
+        wheelSpeeds[0] = leftSpeed;
+        wheelSpeeds[1] = rightSpeed;
+        wheelSpeeds[2] = leftSpeed;
+        wheelSpeeds[3] = rightSpeed;
+
+        _leftFrontMotor.set(ControlMode.PercentOutput, wheelSpeeds[0]);
+        _rightFrontMotor.set(ControlMode.PercentOutput, -wheelSpeeds[1]);
+        _leftBackMotor.set(ControlMode.PercentOutput, wheelSpeeds[2]);
+        _rightBackMotor.set(ControlMode.PercentOutput, -wheelSpeeds[3]);
+    }
+
+    public void fpsDrive(double speed, double turn) {
+        if (speed < Variables.DEADBAND_DRIVERSTICK) {
+            speed = 0.0;
+        }
+        if (turn < Variables.DEADBAND_Z_DRIVERSTICK) {
+            turn = 0.0;
+        }
+
+        wheelSpeeds[0] = speed + turn;
+        wheelSpeeds[1] = speed - turn;
+        wheelSpeeds[2] = speed + turn;
+        wheelSpeeds[3] = speed - turn;
+
+        limitSpeeds(wheelSpeeds);
+
+        _leftFrontMotor.set(ControlMode.PercentOutput, wheelSpeeds[0]);
+        _rightFrontMotor.set(ControlMode.PercentOutput, -wheelSpeeds[1]);
+        _leftBackMotor.set(ControlMode.PercentOutput, wheelSpeeds[2]);
+        _rightBackMotor.set(ControlMode.PercentOutput, -wheelSpeeds[3]);
+    }
+
 }
