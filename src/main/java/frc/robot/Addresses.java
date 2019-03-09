@@ -86,4 +86,11 @@ public class Addresses {
     // LED Spike Relay
     public static final int LIGHT_RELAY = 0;
 
+    // Climb Motors
+    public static final int REAR_CLIMB_MOTOR = 51;
+    public static final int REAR_CLIMB_DRIVE = 52;
+    public static final int FRONT_CLIMB_MOTOR_ONE = 53;
+    public static final int FRONT_CLIMB_MOTOR_TWO = 54;
+    
+
 }
