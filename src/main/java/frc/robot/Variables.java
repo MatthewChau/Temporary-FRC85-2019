@@ -1,4 +1,4 @@
-/*----------------------------------------------------------------------------*/
+ /*----------------------------------------------------------------------------*/
 /* Copyright (c) 2018 FIRST. All Rights Reserved.                             */
 /* Open Source Software - may be modified and shared by FRC teams. The code   */
 /* must be accompanied by the FIRST BSD license file in the root directory of */
@@ -69,9 +69,10 @@ public class Variables {
 
     //Elevator position limits
     public static final int ELEVATOR_MAX_POS = (CARGO_THREE + 1000);
-    public static final int ELEVATOR_MIN_POS_MAST_PROTECTED = 2500;
-    public static final int ELEVATOR_MIN_POS_MAST_FORWARD_CARGO = 1100;
+    public static final int ELEVATOR_MIN_POS_MAST_PROTECTED = 3200;
+    public static final int ELEVATOR_MIN_POS_MAST_FORWARD_CARGO = 1250;
     public static final int ELEVATOR_MIN_POS_MAST_FORWARD_HATCH = 0;
+    public static final int ELEVATOR_MIN_POS_LIFT_HIGH = ELEVATOR_MIN_POS_MAST_PROTECTED;
 
     //Elevator Speed Limits 
     public static final double ELEVATOR_MAX_SPEED = .5;
@@ -109,7 +110,8 @@ public class Variables {
     //Wrist position limits
     public static final int WRIST_MAX_POS = 0;
     public static final int WRIST_MIN_POS_MAST_BACK = -200000;
-    public static final int WRIST_MIN_POS = -1124000;
+    public static final int WRIST_MIN_POS_LIFT_UP = WRIST_90;
+    public static final int WRIST_MIN_POS = -1170000;
 
     // wrist speed limits
     public static final double WRIST_MAX_SPEED_UP = 0.8;
@@ -286,6 +288,8 @@ public class Variables {
         SmartDashboard.putNumber("Operator Joystick", OI.getInstance().getOperatorJoystickY());
 
         SmartDashboard.putNumber("Vertical Lift", Elevator.getInstance().getVerticalPosition());
+
+        SmartDashboard.putNumber("Intake Encoder", Intake.getInstance().getWristPosition());
 
         SmartDashboard.putNumber("Horizontal Lift", Mast.getInstance().getHorizontalPosition());
         SmartDashboard.putBoolean("Front Prox Sensor", ProxSensors.getInstance().getLiftFrontLimit());

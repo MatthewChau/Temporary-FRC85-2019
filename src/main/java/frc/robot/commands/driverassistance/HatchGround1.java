@@ -27,11 +27,12 @@ import frc.robot.commands.lift.MastPosition;
 public class HatchGround1 extends CommandGroup {
     public HatchGround1() {
         addSequential(new Interrupt());
-
+/*
         addParallel(new ElevatorPosition(Variables.HATCH_ONE));
         addSequential(new WristPosition(Variables.WRIST_POS_FLOOR_PICKUP));
         addSequential(new MastPosition(Variables.MAST_FORWARD_POS));
-        
-        
+*/
+        addSequential(new Place(1843, -1140762));
+            
     }
 }
