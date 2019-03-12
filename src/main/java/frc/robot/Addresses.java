@@ -51,14 +51,14 @@ public class Addresses {
     public static final int DRIVETRAIN_RIGHT_FRONT_MOTOR = 13;
     public static final int DRIVETRAIN_RIGHT_BACK_MOTOR = 14;
 
-    // Lift
+    // Elevator
     public static final int LIFT_LEFT_MOTOR = 21;
     public static final int LIFT_RIGHT_MOTOR = 22;
     public static final int LIFT_CIM_MOTOR = 23;
 
     public static final int LIFT_SERVO = 0;
 
-    // Lift Proximity Sensors (DigitalInputOutputs)
+    // Elevator Proximity Sensors (DigitalInputOutputs)
     public static final int LIFT_TOP_LIMIT = 0;
     public static final int LIFT_CENTER_LIMIT = 1;
     public static final int LIFT_BOTTOM_LIMIT = 2;
@@ -69,19 +69,8 @@ public class Addresses {
     public static final int INTAKE_WRIST = 31;
     public static final int INTAKE_ROLLER = 32;
 
-    // Intake Proximity Sensors
+    // Wrist Proximity Sensors
     public static final int INTAKE_TOP_LIMIT = 5;
-
-    // BeltTrain
-    public static final int BELTTRAIN_LEFT_MOTOR = 41;
-    public static final int BELTTRAIN_RIGHT_MOTOR = 42;
-
-    // Belt Solenoid
-    public static final int BELTTRAIN_SOLENOID = 0;
-
-    // Rear Solenoid
-    public static final int REAR_SOLENOID_1 = 1;
-    public static final int REAR_SOLENOID_2 = 2;
    
     // LED Spike Relay
     public static final int LIGHT_RELAY = 0;

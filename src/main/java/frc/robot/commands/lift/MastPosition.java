@@ -27,7 +27,6 @@ public class MastPosition extends Command {
 
     @Override
     protected void execute() {
-        super.execute();
         Mast.getInstance().setTargetPosition(_target);
         Mast.getInstance().changeAdjustingBool(true);
         Mast.getInstance().horizontalShift(0.0);

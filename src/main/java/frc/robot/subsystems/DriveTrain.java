@@ -32,10 +32,6 @@ public class DriveTrain extends Subsystem {
 
     private TalonSRX _leftFrontMotor, _leftBackMotor, _rightFrontMotor, _rightBackMotor;
 
-    /**
-     * Neutral Mode = Coast mode = 1
-     * and brake mode = 2
-     */
     private DriveTrain() {
         _leftFrontMotor = new TalonSRX(Addresses.DRIVETRAIN_LEFT_FRONT_MOTOR);
 		_leftFrontMotor.setNeutralMode(NeutralMode.Coast);
@@ -60,10 +56,14 @@ public class DriveTrain extends Subsystem {
 
     @Override
     public void initDefaultCommand() {
-        // Set the default command for a subsystem here.
         setDefaultCommand(new DriveWithJoystick());
     }
 
+    /**
+     * @param xSpeed : positive is right
+     * @param ySpeed : positive is forward
+     * @param zRotation : positive is counter-clockwise
+     */
     public void cartDrive(double xSpeed, double ySpeed, double zRotation, double gyroAngle) {
         double[] speed = {xSpeed, ySpeed, zRotation, gyroAngle};
         cartDrive(speed);
@@ -76,7 +76,6 @@ public class DriveTrain extends Subsystem {
      * 2 - zRotation - positive is counter-clockwise
      * 3 - gyroAngle 
      */
-    
     public void cartDrive(double[] inputs) {
         int i;
 
@@ -150,102 +149,23 @@ public class DriveTrain extends Subsystem {
         }
     }
 
-    /**
-     * this is the voltage stuff that is 
-     * really only for diagnostics
-     */
-    public double getLeftFrontVoltage() {
-        return _leftFrontMotor.getMotorOutputVoltage();
-    }
-
-    public double getLeftBackVoltage() {
-        return _leftBackMotor.getMotorOutputVoltage();
-    }
-
-    public double getRightFrontVoltage() {
-        return _rightFrontMotor.getMotorOutputVoltage();
-    }
-
-    public double getRightBackVoltage() {
-        return _rightBackMotor.getMotorOutputVoltage();
-    }
-
-    /**
-     * this is the current draw stuff
-     * that is also only really for diagnostics
-     */
-    public double getLeftFrontCurrent() {
-        return _leftFrontMotor.getOutputCurrent();
-    }
-
-    public double getLeftBackCurrent() {
-        return _leftBackMotor.getOutputCurrent();
-    }
-
-    public double getRightFrontCurrent() {
-        return _rightFrontMotor.getOutputCurrent();
-    }
-
-    public double getRightBackCurrent() {
-        return _rightBackMotor.getOutputCurrent();
-    }
-
-    /**
-     * Returns the selected motor's encoder position (count)
-     * 1 Rotation = 4096 counts
-     */
-    public int getLeftFrontPosition() {
-        return _leftFrontMotor.getSelectedSensorPosition();
-    }
-
-    public int getLeftBackPosition() {
-        return _leftBackMotor.getSelectedSensorPosition();
-    }
-
-    public int getRightFrontPosition() {
-        return _rightFrontMotor.getSelectedSensorPosition();
-    }
-
-    public int getRightBackPosition() {
-        return _rightBackMotor.getSelectedSensorPosition();
-    }
-
-    /**
-     * Returns a value of (-1.0,1.0)
-     */
-    public double getLeftFrontPercent() {
-        return _leftFrontMotor.getMotorOutputPercent();
-    }
-
-    public double getLeftBackPercent() {
-        return _leftBackMotor.getMotorOutputPercent();
-    }
-
-    public double getRightFrontPercent() {
-        return _rightFrontMotor.getMotorOutputPercent();
-    }
-
-    public double getRightBackPercent() {
-        return _rightBackMotor.getMotorOutputPercent();
-    }
-
     private void setTargetAngleMoving(double gyroAngle) { // if necessary, change the target angle
         if (Math.abs(Math.abs(gyroAngle) - Math.abs(targetAngle)) > Variables.TOLERANCE_ANGLE) {
             targetAngle = gyroAngle;
         }
     }
 
-    /*
-    okay let's do some math explanations & why i thought this was a good idea
-    the goal is to get the angle with left from the y axis being positive going counter-clockwise (because that's how gyro goes)
-    so we absolute value the whole thing to keep it within range of arctan's use
-    joystick angle formula thus becomes:
-    arctan(-X / |Y|)
-    then we fix it using the method in OI to adjust it so that we can use it (i.e. arctan doesn't always return 0-90!), commented there
-    note that this is if you want the robot to go FORWARD facing this angle
-    we then set it to the closest to the current angle that the robot is, using a temp var so that we can pass a value before editing the targetValue
-    */
-    
+    /**
+     * okay let's do some math explanations & why i thought this was a good idea 
+     * the goal is to get the angle with left from the y axis being positive going
+     * counter-clockwise (because that's how gyro goes) so we absolute value the
+     * whole thing to keep it within range of arctan's use joystick angle formula
+     * thus becomes: arctan(-X / |Y|) then we fix it using the method in OI to
+     * adjust it so that we can use it (i.e. arctan doesn't always return 0-90!),
+     * commented there note that this is if you want the robot to go FORWARD facing
+     * this angle we then set it to the closest to the current angle that the robot
+     * is, using a temp var so that we can pass a value before editing the targetValue
+     */
     private void setForwardOnlyTargetAngle() {
         double joystickAngle;
         
@@ -386,6 +306,77 @@ public class DriveTrain extends Subsystem {
         _rightFrontMotor.set(ControlMode.PercentOutput, -wheelSpeeds[1]);
         _leftBackMotor.set(ControlMode.PercentOutput, wheelSpeeds[2]);
         _rightBackMotor.set(ControlMode.PercentOutput, -wheelSpeeds[3]);
+    }
+
+    // Voltage
+    public double getLeftFrontVoltage() {
+        return _leftFrontMotor.getMotorOutputVoltage();
+    }
+
+    public double getLeftBackVoltage() {
+        return _leftBackMotor.getMotorOutputVoltage();
+    }
+
+    public double getRightFrontVoltage() {
+        return _rightFrontMotor.getMotorOutputVoltage();
+    }
+
+    public double getRightBackVoltage() {
+        return _rightBackMotor.getMotorOutputVoltage();
+    }
+
+    // Current
+    public double getLeftFrontCurrent() {
+        return _leftFrontMotor.getOutputCurrent();
+    }
+
+    public double getLeftBackCurrent() {
+        return _leftBackMotor.getOutputCurrent();
+    }
+
+    public double getRightFrontCurrent() {
+        return _rightFrontMotor.getOutputCurrent();
+    }
+
+    public double getRightBackCurrent() {
+        return _rightBackMotor.getOutputCurrent();
+    }
+
+    /**
+     * Returns the selected motor's encoder position (count)
+     * 1 Rotation = 4096 counts
+     */
+    public int getLeftFrontPosition() {
+        return _leftFrontMotor.getSelectedSensorPosition();
+    }
+
+    public int getLeftBackPosition() {
+        return _leftBackMotor.getSelectedSensorPosition();
+    }
+
+    public int getRightFrontPosition() {
+        return _rightFrontMotor.getSelectedSensorPosition();
+    }
+
+    public int getRightBackPosition() {
+        return _rightBackMotor.getSelectedSensorPosition();
+    }
+
+    // What percent output that motor is set to.
+    public double getLeftFrontPercent() {
+        return _leftFrontMotor.getMotorOutputPercent();
+    }
+
+    public double getLeftBackPercent() {
+        return _leftBackMotor.getMotorOutputPercent();
+    }
+
+    public double getRightFrontPercent() {
+        return _rightFrontMotor.getMotorOutputPercent();
+    }
+
+    public double getRightBackPercent() {
+        return _rightBackMotor.getMotorOutputPercent();
     }
 
 }

@@ -10,8 +10,9 @@ package frc.robot.subsystems;
 import frc.robot.Addresses;
 import frc.robot.OI;
 import frc.robot.Variables;
-import frc.robot.commands.intake.WristWithJoystick;
 import frc.robot.sensors.ProxSensors;
+import frc.robot.commands.intake.WristWithJoystick;
+
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -20,9 +21,6 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 
-/**
- * The intake subsystem
- */
 public class Intake extends Subsystem {
 
     private static Intake _instance = null;

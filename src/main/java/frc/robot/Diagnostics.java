@@ -24,10 +24,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Diagnostics {
 
-    /**
-     * current (output) 
-     */
-
     File log;
     BufferedWriter out = null;
 

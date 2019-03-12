@@ -13,7 +13,16 @@ import frc.robot.subsystems.Elevator;
 
 import edu.wpi.first.wpilibj.command.Command;
 
+/**
+ * This system of using a clutch to stop the elevator from moving exploits the FRC system of command based.
+ * Each subsystem (this is a command, whose subsystem is the elevator) maybe only have one command activate a time, calling a new command interrupts the old command.
+ * By setting this as the default command of elevator, when there is no other command sceduled this command will be called.
+ * When the command is called, it initalizes and activates the locking mechanism.
+ * When the command is interrupted (a command to move the lift), interrupted() runs, unlocking the lift.
+ * When the movement command finishes, this command is called again (since it is the default command).
+ */
 public class ElevatorLock extends Command {
+
     public ElevatorLock() {
         requires(Elevator.getInstance());
     }
@@ -22,7 +31,7 @@ public class ElevatorLock extends Command {
     protected void initialize() {
         Elevator.getInstance().setServo(Variables.getInstance().getElevatorLocked());
         Elevator.getInstance().setTargetPosition(Elevator.getInstance().getVerticalPosition());
-        Elevator.getInstance().setElevatorMotors(0.0);
+        Elevator.getInstance().setElevatorMotors(0.0); //Wouldn't this cause a drop before it locks? no PID loop.
     }
 
     @Override
@@ -37,11 +46,10 @@ public class ElevatorLock extends Command {
         return false;
     }
 
-    // Called when another command which requires one or more of the same
-    // subsystems is scheduled to run
     @Override
     protected void interrupted() {
         Elevator.getInstance().setServo(Variables.getInstance().getElevatorUnlocked());
         Elevator.getInstance().setTargetPosition(Elevator.getInstance().getVerticalPosition());
     }
+
 }
