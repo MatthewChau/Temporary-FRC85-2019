@@ -27,7 +27,6 @@ public class ElevatorPosition extends Command {
 
     @Override
     protected void execute() {
-        super.execute();
         Elevator.getInstance().setTargetPosition(_target);
         Elevator.getInstance().changeAdjustingBool(true);
         Elevator.getInstance().verticalShift(0.0);

@@ -28,7 +28,6 @@ public class ActivateMast extends Command {
 
     @Override
     protected void execute() {
-        super.execute();
         Mast.getInstance().setMastMotor(_speed);
     }
 

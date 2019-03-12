@@ -8,6 +8,7 @@
 package frc.robot.commands.intake;
 
 import frc.robot.subsystems.Intake;
+
 import edu.wpi.first.wpilibj.command.Command;
 
 public class ActivateIntake extends Command {

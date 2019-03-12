@@ -5,13 +5,13 @@ import frc.robot.commands.intake.ActivateIntake;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
-public class CargoGroundOne extends CommandGroup {
+public class CargoStationOne extends CommandGroup {
     
-    public CargoGroundOne() {
+    public CargoStationOne() {
         addSequential(new Interrupt());
 
-        addSequential(new Place(Variables.CARGO_FLOOR, Variables.WRIST_CARGO_FLOOR));
+        addSequential(new Place(Variables.CARGO_ONE, Variables.WRIST_0));
         addSequential(new ActivateIntake(Variables.ROLLER_IN));
     }
-
+    
 }

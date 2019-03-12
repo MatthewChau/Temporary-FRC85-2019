@@ -19,9 +19,6 @@ import frc.robot.sensors.IMU;
 import frc.robot.commands.drivetrain.FollowOneTarget;
 import frc.robot.commands.drivetrain.FollowTwoTarget;
 import frc.robot.commands.drivetrain.DriveSeconds;
-import frc.robot.commands.belttrain.BeltTrainDrive;
-import frc.robot.commands.belttrain.SetBeltSolenoid;
-import frc.robot.commands.belttrain.ToggleBeltSolenoid;
 import frc.robot.commands.intake.ActivateIntake;
 import frc.robot.commands.intake.ActivateWrist;
 import frc.robot.commands.intake.WristPosition;
@@ -31,19 +28,16 @@ import frc.robot.commands.lift.ElevatorPosition;
 import frc.robot.commands.lift.MastPosition;
 import frc.robot.commands.lift.MastWithJoystick;
 import frc.robot.commands.lift.ElevatorWithJoystick;
-import frc.robot.commands.rearsolenoid.SetRearSolenoid;
-import frc.robot.commands.rearsolenoid.ToggleRearSolenoid;
 import frc.robot.commands.driverassistance.Place;
-import frc.robot.commands.driverassistance.CargoStation1;
-import frc.robot.commands.driverassistance.CargoStation2;
+import frc.robot.commands.driverassistance.CargoStationOne;
+import frc.robot.commands.driverassistance.CargoStationTwo;
 import frc.robot.commands.driverassistance.CargoGroundOne;
 import frc.robot.commands.driverassistance.CargoGroundTwo;
-import frc.robot.commands.driverassistance.HatchGround2;
-import frc.robot.commands.driverassistance.HatchGround1;
-import frc.robot.commands.driverassistance.HatchRelease;
 import frc.robot.commands.driverassistance.HatchStationOne;
 import frc.robot.commands.driverassistance.HatchStationTwo;
-import frc.robot.commands.driverassistance.Testing;
+import frc.robot.commands.driverassistance.HatchGroundOne;
+import frc.robot.commands.driverassistance.HatchGroundTwo;
+import frc.robot.commands.driverassistance.HatchRelease;
 import frc.robot.commands.driverassistance.Interrupt;
 
 import edu.wpi.first.wpilibj.Joystick;
@@ -118,33 +112,33 @@ public class OI {
 
         // Cargo
         _operatorCargoDefault = new JoystickButton(_operatorControllerWhite, 3);
-        _operatorCargoDefault.whenPressed(new Place(Variables.CARGO_SHIP, Variables.WRIST_POS_FLOOR_PICKUP));
-        //_operatorCargoDefault.whenPressed(new CargoStation1());
-        //_operatorCargoDefault.whenReleased(new CargoStation2());
+        _operatorCargoDefault.whenPressed(new Place(Variables.CARGO_SHIP, Variables.WRIST_CARGO_SHIP));
+        //_operatorCargoDefault.whenPressed(new CargoStationOne());
+        //_operatorCargoDefault.whenReleased(new CargoStationTwo());
         _operatorCargoFloor = new JoystickButton(_operatorControllerWhite, 5);
         _operatorCargoFloor.whenPressed(new CargoGroundOne());
         _operatorCargoFloor.whenReleased(new CargoGroundTwo());
         _operatorCargoIn = new JoystickButton(_operatorControllerWhite, 2);
-        _operatorCargoIn.whenPressed(new ActivateIntake(0.8));
+        _operatorCargoIn.whenPressed(new ActivateIntake(Variables.ROLLER_IN));
         _operatorCargoIn.whenReleased(new ActivateIntake(0));
         _operatorCargoOut = new JoystickButton(_operatorControllerWhite, 4);
-        _operatorCargoOut.whenPressed(new ActivateIntake(-0.8));
+        _operatorCargoOut.whenPressed(new ActivateIntake(Variables.ROLLER_OUT));
         _operatorCargoOut.whenReleased(new ActivateIntake(0));
 
         _operatorCargoOne = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_CARGO_ONE);
-        _operatorCargoOne.whenPressed(new Place(Variables.CARGO_ONE, Variables.WRIST_ANGLE_FOR_CARGO));
+        _operatorCargoOne.whenPressed(new Place(Variables.CARGO_ONE, Variables.WRIST_CARGO));
         _operatorCargoTwo = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_CARGO_TWO);
-        _operatorCargoTwo.whenPressed(new Place(Variables.CARGO_TWO, Variables.WRIST_ANGLE_FOR_CARGO));
+        _operatorCargoTwo.whenPressed(new Place(Variables.CARGO_TWO, Variables.WRIST_CARGO));
         _operatorCargoThree = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_CARGO_THREE);
-        _operatorCargoThree.whenPressed(new Place(Variables.CARGO_THREE, Variables.WRIST_ANGLE_FOR_CARGO));
+        _operatorCargoThree.whenPressed(new Place(Variables.CARGO_THREE, Variables.WRIST_CARGO));
 
         // Hatch
         _operatorHatchDefault = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_HATCH_DEFAULT);
         _operatorHatchDefault.whenPressed(new HatchStationOne());
         _operatorHatchDefault.whenReleased(new HatchStationTwo());
         _operatorHatchFloor = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_HATCH_FLOOR);
-        _operatorHatchFloor.whenPressed(new HatchGround1());
-        _operatorHatchFloor.whenReleased(new HatchGround2());
+        _operatorHatchFloor.whenPressed(new HatchGroundOne());
+        _operatorHatchFloor.whenReleased(new HatchGroundTwo());
         _operatorHatchRelease = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_HATCH_RELEASE);
         _operatorHatchRelease.whenPressed(new HatchRelease());
         //_operatorHatchRelease.whenReleased(new Interrupt());
@@ -159,9 +153,7 @@ public class OI {
         // Climb
         _operatorClimbAuto = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_CLIMB_AUTO);
         _operatorClimbBack = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_CLIMB_BACK);
-        _operatorClimbBack.whenPressed(new ToggleRearSolenoid());
         _operatorClimbFront = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_CLIMB_FRONT);
-        _operatorClimbFront.whenPressed(new ToggleBeltSolenoid());
 
         //_operatorHatchDefault.whenPressed(new HatchStation1());
         //_operatorHatchDefault.whenReleased(new HatchStation2());
@@ -186,6 +178,8 @@ public class OI {
         return _instance;
     }
 
+    // DRIVER
+
     public double[] getControllerInput() {
         _xSpeed = getXInputController();
         _ySpeed = getYInputController();
@@ -203,30 +197,7 @@ public class OI {
 
         return new double[] {_xSpeed, _ySpeed, _zRotation, _gyroAngle};
     }
-
-    public double getXInputController() {
-        return _driverController.getRawAxis(0);
-    }
-
-    public double getYInputController() {
-        return _driverController.getRawAxis(1);
-    }
-
-    public double getXInputJoystick() {
-        return _driverJoystickLeft.getRawAxis(0);
-    }
-
-    public double getYInputJoystick() {
-        return _driverJoystickLeft.getRawAxis(1);
-    }
-
-    public double getBeltInputJoystick() {
-        if (Math.abs(_driverJoystickRight.getRawAxis(1)) > Variables.DEADBAND_Z_DRIVERSTICK) {
-            return _driverJoystickRight.getRawAxis(1);
-        }
-        return 0.0;
-    }
-
+    
     public boolean isHeadless() {
         /*if (SmartDashboard.getBoolean("Joysticks Enabled", false)) { 
             return getLeftStickTrigger();
@@ -234,18 +205,6 @@ public class OI {
             return getRightBumper();
         }*/
         return false;
-    }
-    
-    private boolean getRightBumper() {
-        return _driverController.getRawButton(6);
-    }
-    
-    public boolean getLeftStickTrigger() {
-        return _driverJoystickLeft.getRawButton(1);
-    }
-
-    public boolean getRightStickTrigger() {
-        return _driverJoystickRight.getRawButton(1);
     }
 
     public boolean isForwardOnlyMode() {
@@ -256,19 +215,6 @@ public class OI {
         }*/
         return false;
     }
-
-    private boolean getAButton() {
-        return _driverController.getRawButton(1);
-    }
-
-    private boolean getLeftJoystickForwardOnlyMode() {
-        return _driverJoystickLeft.getRawButton(2);
-    }
-
-    public boolean getBButton() {
-        return _driverController.getRawButton(2);
-    }
-
     public boolean getTurnLeft90() {
         //if (SmartDashboard.getBoolean("Joysticks Enabled", false)) {
             return getTurn90LeftButton();
@@ -285,16 +231,67 @@ public class OI {
         //}
     }
 
+    // CONTROLLER
+
+    public double getXInputController() {
+        return _driverController.getRawAxis(0);
+    }
+
+    public double getYInputController() {
+        return _driverController.getRawAxis(1);
+    }
+
+    // CONTROLLER BUTTONS
+
+    private boolean getAButton() {
+        return _driverController.getRawButton(1);
+    }
+    
+    public boolean getBButton() {
+        return _driverController.getRawButton(2);
+    }
+    
     private boolean getXButton() {
         return _driverController.getRawButton(3);
     }
-
-    private boolean getTurn90LeftButton() {
-        return _driverJoystickLeft.getRawButton(4);
-    }
-
+    
     public boolean getYButton() {
         return _driverController.getRawButton(4);
+    }
+
+    private boolean getRightBumper() {
+        return _driverController.getRawButton(6);
+    }
+
+    // JOYSTICKS
+
+    public double getXInputJoystick() {
+        return _driverJoystickLeft.getRawAxis(0);
+    }
+
+    public double getYInputJoystick() {
+        return _driverJoystickLeft.getRawAxis(1);
+    }
+    
+    public double getBeltInputJoystick() {
+        if (Math.abs(_driverJoystickRight.getRawAxis(1)) > Variables.DEADBAND_Z_DRIVERSTICK) {
+            return _driverJoystickRight.getRawAxis(1);
+        }
+        return 0.0;
+    }
+
+    // JOYSTICKS BUTTONS
+    
+    public boolean getLeftStickTrigger() {
+        return _driverJoystickLeft.getRawButton(1);
+    }
+
+    public boolean getRightStickTrigger() {
+        return _driverJoystickRight.getRawButton(1);
+    }
+    
+    private boolean getTurn90LeftButton() {
+        return _driverJoystickLeft.getRawButton(4);
     }
 
     private boolean getTurn90RightButton() {
@@ -364,6 +361,8 @@ public class OI {
     public int convertDegreesToIntake(int degrees) {
         return (-degrees * 100000 / 9);
     }
+
+    // PID
 
     public double fixArcTangent(double angle, double x, double y) { // fix an angle output by arctan
         if (y >= 0) { // apparently y is positive when pointing down right now.  not entirely sure why, but... yeah

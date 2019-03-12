@@ -9,7 +9,6 @@ package frc.robot;
 
 import frc.robot.sensors.IMU;
 import frc.robot.sensors.ProxSensors;
-import frc.robot.subsystems.BeltTrain;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Mast;
 import frc.robot.subsystems.Elevator;
@@ -24,10 +23,6 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Diagnostics {
-
-    /**
-     * current (output) 
-     */
 
     File log;
     BufferedWriter out = null;
@@ -54,7 +49,6 @@ public class Diagnostics {
                     + "Elevator Left Motor Voltage,Elevator Left Motor Current,Elevator Right Motor Voltage,Elevator Right Motor Current,Mast Motor Voltage,Mast Motor Current,"
                     + "Intake Top Limit,Wrist Position,"
                     + "Wrist Motor Voltage,Wrist Motor Current,Roller Motor Voltage,Roller Motor Current,"
-                    + "Belt Left Motor Voltage,Belt Left Motor Current,Belt Right Motor Voltage,Belt Right Motor Current,"
                     + "Yaw,Pitch,Roll,"
                     + ",");
             out.newLine();
@@ -116,11 +110,6 @@ public class Diagnostics {
             String rollerMotor = Double.toString(Intake.getInstance().getRollerMotorVoltage());
                 String rollerCurrent = Double.toString(Intake.getInstance().getRollerMotorCurrent());
 
-            String beltLeftMotor = Double.toString(BeltTrain.getInstance().getLeftMotorVoltage());
-                String beltLeftCurrent = Double.toString(BeltTrain.getInstance().getLeftMotorCurrent());
-            String beltRightMotor = Double.toString(BeltTrain.getInstance().getRightMotorVoltage());
-                String beltRightCurrent = Double.toString(BeltTrain.getInstance().getRightMotorCurrent());
-
             String yaw = Double.toString(IMU.getInstance().getYaw());
             String pitch = Double.toString(IMU.getInstance().getPitch());
             String roll = Double.toString(IMU.getInstance().getRoll());
@@ -135,7 +124,6 @@ public class Diagnostics {
                     + elevatorLeftMotor + "," + elevatorLeftCurrent + "," + elevatorRightMotor + "," + elevatorRightCurrent + "," + mastMotor + "," + mastMotorCurrent + ","
                     + intakeTopLimit + "," + wristPos + ","
                     + wristMotor + "," + wristCurrent + "," + rollerMotor + "," + rollerCurrent + ","
-                    + beltLeftMotor + "," + beltLeftCurrent + "," + beltRightMotor + "," + beltRightCurrent + ","
                     + yaw + "," + pitch + "," + roll + ","
                     );
 

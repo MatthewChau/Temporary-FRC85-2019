@@ -1,21 +1,19 @@
 package frc.robot.commands.driverassistance;
-import edu.wpi.first.wpilibj.command.CommandGroup;
+
 import frc.robot.Variables;
-import frc.robot.commands.drivetrain.FollowTwoTarget;
 import frc.robot.commands.intake.WristPosition;
-import frc.robot.commands.lift.ElevatorPosition;
-import frc.robot.commands.drivetrain.DriveSeconds;
-import frc.robot.commands.drivetrain.FollowOneTarget;
 import frc.robot.commands.intake.ActivateIntake;
 import frc.robot.commands.driverassistance.Wait;
+
+import edu.wpi.first.wpilibj.command.CommandGroup;
 
 public class HatchStationOne extends CommandGroup {
     
     public HatchStationOne() {
         addSequential(new Interrupt());
 
-        addSequential(new ElevatorPosition(Variables.HATCH_ONE + 200));
-        addSequential(new WristPosition(Variables.WRIST_30));
+        addSequential(new Place(Variables.HATCH_ONE, Variables.WRIST_30));
     }
+
 }
 

@@ -19,18 +19,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Variables {
 
     private static Variables _instance;
-    
-    // DRIVETRAIN
-
-    public static final double DEADBAND_DRIVERSTICK = 0.1;
-    public static final double DEADBAND_Z_DRIVERSTICK = 0.3;  
-    public static final double DEADBAND_OPERATORSTICK = 0.05;
-    public static final double TOLERANCE_ANGLE = 5.0;
-    public static final int MAX_TURNS = 7; // if we go over 2520 degrees in either direction in one match then help.
-    public static double A_POLYNOMIAL = .60929309069026; // polynomial stuff
-    public static double B_POLYNOMIAL = 0;
-    public static double C_POLYNOMIAL = .377931548393;
-    public static double D_POLYNOMIAL = 0;
 
     // PID
 
@@ -45,6 +33,20 @@ public class Variables {
     private static final double kP_VISION = 0.05, kI_VISION = 0.0, kD_VISION = 0.0;
 
     private static final double kP_VISION_ROT = 0.05, kI_VISION_ROT = 0.0, kD_VISION_ROT = 0.0;
+    
+    // OI
+
+    public static final double DEADBAND_DRIVERSTICK = 0.1;
+    public static final double DEADBAND_Z_DRIVERSTICK = 0.3;  
+    public static final double DEADBAND_OPERATORSTICK = 0.05;
+    public static final double TOLERANCE_ANGLE = 5.0;
+
+    public static final int MAX_TURNS = 7; // if we go over 2520 degrees in either direction in one match then help.
+
+    public static double A_POLYNOMIAL = .60929309069026; // polynomial stuff
+    public static double B_POLYNOMIAL = 0;
+    public static double C_POLYNOMIAL = .377931548393;
+    public static double D_POLYNOMIAL = 0;
 
     // ANGLES FOR VISION
 
@@ -55,67 +57,80 @@ public class Variables {
 
     // ELEVATOR
 
-    // elevator positions
-    public static final int HATCH_ONE = 1565;
+    // Elevator positions
+    public static final int HATCH_ONE = 1765;
     public static final int HATCH_TWO = 9373;
     public static final int HATCH_THREE = 17571;
-    public static final int HATCH_FLOOR = 100;
+
+    public static final int HATCH_FLOOR = 1843;
     
     public static final int CARGO_ONE = 7016;
-    public static final int CARGO_SHIP = 11740;
     public static final int CARGO_TWO = 14752;
     public static final int CARGO_THREE = 22112;
-    public static final int CARGO_FLOOR = 1500;
 
-    //Elevator position limits
+    public static final int CARGO_SHIP = 11740;
+
+    public static final int CARGO_FLOOR = 1700;
+
+    // Elevator position limits
     public static final int ELEVATOR_MAX_POS = (CARGO_THREE + 1000);
     public static final int ELEVATOR_MIN_POS_MAST_PROTECTED = 3200;
     public static final int ELEVATOR_MIN_POS_MAST_FORWARD_CARGO = 1250;
     public static final int ELEVATOR_MIN_POS_MAST_FORWARD_HATCH = 0;
     public static final int ELEVATOR_MIN_POS_LIFT_HIGH = ELEVATOR_MIN_POS_MAST_PROTECTED;
 
-    //Elevator Speed Limits 
+    // Elevator speed Limits 
     public static final double ELEVATOR_MAX_SPEED = .5;
     public static final double ELEVATOR_MIN_SPEED = -.2;
 
-    //Servo Angles for LiftLock
+    // Servo angles for elevator lock (clutch)
     public static final double ELEVATOR_LOCKED = 70;
     public static final double ELEVATOR_UNLOCKED = 180;
 
     // MAST
 
-    //Mast Positions
+    // Mast Positions
     public static final int MAST_FORWARD_POS = 700000;
 
-    //Mast position limits
+    // Mast position limits
     public static final int MAST_MIN_POS = 0;
     public static final int MAST_BREAKPOINT = 400000;
     public static final int MAST_MAX_POS = 871000;
 
-    //Mast speed limits
+    // Mast speed limits
     public static final double MAST_MAX_SPEED = .5;
     public static final double MAST_MIN_SPEED = -.5;
 
     // WRIST
 
-    // wrist positions
-    public static final int WRIST_ANGLE_FOR_CARGO = -767000;
-    public static final int WRIST_POS_FLOOR_PICKUP = -1000000;
+    // Wrist positions
     public static final int WRIST_0 = 0;
     public static final int WRIST_30 = -333333;
     public static final int WRIST_45 = -500000;
     public static final int WRIST_60 = -666666;
     public static final int WRIST_90 = -908000;
 
-    //Wrist position limits
+    public static final int WRIST_CARGO = -767000;
+    public static final int WRIST_CARGO_SHIP = -900000;
+    public static final int WRIST_CARGO_FLOOR = -990783;
+
+    public static final int WRIST_HATCH_FLOOR = -1140762;
+
+    // Wrist position limits
     public static final int WRIST_MAX_POS = 0;
     public static final int WRIST_MIN_POS_MAST_BACK = -200000;
     public static final int WRIST_MIN_POS_LIFT_UP = WRIST_90;
     public static final int WRIST_MIN_POS = -1170000;
 
-    // wrist speed limits
+    // Wrist speed limits
     public static final double WRIST_MAX_SPEED_UP = 0.8;
     public static final double WRIST_MAX_SPEED_DOWN = -0.8;
+
+    // ROLLER
+
+    // Roller speeds
+    public static final double ROLLER_IN = 0.80;
+    public static final double ROLLER_OUT = -0.80;
 
     /**
      * Put variables here that should be changeable on the fly.
@@ -263,12 +278,44 @@ public class Variables {
      * Repeatedly called in Robot.java
      */
     public void outputVariables() {
+
+        // OI
+
+        SmartDashboard.putNumber("Operator Joystick", OI.getInstance().getOperatorJoystickY());
+
+        // Drivetrain
+
         SmartDashboard.putNumber("Left Front Percent", DriveTrain.getInstance().getLeftFrontPercent());
         SmartDashboard.putNumber("Left Back Percent", DriveTrain.getInstance().getLeftBackPercent());
         SmartDashboard.putNumber("Right Front Percent", DriveTrain.getInstance().getRightFrontPercent());
         SmartDashboard.putNumber("Right Back Percent", DriveTrain.getInstance().getRightBackPercent());
 
+        // Vision
+
         SmartDashboard.putNumber("Distance", Vision.getInstance().twoTargetDistance());
+
+        // Elevator
+
+        SmartDashboard.putNumber("Vertical Lift", Elevator.getInstance().getVerticalPosition());
+
+        SmartDashboard.putBoolean("Lift Top", ProxSensors.getInstance().getLiftTopLimit());
+        SmartDashboard.putBoolean("Lift Center", ProxSensors.getInstance().getLiftCenterLimit());
+        SmartDashboard.putBoolean("Lift Bottom", ProxSensors.getInstance().getLiftBottomLimit());
+
+        // Intake
+
+        SmartDashboard.putNumber("Intake Encoder", Intake.getInstance().getWristPosition());
+
+        SmartDashboard.putBoolean("Intake Top Prox Sensor", ProxSensors.getInstance().getIntakeTopLimit());
+        
+        // Mast
+        
+        SmartDashboard.putNumber("Horizontal Lift", Mast.getInstance().getHorizontalPosition());
+
+        SmartDashboard.putBoolean("Front Prox Sensor", ProxSensors.getInstance().getLiftFrontLimit());
+        SmartDashboard.putBoolean("Rear Prox Sensor", ProxSensors.getInstance().getLiftRearLimit());
+
+        // IMU
 
         SmartDashboard.putNumber("Fused", IMU.getInstance().getFusedHeading());
 
@@ -280,21 +327,6 @@ public class Variables {
 
         SmartDashboard.putNumber("Initial Roll", IMU.getInstance().getInitialRoll());
         SmartDashboard.putNumber("Roll", IMU.getInstance().getRoll());
-
-        SmartDashboard.putBoolean("Lift Top", ProxSensors.getInstance().getLiftTopLimit());
-        SmartDashboard.putBoolean("Lift Center", ProxSensors.getInstance().getLiftCenterLimit());
-        SmartDashboard.putBoolean("Lift Bottom", ProxSensors.getInstance().getLiftBottomLimit());
-
-        SmartDashboard.putNumber("Operator Joystick", OI.getInstance().getOperatorJoystickY());
-
-        SmartDashboard.putNumber("Vertical Lift", Elevator.getInstance().getVerticalPosition());
-
-        SmartDashboard.putNumber("Intake Encoder", Intake.getInstance().getWristPosition());
-
-        SmartDashboard.putNumber("Horizontal Lift", Mast.getInstance().getHorizontalPosition());
-        SmartDashboard.putBoolean("Front Prox Sensor", ProxSensors.getInstance().getLiftFrontLimit());
-        SmartDashboard.putBoolean("Rear Prox Sensor", ProxSensors.getInstance().getLiftRearLimit());
-        SmartDashboard.putBoolean("Intake Top Prox Sensor", ProxSensors.getInstance().getIntakeTopLimit());
     }
 
 }

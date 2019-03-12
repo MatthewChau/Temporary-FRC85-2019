@@ -28,7 +28,6 @@ public class ActivateElevator extends Command {
 
     @Override
     protected void execute() {
-        super.execute();
         Elevator.getInstance().setElevatorMotors(_speed);
     }
 
