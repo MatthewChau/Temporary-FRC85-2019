@@ -141,8 +141,7 @@ public class OI {
         _operatorHatchFloor.whenPressed(new HatchGroundOne());
         _operatorHatchFloor.whenReleased(new HatchGroundTwo());
         _operatorHatchRelease = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_HATCH_RELEASE);
-        _operatorHatchRelease.whenPressed(new Place(Elevator.getInstance().getVerticalPosition(), Variables.WRIST_30));
-        _operatorHatchRelease.whenReleased(new Place(Elevator.getInstance().getVerticalPosition(), Variables.WRIST_0));
+        _operatorHatchRelease.whenPressed(new HatchRelease());
 
         _operatorHatchOne = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_HATCH_ONE);
         _operatorHatchOne.whenPressed(new Place(Variables.HATCH_ONE, Variables.WRIST_0));

@@ -21,7 +21,7 @@ public class ToggleSpike extends Command {
 
     @Override
     protected void initialize() {
-        if (Spike.getInstance().getRelay() == Value.kForward) {
+        if (Spike.getInstance().getRelay() == Value.kOn) {
             _bool = false;
         } else {
             _bool = true;

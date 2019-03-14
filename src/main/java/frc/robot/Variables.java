@@ -41,7 +41,7 @@ public class Variables {
     public static final double DEADBAND_DRIVERSTICK = 0.1;
     public static final double DEADBAND_Z_DRIVERSTICK = 0.3;  
     public static final double DEADBAND_OPERATORSTICK = 0.05;
-    public static final double TOLERANCE_ANGLE = 5.0;
+    public static final double TOLERANCE_ANGLE = 3.0;
 
     public static final int MAX_TURNS = 7; // if we go over 2520 degrees in either direction in one match then help.
 
@@ -88,7 +88,7 @@ public class Variables {
     public static final double ELEVATOR_MIN_SPEED = -.2;
 
     // Servo angles for elevator lock (clutch)
-    public static final double ELEVATOR_LOCKED = 70;
+    public static final double ELEVATOR_LOCKED = 72;
     public static final double ELEVATOR_UNLOCKED = 180;
 
     // MAST
