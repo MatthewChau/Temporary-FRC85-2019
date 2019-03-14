@@ -38,8 +38,12 @@ public class Spike extends Subsystem {
      * @param value paramter as an enumeration
      * input kOff or kOn
      */
-    public void setRelay(Value value) {
-        _relay.set(Value.kOn);
+    public void setRelay(boolean bool) {
+        if (bool) {
+            _relay.set(Value.kOn);
+        } else {
+            _relay.set(Value.kOff);
+        }
     }
 
     public Value getRelay() {
