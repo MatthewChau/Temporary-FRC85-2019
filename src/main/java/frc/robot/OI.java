@@ -28,6 +28,7 @@ import frc.robot.commands.lift.ElevatorPosition;
 import frc.robot.commands.lift.MastPosition;
 import frc.robot.commands.lift.MastWithJoystick;
 import frc.robot.commands.lift.ElevatorWithJoystick;
+import frc.robot.commands.spike.ToggleSpike;
 import frc.robot.commands.driverassistance.Place;
 import frc.robot.commands.driverassistance.CargoStationOne;
 import frc.robot.commands.driverassistance.CargoStationTwo;
@@ -154,6 +155,8 @@ public class OI {
         _operatorClimbAuto = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_CLIMB_AUTO);
         _operatorClimbBack = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_CLIMB_BACK);
         _operatorClimbFront = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_CLIMB_FRONT);
+
+        //_driverControllerYButton.whenPressed(new ToggleSpike());
 
         /*_driverControllerAButton.whileActive(new ActivateFrontClimb(0.3, 0.0));
         _driverControllerAButton.whenReleased(new ActivateFrontClimb(0.0, 0.0));
