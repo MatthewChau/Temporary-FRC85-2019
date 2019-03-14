@@ -1,6 +1,9 @@
 package frc.robot.subsystems;
    
 import frc.robot.Addresses;
+import frc.robot.OI;
+import frc.robot.Variables;
+import frc.robot.sensors.IMU;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 
@@ -43,7 +46,16 @@ public class RearClimb extends Subsystem {
     // CLIMB MOTOR
 
     public void moveRearClimb(double speed) {
-        // decide that pid exists here
+        double modify = OI.getInstance().applyPID(OI.CLIMB_SYSTEM, 
+                                                  IMU.getInstance().getPitch(), 
+                                                  0.0, 
+                                                  Variables.getInstance().getClimbkP(), 
+                                                  Variables.getInstance().getClimbkI(), 
+                                                  Variables.getInstance().getClimbkD(),
+                                                  0.1,
+                                                  -0.1);
+
+        setRearClimbMotor(speed - modify);
     }
 
     public void setRearClimbMotor(double speed) {

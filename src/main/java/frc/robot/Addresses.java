@@ -78,8 +78,8 @@ public class Addresses {
     // Climb Motors
     public static final int REAR_CLIMB_MOTOR = 51;
     public static final int REAR_CLIMB_DRIVE = 52;
-    public static final int FRONT_CLIMB_MOTOR_ONE = 53;
-    public static final int FRONT_CLIMB_MOTOR_TWO = 54;
+    public static final int FRONT_CLIMB_MOTOR_LEFT = 53;
+    public static final int FRONT_CLIMB_MOTOR_RIGHT = 54;
     
 
 }

@@ -39,7 +39,8 @@ import frc.robot.commands.driverassistance.HatchGroundOne;
 import frc.robot.commands.driverassistance.HatchGroundTwo;
 import frc.robot.commands.driverassistance.HatchRelease;
 import frc.robot.commands.driverassistance.Interrupt;
-
+import frc.robot.commands.climb.ActivateFrontClimb;
+import frc.robot.commands.climb.ActivateRearClimbDrive;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Joystick.AxisType;
 import edu.wpi.first.wpilibj.command.Command;
@@ -153,6 +154,11 @@ public class OI {
         _operatorClimbAuto = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_CLIMB_AUTO);
         _operatorClimbBack = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_CLIMB_BACK);
         _operatorClimbFront = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_CLIMB_FRONT);
+
+        /*_driverControllerAButton.whileActive(new ActivateFrontClimb(0.3, 0.0));
+        _driverControllerAButton.whenReleased(new ActivateFrontClimb(0.0, 0.0));
+        _driverControllerBButton.whileActive(new ActivateFrontClimb(-0.3, 0.0));
+        _driverControllerBButton.whenReleased(new ActivateFrontClimb(0.0, 0.0));*/
 
         //FollowOneTarget followOneTarget;
         //_driverControllerYButton.whileActive(followOneTarget = new FollowOneTarget()); //follows when pressed

@@ -1,6 +1,9 @@
 package frc.robot.subsystems;
    
 import frc.robot.Addresses;
+import frc.robot.OI;
+import frc.robot.Variables;
+import frc.robot.sensors.IMU;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 
@@ -12,16 +15,13 @@ public class FrontClimb extends Subsystem {
 
     private static FrontClimb _instance = null;
 
-    private CANSparkMax _frontClimbMotorOne, _frontClimbMotorTwo;
-
-//    private CANEncoder _frontClimbEncoderOne, _frontClimbEncoderTwo; // we don't apparently need to construct encoders?
+    private CANSparkMax _frontClimbMotorLeft, _frontClimbMotorRight;
 
     private FrontClimb() {
-        _frontClimbMotorOne = new CANSparkMax(Addresses.FRONT_CLIMB_MOTOR_ONE, CANSparkMaxLowLevel.MotorType.kBrushless);
-        _frontClimbMotorOne.setIdleMode(IdleMode.kBrake);
-        _frontClimbMotorTwo = new CANSparkMax(Addresses.FRONT_CLIMB_MOTOR_TWO, CANSparkMaxLowLevel.MotorType.kBrushless);
-        _frontClimbMotorTwo.setIdleMode(IdleMode.kBrake);
-//        _frontClimbMotorTwo.follow(_frontClimbMotorOne);
+        _frontClimbMotorLeft = new CANSparkMax(Addresses.FRONT_CLIMB_MOTOR_LEFT, CANSparkMaxLowLevel.MotorType.kBrushless);
+        _frontClimbMotorLeft.setIdleMode(IdleMode.kBrake);
+        _frontClimbMotorRight = new CANSparkMax(Addresses.FRONT_CLIMB_MOTOR_RIGHT, CANSparkMaxLowLevel.MotorType.kBrushless);
+        _frontClimbMotorRight.setIdleMode(IdleMode.kBrake);
     }
 
     public static FrontClimb getInstance() {
@@ -36,7 +36,17 @@ public class FrontClimb extends Subsystem {
     }
 
     public void moveFrontClimb(double speed) {
-        // more pid things i guess
+        double modify = OI.getInstance().applyPID(OI.CLIMB_SYSTEM, 
+                                                  IMU.getInstance().getRoll(), 
+                                                  0.0, 
+                                                  Variables.getInstance().getClimbkP(), 
+                                                  Variables.getInstance().getClimbkI(),
+                                                  Variables.getInstance().getClimbkD(), 
+                                                  0.1,
+                                                  -0.1);
+    
+        setFrontClimbLeftMotor(speed);
+        setFrontClimbRightMotor(speed - modify);
     }
 
     /* aight friendos let's talk about how dumb this is going to be
@@ -45,28 +55,38 @@ public class FrontClimb extends Subsystem {
        one between left and right
     */
 
-    public void setFrontClimbMotors(double speed) { // this is gonna be the pid method lmao
+    public void setFrontClimbLeftMotor(double speed) {
+        _frontClimbMotorLeft.set(speed);
     }
 
-    public double getFrontClimbOnePosition() {
-        return _frontClimbMotorOne.getEncoder().getPosition();
+    public void setFrontClimbRightMotor(double speed) {
+        _frontClimbMotorRight.set(speed);
     }
 
-    public double getFrontClimbTwoPosition() {
-        return _frontClimbMotorTwo.getEncoder().getPosition();
+    public void setFrontClimbMotors(double speed) {
+        _frontClimbMotorLeft.set(speed);
+        _frontClimbMotorRight.set(speed);
+    }
+
+    public double getFrontClimbLeftPosition() {
+        return _frontClimbMotorLeft.getEncoder().getPosition();
+    }
+
+    public double getFrontClimbRightPosition() {
+        return _frontClimbMotorRight.getEncoder().getPosition();
     }
 
     public void setFrontClimbOnePosition(double position) {
-        _frontClimbMotorOne.setEncPosition(position);
+        _frontClimbMotorLeft.setEncPosition(position);
     }
 
     public void setFrontClimbTwoPosition(double position) {
-        _frontClimbMotorTwo.setEncPosition(position);
+        _frontClimbMotorRight.setEncPosition(position);
     }
 
     public void setFrontClimbEncoders(double position) {
-        _frontClimbMotorOne.setEncPosition(position);
-        _frontClimbMotorTwo.setEncPosition(position);
+        _frontClimbMotorLeft.setEncPosition(position);
+        _frontClimbMotorRight.setEncPosition(position);
     }
 
 }

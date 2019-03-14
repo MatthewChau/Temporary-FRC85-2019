@@ -345,8 +345,8 @@ public class Variables {
         SmartDashboard.putBoolean("Rear Prox Sensor", ProxSensors.getInstance().getLiftRearLimit());
         SmartDashboard.putBoolean("Intake Top Prox Sensor", ProxSensors.getInstance().getIntakeTopLimit());
 
-        SmartDashboard.putNumber("Front Climb One Position", FrontClimb.getInstance().getFrontClimbOnePosition());
-        SmartDashboard.putNumber("Front Climb Two Position", FrontClimb.getInstance().getFrontClimbTwoPosition());
+        SmartDashboard.putNumber("Front Climb Left Position", FrontClimb.getInstance().getFrontClimbLeftPosition());
+        SmartDashboard.putNumber("Front Climb Right Position", FrontClimb.getInstance().getFrontClimbRightPosition());
 
         SmartDashboard.putNumber("Rear Climb Position", RearClimb.getInstance().getRearClimbPosition());
 
