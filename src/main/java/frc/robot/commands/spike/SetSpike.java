@@ -25,13 +25,7 @@ public class SetSpike extends Command {
 
     @Override
     protected void initialize() {
-        if (_activated) {
-            value = Value.kOn;
-        } else {
-            value = Value.kOff;
-        }
-
-        Spike.getInstance().setRelay(value);
+        Spike.getInstance().setRelay(_activated);
     }
 
     @Override

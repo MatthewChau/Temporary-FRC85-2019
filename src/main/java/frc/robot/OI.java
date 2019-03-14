@@ -28,6 +28,7 @@ import frc.robot.commands.lift.ElevatorPosition;
 import frc.robot.commands.lift.MastPosition;
 import frc.robot.commands.lift.MastWithJoystick;
 import frc.robot.commands.lift.ElevatorWithJoystick;
+import frc.robot.commands.spike.ToggleSpike;
 import frc.robot.commands.driverassistance.Place;
 import frc.robot.commands.driverassistance.CargoStationOne;
 import frc.robot.commands.driverassistance.CargoStationTwo;
@@ -146,8 +147,7 @@ public class OI {
         _operatorHatchFloor.whenPressed(new HatchGroundOne());
         _operatorHatchFloor.whenReleased(new HatchGroundTwo());
         _operatorHatchRelease = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_HATCH_RELEASE);
-        _operatorHatchRelease.whenPressed(new Place(Elevator.getInstance().getVerticalPosition(), Variables.WRIST_30));
-        _operatorHatchRelease.whenReleased(new Place(Elevator.getInstance().getVerticalPosition(), Variables.WRIST_0));
+        _operatorHatchRelease.whenPressed(new HatchRelease());
 
         _operatorHatchOne = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_HATCH_ONE);
         _operatorHatchOne.whenPressed(new Place(Variables.HATCH_ONE, Variables.WRIST_0));
@@ -161,12 +161,12 @@ public class OI {
         _operatorClimbBack = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_CLIMB_BACK);
         _operatorClimbFront = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_CLIMB_FRONT);
 
-        /*
-         * _driverControllerAButton.whileActive(new ActivateFrontClimb(0.3, 0.0));
-         * _driverControllerAButton.whenReleased(new ActivateFrontClimb(0.0, 0.0));
-         * _driverControllerBButton.whileActive(new ActivateFrontClimb(-0.3, 0.0));
-         * _driverControllerBButton.whenReleased(new ActivateFrontClimb(0.0, 0.0));
-         */
+        _driverControllerYButton.whenPressed(new ToggleSpike());
+
+        /*_driverControllerAButton.whileActive(new ActivateFrontClimb(0.3, 0.0));
+        _driverControllerAButton.whenReleased(new ActivateFrontClimb(0.0, 0.0));
+        _driverControllerBButton.whileActive(new ActivateFrontClimb(-0.3, 0.0));
+        _driverControllerBButton.whenReleased(new ActivateFrontClimb(0.0, 0.0));*/
 
         // FollowOneTarget followOneTarget;
         // _driverControllerYButton.whileActive(followOneTarget = new

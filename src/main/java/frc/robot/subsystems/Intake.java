@@ -77,7 +77,7 @@ public class Intake extends Subsystem {
             _wrist.set(ControlMode.PercentOutput, speed);
         }
 
-        if (ProxSensors.getInstance().getIntakeTopLimit()) {
+        if (ProxSensors.getInstance().getIntakeTopLimit() || SmartDashboard.getBoolean("Reset Wrist Encoder", false)) {
             setWristPosition(0);
         }
     }

@@ -11,6 +11,7 @@ import frc.robot.Addresses;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.Relay;
+import edu.wpi.first.wpilibj.Relay.Direction;
 import edu.wpi.first.wpilibj.Relay.Value;
 
 public class Spike extends Subsystem {
@@ -20,7 +21,7 @@ public class Spike extends Subsystem {
     private Relay _relay;
 
     public Spike() {
-        _relay = new Relay(Addresses.LIGHT_RELAY);
+        _relay = new Relay(Addresses.LIGHT_RELAY, Direction.kForward);
     }
 
     public static Spike getInstance() {
@@ -38,8 +39,12 @@ public class Spike extends Subsystem {
      * @param value paramter as an enumeration
      * input kOff or kOn
      */
-    public void setRelay(Value value) {
-        _relay.set(Value.kOn);
+    public void setRelay(boolean bool) {
+        if (bool) {
+            _relay.set(Value.kOn);
+        } else {
+            _relay.set(Value.kOff);
+        }
     }
 
     public Value getRelay() {

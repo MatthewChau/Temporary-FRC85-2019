@@ -13,7 +13,7 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class ToggleSpike extends Command {
 
-    private Value value;
+    private boolean _bool;
 
     public ToggleSpike() {
         requires(Spike.getInstance());
@@ -22,12 +22,12 @@ public class ToggleSpike extends Command {
     @Override
     protected void initialize() {
         if (Spike.getInstance().getRelay() == Value.kOn) {
-            value = Value.kOff;
+            _bool = false;
         } else {
-            value = Value.kOn;
+            _bool = true;
         }
 
-        Spike.getInstance().setRelay(value);
+        Spike.getInstance().setRelay(_bool);
     }
 
     @Override
