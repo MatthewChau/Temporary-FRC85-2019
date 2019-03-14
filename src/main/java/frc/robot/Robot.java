@@ -56,7 +56,7 @@ public class Robot extends TimedRobot {
         Vision.getInstance();
         Interruptable.getInstance();
 
-        //_diagnostics = new Diagnostics();
+        _diagnostics = new Diagnostics();
     }
 
     /**
@@ -115,7 +115,7 @@ public class Robot extends TimedRobot {
         Scheduler.getInstance().run();
         Variables.getInstance().outputVariables();
 
-        //_diagnostics.log();
+        _diagnostics.log();
     }
 
     /**
@@ -131,7 +131,7 @@ public class Robot extends TimedRobot {
         Mast.getInstance().setTargetPosition(Mast.getInstance().getHorizontalPosition());
         Intake.getInstance().setTargetPos(Intake.getInstance().getWristPosition());
 
-        //_diagnostics.close();
+        _diagnostics.close();
     }
 
 }
