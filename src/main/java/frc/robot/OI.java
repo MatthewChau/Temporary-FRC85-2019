@@ -156,7 +156,7 @@ public class OI {
         _operatorClimbBack = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_CLIMB_BACK);
         _operatorClimbFront = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_CLIMB_FRONT);
 
-        //_driverControllerYButton.whenPressed(new ToggleSpike());
+        _driverControllerYButton.whenPressed(new ToggleSpike());
 
         /*_driverControllerAButton.whileActive(new ActivateFrontClimb(0.3, 0.0));
         _driverControllerAButton.whenReleased(new ActivateFrontClimb(0.0, 0.0));

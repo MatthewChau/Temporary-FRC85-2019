@@ -40,7 +40,7 @@ public class Spike extends Subsystem {
      */
     public void setRelay(boolean bool) {
         if (bool) {
-            _relay.set(Value.kOn);
+            _relay.set(Value.kForward);
         } else {
             _relay.set(Value.kOff);
         }

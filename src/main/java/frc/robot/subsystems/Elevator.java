@@ -208,7 +208,7 @@ public class Elevator extends Subsystem {
     }
 
     public TalonSRX getIMUTalon() {
-        return _liftRightMotor;
+        return _liftLeftMotor;
     }
    
 }

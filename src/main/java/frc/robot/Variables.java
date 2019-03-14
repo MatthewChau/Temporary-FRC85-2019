@@ -191,6 +191,8 @@ public class Variables {
         SmartDashboard.putBoolean("Disable Intake Soft Limits", true);
         SmartDashboard.putBoolean("Disable Mast Soft Limits", true);
         SmartDashboard.putBoolean("Disable Elevator Soft Limits", true);
+
+        SmartDashboard.putBoolean("Reset Wrist Encoder", false);
     }
 
     public static Variables getInstance() {

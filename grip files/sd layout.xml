@@ -1,7 +1,10 @@
 <xml version="1.0">
 <dashboard>
-	<widget field="BobDashConnected" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="0" y="447"/>
+	<widget field="Reset Wrist Encoder" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.CheckBox">
+		<location x="936" y="123"/>
+	</widget>
+	<widget field="BobDashConnected" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.CheckBox">
+		<location x="1084" y="59"/>
 	</widget>
 	<widget field="Disable Intake Prox Limit" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.CheckBox">
 		<location x="1057" y="37"/>
