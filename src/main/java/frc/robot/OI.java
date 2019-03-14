@@ -52,20 +52,18 @@ public class OI {
     private static OI _instance;
 
     private Joystick _driverController, _driverJoystickRight, _driverJoystickLeft;
-    private Joystick _operatorControllerWhite, _operatorControllerBlack;
+    private Joystick _operatorControllerWhite, _operatorControllerBlack, _operatorJoystick;
 
-    private JoystickButton _driverLeftBumper, _driverControllerAButton, _driverControllerBButton, _driverControllerXButton, _driverControllerYButton;
+    private JoystickButton _driverLeftBumper, _driverControllerAButton, _driverControllerBButton,
+            _driverControllerXButton, _driverControllerYButton;
 
     // White
     private JoystickButton _operatorCargoShip, _operatorCargoFloor, _operatorCargoIn, _operatorCargoOut,
-        _operatorCargoOne, _operatorCargoTwo, _operatorCargoThree,  
-        _operatorElevator,
-        _operatorClimbFront, _operatorClimbBack;
+            _operatorCargoOne, _operatorCargoTwo, _operatorCargoThree, _operatorElevator, _operatorClimbFront,
+            _operatorClimbBack;
     // Black
-    private JoystickButton _operatorHatchStation, _operatorHatchFloor, _operatorHatchRelease, 
-        _operatorHatchOne, _operatorHatchTwo, _operatorHatchThree,
-        _operatorMast, _operatorWrist,
-        _operatorClimbAuto;
+    private JoystickButton _operatorHatchStation, _operatorHatchFloor, _operatorHatchRelease, _operatorHatchOne,
+            _operatorHatchTwo, _operatorHatchThree, _operatorMast, _operatorWrist, _operatorClimbAuto;
 
     private double _xSpeed = 0, _ySpeed = 0, _zRotation = 0;
 
@@ -95,6 +93,7 @@ public class OI {
         _driverJoystickLeft = new Joystick(Addresses.CONTROLLER_DRIVER_STICK_LEFT);
         _operatorControllerWhite = new Joystick(Addresses.CONTROLLER_OPERATOR_WHITE);
         _operatorControllerBlack = new Joystick(Addresses.CONTROLLER_OPERATOR_BLACK);
+        _operatorJoystick = new Joystick(Addresses.CONTROLLER_OPERATOR_JOYSTICK);
 
         _driverControllerAButton = new JoystickButton(_driverController, 1);
         _driverControllerBButton = new JoystickButton(_driverController, 2);
@@ -102,13 +101,19 @@ public class OI {
         _driverControllerYButton = new JoystickButton(_driverController, 4);
 
         // Joystick combinations
-        _operatorElevator = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_LIFT_VERTICAL);
+        _operatorElevator = new JoystickButton(_operatorJoystick, Addresses.OPERATOR_LIFT_VERTICAL);
+        // _operatorElevator = new JoystickButton(_operatorControllerWhite,
+        // Addresses.OPERATOR_LIFT_VERTICAL);
         _operatorElevator.whenPressed(new Interrupt());
         _operatorElevator.whenPressed(new ElevatorWithJoystick());
-        _operatorMast = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_LIFT_HORIZONTAL);
+        _operatorMast = new JoystickButton(_operatorJoystick, Addresses.OPERATOR_LIFT_HORIZONTAL);
+        // _operatorMast = new JoystickButton(_operatorControllerBlack,
+        // Addresses.OPERATOR_LIFT_HORIZONTAL);
         _operatorMast.whenPressed(new Interrupt());
         _operatorMast.whenPressed(new MastWithJoystick());
-        _operatorWrist = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_INTAKE_ROTATE);
+        _operatorWrist = new JoystickButton(_operatorJoystick, Addresses.OPERATOR_INTAKE_ROTATE);
+        // _operatorWrist = new JoystickButton(_operatorControllerBlack,
+        // Addresses.OPERATOR_INTAKE_ROTATE);
         _operatorWrist.whenPressed(new Interrupt());
         _operatorWrist.whenPressed(new WristWithJoystick());
 
@@ -118,7 +123,8 @@ public class OI {
         _operatorCargoFloor = new JoystickButton(_operatorControllerWhite, 5);
         _operatorCargoFloor.whenPressed(new CargoGroundOne());
         _operatorCargoFloor.whenReleased(new CargoGroundTwo());
-        _operatorCargoIn = new JoystickButton(_operatorControllerWhite, 2);
+        _operatorCargoIn = new JoystickButton(_operatorJoystick, 5);
+        // _operatorCargoIn = new JoystickButton(_operatorControllerWhite, 2);
         _operatorCargoIn.whenPressed(new ActivateIntake(Variables.ROLLER_IN));
         _operatorCargoIn.whenReleased(new ActivateIntake(0));
         _operatorCargoOut = new JoystickButton(_operatorControllerWhite, 4);
@@ -155,16 +161,20 @@ public class OI {
         _operatorClimbBack = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_CLIMB_BACK);
         _operatorClimbFront = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_CLIMB_FRONT);
 
-        /*_driverControllerAButton.whileActive(new ActivateFrontClimb(0.3, 0.0));
-        _driverControllerAButton.whenReleased(new ActivateFrontClimb(0.0, 0.0));
-        _driverControllerBButton.whileActive(new ActivateFrontClimb(-0.3, 0.0));
-        _driverControllerBButton.whenReleased(new ActivateFrontClimb(0.0, 0.0));*/
+        /*
+         * _driverControllerAButton.whileActive(new ActivateFrontClimb(0.3, 0.0));
+         * _driverControllerAButton.whenReleased(new ActivateFrontClimb(0.0, 0.0));
+         * _driverControllerBButton.whileActive(new ActivateFrontClimb(-0.3, 0.0));
+         * _driverControllerBButton.whenReleased(new ActivateFrontClimb(0.0, 0.0));
+         */
 
-        //FollowOneTarget followOneTarget;
-        //_driverControllerYButton.whileActive(followOneTarget = new FollowOneTarget()); //follows when pressed
-        
-        //FollowTwoTarget followTwoTarget;
-        //_driverControllerXButton.whileActive(followTwoTarget = new FollowTwoTarget());
+        // FollowOneTarget followOneTarget;
+        // _driverControllerYButton.whileActive(followOneTarget = new
+        // FollowOneTarget()); //follows when pressed
+
+        // FollowTwoTarget followTwoTarget;
+        // _driverControllerXButton.whileActive(followTwoTarget = new
+        // FollowTwoTarget());
     }
 
     public static OI getInstance() {
@@ -182,7 +192,7 @@ public class OI {
         _zRotation = -_driverController.getRawAxis(4);
         _gyroAngle = IMU.getInstance().getFusedHeading();
 
-        return new double[] {_xSpeed, _ySpeed, _zRotation, _gyroAngle};
+        return new double[] { _xSpeed, _ySpeed, _zRotation, _gyroAngle };
     }
 
     public double[] getJoystickInput() {
@@ -191,40 +201,39 @@ public class OI {
         _zRotation = -_driverJoystickRight.getRawAxis(2);
         _gyroAngle = IMU.getInstance().getFusedHeading();
 
-        return new double[] {_xSpeed, _ySpeed, _zRotation, _gyroAngle};
+        return new double[] { _xSpeed, _ySpeed, _zRotation, _gyroAngle };
     }
-    
+
     public boolean isHeadless() {
-        /*if (SmartDashboard.getBoolean("Joysticks Enabled", false)) { 
-            return getLeftStickTrigger();
-        } else {
-            return getRightBumper();
-        }*/
+        /*
+         * if (SmartDashboard.getBoolean("Joysticks Enabled", false)) { return
+         * getLeftStickTrigger(); } else { return getRightBumper(); }
+         */
         return false;
     }
 
     public boolean isForwardOnlyMode() {
-        /*if (SmartDashboard.getBoolean("Joysticks Enabled", false)) {
-            return getLeftJoystickForwardOnlyMode();
-        } else {
-            return getAButton();
-        }*/
+        /*
+         * if (SmartDashboard.getBoolean("Joysticks Enabled", false)) { return
+         * getLeftJoystickForwardOnlyMode(); } else { return getAButton(); }
+         */
         return false;
     }
+
     public boolean getTurnLeft90() {
-        //if (SmartDashboard.getBoolean("Joysticks Enabled", false)) {
-            return getTurn90LeftButton();
-        //} else {
-        //    return false;//getXButton();
-        //}
+        // if (SmartDashboard.getBoolean("Joysticks Enabled", false)) {
+        return getTurn90LeftButton();
+        // } else {
+        // return false;//getXButton();
+        // }
     }
 
     public boolean getTurnRight90() {
-        //if (SmartDashboard.getBoolean("Joysticks Enabled", false)) {
-            return getTurn90RightButton();
-        //} else {
-        //    return false;//getBButton();
-        //}
+        // if (SmartDashboard.getBoolean("Joysticks Enabled", false)) {
+        return getTurn90RightButton();
+        // } else {
+        // return false;//getBButton();
+        // }
     }
 
     // CONTROLLER
@@ -242,15 +251,15 @@ public class OI {
     private boolean getAButton() {
         return _driverController.getRawButton(1);
     }
-    
+
     public boolean getBButton() {
         return _driverController.getRawButton(2);
     }
-    
+
     private boolean getXButton() {
         return _driverController.getRawButton(3);
     }
-    
+
     public boolean getYButton() {
         return _driverController.getRawButton(4);
     }
@@ -268,7 +277,7 @@ public class OI {
     public double getYInputJoystick() {
         return _driverJoystickLeft.getRawAxis(1);
     }
-    
+
     public double getBeltInputJoystick() {
         if (Math.abs(_driverJoystickRight.getRawAxis(1)) > Variables.DEADBAND_Z_DRIVERSTICK) {
             return _driverJoystickRight.getRawAxis(1);
@@ -277,7 +286,7 @@ public class OI {
     }
 
     // JOYSTICKS BUTTONS
-    
+
     public boolean getLeftStickTrigger() {
         return _driverJoystickLeft.getRawButton(1);
     }
@@ -285,7 +294,7 @@ public class OI {
     public boolean getRightStickTrigger() {
         return _driverJoystickRight.getRawButton(1);
     }
-    
+
     private boolean getTurn90LeftButton() {
         return _driverJoystickLeft.getRawButton(4);
     }
@@ -298,10 +307,31 @@ public class OI {
         return _driverJoystickLeft.getRawButton(2);
     }
 
-    // Operator Control Board
+    // // Operator Control Board
 
+    // public double getOperatorJoystickY() {
+    // double axis = _operatorControllerBlack.getRawAxis(1);
+
+    // if (Math.abs(axis) < Variables.DEADBAND_OPERATORSTICK) {
+    // axis = 0;
+    // }
+
+    // return axis;
+    // }
+
+    // public double getOperatorJoystickX() {
+    // double axis = _operatorControllerBlack.getRawAxis(0);
+
+    // if (Math.abs(axis) < Variables.DEADBAND_OPERATORSTICK) {
+    // axis = 0;
+    // }
+
+    // return axis;
+    // }
+
+    // OPERATOR JOYSTICK
     public double getOperatorJoystickY() {
-        double axis = _operatorControllerBlack.getRawAxis(1);
+        double axis = -_operatorJoystick.getRawAxis(1);
 
         if (Math.abs(axis) < Variables.DEADBAND_OPERATORSTICK) {
             axis = 0;
@@ -311,7 +341,7 @@ public class OI {
     }
 
     public double getOperatorJoystickX() {
-        double axis = _operatorControllerBlack.getRawAxis(0);
+        double axis = _operatorJoystick.getRawAxis(0);
 
         if (Math.abs(axis) < Variables.DEADBAND_OPERATORSTICK) {
             axis = 0;
@@ -361,7 +391,8 @@ public class OI {
     // PID
 
     public double fixArcTangent(double angle, double x, double y) { // fix an angle output by arctan
-        if (y >= 0) { // apparently y is positive when pointing down right now.  not entirely sure why, but... yeah
+        if (y >= 0) { // apparently y is positive when pointing down right now. not entirely sure why,
+                      // but... yeah
             if (x > 0) {
                 angle -= 90;
             } else {
@@ -386,89 +417,87 @@ public class OI {
     }
 
     private void debugMessages(int system, double current, double error, double target, double output) {
-        switch(system) {
-            /*case ROT_SYSTEM:
-                SmartDashboard.putNumber("Rot PID Target", target);
-                SmartDashboard.putNumber("Rot PID Error", error);
-                break;*/
-            case ELEVATOR_SYSTEM:
-                SmartDashboard.putNumber("Vertical Lift Error", error);
-                SmartDashboard.putNumber("Vertical Lift PID Output", output);
-                SmartDashboard.putNumber("Vertical Lift PID Target", target);
-                break;
-            case MAST_SYSTEM:
-                SmartDashboard.putNumber("Horizontal Lift Error", error);
-                SmartDashboard.putNumber("Horizontal Lift PID Output", output);
-                SmartDashboard.putNumber("Horizontal Lift PID Target", target);
-                break;
-            /*case VISION_X_SYSTEM:
-                SmartDashboard.putNumber("Vision PID Error X", error);
-                SmartDashboard.putNumber("Vision PID Output X", output);
-                break;
-            case VISION_Y_SYSTEM:
-                SmartDashboard.putNumber("Vision PID Target Distance", target);
-                SmartDashboard.putNumber("Vision PID Error Distance", error);
-                break;
-            case VISION_ROT_SYSTEM:
-                SmartDashboard.putNumber("Vision PID Rotation Error", error);
-                SmartDashboard.putNumber("Vision PID Rotation Output", output);
-                break;*/
-            case CLIMB_SYSTEM:
-                SmartDashboard.putNumber("Climb Error", error);
-                SmartDashboard.putNumber("Climb PID Output", output);
-                SmartDashboard.putNumber("Climb PID Target", target);
-                break;
-            case INTAKE_SYSTEM:
-                SmartDashboard.putNumber("Intake Error", error);
-                SmartDashboard.putNumber("Intake PID Output", output);
-                SmartDashboard.putNumber("Intake PID Target", target);
-            default:
-                break;
+        switch (system) {
+        /*
+         * case ROT_SYSTEM: SmartDashboard.putNumber("Rot PID Target", target);
+         * SmartDashboard.putNumber("Rot PID Error", error); break;
+         */
+        case ELEVATOR_SYSTEM:
+            SmartDashboard.putNumber("Vertical Lift Error", error);
+            SmartDashboard.putNumber("Vertical Lift PID Output", output);
+            SmartDashboard.putNumber("Vertical Lift PID Target", target);
+            break;
+        case MAST_SYSTEM:
+            SmartDashboard.putNumber("Horizontal Lift Error", error);
+            SmartDashboard.putNumber("Horizontal Lift PID Output", output);
+            SmartDashboard.putNumber("Horizontal Lift PID Target", target);
+            break;
+        /*
+         * case VISION_X_SYSTEM: SmartDashboard.putNumber("Vision PID Error X", error);
+         * SmartDashboard.putNumber("Vision PID Output X", output); break; case
+         * VISION_Y_SYSTEM: SmartDashboard.putNumber("Vision PID Target Distance",
+         * target); SmartDashboard.putNumber("Vision PID Error Distance", error); break;
+         * case VISION_ROT_SYSTEM: SmartDashboard.putNumber("Vision PID Rotation Error",
+         * error); SmartDashboard.putNumber("Vision PID Rotation Output", output);
+         * break;
+         */
+        case CLIMB_SYSTEM:
+            SmartDashboard.putNumber("Climb Error", error);
+            SmartDashboard.putNumber("Climb PID Output", output);
+            SmartDashboard.putNumber("Climb PID Target", target);
+            break;
+        case INTAKE_SYSTEM:
+            SmartDashboard.putNumber("Intake Error", error);
+            SmartDashboard.putNumber("Intake PID Output", output);
+            SmartDashboard.putNumber("Intake PID Target", target);
+        default:
+            break;
         }
     }
 
     public boolean checkIfNeedBeRun(int system, double error) {
         switch (system) {
-            case ROT_SYSTEM:
-                if (DriveTrain.getInstance().getTurnInProgress() && Math.abs(error) < 3.0) { // note that we actually want a tolerance here
-                    DriveTrain.getInstance().setTurnInProgress(false);
-                    return false;
-                }
-                return true;
-            case ELEVATOR_SYSTEM:
-                if (Math.abs(error) < 450) {
-                    Elevator.getInstance().changeAdjustingBool(false);
-                }
-                return true;
-            case MAST_SYSTEM:
-                if (Math.abs(error) < 1000) { // this value definitely subject to change
-                    Mast.getInstance().changeAdjustingBool(false);
-                    return false;
-                }
-                return true;
-            case VISION_X_SYSTEM:
-                if (Math.abs(error) < 5) {
-                    return false;
-                }
-                return true;
-            case VISION_Y_SYSTEM:
-                if (Math.abs(error) < 10) {
-                    return false;
-                }
-                return true;
-            case VISION_ROT_SYSTEM:
-                if (DriveTrain.getInstance().getTurnInProgress() && Math.abs(error) < 3.0) {
-                    DriveTrain.getInstance().setTurnInProgress(false);
-                    return false;
-                }
-                return true;
-            case INTAKE_SYSTEM:
-                if (Math.abs(error) < 10000) {
-                    Intake.getInstance().changeAdjustingBool(false);
-                    return false;
-                }
-            default: // we probably don't even need a default case lmao
-                return true;
+        case ROT_SYSTEM:
+            if (DriveTrain.getInstance().getTurnInProgress() && Math.abs(error) < 3.0) { // note that we actually want a
+                                                                                         // tolerance here
+                DriveTrain.getInstance().setTurnInProgress(false);
+                return false;
+            }
+            return true;
+        case ELEVATOR_SYSTEM:
+            if (Math.abs(error) < 450) {
+                Elevator.getInstance().changeAdjustingBool(false);
+            }
+            return true;
+        case MAST_SYSTEM:
+            if (Math.abs(error) < 1000) { // this value definitely subject to change
+                Mast.getInstance().changeAdjustingBool(false);
+                return false;
+            }
+            return true;
+        case VISION_X_SYSTEM:
+            if (Math.abs(error) < 5) {
+                return false;
+            }
+            return true;
+        case VISION_Y_SYSTEM:
+            if (Math.abs(error) < 10) {
+                return false;
+            }
+            return true;
+        case VISION_ROT_SYSTEM:
+            if (DriveTrain.getInstance().getTurnInProgress() && Math.abs(error) < 3.0) {
+                DriveTrain.getInstance().setTurnInProgress(false);
+                return false;
+            }
+            return true;
+        case INTAKE_SYSTEM:
+            if (Math.abs(error) < 10000) {
+                Intake.getInstance().changeAdjustingBool(false);
+                return false;
+            }
+        default: // we probably don't even need a default case lmao
+            return true;
         }
     }
 
@@ -477,12 +506,13 @@ public class OI {
     }
 
     /*
-    formula for output at time t (o(t)), based on error at time t (e(t)):
-    o(t) = (kP * e(t)) + (kI * ∫e(t)dt) - (kD * (de(t) / dt))
-    or, because we can't do symbolic integration or derivation:
-    o(t) = kP(instant error) + kI(total error) - kD(instant change in error)
-    */
-    public double applyPID(int system, double current, double target, double kP, double kI, double kD, double outputMax, double outputMin) {
+     * formula for output at time t (o(t)), based on error at time t (e(t)): o(t) =
+     * (kP * e(t)) + (kI * ∫e(t)dt) - (kD * (de(t) / dt)) , because we can't d s
+     * mbolic integration or derivation: o(t) = kP(instant error) + kI(total error)
+     * - kD(instant change in error)
+     */
+    public double applyPID(int system, double current, double target, double kP, double kI, double kD, double outputMax,
+            double outputMin) {
         double output;
         double termP, termI, termD;
         double error = target - current;
@@ -499,17 +529,20 @@ public class OI {
             firstRun[system] = false;
         }
 
-        // slow down correction if it's doing the right thing (in an effort to prevent major overshooting)
-        // formula:  -kD * change in read, "change in read" being the instant derivative at that point in time
+        // slow down correction if it's doing the right thing (in an effort to prevent
+        // major overshooting)
+        // formula: -kD * change in read, "change in read" being the instant derivative
+        // at that point in time
         termD = -kD * (current - lastActual[system]);
         lastActual[system] = current;
 
-        // because the I term is the area under the curve, it gets a higher weight if it's been going on for a longer time, hence the errorSum
-        // formula:  kI * errorSum (sum of all previous errors)
+        // because the I term is the area under the curve, it gets a higher weight if
+        // it's been going on for a longer time, hence the errorSum
+        // formula: kI * errorSum (sum of all previous errors)
         termI = kI * errorSum[system];
 
         output = termP + termI + termD;
-        
+
         if (outputMax != outputMin) { // if we decide to use mins/maxes on outputs, then we can
             if (output > outputMax) {
                 output = outputMax;
@@ -524,5 +557,5 @@ public class OI {
 
         return output;
     }
-    
+
 }

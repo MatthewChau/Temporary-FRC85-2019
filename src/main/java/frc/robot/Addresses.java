@@ -13,12 +13,16 @@ public class Addresses {
     public static final int CONTROLLER_DRIVER = 2;
     public static final int CONTROLLER_OPERATOR_BLACK = 0;
     public static final int CONTROLLER_OPERATOR_WHITE = 1;
+    public static final int CONTROLLER_OPERATOR_JOYSTICK = 4;
     public static final int CONTROLLER_DRIVER_STICK_RIGHT = 2;
     public static final int CONTROLLER_DRIVER_STICK_LEFT = 3;
+  
 
     // Black op station
-    public static final int OPERATOR_LIFT_HORIZONTAL = 1;
+    public static final int OPERATOR_LIFT_HORIZONTAL = 4;
     public static final int OPERATOR_INTAKE_ROTATE = 2;
+    // public static final int OPERATOR_LIFT_HORIZONTAL = 1;//Operator Board
+    // public static final int OPERATOR_INTAKE_ROTATE = 2;//Operator Board
 
     public static final int OPERATOR_HATCH_STATION = 3;
     public static final int OPERATOR_HATCH_RELEASE = 4;
@@ -31,9 +35,10 @@ public class Addresses {
     public static final int OPERATOR_CLIMB_AUTO = 10; // on the white joystick
 
     // White operator station
-    public static final int OPERATOR_LIFT_VERTICAL = 1;
-
-    public static final int OPERATOR_CARGO_IN = 2;
+    public static final int OPERATOR_LIFT_VERTICAL = 3;
+    //public static final int OPERATOR_LIFT_VERTICAL = 1;//Operator Board
+    public static final int OPERATOR_CARGO_IN = 5;
+    //public static final int OPERATOR_CARGO_IN = 2;//Operator Board
     public static final int OPERATOR_CARGO_DEFAULT = 3;
     public static final int OPERATOR_CARGO_OUT = 4;
     public static final int OPERATOR_CARGO_FLOOR = 5;
