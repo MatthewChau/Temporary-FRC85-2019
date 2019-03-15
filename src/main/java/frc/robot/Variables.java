@@ -12,6 +12,7 @@ import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Mast;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.RearClimb;
+import frc.robot.subsystems.Spike;
 import frc.robot.subsystems.FrontClimb;
 import frc.robot.sensors.ProxSensors;
 import frc.robot.sensors.IMU;
@@ -40,7 +41,7 @@ public class Variables {
 
     public static final double DEADBAND_DRIVERSTICK = 0.1;
     public static final double DEADBAND_Z_DRIVERSTICK = 0.3;  
-    public static final double DEADBAND_OPERATORSTICK = 0.05;
+    public static final double DEADBAND_OPERATORSTICK = 0.2;
     public static final double TOLERANCE_ANGLE = 3.0;
 
     public static final int MAX_TURNS = 7; // if we go over 2520 degrees in either direction in one match then help.

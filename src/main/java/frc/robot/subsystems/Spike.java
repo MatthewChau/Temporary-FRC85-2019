@@ -10,6 +10,7 @@ package frc.robot.subsystems;
 import frc.robot.Addresses;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.Relay.Direction;
 import edu.wpi.first.wpilibj.Relay.Value;
@@ -21,7 +22,7 @@ public class Spike extends Subsystem {
     private Relay _relay;
 
     public Spike() {
-        _relay = new Relay(Addresses.LIGHT_RELAY, Direction.kForward);
+        _relay = new Relay(Addresses.LIGHT_RELAY);
     }
 
     public static Spike getInstance() {
@@ -36,14 +37,21 @@ public class Spike extends Subsystem {
     }
 
     /**
-     * @param value paramter as an enumeration
-     * input kOff or kOn
+     * @param bool boolean
+     * param true activates spike
+     * param false deactivates spike
      */
     public void setRelay(boolean bool) {
         if (bool) {
-            _relay.set(Value.kOn);
+            _relay.set(Relay.Value.kOn);
         } else {
-            _relay.set(Value.kOff);
+            _relay.set(Relay.Value.kOff);
+        }
+
+        if (getRelay() == Relay.Value.kOn) {
+            SmartDashboard.putBoolean("Relay Set", true);
+        } else {
+            SmartDashboard.putBoolean("Relay Set", false);
         }
     }
 

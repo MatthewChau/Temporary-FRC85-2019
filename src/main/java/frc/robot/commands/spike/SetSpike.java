@@ -14,8 +14,6 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class SetSpike extends Command {
 
-    private Value value;
-
     private boolean _activated;
 
     public SetSpike(boolean activated) {

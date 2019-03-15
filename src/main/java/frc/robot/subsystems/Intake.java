@@ -60,10 +60,10 @@ public class Intake extends Subsystem {
                                               Variables.getInstance().getMaxSpeedUpIntake(), 
                                               Variables.getInstance().getMaxSpeedDownIntake());
         } else if (speed > 0.0) {
-            speed = 0.6;// * OI.getInstance().getOpStickModifier();
+            speed *= 0.6;
             targetPos = getWristPosition();
         } else if (speed < 0.0) {
-            speed = -0.6;// * OI.getInstance().getOpStickModifier();
+            speed *= 0.6;
             targetPos = getWristPosition();
         } else {
             speed = 0.0;

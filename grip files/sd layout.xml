@@ -1,5 +1,8 @@
 <xml version="1.0">
 <dashboard>
+	<widget field="Relay Set" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.BooleanBox">
+		<location x="1120" y="164"/>
+	</widget>
 	<widget field="Reset Wrist Encoder" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.CheckBox">
 		<location x="936" y="123"/>
 	</widget>

@@ -28,6 +28,7 @@ import frc.robot.commands.lift.ElevatorPosition;
 import frc.robot.commands.lift.MastPosition;
 import frc.robot.commands.lift.MastWithJoystick;
 import frc.robot.commands.lift.ElevatorWithJoystick;
+import frc.robot.commands.spike.SetSpike;
 import frc.robot.commands.spike.ToggleSpike;
 import frc.robot.commands.driverassistance.Place;
 import frc.robot.commands.driverassistance.CargoStationOne;
@@ -348,20 +349,6 @@ public class OI {
         }
 
         return axis;
-    }
-
-    public double getOpStickModifier() {
-        double modifier;
-
-        if (getOperatorJoystickX() > 0) {
-            modifier = 0.5;
-        } else if (getOperatorJoystickX() < 0) {
-            modifier = 1.25;
-        } else {
-            modifier = 1.0;
-        }
-
-        return 1.0;
     }
 
     public boolean getOperatorLiftHorizontal() {

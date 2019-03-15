@@ -57,10 +57,10 @@ public class Mast extends Subsystem {
                                               0.7, 
                                               -0.7);
         } else if (speed > 0.0) {
-            speed = 0.7;// * OI.getInstance().getOpStickModifier();
+            speed *= 0.7;
             setTargetPosition(getHorizontalPosition());
         } else if (speed < 0.0) {
-            speed = -0.7;// * OI.getInstance().getOpStickModifier();
+            speed *= 0.7;
             setTargetPosition(getHorizontalPosition());
         } else {
             speed = 0.0;
