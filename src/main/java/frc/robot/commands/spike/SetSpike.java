@@ -14,16 +14,16 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class SetSpike extends Command {
 
-    private boolean _activated;
+    private boolean _bool;
 
     public SetSpike(boolean activated) {
         requires(Spike.getInstance());
-        _activated = activated;
+        _bool = activated;
     }
 
     @Override
     protected void initialize() {
-        Spike.getInstance().setRelay(_activated);
+        Spike.getInstance().setRelay(_bool);
     }
 
     @Override
