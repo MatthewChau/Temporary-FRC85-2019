@@ -19,10 +19,8 @@ public class Addresses {
   
 
     // Black op station
-    public static final int OPERATOR_LIFT_HORIZONTAL = 4;
-    public static final int OPERATOR_INTAKE_ROTATE = 2;
-    // public static final int OPERATOR_LIFT_HORIZONTAL = 1;//Operator Board
-    // public static final int OPERATOR_INTAKE_ROTATE = 2;//Operator Board
+    public static final int OPERATOR_BLACK_ONE = 1; // old mast
+    public static final int OPERATOR_BLACK_TWO = 2; // old wrist
 
     public static final int OPERATOR_HATCH_STATION = 3;
     public static final int OPERATOR_HATCH_RELEASE = 4;
@@ -35,10 +33,8 @@ public class Addresses {
     public static final int OPERATOR_CLIMB_AUTO = 10; // on the white joystick
 
     // White operator station
-    public static final int OPERATOR_LIFT_VERTICAL = 3;
-    //public static final int OPERATOR_LIFT_VERTICAL = 1;//Operator Board
-    public static final int OPERATOR_CARGO_IN = 5;
-    //public static final int OPERATOR_CARGO_IN = 2;//Operator Board
+    public static final int OPERATOR_WHITE_ONE = 1; // old elevator
+    public static final int OPERATOR_WHITE_TWO = 2; // old roller
     public static final int OPERATOR_CARGO_DEFAULT = 3;
     public static final int OPERATOR_CARGO_OUT = 4;
     public static final int OPERATOR_CARGO_FLOOR = 5;
@@ -49,6 +45,12 @@ public class Addresses {
 
     public static final int OPERATOR_CLIMB_BACK = 9;
     public static final int OPERATOR_CLIMB_FRONT = 9; // on the black joystick
+
+    // New Op Stick
+    public static final int OPERATOR_INTAKE_ROTATE = 2;
+    public static final int OPERATOR_LIFT_VERTICAL = 3;
+    public static final int OPERATOR_LIFT_HORIZONTAL = 4;
+    public static final int OPERATOR_CARGO_IN = 5;
 
     // DriveTrain
     public static final int DRIVETRAIN_LEFT_FRONT_MOTOR = 11;

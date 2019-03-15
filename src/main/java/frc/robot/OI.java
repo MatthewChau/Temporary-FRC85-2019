@@ -60,12 +60,14 @@ public class OI {
             _driverControllerXButton, _driverControllerYButton;
 
     // White
-    private JoystickButton _operatorCargoShip, _operatorCargoFloor, _operatorCargoIn, _operatorCargoOut,
-            _operatorCargoOne, _operatorCargoTwo, _operatorCargoThree, _operatorElevator, _operatorClimbFront,
-            _operatorClimbBack;
+    private JoystickButton _operatorCargoShip, _operatorCargoFloor, _operatorCargoOut,
+            _operatorCargoOne, _operatorCargoTwo, _operatorCargoThree, _operatorClimbFront,
+            _operatorClimbBack, _operatorTopLeft;
     // Black
     private JoystickButton _operatorHatchStation, _operatorHatchFloor, _operatorHatchRelease, _operatorHatchOne,
-            _operatorHatchTwo, _operatorHatchThree, _operatorMast, _operatorWrist, _operatorClimbAuto;
+            _operatorHatchTwo, _operatorHatchThree, _operatorClimbAuto;
+
+    private JoystickButton _operatorElevator, _operatorCargoIn, _operatorMast, _operatorWrist;
 
     private double _xSpeed = 0, _ySpeed = 0, _zRotation = 0;
 
@@ -104,8 +106,6 @@ public class OI {
 
         // Joystick combinations
         _operatorElevator = new JoystickButton(_operatorJoystick, Addresses.OPERATOR_LIFT_VERTICAL);
-        // _operatorElevator = new JoystickButton(_operatorControllerWhite,
-        // Addresses.OPERATOR_LIFT_VERTICAL);
         _operatorElevator.whenPressed(new Interrupt());
         _operatorElevator.whenPressed(new ElevatorWithJoystick());
         _operatorMast = new JoystickButton(_operatorJoystick, Addresses.OPERATOR_LIFT_HORIZONTAL);
@@ -162,7 +162,8 @@ public class OI {
         _operatorClimbBack = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_CLIMB_BACK);
         _operatorClimbFront = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_CLIMB_FRONT);
 
-        _driverControllerYButton.whenPressed(new ToggleSpike());
+        _operatorTopLeft = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_WHITE_ONE);
+        _operatorTopLeft.whenPressed(new ToggleSpike());
 
         /*_driverControllerAButton.whileActive(new ActivateFrontClimb(0.3, 0.0));
         _driverControllerAButton.whenReleased(new ActivateFrontClimb(0.0, 0.0));
