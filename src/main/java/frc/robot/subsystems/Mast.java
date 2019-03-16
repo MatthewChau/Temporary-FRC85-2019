@@ -86,16 +86,21 @@ public class Mast extends Subsystem {
     }
 
     private boolean softLimits(double speed) {
+        double mastPosition = getHorizontalPosition();
         double verticalPosition = Elevator.getInstance().getVerticalPosition();
         double intakePosition = Intake.getInstance().getWristPosition();
 
         // mast limits need a front limit, a rear limit, & a thing if both wrist & elevator are low 
 
-        if /*(mastPosition >= Variables.MAST_MAX_POS // front limit
+        if (mastPosition >= Variables.MAST_MAX_POS // front limit
             && speed > 0) {
             return true;
-        } else if*/ (verticalPosition <= Variables.ELEVATOR_MIN_POS_MAST_FORWARD_CARGO // can't move back if both wrist and elevator are low enough
+        } else if (verticalPosition <= Variables.ELEVATOR_MIN_POS_MAST_PROTECTED // can't move back if both wrist and elevator are low enough
                    && intakePosition <= Variables.WRIST_MIN_POS_MAST_BACK
+                   && mastPosition <= Variables.MAST_BREAKPOINT
+                   && speed < 0) {
+            return true;
+        } else if (mastPosition <= Variables.MAST_MIN_POS // rear limit
                    && speed < 0) {
             return true;
         }

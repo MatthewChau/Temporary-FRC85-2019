@@ -107,14 +107,14 @@ public class Elevator extends Subsystem {
             && speed > 0) {
             setTargetPosition(Variables.ELEVATOR_MAX_POS);
             return true;
-        /*} else if (mastPosition < Variables.MAST_BREAKPOINT // mast is back & wrist is down
+        } else if (mastPosition < Variables.MAST_BREAKPOINT // mast is back & wrist is down
                    && intakePosition < Variables.WRIST_MIN_POS_MAST_BACK
                    && verticalPosition < Variables.ELEVATOR_MIN_POS_MAST_PROTECTED
                    && speed < 0) {
             setTargetPosition(Variables.ELEVATOR_MIN_POS_MAST_PROTECTED);
-            return true;*/
-        } else if (/*mastPosition >= Variables.MAST_BREAKPOINT // intake is down & elevator is down
-                   && */intakePosition < Variables.WRIST_MIN_POS_MAST_BACK
+            return true;
+        } else if (mastPosition >= Variables.MAST_BREAKPOINT // mast is forward & wrist is down
+                   && intakePosition < Variables.WRIST_MIN_POS_MAST_BACK
                    && verticalPosition < Variables.ELEVATOR_MIN_POS_MAST_FORWARD_CARGO
                    && speed < 0) {
             setTargetPosition(Variables.ELEVATOR_MIN_POS_MAST_FORWARD_CARGO);
