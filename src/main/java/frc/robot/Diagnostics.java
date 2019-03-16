@@ -35,7 +35,7 @@ public class Diagnostics {
 
             _placeHolder = 0;
 
-            String date = new SimpleDateFormat("dd MMM yyyy at HH:mm:ss")
+            String date = new SimpleDateFormat("dd MMM yyyy HH:mm:ss")
                     .format(new java.util.Date(System.currentTimeMillis()));
             log = new File("home/lvuser/log " + date + ".csv");
             log.createNewFile();
