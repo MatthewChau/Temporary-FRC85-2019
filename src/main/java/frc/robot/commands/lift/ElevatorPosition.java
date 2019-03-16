@@ -8,6 +8,7 @@
 package frc.robot.commands.lift;
 
 import frc.robot.subsystems.Elevator;
+import frc.robot.subsystems.Intake;
 
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -35,7 +36,7 @@ public class ElevatorPosition extends Command {
     // Make this return true when this Command no longer needs to run execute()
     @Override
     protected boolean isFinished() {
-        return !Elevator.getInstance().getAdjustingBool();
+        return !(Elevator.getInstance().getAdjustingBool() || Intake.getInstance().getAdjustingBool());
     }
 
     @Override

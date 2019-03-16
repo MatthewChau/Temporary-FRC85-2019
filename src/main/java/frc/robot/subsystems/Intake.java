@@ -96,6 +96,10 @@ public class Intake extends Subsystem {
                    && verticalPosition <= Variables.ELEVATOR_MIN_POS_MAST_PROTECTED
                    && speed < 0) {
             return true;
+        } else if (verticalPosition >= Variables.ELEVATOR_MIN_POS_FOR_WRIST_LIFT_HIGH // bottom limit when elevator is higher than a certain point
+                    && intakePosition <= Variables.WRIST_90
+                    && speed < 0) {
+            return true;
         } else if (intakePosition <= Variables.WRIST_MIN_POS // general bottom limit
                    && speed < 0) {
             return true;
