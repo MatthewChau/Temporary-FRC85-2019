@@ -106,17 +106,16 @@ public class OI {
         _driverControllerYButton = new JoystickButton(_driverController, 4);
 
         // Joystick combinations
-        _operatorElevator = new JoystickButton(_operatorJoystick, Addresses.OPERATOR_LIFT_VERTICAL);
+        //_operatorElevator = new JoystickButton(_operatorJoystick, Addresses.OPERATOR_LIFT_VERTICAL);
+        _operatorElevator = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_WHITE_ONE);
         _operatorElevator.whenPressed(new Interrupt());
         _operatorElevator.whenPressed(new ElevatorWithJoystick());
-        _operatorMast = new JoystickButton(_operatorJoystick, Addresses.OPERATOR_LIFT_HORIZONTAL);
-        // _operatorMast = new JoystickButton(_operatorControllerBlack,
-        // Addresses.OPERATOR_LIFT_HORIZONTAL);
+        //_operatorMast = new JoystickButton(_operatorJoystick, Addresses.OPERATOR_LIFT_HORIZONTAL);
+        _operatorMast = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_BLACK_ONE);
         _operatorMast.whenPressed(new Interrupt());
         _operatorMast.whenPressed(new MastWithJoystick());
-        _operatorWrist = new JoystickButton(_operatorJoystick, Addresses.OPERATOR_INTAKE_ROTATE);
-        // _operatorWrist = new JoystickButton(_operatorControllerBlack,
-        // Addresses.OPERATOR_INTAKE_ROTATE);
+        //_operatorWrist = new JoystickButton(_operatorJoystick, Addresses.OPERATOR_INTAKE_ROTATE);
+        _operatorWrist = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_BLACK_TWO);
         _operatorWrist.whenPressed(new Interrupt());
         _operatorWrist.whenPressed(new WristWithJoystick());
 
@@ -126,8 +125,8 @@ public class OI {
         _operatorCargoFloor = new JoystickButton(_operatorControllerWhite, 5);
         _operatorCargoFloor.whenPressed(new CargoGroundOne());
         _operatorCargoFloor.whenReleased(new CargoGroundTwo());
-        _operatorCargoIn = new JoystickButton(_operatorJoystick, 5);
-        // _operatorCargoIn = new JoystickButton(_operatorControllerWhite, 2);
+        // _operatorCargoIn = new JoystickButton(_operatorJoystick, 5);
+        _operatorCargoIn = new JoystickButton(_operatorControllerWhite, 2);
         _operatorCargoIn.whenPressed(new ActivateIntake(Variables.ROLLER_IN));
         _operatorCargoIn.whenReleased(new ActivateIntake(0));
         _operatorCargoOut = new JoystickButton(_operatorControllerWhite, 4);
@@ -162,9 +161,6 @@ public class OI {
         _operatorClimbAuto = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_CLIMB_AUTO);
         _operatorClimbBack = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_CLIMB_BACK);
         _operatorClimbFront = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_CLIMB_FRONT);
-
-        _operatorTopLeft = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_WHITE_ONE);
-        _operatorTopLeft.whenPressed(new ToggleSpike());
 
         /*_driverControllerAButton.whileActive(new ActivateFrontClimb(0.3, 0.0));
         _driverControllerAButton.whenReleased(new ActivateFrontClimb(0.0, 0.0));
