@@ -9,8 +9,12 @@ package frc.robot.sensors;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import frc.robot.Addresses;
+import frc.robot.subsystems.Elevator;
+import frc.robot.subsystems.Mast;
+import frc.robot.subsystems.Intake;
 
 public class ProxSensors extends Subsystem {
 
@@ -63,6 +67,20 @@ public class ProxSensors extends Subsystem {
 
     public boolean getIntakeTopLimit() {
         return !_intakeTopLimit.get();
+    }
+
+    public void checkProxForEncoderReset() {
+        if (getLiftBottomLimit()) {
+            Elevator.getInstance().setVerticalPosition(0);
+        }
+
+        if (getIntakeTopLimit() || SmartDashboard.getBoolean("Reset Wrist Encoder", false)) {
+            Intake.getInstance().setWristPosition(0);
+        }
+
+        if (getLiftRearLimit()) {
+            Mast.getInstance().setHorizontalPosition(0);
+        }
     }
 
 }

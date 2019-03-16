@@ -78,10 +78,6 @@ public class Intake extends Subsystem {
         }
 
         SmartDashboard.putBoolean("Wrist Soft Limits Activated", softLimits(speed));
-
-        if (ProxSensors.getInstance().getIntakeTopLimit() || SmartDashboard.getBoolean("Reset Wrist Encoder", false)) {
-            setWristPosition(0);
-        }
     }
 
     private boolean softLimits(double speed) {

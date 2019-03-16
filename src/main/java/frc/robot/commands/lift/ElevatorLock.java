@@ -40,17 +40,14 @@ public class ElevatorLock extends Command {
     protected void initialize() {
         Elevator.getInstance().setServo(Variables.getInstance().getElevatorLocked());
         Elevator.getInstance().setTargetPosition(Elevator.getInstance().getVerticalPosition());
-        if (_timeout != 0.0) { // if the timeout is zero then run the pid
-            Elevator.getInstance().verticalShift(0.0);
-        } else {
-            Elevator.getInstance().setElevatorMotors(0.0);
-        }
     }
 
     @Override
     protected void execute() {
-        if (ProxSensors.getInstance().getLiftBottomLimit()) {
-            Elevator.getInstance().setVerticalPosition(0);
+        if (_timeout != 0.0) { // if the timeout is not zero then run the pid
+            Elevator.getInstance().verticalShift(0.0);
+        } else {
+            Elevator.getInstance().setElevatorMotors(0.0);
         }
     }
 

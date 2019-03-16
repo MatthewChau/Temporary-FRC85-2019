@@ -471,7 +471,7 @@ public class OI {
             }
             return true;
         case MAST_SYSTEM:
-            if (Math.abs(error) < 1000) { // this value definitely subject to change
+            if (Math.abs(error) < 1000) {
                 Mast.getInstance().changeAdjustingBool(false);
                 return false;
             }

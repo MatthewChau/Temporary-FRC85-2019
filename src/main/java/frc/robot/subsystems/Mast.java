@@ -76,10 +76,6 @@ public class Mast extends Subsystem {
         }
 
         SmartDashboard.putBoolean("Mast Soft Limits Activated", softLimits(speed));
-
-        if (ProxSensors.getInstance().getLiftRearLimit()) {
-            setHorizontalPosition(0);
-        }
     }
 
     public void setMastMotor(double speed) {

@@ -89,10 +89,6 @@ public class Elevator extends Subsystem {
             speed = 0.0;
         }
 
-        if (ProxSensors.getInstance().getLiftBottomLimit()) {
-            setVerticalPosition(0);
-        }
-
         _liftLeftMotor.set(ControlMode.PercentOutput, speed);
         _liftRightMotor.set(ControlMode.PercentOutput, speed);
     }
