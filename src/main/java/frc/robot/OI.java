@@ -41,8 +41,7 @@ import frc.robot.commands.driverassistance.HatchGroundOne;
 import frc.robot.commands.driverassistance.HatchGroundTwo;
 import frc.robot.commands.driverassistance.HatchRelease;
 import frc.robot.commands.driverassistance.Interrupt;
-import frc.robot.commands.climb.ActivateFrontClimb;
-import frc.robot.commands.climb.ActivateRearClimbDrive;
+
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Joystick.AxisType;
 import edu.wpi.first.wpilibj.command.Command;
@@ -62,7 +61,7 @@ public class OI {
     // White
     private JoystickButton _operatorCargoShip, _operatorCargoFloor, _operatorCargoOut,
             _operatorCargoOne, _operatorCargoTwo, _operatorCargoThree, _operatorClimbFront,
-            _operatorClimbBack, _operatorTopLeft;
+            _operatorClimbRear, _operatorTopLeft;
     // Black
     private JoystickButton _operatorHatchStation, _operatorHatchFloor, _operatorHatchRelease, _operatorHatchOne,
             _operatorHatchTwo, _operatorHatchThree, _operatorClimbAuto;
@@ -164,7 +163,7 @@ public class OI {
 
         // Climb
         _operatorClimbAuto = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_CLIMB_AUTO);
-        _operatorClimbBack = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_CLIMB_BACK);
+        _operatorClimbRear = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_CLIMB_REAR);
         _operatorClimbFront = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_CLIMB_FRONT);
 
         //_operatorTopLeft = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_WHITE_ONE);
@@ -378,12 +377,12 @@ public class OI {
         return _operatorWrist.get();
     }
 
-    public boolean getOperatorHatchRelease() {
-        return _operatorHatchRelease.get();
+    public boolean getOperatorClimbFront() {
+        return _operatorClimbFront.get();
     }
 
-    public boolean getOperatorCargoDefault() {
-        return _operatorCargoShip.get();
+    public boolean getOperatorClimbRear() {
+        return _operatorClimbRear.get();
     }
 
     public int convertDegreesToIntake(int degrees) {
