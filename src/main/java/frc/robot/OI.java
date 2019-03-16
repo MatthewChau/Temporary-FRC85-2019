@@ -90,6 +90,7 @@ public class OI {
     public boolean[] firstRun = new boolean[INTAKE_SYSTEM + 1];
     public double[] errorSum = new double[INTAKE_SYSTEM + 1];
     public double[] lastActual = new double[INTAKE_SYSTEM + 1];
+    public double[] lastOutput = new double[INTAKE_SYSTEM + 1];
     public double[][] errorLog = new double[INTAKE_SYSTEM + 1][NUM_LOG_ENTRIES];
 
     public double[] stopArray = new double[4];
@@ -125,7 +126,7 @@ public class OI {
 
         // Cargo
         _operatorCargoShip = new JoystickButton(_operatorControllerWhite, 3);
-        _operatorCargoShip.whenPressed(new Place(Variables.CARGO_SHIP, Variables.HATCH_FLOOR));
+        _operatorCargoShip.whenPressed(new Place(Variables.CARGO_SHIP, Variables.WRIST_HATCH_FLOOR));
         _operatorCargoFloor = new JoystickButton(_operatorControllerWhite, 5);
         _operatorCargoFloor.whenPressed(new CargoGroundOne());
         _operatorCargoFloor.whenReleased(new CargoGroundTwo());
@@ -142,11 +143,11 @@ public class OI {
         _operatorCargoTwo = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_CARGO_TWO);
         _operatorCargoTwo.whenPressed(new Place(Variables.CARGO_TWO, Variables.WRIST_CARGO));
         _operatorCargoThree = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_CARGO_THREE);
-        _operatorCargoThree.whenPressed(new Place(Variables.CARGO_THREE, Variables.WRIST_CARGO));
+        _operatorCargoThree.whenPressed(new Place(Variables.CARGO_THREE, Variables.WRIST_CARGO_HIGH));
 
         // Hatch
         _operatorHatchStation = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_HATCH_STATION);
-        _operatorHatchStation.whenPressed(new Place((Variables.HATCH_ONE + 200), Variables.WRIST_30));
+        _operatorHatchStation.whenPressed(new Place(Variables.HATCH_STATION, Variables.WRIST_30));
         _operatorHatchStation.whenReleased(new Place((Variables.HATCH_ONE + 500), Variables.WRIST_0));
         _operatorHatchFloor = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_HATCH_FLOOR);
         _operatorHatchFloor.whenPressed(new HatchGroundOne());
@@ -456,18 +457,18 @@ public class OI {
         }
     }
 
-    public boolean checkIfNeedBeRun(int system, double error) {
+    public boolean checkIfNeedBeRun(int system, double error, double speed) {
         switch (system) {
         case ROT_SYSTEM:
-            if (DriveTrain.getInstance().getTurnInProgress() && Math.abs(error) < 3.0) { // note that we actually want a
-                                                                                         // tolerance here
+            if (DriveTrain.getInstance().getTurnInProgress() && Math.abs(error) < 3.0) {
                 DriveTrain.getInstance().setTurnInProgress(false);
                 return false;
             }
             return true;
         case ELEVATOR_SYSTEM:
-            if (Math.abs(error) < 450) {
+            if (Math.abs(error) < 100) {
                 Elevator.getInstance().changeAdjustingBool(false);
+                return false;
             }
             return true;
         case MAST_SYSTEM:
@@ -518,16 +519,16 @@ public class OI {
         double termP, termI, termD;
         double error = target - current;
 
-        if (!checkIfNeedBeRun(system, error)) {
-            return 0.0;
-        }
-
         // the proportional stuff just kinda exists, the initial correction
         termP = kP * error;
 
         if (firstRun[system]) {
             lastActual[system] = current;
             firstRun[system] = false;
+        }
+
+        if (!checkIfNeedBeRun(system, error, lastOutput[system])) {
+            return 0.0;
         }
 
         // slow down correction if it's doing the right thing (in an effort to prevent
@@ -551,6 +552,8 @@ public class OI {
                 output = outputMin;
             }
         }
+
+        lastOutput[system] = output;
 
         logErrorForIntegral(system, error);
 

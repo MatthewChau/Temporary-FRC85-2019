@@ -77,6 +77,8 @@ public class Intake extends Subsystem {
             _wrist.set(ControlMode.PercentOutput, speed);
         }
 
+        SmartDashboard.putBoolean("Wrist Soft Limits Activated", softLimits(speed));
+
         if (ProxSensors.getInstance().getIntakeTopLimit() || SmartDashboard.getBoolean("Reset Wrist Encoder", false)) {
             setWristPosition(0);
         }
@@ -87,29 +89,24 @@ public class Intake extends Subsystem {
         double intakePosition = getWristPosition();
         double mastPosition = Mast.getInstance().getHorizontalPosition();
 
-        boolean softLimits = false;
-
         if (!SmartDashboard.getBoolean("Disable Intake Top Limit", false) // top limit
             && intakePosition >= Variables.WRIST_MAX_POS
             && speed > 0) {
-            softLimits = true;
+            return true;
         } else if (mastPosition < Variables.MAST_BREAKPOINT // bottom limit when mast is back
                    && intakePosition <= Variables.WRIST_MIN_POS_MAST_BACK
                    && verticalPosition <= Variables.ELEVATOR_MIN_POS_MAST_PROTECTED
                    && speed < 0) {
-            softLimits = true;
+            return true;
         } else if (verticalPosition >= Variables.ELEVATOR_MIN_POS_FOR_WRIST_LIFT_HIGH // bottom limit when elevator is higher than a certain point
                     && intakePosition <= Variables.WRIST_90
                     && speed < 0) {
-            softLimits = true;
+            return true;
         } else if (intakePosition <= Variables.WRIST_MIN_POS // general bottom limit
                    && speed < 0) {
-            softLimits = true;
+            return true;
         }
-
-        SmartDashboard.putBoolean("Wrist Soft Limits Activated", softLimits);
-
-        return softLimits;
+        return false;
     }
 
     public void setWristMotor(double speed) {
@@ -131,20 +128,7 @@ public class Intake extends Subsystem {
         _roller.set(ControlMode.PercentOutput, -speed);
     }
 
-    //NEW: (... and untested!)  Enforce positional limits
     public void setTargetPos(double target) {
-        if(Elevator.getInstance().getVerticalPosition() > Variables.ELEVATOR_MIN_POS_MAST_FORWARD_CARGO) {
-            if( target > Variables.WRIST_MAX_POS)
-                target = Variables.WRIST_MAX_POS;
-            if(target < Variables.WRIST_MIN_POS)
-                target = Variables.WRIST_MIN_POS;
-        }
-        else {
-            if(target < Variables.WRIST_MIN_POS_MAST_BACK)
-                target = Variables.WRIST_MIN_POS_MAST_BACK;
-            if(target > Variables.WRIST_MAX_POS)
-                target = Variables.WRIST_MAX_POS;
-        }
         targetPos = target;
     }
 

@@ -75,6 +75,8 @@ public class Mast extends Subsystem {
             _mastMotor.set(ControlMode.PercentOutput, speed);
         }
 
+        SmartDashboard.putBoolean("Mast Soft Limits Activated", softLimits(speed));
+
         if (ProxSensors.getInstance().getLiftRearLimit()) {
             setHorizontalPosition(0);
         }
@@ -90,26 +92,21 @@ public class Mast extends Subsystem {
         double verticalPosition = Elevator.getInstance().getVerticalPosition();
         double intakePosition = Intake.getInstance().getWristPosition();
 
-        boolean softLimits = false;
-
         // mast limits need a front limit, a rear limit, & a thing if both wrist & elevator are low 
 
         if (mastPosition >= Variables.MAST_MAX_POS // front limit
             && speed > 0) {
-            softLimits = true;
+            return true;
         } else if (verticalPosition <= Variables.ELEVATOR_MIN_POS_MAST_PROTECTED // can't move back if both wrist and elevator are low enough
                    && intakePosition <= Variables.WRIST_MIN_POS_MAST_BACK
-                   && mastPosition <= Variables.MAST_BREAKPOINT
+                   //&& mastPosition <= Variables.MAST_BREAKPOINT
                    && speed < 0) {
-            softLimits = true;
+            return true;
         } else if (mastPosition <= Variables.MAST_MIN_POS // rear limit
                    && speed < 0) {
-            softLimits = true;
+            return true;
         }
-
-        SmartDashboard.putBoolean("Mast Soft Limits Activated", softLimits);
-
-        return softLimits;
+        return false;
     }
 
     public void setHorizontalPosition(int position) {
@@ -129,20 +126,6 @@ public class Mast extends Subsystem {
     }
 
     public void setTargetPosition(double target) {
-        if (Elevator.getInstance().getVerticalPosition() > Variables.ELEVATOR_MIN_POS_MAST_PROTECTED)
-        {
-            /*if (target < Variables.MAST_MIN_POS)
-                target = Variables.MAST_MIN_POS;*/
-            if (target > Variables.MAST_MAX_POS)
-                target = Variables.MAST_MAX_POS;
-            }
-        else {
-            //If the elevator is down, we have a different minimum value for the mast
-            /*if (target < Variables.MAST_ELEVATOR_BREAKPOINT)
-                target = Variables.MAST_ELEVATOR_BREAKPOINT;*/
-            if (target > Variables.MAST_MAX_POS)
-                target = Variables.MAST_MAX_POS;
-        }
         targetPos = target;
     }
 

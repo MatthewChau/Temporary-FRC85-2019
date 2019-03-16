@@ -63,15 +63,16 @@ public class Variables {
     // ELEVATOR
 
     // Elevator positions
-    public static final int HATCH_ONE = 1765;
-    public static final int HATCH_TWO = 9373;
-    public static final int HATCH_THREE = 17571;
+    public static final int HATCH_ONE = 1665;
+    public static final int HATCH_TWO = 9900;
+    public static final int HATCH_THREE = 17900;
 
-    public static final int HATCH_FLOOR = 1843;
+    public static final int HATCH_FLOOR = HATCH_ONE;
+    public static final int HATCH_STATION = 1965;
     
     public static final int CARGO_ONE = 7016;
     public static final int CARGO_TWO = 14752;
-    public static final int CARGO_THREE = 22112;
+    public static final int CARGO_THREE = 22212;
 
     public static final int CARGO_SHIP = 11740;
 
@@ -89,7 +90,7 @@ public class Variables {
     public static final double ELEVATOR_MIN_SPEED = -.2;
 
     // Servo angles for elevator lock (clutch)
-    public static final double ELEVATOR_LOCKED = 72;
+    public static final double ELEVATOR_LOCKED = 70;
     public static final double ELEVATOR_UNLOCKED = 180;
 
     // MAST
@@ -99,7 +100,7 @@ public class Variables {
 
     // Mast position limits
     public static final int MAST_MIN_POS = 0;
-    public static final int MAST_BREAKPOINT = 400000;
+    public static final int MAST_BREAKPOINT = 571100;
     public static final int MAST_MAX_POS = 871000;
 
     // Mast speed limits
@@ -115,6 +116,7 @@ public class Variables {
     public static final int WRIST_60 = -666666;
     public static final int WRIST_90 = -908000;
 
+    public static final int WRIST_CARGO_HIGH = -585000;
     public static final int WRIST_CARGO = -767000;
     public static final int WRIST_CARGO_SHIP = -900000;
     public static final int WRIST_CARGO_FLOOR = -990783;

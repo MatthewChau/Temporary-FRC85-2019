@@ -1,5 +1,14 @@
 <xml version="1.0">
 <dashboard>
+	<widget field="Wrist Soft Limits Activated" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.BooleanBox">
+		<location x="1120" y="177"/>
+	</widget>
+	<widget field="Mast Soft Limits Activated" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.BooleanBox">
+		<location x="1120" y="211"/>
+	</widget>
+	<widget field="Lift Soft Limits Activated" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.BooleanBox">
+		<location x="1120" y="194"/>
+	</widget>
 	<widget field="Run Diagnostics?" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.CheckBox">
 		<location x="1095" y="104"/>
 	</widget>
@@ -19,7 +28,7 @@
 		<location x="1044" y="363"/>
 	</widget>
 	<widget field="Relay Set" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.BooleanBox">
-		<location x="1120" y="164"/>
+		<location x="1269" y="41"/>
 	</widget>
 	<widget field="Reset Wrist Encoder" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.CheckBox">
 		<location x="936" y="123"/>

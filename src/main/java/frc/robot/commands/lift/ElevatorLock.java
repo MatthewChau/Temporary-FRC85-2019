@@ -40,7 +40,7 @@ public class ElevatorLock extends Command {
     protected void initialize() {
         Elevator.getInstance().setServo(Variables.getInstance().getElevatorLocked());
         Elevator.getInstance().setTargetPosition(Elevator.getInstance().getVerticalPosition());
-        if (_timeout != 0.0) { // if the timeout is zero then
+        if (_timeout != 0.0) { // if the timeout is zero then run the pid
             Elevator.getInstance().verticalShift(0.0);
         } else {
             Elevator.getInstance().setElevatorMotors(0.0);

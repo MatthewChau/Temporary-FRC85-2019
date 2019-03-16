@@ -78,6 +78,8 @@ public class Elevator extends Subsystem {
             targetPos = getVerticalPosition();
         }
 
+        SmartDashboard.putBoolean("Lift Soft Limits Activated", softLimits(speed));
+
         if ((ProxSensors.getInstance().getLiftTopLimit() && speed > 0.0)
              || (ProxSensors.getInstance().getLiftBottomLimit() && speed < 0.0)) {
             speed = 0.0;
@@ -100,36 +102,28 @@ public class Elevator extends Subsystem {
         double verticalPosition = getVerticalPosition();
         double intakePosition = Intake.getInstance().getWristPosition();
 
-        boolean softLimits = false;
-
         // lift needs a top limit, a bottom limit,
         // if the wrist is down and the mast is back
         // if the wrist is down and the mast is forward
         if (verticalPosition > Variables.ELEVATOR_MAX_POS // top limit
             && speed > 0) {
-            setTargetPosition(Variables.ELEVATOR_MAX_POS);
-            softLimits = true;
+            return true;
         } else if (mastPosition < Variables.MAST_BREAKPOINT // mast is back & wrist is down
                    && intakePosition < Variables.WRIST_MIN_POS_MAST_BACK
                    && verticalPosition < Variables.ELEVATOR_MIN_POS_MAST_PROTECTED
                    && speed < 0) {
-            setTargetPosition(Variables.ELEVATOR_MIN_POS_MAST_PROTECTED);
-            softLimits = true;
+            return true;
         } else if (mastPosition >= Variables.MAST_BREAKPOINT // mast is forward & wrist is down
                    && intakePosition < Variables.WRIST_MIN_POS_MAST_BACK
                    && verticalPosition < Variables.ELEVATOR_MIN_POS_MAST_FORWARD_CARGO
                    && speed < 0) {
-            setTargetPosition(Variables.ELEVATOR_MIN_POS_MAST_FORWARD_CARGO);
-            softLimits = true;
+            return true;
         } else if (verticalPosition < Variables.ELEVATOR_MIN_POS_MAST_FORWARD_HATCH // general bottom limit
                    && speed < 0) {
-            setTargetPosition(Variables.ELEVATOR_MIN_POS_MAST_FORWARD_HATCH);
-            softLimits = true;
+            return true;
         }
-
-        SmartDashboard.putBoolean("Lift Soft Limits Activated", softLimits);
     
-        return softLimits;
+        return false;
     }
 
     public void setElevatorMotors(double speed) {
