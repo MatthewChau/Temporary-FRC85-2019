@@ -82,7 +82,7 @@ public class Variables {
     public static final int ELEVATOR_MIN_POS_MAST_PROTECTED = 3200;
     public static final int ELEVATOR_MIN_POS_MAST_FORWARD_CARGO = 1250;
     public static final int ELEVATOR_MIN_POS_MAST_FORWARD_HATCH = 0;
-    public static final int ELEVATOR_MIN_POS_LIFT_HIGH = ELEVATOR_MIN_POS_MAST_PROTECTED;
+    public static final int ELEVATOR_MIN_POS_FOR_WRIST_LIFT_HIGH = ELEVATOR_MIN_POS_MAST_PROTECTED;
 
     // Elevator speed Limits 
     public static final double ELEVATOR_MAX_SPEED = .5;
