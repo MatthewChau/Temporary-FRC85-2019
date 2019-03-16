@@ -7,16 +7,16 @@
 
 package frc.robot.commands.climb;
 
-import frc.robot.subsystems.FrontClimb;
+import frc.robot.subsystems.ClimbRear;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class ActivateFrontClimb extends Command {
+public class ActivateClimbRearDrive extends Command {
 
     private double _speed, _timeout;
 
-    public ActivateFrontClimb(double speed, double seconds) {
-        requires(FrontClimb.getInstance());
+    public ActivateClimbRearDrive(double speed, double seconds) {
+        requires(ClimbRear.getInstance());
         _speed = speed;
         _timeout = seconds;
     }
@@ -28,7 +28,7 @@ public class ActivateFrontClimb extends Command {
 
     @Override
     protected void execute() {
-        FrontClimb.getInstance().setFrontClimbMotors(_speed);
+        ClimbRear.getInstance().setClimbRearDriveMotor(_speed);
     }
 
     @Override

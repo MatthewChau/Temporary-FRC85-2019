@@ -11,9 +11,9 @@ import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Mast;
 import frc.robot.subsystems.Elevator;
-import frc.robot.subsystems.RearClimb;
 import frc.robot.subsystems.Spike;
-import frc.robot.subsystems.FrontClimb;
+import frc.robot.subsystems.ClimbFront;
+import frc.robot.subsystems.ClimbRear;
 import frc.robot.sensors.ProxSensors;
 import frc.robot.sensors.IMU;
 
@@ -350,10 +350,10 @@ public class Variables {
         SmartDashboard.putBoolean("Rear Prox Sensor", ProxSensors.getInstance().getLiftRearLimit());
         SmartDashboard.putBoolean("Intake Top Prox Sensor", ProxSensors.getInstance().getIntakeTopLimit());
 
-        SmartDashboard.putNumber("Front Climb Left Position", FrontClimb.getInstance().getFrontClimbLeftPosition());
-        SmartDashboard.putNumber("Front Climb Right Position", FrontClimb.getInstance().getFrontClimbRightPosition());
+        SmartDashboard.putNumber("Front Climb Left Position", ClimbFront.getInstance().getClimbFrontLeftPosition());
+        SmartDashboard.putNumber("Front Climb Right Position", ClimbFront.getInstance().getClimbFrontRightPosition());
 
-        SmartDashboard.putNumber("Rear Climb Position", RearClimb.getInstance().getRearClimbPosition());
+        SmartDashboard.putNumber("Rear Climb Position", ClimbRear.getInstance().getClimbRearPosition());
 
         // IMU
 

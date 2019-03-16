@@ -43,7 +43,7 @@ public class Addresses {
     public static final int OPERATOR_CARGO_TWO = 7;
     public static final int OPERATOR_CARGO_ONE = 8;
 
-    public static final int OPERATOR_CLIMB_BACK = 9;
+    public static final int OPERATOR_CLIMB_REAR = 9;
     public static final int OPERATOR_CLIMB_FRONT = 9; // on the black joystick
 
     // New Op Stick
@@ -83,9 +83,9 @@ public class Addresses {
     public static final int LIGHT_RELAY = 0;
 
     // Climb Motors
-    public static final int REAR_CLIMB_MOTOR = 51;
-    public static final int REAR_CLIMB_DRIVE = 52;
-    public static final int FRONT_CLIMB_MOTOR_LEFT = 53;
-    public static final int FRONT_CLIMB_MOTOR_RIGHT = 54;
+    public static final int CLIMB_REAR_MOTOR = 51;
+    public static final int CLIMB_REAR_DRIVE = 52;
+    public static final int CLIMB_FRONT_MOTOR_LEFT = 53;
+    public static final int CLIMB_FRONT_MOTOR_RIGHT = 54;
 
 }
