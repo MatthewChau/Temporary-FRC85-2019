@@ -5,6 +5,7 @@ import frc.robot.OI;
 import frc.robot.commands.drivetrain.FollowTwoTarget;
 import frc.robot.commands.intake.WristPosition;
 import frc.robot.commands.lift.MastPosition;
+import frc.robot.commands.lift.ElevatorLock;
 import frc.robot.commands.lift.ElevatorPosition;
 import frc.robot.commands.lift.WaitForElevator;
 
@@ -24,6 +25,7 @@ public class Place extends CommandGroup {
         addParallel(new WristPosition(wristPosition));
         //addParallel(new MastPosition(mastPosition));
         addSequential(new ElevatorPosition(elevatorPos));
+        addSequential(new ElevatorLock(0.3));
     }
 
 }

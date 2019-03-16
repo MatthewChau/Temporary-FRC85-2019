@@ -23,15 +23,28 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class ElevatorLock extends Command {
 
+    double _timeout;
+
     public ElevatorLock() {
         requires(Elevator.getInstance());
+        _timeout = 0;
+    }
+
+    public ElevatorLock(double timeout) {
+        requires(Elevator.getInstance());
+        _timeout = timeout;
+        setTimeout(_timeout);
     }
 
     @Override
     protected void initialize() {
         Elevator.getInstance().setServo(Variables.getInstance().getElevatorLocked());
         Elevator.getInstance().setTargetPosition(Elevator.getInstance().getVerticalPosition());
-        Elevator.getInstance().setElevatorMotors(0.0); //Wouldn't this cause a drop before it locks? no PID loop.
+        if (_timeout != 0.0) { // if the timeout is zero then
+            Elevator.getInstance().verticalShift(0.0);
+        } else {
+            Elevator.getInstance().setElevatorMotors(0.0);
+        }
     }
 
     @Override
@@ -43,7 +56,12 @@ public class ElevatorLock extends Command {
 
     @Override
     protected boolean isFinished() {
-        return false;
+        return isTimedOut();
+    }
+
+    @Override 
+    protected void end() {
+        Elevator.getInstance().setElevatorMotors(0.0);
     }
 
     @Override

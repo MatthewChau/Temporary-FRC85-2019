@@ -166,8 +166,8 @@ public class OI {
         _operatorClimbBack = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_CLIMB_BACK);
         _operatorClimbFront = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_CLIMB_FRONT);
 
-        _operatorTopLeft = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_WHITE_ONE);
-        _operatorTopLeft.whenPressed(new ToggleSpike());
+        //_operatorTopLeft = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_WHITE_ONE);
+        //_operatorTopLeft.whenPressed(new ToggleSpike());
 
         _driverJoystickThumbButton.whenActive(new FollowOneTarget());
         /*_driverControllerAButton.whileActive(new ActivateFrontClimb(0.3, 0.0));
@@ -316,6 +316,10 @@ public class OI {
 
     public boolean getForwardBackwardOnlyButton() {
         return _driverJoystickRight.getRawButton(12);
+    }
+
+    public boolean getDriverThumbButton() {
+        return _driverJoystickThumbButton.get();
     }
 
     // // Operator Control Board

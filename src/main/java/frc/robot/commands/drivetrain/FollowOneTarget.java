@@ -59,7 +59,7 @@ public class FollowOneTarget extends Command {
 
     @Override
     protected boolean isFinished() {
-        return false;
+        return !OI.getInstance().getDriverThumbButton();
     }
 
     @Override
