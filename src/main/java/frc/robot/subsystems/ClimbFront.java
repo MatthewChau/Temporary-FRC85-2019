@@ -40,10 +40,10 @@ public class ClimbFront extends Subsystem {
                                                   IMU.getInstance().getRoll(), 
                                                   0.0, 
                                                   Variables.getInstance().getClimbkP(), 
-                                                  Variables.getInstance().getClimbkI(),
-                                                  Variables.getInstance().getClimbkD(), 
-                                                  0.1,
-                                                  -0.1);
+                                                  Variables.getInstance().getClimbkI(), 
+                                                  Variables.getInstance().getClimbkD(),
+                                                  Variables.getInstance().getClimbMaxSpeedUp() / 5,
+                                                  Variables.getInstance().getClimbMaxSpeedDown() / 5);
     
         setClimbFrontLeftMotor(speed);
         setClimbFrontRightMotor(speed - modify);

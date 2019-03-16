@@ -52,8 +52,8 @@ public class ClimbRear extends Subsystem {
                                                   Variables.getInstance().getClimbkP(), 
                                                   Variables.getInstance().getClimbkI(), 
                                                   Variables.getInstance().getClimbkD(),
-                                                  0.1,
-                                                  -0.1);
+                                                  Variables.getInstance().getClimbMaxSpeedUp() / 5,
+                                                  Variables.getInstance().getClimbMaxSpeedDown() / 5);
 
         setClimbRearMotor(speed - modify);
     }

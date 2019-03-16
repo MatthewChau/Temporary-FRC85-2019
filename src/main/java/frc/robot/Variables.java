@@ -142,6 +142,11 @@ public class Variables {
     // climb position limits
     public static final int CLIMB_MAX = 0;
     public static final int CLIMB_MIN = 0;
+
+    // climb speed limits
+    public static final double CLIMB_MAX_SPEED_UP = 0.1;
+    public static final double CLIMB_MAX_SPEED_DOWN = -0.1;
+
     // ROLLER
 
     // Roller speeds
@@ -186,6 +191,9 @@ public class Variables {
         SmartDashboard.putNumber("UNLOCKED", ELEVATOR_UNLOCKED);
         SmartDashboard.putNumber("LOCKED", ELEVATOR_LOCKED);
 
+        SmartDashboard.putNumber("CLIMB_MAX_SPEED_UP", CLIMB_MAX_SPEED_UP);
+        SmartDashboard.putNumber("CLIMB_MAX_SPEED_DOWN", CLIMB_MAX_SPEED_DOWN);
+
         SmartDashboard.putBoolean("Joysticks Enabled", true);
 
         SmartDashboard.putBoolean("Disable Intake Top Limit", true);
@@ -207,9 +215,8 @@ public class Variables {
         return _instance;
     }
 
-    /**
-     * get methods for changable variables
-     */
+    // ELEVATOR
+
     public double getElevatorKP() {
         return SmartDashboard.getNumber("kP_VLIFT", kP_ELEVATOR); // these are gonna have to be small af
     }
@@ -221,6 +228,18 @@ public class Variables {
     public double getElevatorKD() {
         return SmartDashboard.getNumber("kD_VLIFT", kD_ELEVATOR);
     }
+
+    // SERVO
+
+    public double getElevatorUnlocked() {
+        return SmartDashboard.getNumber("UNLOCKED", ELEVATOR_UNLOCKED);
+    }
+
+    public double getElevatorLocked() {
+        return SmartDashboard.getNumber("LOCKED", ELEVATOR_LOCKED);
+    }
+
+    // MAST
 
     public double getMastKP() {
         return SmartDashboard.getNumber("kP_HLIFT", kP_MAST);
@@ -234,6 +253,8 @@ public class Variables {
         return SmartDashboard.getNumber("kD_HLIFT", kD_MAST);
     }
 
+    // WRIST
+
     public double getWristKP() {
         return SmartDashboard.getNumber("kP_INTAKE", kP_INTAKE);
     }
@@ -245,6 +266,16 @@ public class Variables {
     public double getWristKD() {
         return SmartDashboard.getNumber("kD_INTAKE", kD_INTAKE);
     }
+
+    public double getMaxSpeedUpIntake() {
+        return SmartDashboard.getNumber("MAX_SPEED_UP_INTAKE", WRIST_MAX_SPEED_UP);
+    }
+
+    public double getMaxSpeedDownIntake() {
+        return SmartDashboard.getNumber("MAX_SPEED_DOWN_INTAKE", WRIST_MAX_SPEED_DOWN);
+    }
+
+    // DRIVE
 
     public double getDriveKP() {
         return SmartDashboard.getNumber("kP_DRIVE", kP_DRIVE);
@@ -258,6 +289,8 @@ public class Variables {
         return SmartDashboard.getNumber("kD_DRIVE", kD_DRIVE);
     }
 
+    // VISION
+
     public double getVisionKP() {
         return SmartDashboard.getNumber("kP_VISION", kP_VISION);
     }
@@ -269,6 +302,8 @@ public class Variables {
     public double getVisionKD() {
         return SmartDashboard.getNumber("kD_VISION", kD_VISION);
     }
+
+    // VISION ROT
 
     public double getVisionRotKP() {
         return SmartDashboard.getNumber("kP_VISION_ROT", kP_VISION_ROT);
@@ -282,6 +317,8 @@ public class Variables {
         return SmartDashboard.getNumber("kD_VISION_ROT", kD_VISION_ROT);
     }
 
+    // CLIMB
+
     public double getClimbkP() {
         return SmartDashboard.getNumber("kP_CLIMB", kP_CLIMB);
     }
@@ -294,20 +331,12 @@ public class Variables {
         return SmartDashboard.getNumber("kD_CLIMB", kD_CLIMB);
     }
 
-    public double getElevatorUnlocked() {
-        return SmartDashboard.getNumber("UNLOCKED", ELEVATOR_UNLOCKED);
+    public double getClimbMaxSpeedUp() {
+        return SmartDashboard.getNumber("CLIMB_MAX_SPEED_UP", CLIMB_MAX_SPEED_UP);
     }
 
-    public double getElevatorLocked() {
-        return SmartDashboard.getNumber("LOCKED", ELEVATOR_LOCKED);
-    }
-
-    public double getMaxSpeedUpIntake() {
-        return SmartDashboard.getNumber("MAX_SPEED_UP_INTAKE", WRIST_MAX_SPEED_UP);
-    }
-
-    public double getMaxSpeedDownIntake() {
-        return SmartDashboard.getNumber("MAX_SPEED_DOWN_INTAKE", WRIST_MAX_SPEED_DOWN);
+    public double getClimbMaxSpeedDown() {
+        return SmartDashboard.getNumber("CLIMB_MAX_SPEED_DOWN", CLIMB_MAX_SPEED_DOWN);
     }
 
     /**
