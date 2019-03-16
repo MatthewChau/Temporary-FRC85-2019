@@ -22,7 +22,7 @@ public class Spike extends Subsystem {
     private Relay _relay;
 
     public Spike() {
-        _relay = new Relay(Addresses.LIGHT_RELAY, Direction.kForward);
+        _relay = new Relay(Addresses.LIGHT_RELAY);
     }
 
     public static Spike getInstance() {
@@ -48,17 +48,13 @@ public class Spike extends Subsystem {
             _relay.set(Relay.Value.kOff);
         }
 
-        if (getRelay()) {
-            SmartDashboard.putBoolean("Relay Set", true);
-        } else {
-            SmartDashboard.putBoolean("Relay Set", false);
-        }
+        SmartDashboard.putBoolean("Relay Set", getRelay());
     }
 
     public boolean getRelay() {
         boolean _bool;
 
-        if (_relay.get() == Value.kForward) {
+        if (_relay.get() == Relay.Value.kForward) {
             _bool = true;
         } else {
             _bool = false;

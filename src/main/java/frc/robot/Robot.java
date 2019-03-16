@@ -13,6 +13,7 @@ import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Interruptable;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.Mast;
+import frc.robot.subsystems.Spike;
 import frc.robot.Diagnostics;
 import frc.robot.Vision;
 
@@ -55,6 +56,7 @@ public class Robot extends TimedRobot {
         IMU.getInstance();
         Vision.getInstance();
         Interruptable.getInstance();
+        Spike.getInstance();
 
         _diagnostics = new Diagnostics();
     }

@@ -19,7 +19,7 @@ public class ToggleSpike extends Command {
 
     @Override
     protected void initialize() {
-        Spike.getInstance().setRelay(Spike.getInstance().getRelay());
+        Spike.getInstance().setRelay(!Spike.getInstance().getRelay());
     }
 
     @Override
