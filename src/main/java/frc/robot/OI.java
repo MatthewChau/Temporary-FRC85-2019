@@ -66,7 +66,9 @@ public class OI {
     // Black
     private JoystickButton _operatorHatchStation, _operatorHatchFloor, _operatorHatchRelease, _operatorHatchOne,
             _operatorHatchTwo, _operatorHatchThree, _operatorClimbAuto;
-
+    
+    //Driver Right Joystick
+    private JoystickButton _driverJoystickThumbButton;
     // op stick
     private JoystickButton _operatorElevator, _operatorCargoIn, _operatorMast, _operatorWrist;
 
@@ -104,6 +106,8 @@ public class OI {
         _driverControllerBButton = new JoystickButton(_driverController, 2);
         _driverControllerXButton = new JoystickButton(_driverController, 3);
         _driverControllerYButton = new JoystickButton(_driverController, 4);
+
+        _driverJoystickThumbButton = new JoystickButton(_driverJoystickRight, 2);
 
         // Joystick combinations
         _operatorElevator = new JoystickButton(_operatorJoystick, Addresses.OPERATOR_LIFT_VERTICAL);
@@ -166,6 +170,7 @@ public class OI {
         _operatorTopLeft = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_WHITE_ONE);
         _operatorTopLeft.whenPressed(new ToggleSpike());
 
+        _driverJoystickThumbButton.whenActive(new FollowOneTarget());
         /*_driverControllerAButton.whileActive(new ActivateFrontClimb(0.3, 0.0));
         _driverControllerAButton.whenReleased(new ActivateFrontClimb(0.0, 0.0));
         _driverControllerBButton.whileActive(new ActivateFrontClimb(-0.3, 0.0));

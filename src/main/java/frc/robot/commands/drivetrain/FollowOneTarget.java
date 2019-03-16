@@ -7,6 +7,7 @@ import frc.robot.Variables;
 import frc.robot.Vision;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.sensors.IMU;
+import frc.robot.subsystems.Spike;
 
 public class FollowOneTarget extends Command {
     //private boolean _targetFound;
@@ -17,6 +18,7 @@ public class FollowOneTarget extends Command {
     @Override
     protected void initialize() {
         super.initialize();
+        Spike.getInstance().setRelay(true);
     }
 
     @Override
@@ -64,12 +66,14 @@ public class FollowOneTarget extends Command {
     public synchronized void cancel() {
         super.cancel();
         DriveTrain.getInstance().cartDrive(OI.getInstance().stopArray);
+        Spike.getInstance().setRelay(false);
     }
 
     @Override
     protected void end() {
         super.end();
         DriveTrain.getInstance().cartDrive(OI.getInstance().stopArray);
+        Spike.getInstance().setRelay(false);
     }
     
 }
