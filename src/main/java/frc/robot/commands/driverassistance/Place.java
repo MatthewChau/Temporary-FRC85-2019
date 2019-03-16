@@ -21,7 +21,7 @@ public class Place extends CommandGroup {
         addSequential(new Interrupt());
 
         addSequential(new WaitForElevator(0.3)); // wait with the pid running
-        addSequential(new WristPosition(wristPosition));
+        addParallel(new WristPosition(wristPosition));
         //addParallel(new MastPosition(mastPosition));
         addSequential(new ElevatorPosition(elevatorPos));
     }
