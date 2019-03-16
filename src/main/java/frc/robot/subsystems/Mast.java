@@ -90,22 +90,26 @@ public class Mast extends Subsystem {
         double verticalPosition = Elevator.getInstance().getVerticalPosition();
         double intakePosition = Intake.getInstance().getWristPosition();
 
+        boolean softLimits = false;
+
         // mast limits need a front limit, a rear limit, & a thing if both wrist & elevator are low 
 
         if (mastPosition >= Variables.MAST_MAX_POS // front limit
             && speed > 0) {
-            return true;
+            softLimits = true;
         } else if (verticalPosition <= Variables.ELEVATOR_MIN_POS_MAST_PROTECTED // can't move back if both wrist and elevator are low enough
                    && intakePosition <= Variables.WRIST_MIN_POS_MAST_BACK
                    && mastPosition <= Variables.MAST_BREAKPOINT
                    && speed < 0) {
-            return true;
+            softLimits = true;
         } else if (mastPosition <= Variables.MAST_MIN_POS // rear limit
                    && speed < 0) {
-            return true;
+            softLimits = true;
         }
 
-        return false;
+        SmartDashboard.putBoolean("Mast Soft Limits Activated", softLimits);
+
+        return softLimits;
     }
 
     public void setHorizontalPosition(int position) {

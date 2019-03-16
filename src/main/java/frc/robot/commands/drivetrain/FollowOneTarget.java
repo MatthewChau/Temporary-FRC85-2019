@@ -44,14 +44,14 @@ public class FollowOneTarget extends Command {
 
         ySpeed = 0.0;
 
-        zRotation = OI.getInstance().applyPID(OI.VISION_ROT_SYSTEM,
+        zRotation = 0;/*OI.getInstance().applyPID(OI.VISION_ROT_SYSTEM,
                                               gyroAngle, 
                                               DriveTrain.getInstance().targetAngle,
                                               Variables.getInstance().getVisionRotKP(),
                                               Variables.getInstance().getVisionRotKI(),
                                               Variables.getInstance().getVisionRotKD(),
                                               .25,
-                                              -.25);
+                                              -.25);*/
 
         double[] _speedArray = {xSpeed, ySpeed, zRotation, gyroAngle};
         DriveTrain.getInstance().cartDrive(_speedArray);
