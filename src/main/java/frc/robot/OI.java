@@ -67,6 +67,7 @@ public class OI {
     private JoystickButton _operatorHatchStation, _operatorHatchFloor, _operatorHatchRelease, _operatorHatchOne,
             _operatorHatchTwo, _operatorHatchThree, _operatorClimbAuto;
 
+    // op stick
     private JoystickButton _operatorElevator, _operatorCargoIn, _operatorMast, _operatorWrist;
 
     private double _xSpeed = 0, _ySpeed = 0, _zRotation = 0;
@@ -307,6 +308,10 @@ public class OI {
 
     public boolean getTurn180Button() {
         return _driverJoystickLeft.getRawButton(2);
+    }
+
+    public boolean getForwardBackwardOnlyButton() {
+        return _driverJoystickRight.getRawButton(12);
     }
 
     // // Operator Control Board
