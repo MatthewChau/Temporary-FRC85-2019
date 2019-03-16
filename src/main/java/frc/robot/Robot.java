@@ -106,7 +106,6 @@ public class Robot extends TimedRobot {
         Arrays.fill(OI.getInstance().lastActual, 0.0);
         
         Arrays.fill(OI.getInstance().stopArray, 0.0);
-
     }
 
     /**
@@ -117,7 +116,9 @@ public class Robot extends TimedRobot {
         Scheduler.getInstance().run();
         Variables.getInstance().outputVariables();
 
-        _diagnostics.log();
+        if (SmartDashboard.getBoolean("Run Diagnostics?", false)) {
+            _diagnostics.log();
+        }
     }
 
     /**
