@@ -50,7 +50,7 @@ public class ClimbRear extends Subsystem {
 
     @Override
     public void initDefaultCommand() {
-        setDefaultCommand(new ClimbRearLock());
+        //setDefaultCommand(new ClimbRearLock());
     }
     
     // CLIMB MOTOR

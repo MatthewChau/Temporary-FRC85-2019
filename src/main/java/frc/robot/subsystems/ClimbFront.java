@@ -4,6 +4,7 @@ import frc.robot.Addresses;
 import frc.robot.OI;
 import frc.robot.Variables;
 import frc.robot.sensors.IMU;
+import frc.robot.sensors.Sensors;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 
@@ -44,6 +45,11 @@ public class ClimbFront extends Subsystem {
                                                   Variables.getInstance().getClimbkD(),
                                                   Variables.getInstance().getClimbMaxSpeedUp() / 5,
                                                   Variables.getInstance().getClimbMaxSpeedDown() / 5);
+
+        if (Sensors.getInstance().getClimbLeftLimit() || Sensors.getInstance().getClimbRightLimit()) {
+            speed = 0;
+            modify = 0;
+        }
     
         setClimbLeftMotor(speed);
         setClimbRightMotor(speed - modify);

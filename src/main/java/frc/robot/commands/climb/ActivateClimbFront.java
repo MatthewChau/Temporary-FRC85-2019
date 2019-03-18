@@ -15,6 +15,12 @@ public class ActivateClimbFront extends Command {
 
     private double _speed, _timeout;
 
+    public ActivateClimbFront(double speed) {
+        requires(ClimbFront.getInstance());
+        _speed = speed;
+        _timeout = 0;
+    }
+
     public ActivateClimbFront(double speed, double seconds) {
         requires(ClimbFront.getInstance());
         _speed = speed;
@@ -28,7 +34,8 @@ public class ActivateClimbFront extends Command {
 
     @Override
     protected void execute() {
-        ClimbFront.getInstance().setClimbFrontMotors(_speed);
+        ClimbFront.getInstance().setClimbLeftMotor(_speed);
+        ClimbFront.getInstance().setClimbRightMotor(_speed);
     }
 
     @Override

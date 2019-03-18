@@ -30,6 +30,8 @@ import frc.robot.commands.lift.MastWithJoystick;
 import frc.robot.commands.lift.ElevatorWithJoystick;
 import frc.robot.commands.spike.SetSpike;
 import frc.robot.commands.spike.ToggleSpike;
+import frc.robot.commands.climb.ActivateClimbRear;
+import frc.robot.commands.climb.ActivateClimbFront;
 import frc.robot.commands.climb.ClimbFrontWithJoystick;
 import frc.robot.commands.climb.ClimbRearWithJoystick;
 import frc.robot.commands.driverassistance.Place;
