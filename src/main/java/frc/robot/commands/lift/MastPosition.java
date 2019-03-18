@@ -17,7 +17,11 @@ public class MastPosition extends Command {
 
     public MastPosition(int target) {
         requires(Mast.getInstance());
-        _initial = target;
+        if (target < 0) {
+            _initial = Mast.getInstance().getHorizontalPosition();
+        } else {
+            _initial = target;
+        }
     }
 
     @Override

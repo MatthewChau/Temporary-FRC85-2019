@@ -18,14 +18,14 @@ public class Place extends CommandGroup {
      * @param wristPosition in encoder counts
      * @param mastPosition in encoder counts
      */
-    public Place(int elevatorPos, int wristPosition/*, int mastPosition*/) {
+    public Place(int elevatorPos, int wristPosition, int mastPosition) {
         addSequential(new Interrupt());
 
-        addSequential(new WaitForElevator(0.3)); // wait with the pid running
-        addSequential(new ElevatorPosition(elevatorPos));
-        addSequential(new ElevatorLock(0.25), 0.3); // lock elevator
-        addSequential(new WristPosition(wristPosition));
-        //addParallel(new MastPosition(mastPosition));
+        addSequential(new WaitForElevator(0.3)); // wait with the pid running (for lock)
+        addParallel(new MastPosition(mastPosition)); // move the mast out to the pos
+        addSequential(new ElevatorPosition(elevatorPos)); // move the elevator
+        addSequential(new ElevatorLock(0.25), 0.3); // lock the elevator, add the timeout just in case pretty much
+        addSequential(new WristPosition(wristPosition)); // move the wrist
     }
 
 }

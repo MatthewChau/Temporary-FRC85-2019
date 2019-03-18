@@ -12,7 +12,7 @@ public class HatchStationOne extends CommandGroup {
     public HatchStationOne() {
         addSequential(new Interrupt());
 
-        addSequential(new Place(Variables.HATCH_ONE, Variables.WRIST_30));
+        addSequential(new Place(Variables.HATCH_ONE, Variables.WRIST_30, Variables.MAST_FORWARD_FOR_HATCH));
     }
 
 }

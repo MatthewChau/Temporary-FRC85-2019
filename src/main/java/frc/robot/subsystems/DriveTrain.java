@@ -220,6 +220,7 @@ public class DriveTrain extends Subsystem {
             } else {
                 targetAngle = gyroAngle - 180;
             }
+            turnInProgress = true;
         }
     }
 

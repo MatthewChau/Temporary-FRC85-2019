@@ -16,7 +16,11 @@ public class WristPosition extends Command {
     
     public WristPosition(int target) {
         requires(Intake.getInstance());
-        _initial = target;
+        if (target > 0) {
+            _initial = Intake.getInstance().getWristPosition();
+        } else {
+            _initial = target;
+        }
     }
 
     @Override

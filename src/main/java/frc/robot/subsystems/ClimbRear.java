@@ -34,6 +34,7 @@ public class ClimbRear extends Subsystem {
     private ClimbRear() {
         _climbRearMotor = new CANSparkMax(Addresses.CLIMB_REAR_MOTOR, CANSparkMaxLowLevel.MotorType.kBrushless);
         _climbRearMotor.setIdleMode(IdleMode.kBrake);
+        //_climbRearMotor.setSmartCurrentLimit(0, 5700, 3000);
         _climbRearDriveMotor = new TalonSRX(Addresses.CLIMB_REAR_DRIVE);
         _climbRearDriveMotor.setNeutralMode(NeutralMode.Coast);
         _climbRearDriveMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);

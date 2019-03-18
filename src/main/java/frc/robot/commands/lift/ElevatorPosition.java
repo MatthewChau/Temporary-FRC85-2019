@@ -18,7 +18,11 @@ public class ElevatorPosition extends Command {
 
     public ElevatorPosition(double target) {
         requires(Elevator.getInstance());
-        _initial = target;
+        if (target < 0) {
+            _initial = Elevator.getInstance().getVerticalPosition();
+        } else {
+            _initial = target;
+        }
     }
 
     @Override

@@ -78,6 +78,8 @@ public class Variables {
 
     public static final int CARGO_FLOOR = 1700;
 
+    public static final int ELEVATOR_CURRENT_POS = -1;
+
     // Elevator position limits
     public static final int ELEVATOR_MAX_POS = (CARGO_THREE + 1000);
     public static final int ELEVATOR_MIN_POS_MAST_PROTECTED = 3200;
@@ -97,6 +99,11 @@ public class Variables {
 
     // Mast Positions
     public static final int MAST_FORWARD_POS = 700000;
+    public static final int MAST_FORWARD_FOR_HATCH = 441398;
+    public static final int MAST_FORWARD_FOR_CARGO = 131659;
+    public static final int MAST_PROTECTED = 100000; // behind bumpers
+
+    public static final int MAST_CURRENT_POS = -1;
 
     // Mast position limits
     public static final int MAST_MIN_POS = 0;
@@ -122,6 +129,8 @@ public class Variables {
     public static final int WRIST_CARGO_FLOOR = -990783;
 
     public static final int WRIST_HATCH_FLOOR = -1140762;
+
+    public static final int WRIST_CURR_POSITION = 1;
 
     // Wrist position limits
     public static final int WRIST_MAX_POS = 0;
@@ -196,7 +205,7 @@ public class Variables {
         SmartDashboard.putNumber("ELEVATOR_LOCKED", ELEVATOR_LOCKED);
 
         SmartDashboard.putNumber("CLIMB_UNLOCKED", CLIMB_UNLOCKED);
-        SmartDashboard.putNumber("CLIMG_LOCKED", CLIMB_LOCKED);
+        SmartDashboard.putNumber("CLIMB_LOCKED", CLIMB_LOCKED);
 
         SmartDashboard.putNumber("CLIMB_MAX_SPEED_UP", CLIMB_MAX_SPEED_UP);
         SmartDashboard.putNumber("CLIMB_MAX_SPEED_DOWN", CLIMB_MAX_SPEED_DOWN);

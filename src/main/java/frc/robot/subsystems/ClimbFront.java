@@ -21,8 +21,10 @@ public class ClimbFront extends Subsystem {
     private ClimbFront() {
         _climbFrontMotorLeft = new CANSparkMax(Addresses.CLIMB_FRONT_MOTOR_LEFT, CANSparkMaxLowLevel.MotorType.kBrushless);
         _climbFrontMotorLeft.setIdleMode(IdleMode.kBrake);
+        //_climbFrontMotorLeft.setSmartCurrentLimit(0, 5700, 3000);
         _climbFrontMotorRight = new CANSparkMax(Addresses.CLIMB_FRONT_MOTOR_RIGHT, CANSparkMaxLowLevel.MotorType.kBrushless);
         _climbFrontMotorRight.setIdleMode(IdleMode.kBrake);
+        //_climbFrontMotorRight.setSmartCurrentLimit(0, 5700, 3000);
     }
 
     public static ClimbFront getInstance() {
