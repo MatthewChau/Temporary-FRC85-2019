@@ -13,17 +13,21 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import frc.robot.Addresses;
 import frc.robot.subsystems.Elevator;
+import frc.robot.subsystems.ClimbFront;
+import frc.robot.subsystems.ClimbRear;
 import frc.robot.subsystems.Mast;
 import frc.robot.subsystems.Intake;
 
-public class ProxSensors extends Subsystem {
+public class Sensors extends Subsystem {
 
-    private static ProxSensors _instance = null;
+    private static Sensors _instance = null;
     private DigitalInput _liftTopLimit, _liftCenterLimit, _liftBottomLimit, _liftFrontLimit, _liftRearLimit;
 
     private DigitalInput _intakeTopLimit;
 
-    private ProxSensors() {
+    private DigitalInput _climbLeftLimit, _climbRightLimit, _climbRearLimit;
+
+    private Sensors() {
         _liftTopLimit = new DigitalInput(Addresses.LIFT_TOP_LIMIT);
         _liftCenterLimit = new DigitalInput(Addresses.LIFT_CENTER_LIMIT);
         _liftBottomLimit = new DigitalInput(Addresses.LIFT_BOTTOM_LIMIT);
@@ -32,11 +36,15 @@ public class ProxSensors extends Subsystem {
         _liftRearLimit = new DigitalInput(Addresses.LIFT_BACK_LIMIT);
 
         _intakeTopLimit = new DigitalInput(Addresses.INTAKE_TOP_LIMIT);
+
+        _climbLeftLimit = new DigitalInput(Addresses.CLIMB_LEFT_LIMIT);
+        _climbRightLimit = new DigitalInput(Addresses.CLIMB_RIGHT_LIMIT);
+        _climbRearLimit = new DigitalInput(Addresses.CLIMB_REAR_LIMIT);
     }
 
-    public static ProxSensors getInstance() {
+    public static Sensors getInstance() {
         if (_instance == null) {
-            _instance = new ProxSensors();
+            _instance = new Sensors();
         }
         return _instance;
     }
@@ -69,7 +77,19 @@ public class ProxSensors extends Subsystem {
         return !_intakeTopLimit.get();
     }
 
-    public void checkProxForEncoderReset() {
+    public boolean getClimbRightLimit() { // inverted because it should be closed all match
+        return !_climbRightLimit.get();
+    }
+
+    public boolean getClimbLeftLimit() {
+        return !_climbLeftLimit.get();
+    }
+
+    public boolean getClimbRearLimit() {
+        return !_climbRearLimit.get();
+    }
+
+    public void checkSensorsForEncoderReset() {
         if (getLiftBottomLimit()) {
             Elevator.getInstance().setVerticalPosition(0);
         }
@@ -80,6 +100,18 @@ public class ProxSensors extends Subsystem {
 
         if (getLiftRearLimit()) {
             Mast.getInstance().setHorizontalPosition(0);
+        }
+
+        if (getClimbRightLimit()) {
+            ClimbFront.getInstance().setClimbRightPosition(0);
+        }
+
+        if (getClimbLeftLimit()) {
+            ClimbFront.getInstance().setClimbLeftPosition(0);
+        }
+
+        if (getClimbRearLimit()) {
+            ClimbRear.getInstance().setClimbRearPosition(0);
         }
     }
 

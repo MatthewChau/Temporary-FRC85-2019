@@ -8,7 +8,7 @@
 package frc.robot;
 
 import frc.robot.sensors.IMU;
-import frc.robot.sensors.ProxSensors;
+import frc.robot.sensors.Sensors;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Interruptable;
@@ -121,7 +121,7 @@ public class Robot extends TimedRobot {
             _diagnostics.log();
         }
 
-        ProxSensors.getInstance().checkProxForEncoderReset();
+        Sensors.getInstance().checkSensorsForEncoderReset();
     }
 
     /**

@@ -5,11 +5,11 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.lift;
+package frc.robot.commands.climb;
 
 import frc.robot.Variables;
 import frc.robot.sensors.Sensors;
-import frc.robot.subsystems.Elevator;
+import frc.robot.subsystems.ClimbRear;
 
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -21,34 +21,28 @@ import edu.wpi.first.wpilibj.command.Command;
  * When the command is interrupted (a command to move the lift), interrupted() runs, unlocking the lift.
  * When the movement command finishes, this command is called again (since it is the default command).
  */
-public class ElevatorLock extends Command {
+public class ClimbRearLock extends Command {
 
     double _timeout;
 
-    public ElevatorLock() {
-        requires(Elevator.getInstance());
+    public ClimbRearLock() {
+        requires(ClimbRear.getInstance());
         _timeout = 0;
     }
 
-    public ElevatorLock(double timeout) {
-        requires(Elevator.getInstance());
+    public ClimbRearLock(double timeout) {
+        requires(ClimbRear.getInstance());
         _timeout = timeout;
         setTimeout(_timeout);
     }
 
     @Override
     protected void initialize() {
-        Elevator.getInstance().setServo(Variables.getInstance().getElevatorLocked());
-        Elevator.getInstance().setTargetPosition(Elevator.getInstance().getVerticalPosition());
+        ClimbRear.getInstance().setServo(Variables.getInstance().getClimbLocked());
     }
 
     @Override
     protected void execute() {
-        if (_timeout != 0.0) { // if the timeout is not zero then run the pid
-            Elevator.getInstance().verticalShift(0.0);
-        } else {
-            Elevator.getInstance().setElevatorMotors(0.0);
-        }
     }
 
     @Override
@@ -58,13 +52,13 @@ public class ElevatorLock extends Command {
 
     @Override 
     protected void end() {
-        Elevator.getInstance().setElevatorMotors(0.0);
+        ClimbRear.getInstance().setClimbRearDriveMotor(0.0);
     }
 
     @Override
     protected void interrupted() {
-        Elevator.getInstance().setServo(Variables.getInstance().getElevatorUnlocked());
-        Elevator.getInstance().setTargetPosition(Elevator.getInstance().getVerticalPosition());
+        ClimbRear.getInstance().setServo(Variables.getInstance().getClimbUnlocked());
+        //ClimbRear.getInstance().setClimbRearDriveMotor(0.0);
     }
 
 }

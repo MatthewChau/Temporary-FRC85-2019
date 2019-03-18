@@ -4,8 +4,11 @@ import frc.robot.Addresses;
 import frc.robot.OI;
 import frc.robot.Variables;
 import frc.robot.sensors.IMU;
+import frc.robot.sensors.Sensors;
+import frc.robot.commands.climb.ClimbRearLock;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.Servo;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
@@ -24,12 +27,18 @@ public class ClimbRear extends Subsystem {
 
     private TalonSRX _climbRearDriveMotor;
 
+    private Servo _climbServo;
+
+    private double _servoAngle;
+
     private ClimbRear() {
         _climbRearMotor = new CANSparkMax(Addresses.CLIMB_REAR_MOTOR, CANSparkMaxLowLevel.MotorType.kBrushless);
         _climbRearMotor.setIdleMode(IdleMode.kBrake);
         _climbRearDriveMotor = new TalonSRX(Addresses.CLIMB_REAR_DRIVE);
         _climbRearDriveMotor.setNeutralMode(NeutralMode.Coast);
         _climbRearDriveMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
+
+        _climbServo = new Servo(Addresses.CLIMB_SERVO);
     }
 
     public static ClimbRear getInstance() {
@@ -41,6 +50,7 @@ public class ClimbRear extends Subsystem {
 
     @Override
     public void initDefaultCommand() {
+        setDefaultCommand(new ClimbRearLock());
     }
     
     // CLIMB MOTOR
@@ -54,6 +64,16 @@ public class ClimbRear extends Subsystem {
                                                   Variables.getInstance().getClimbkD(),
                                                   Variables.getInstance().getClimbMaxSpeedUp() / 5,
                                                   Variables.getInstance().getClimbMaxSpeedDown() / 5);
+
+        if (Sensors.getInstance().getClimbRearLimit() && speed < 0) {
+            speed = 0;
+            modify = 0;
+        }
+
+        if (getServo() == Variables.getInstance().getClimbLocked()) {
+            speed = 0;
+            modify = 0;
+        }
 
         setClimbRearMotor(speed - modify);
     }
@@ -73,7 +93,7 @@ public class ClimbRear extends Subsystem {
     // CLIMB DRIVE MOTOR
 
     public void moveClimbRearDrive(double speed) {
-        // decide that pid exists here
+        // decide that pid exists here maybe?
     }
 
     public void setClimbRearDriveMotor(double speed) {
@@ -86,6 +106,15 @@ public class ClimbRear extends Subsystem {
 
     public void setClimbRearDriveMotorPosition(int position) {
         _climbRearDriveMotor.setSelectedSensorPosition(position);
+    }
+
+    public void setServo(double angle) {
+        _climbServo.set(angle);
+        _servoAngle = angle;
+    }
+
+    public double getServo() {
+        return _servoAngle;
     }
 
 }

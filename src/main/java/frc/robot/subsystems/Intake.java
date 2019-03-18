@@ -10,7 +10,7 @@ package frc.robot.subsystems;
 import frc.robot.Addresses;
 import frc.robot.OI;
 import frc.robot.Variables;
-import frc.robot.sensors.ProxSensors;
+import frc.robot.sensors.Sensors;
 import frc.robot.commands.intake.WristWithJoystick;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -69,7 +69,7 @@ public class Intake extends Subsystem {
             speed = 0.0;
         }
 
-        if ((ProxSensors.getInstance().getIntakeTopLimit() && !SmartDashboard.getBoolean("Disable Intake Prox Limit", true) && speed > 0) // if we trying to exceed top limit
+        if ((Sensors.getInstance().getIntakeTopLimit() && !SmartDashboard.getBoolean("Disable Intake Prox Limit", true) && speed > 0) // if we trying to exceed top limit
             || (!OI.getInstance().getOperatorWristRotate() && !adjusting) // if the button isn't pressed and we are not adjusting
             || (softLimits(speed) && !SmartDashboard.getBoolean("Disable Intake Soft Limits", false))) {
             _wrist.set(ControlMode.PercentOutput, 0);

@@ -10,10 +10,9 @@ package frc.robot.subsystems;
 import frc.robot.OI;
 import frc.robot.Addresses;
 import frc.robot.Variables;
-import frc.robot.sensors.ProxSensors;
+import frc.robot.sensors.Sensors;
 
 import frc.robot.commands.lift.ElevatorLock;
-import frc.robot.commands.lift.ElevatorWithJoystick;
 
 import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -80,8 +79,8 @@ public class Elevator extends Subsystem {
 
         SmartDashboard.putBoolean("Lift Soft Limits Activated", softLimits(speed));
 
-        if ((ProxSensors.getInstance().getLiftTopLimit() && speed > 0.0)
-             || (ProxSensors.getInstance().getLiftBottomLimit() && speed < 0.0)) {
+        if ((Sensors.getInstance().getLiftTopLimit() && speed > 0.0)
+             || (Sensors.getInstance().getLiftBottomLimit() && speed < 0.0)) {
             speed = 0.0;
         }
 

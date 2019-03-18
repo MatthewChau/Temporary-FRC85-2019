@@ -10,7 +10,7 @@ package frc.robot.subsystems;
 import frc.robot.OI;
 import frc.robot.Variables;
 import frc.robot.Addresses;
-import frc.robot.sensors.ProxSensors;
+import frc.robot.sensors.Sensors;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -66,8 +66,8 @@ public class Mast extends Subsystem {
             speed = 0.0;
         }
 
-        if ((ProxSensors.getInstance().getLiftFrontLimit() && speed > 0.0)
-            || (ProxSensors.getInstance().getLiftRearLimit() && speed < 0.0)
+        if ((Sensors.getInstance().getLiftFrontLimit() && speed > 0.0)
+            || (Sensors.getInstance().getLiftRearLimit() && speed < 0.0)
             || (!OI.getInstance().getOperatorLiftHorizontal() && !adjusting)
             || (softLimits(speed) && !SmartDashboard.getBoolean("Disable Mast Soft Limits", false))) {
             _mastMotor.set(ControlMode.PercentOutput, 0);

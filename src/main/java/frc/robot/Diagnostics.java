@@ -8,7 +8,7 @@
 package frc.robot;
 
 import frc.robot.sensors.IMU;
-import frc.robot.sensors.ProxSensors;
+import frc.robot.sensors.Sensors;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Mast;
 import frc.robot.subsystems.Elevator;
@@ -87,10 +87,10 @@ public class Diagnostics {
             String rightFrontPos = Integer.toString(DriveTrain.getInstance().getRightFrontPosition());
             String rightBackPos = Integer.toString(DriveTrain.getInstance().getRightBackPosition());
 
-            String liftTopLimit = Boolean.toString(ProxSensors.getInstance().getLiftTopLimit());
-            String liftBottomLimit = Boolean.toString(ProxSensors.getInstance().getLiftBottomLimit());
-            String liftFrontLimit = Boolean.toString(ProxSensors.getInstance().getLiftFrontLimit());
-            String liftRearLimit = Boolean.toString(ProxSensors.getInstance().getLiftRearLimit());
+            String liftTopLimit = Boolean.toString(Sensors.getInstance().getLiftTopLimit());
+            String liftBottomLimit = Boolean.toString(Sensors.getInstance().getLiftBottomLimit());
+            String liftFrontLimit = Boolean.toString(Sensors.getInstance().getLiftFrontLimit());
+            String liftRearLimit = Boolean.toString(Sensors.getInstance().getLiftRearLimit());
 
             String elevatorPos = Integer.toString(Elevator.getInstance().getVerticalPosition());
             String mastPos = Integer.toString(Mast.getInstance().getHorizontalPosition());
@@ -102,7 +102,7 @@ public class Diagnostics {
             String mastMotor = Double.toString(Mast.getInstance().getMastMotorVoltage());
                 String mastMotorCurrent = Double.toString(Mast.getInstance().getMastMotorCurrent());
 
-            String intakeTopLimit = Boolean.toString(ProxSensors.getInstance().getIntakeTopLimit());
+            String intakeTopLimit = Boolean.toString(Sensors.getInstance().getIntakeTopLimit());
             String wristPos = Integer.toString(Intake.getInstance().getWristPosition());
             
             String wristMotor = Double.toString(Intake.getInstance().getWristMotorVoltage());

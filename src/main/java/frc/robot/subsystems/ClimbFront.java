@@ -45,8 +45,8 @@ public class ClimbFront extends Subsystem {
                                                   Variables.getInstance().getClimbMaxSpeedUp() / 5,
                                                   Variables.getInstance().getClimbMaxSpeedDown() / 5);
     
-        setClimbFrontLeftMotor(speed);
-        setClimbFrontRightMotor(speed - modify);
+        setClimbLeftMotor(speed);
+        setClimbRightMotor(speed - modify);
     }
 
     /* aight friendos let's talk about how dumb this is going to be
@@ -55,11 +55,11 @@ public class ClimbFront extends Subsystem {
        one between left and right
     */
 
-    public void setClimbFrontLeftMotor(double speed) {
+    public void setClimbLeftMotor(double speed) {
         _climbFrontMotorLeft.set(speed);
     }
 
-    public void setClimbFrontRightMotor(double speed) {
+    public void setClimbRightMotor(double speed) {
         _climbFrontMotorRight.set(speed);
     }
 
@@ -68,19 +68,19 @@ public class ClimbFront extends Subsystem {
         _climbFrontMotorRight.set(speed);
     }
 
-    public double getClimbFrontLeftPosition() {
+    public double getClimbLeftPosition() {
         return _climbFrontMotorLeft.getEncoder().getPosition();
     }
 
-    public double getClimbFrontRightPosition() {
+    public double getClimbRightPosition() {
         return _climbFrontMotorRight.getEncoder().getPosition();
     }
 
-    public void setClimbFrontOnePosition(double position) {
+    public void setClimbLeftPosition(double position) {
         _climbFrontMotorLeft.setEncPosition(position);
     }
 
-    public void setClimbFrontTwoPosition(double position) {
+    public void setClimbRightPosition(double position) {
         _climbFrontMotorRight.setEncPosition(position);
     }
 

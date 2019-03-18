@@ -14,7 +14,7 @@ import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.Spike;
 import frc.robot.subsystems.ClimbFront;
 import frc.robot.subsystems.ClimbRear;
-import frc.robot.sensors.ProxSensors;
+import frc.robot.sensors.Sensors;
 import frc.robot.sensors.IMU;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -90,7 +90,7 @@ public class Variables {
     public static final double ELEVATOR_MIN_SPEED = -.2;
 
     // Servo angles for elevator lock (clutch)
-    public static final double ELEVATOR_LOCKED = 70;
+    public static final double ELEVATOR_LOCKED = 72;
     public static final double ELEVATOR_UNLOCKED = 180;
 
     // MAST
@@ -147,6 +147,10 @@ public class Variables {
     public static final double CLIMB_MAX_SPEED_UP = 0.1;
     public static final double CLIMB_MAX_SPEED_DOWN = -0.1;
 
+    // servo angles for climb
+    public static final double CLIMB_LOCKED = 72;
+    public static final double CLIMB_UNLOCKED = 180;
+
     // ROLLER
 
     // Roller speeds
@@ -188,8 +192,11 @@ public class Variables {
         SmartDashboard.putNumber("MAX_SPEED_UP_INTAKE", WRIST_MAX_SPEED_UP);
         SmartDashboard.putNumber("MAX_SPEED_DOWN_INTAKE", WRIST_MAX_SPEED_DOWN);
 
-        SmartDashboard.putNumber("UNLOCKED", ELEVATOR_UNLOCKED);
-        SmartDashboard.putNumber("LOCKED", ELEVATOR_LOCKED);
+        SmartDashboard.putNumber("ELEVATOR_UNLOCKED", ELEVATOR_UNLOCKED);
+        SmartDashboard.putNumber("ELEVATOR_LOCKED", ELEVATOR_LOCKED);
+
+        SmartDashboard.putNumber("CLIMB_UNLOCKED", CLIMB_UNLOCKED);
+        SmartDashboard.putNumber("CLIMG_LOCKED", CLIMB_LOCKED);
 
         SmartDashboard.putNumber("CLIMB_MAX_SPEED_UP", CLIMB_MAX_SPEED_UP);
         SmartDashboard.putNumber("CLIMB_MAX_SPEED_DOWN", CLIMB_MAX_SPEED_DOWN);
@@ -339,6 +346,14 @@ public class Variables {
         return SmartDashboard.getNumber("CLIMB_MAX_SPEED_DOWN", CLIMB_MAX_SPEED_DOWN);
     }
 
+    public double getClimbUnlocked() {
+        return SmartDashboard.getNumber("CLIMB_UNLOCKED", CLIMB_UNLOCKED);
+    }
+
+    public double getClimbLocked() {
+        return SmartDashboard.getNumber("CLIMB_LOCKED", CLIMB_LOCKED);
+    }
+
     /**
      * Repeatedly called in Robot.java
      */
@@ -363,26 +378,26 @@ public class Variables {
 
         SmartDashboard.putNumber("Vertical Lift", Elevator.getInstance().getVerticalPosition());
 
-        SmartDashboard.putBoolean("Lift Top", ProxSensors.getInstance().getLiftTopLimit());
-        SmartDashboard.putBoolean("Lift Center", ProxSensors.getInstance().getLiftCenterLimit());
-        SmartDashboard.putBoolean("Lift Bottom", ProxSensors.getInstance().getLiftBottomLimit());
+        SmartDashboard.putBoolean("Lift Top", Sensors.getInstance().getLiftTopLimit());
+        SmartDashboard.putBoolean("Lift Center", Sensors.getInstance().getLiftCenterLimit());
+        SmartDashboard.putBoolean("Lift Bottom", Sensors.getInstance().getLiftBottomLimit());
 
         // Intake
 
         SmartDashboard.putNumber("Intake Encoder", Intake.getInstance().getWristPosition());
 
-        SmartDashboard.putBoolean("Intake Top Prox Sensor", ProxSensors.getInstance().getIntakeTopLimit());
+        SmartDashboard.putBoolean("Intake Top Prox Sensor", Sensors.getInstance().getIntakeTopLimit());
         
         // Mast
         
         SmartDashboard.putNumber("Horizontal Lift", Mast.getInstance().getHorizontalPosition());
 
-        SmartDashboard.putBoolean("Front Prox Sensor", ProxSensors.getInstance().getLiftFrontLimit());
-        SmartDashboard.putBoolean("Rear Prox Sensor", ProxSensors.getInstance().getLiftRearLimit());
-        SmartDashboard.putBoolean("Intake Top Prox Sensor", ProxSensors.getInstance().getIntakeTopLimit());
+        SmartDashboard.putBoolean("Front Prox Sensor", Sensors.getInstance().getLiftFrontLimit());
+        SmartDashboard.putBoolean("Rear Prox Sensor", Sensors.getInstance().getLiftRearLimit());
+        SmartDashboard.putBoolean("Intake Top Prox Sensor", Sensors.getInstance().getIntakeTopLimit());
 
-        SmartDashboard.putNumber("Front Climb Left Position", ClimbFront.getInstance().getClimbFrontLeftPosition());
-        SmartDashboard.putNumber("Front Climb Right Position", ClimbFront.getInstance().getClimbFrontRightPosition());
+        SmartDashboard.putNumber("Front Climb Left Position", ClimbFront.getInstance().getClimbLeftPosition());
+        SmartDashboard.putNumber("Front Climb Right Position", ClimbFront.getInstance().getClimbRightPosition());
 
         SmartDashboard.putNumber("Rear Climb Position", ClimbRear.getInstance().getClimbRearPosition());
 
