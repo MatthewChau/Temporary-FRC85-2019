@@ -35,6 +35,7 @@ import frc.robot.commands.climb.ActivateClimbFront;
 import frc.robot.commands.climb.ClimbFrontWithJoystick;
 import frc.robot.commands.climb.ClimbRearLock;
 import frc.robot.commands.climb.ClimbRearWithJoystick;
+import frc.robot.commands.climb.setClimbRearLock;
 import frc.robot.commands.driverassistance.Place;
 import frc.robot.commands.driverassistance.CargoStationOne;
 import frc.robot.commands.driverassistance.CargoStationTwo;
@@ -173,7 +174,8 @@ public class OI {
         _operatorClimbRear = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_CLIMB_REAR);
         //_operatorClimbRear.whenPressed(new ClimbRearWithJoystick());
         _operatorClimbAuto = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_CLIMB_AUTO);
-        _operatorClimbAuto.cancelWhenPressed(new ClimbRearLock());
+        _operatorClimbAuto.whenPressed(new setClimbRearLock(Variables.getInstance().CLIMB_LOCKED));
+        _operatorClimbAuto.whenReleased(new setClimbRearLock(Variables.getInstance().CLIMB_UNLOCKED));
 
         /*_driverController = new Joystick(Addresses.CONTROLLER_DRIVER); // drive controller
 
