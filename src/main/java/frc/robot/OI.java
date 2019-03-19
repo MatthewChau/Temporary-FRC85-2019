@@ -16,6 +16,7 @@ import frc.robot.subsystems.Intake;
 
 import frc.robot.sensors.IMU;
 
+import frc.robot.commands.drivetrain.AutoRotate;
 import frc.robot.commands.drivetrain.FollowOneTarget;
 import frc.robot.commands.drivetrain.FollowTwoTarget;
 import frc.robot.commands.drivetrain.DriveSeconds;
@@ -155,6 +156,9 @@ public class OI {
         _operatorClimbBack = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_CLIMB_BACK);
         _operatorClimbFront = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_CLIMB_FRONT);
 
+        // Vision
+        _driverControllerXButton.whileHeld(new AutoRotate());
+        
         //_operatorHatchDefault.whenPressed(new HatchStation1());
         //_operatorHatchDefault.whenReleased(new HatchStation2());
 

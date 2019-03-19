@@ -132,6 +132,10 @@ public class Variables {
     public static final double ROLLER_IN = 0.80;
     public static final double ROLLER_OUT = -0.80;
 
+    // Vision
+    public static final double IMAGE_WIDTH = 320;
+    public static final double FOV = 68.5;
+
     /**
      * Put variables here that should be changeable on the fly.
      */
@@ -293,6 +297,7 @@ public class Variables {
         // Vision
 
         SmartDashboard.putNumber("Distance", Vision.getInstance().twoTargetDistance());
+        SmartDashboard.putNumber("Angle", Vision.getInstance().alignmentLine());
 
         // Elevator
 
