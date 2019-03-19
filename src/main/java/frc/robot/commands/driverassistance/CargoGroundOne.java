@@ -10,7 +10,7 @@ public class CargoGroundOne extends CommandGroup {
     public CargoGroundOne() {
         addSequential(new Interrupt());
 
-        addSequential(new Place(Variables.CARGO_FLOOR, Variables.WRIST_CARGO_FLOOR, Variables.MAST_CURRENT_POS));
+        addSequential(new Place(Variables.CARGO_FLOOR, Variables.WRIST_CARGO_FLOOR, Variables.MAST_FORWARD_POS));
         addSequential(new ActivateIntake(Variables.ROLLER_IN));
     }
 

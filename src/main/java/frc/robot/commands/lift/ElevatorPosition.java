@@ -8,7 +8,6 @@
 package frc.robot.commands.lift;
 
 import frc.robot.subsystems.Elevator;
-import frc.robot.subsystems.Intake;
 
 import edu.wpi.first.wpilibj.command.Command;
 

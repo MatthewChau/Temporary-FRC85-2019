@@ -1,7 +1,6 @@
 package frc.robot.commands.driverassistance;
 
 import frc.robot.Variables;
-import frc.robot.OI;
 import frc.robot.commands.intake.WristPosition;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
