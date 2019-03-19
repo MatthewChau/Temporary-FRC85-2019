@@ -143,7 +143,11 @@ public class Vision {
 			SmartDashboard.putNumber("x4 for vis", x2Array[1]);
 			return ((x1Array[0] + x1Array[1] + x2Array[0] + x2Array[1]) / 4);
 		}
-		return 0.0;
+		else {
+			SmartDashboard.putNumber("x1 and x2 conglomerated for vis1", x1Array[0]);
+			SmartDashboard.putNumber("x1 and x2 conglomerated for vis2", x2Array[1]);
+			return ((x1Array[0] + x1Array[1]) / 2.0);
+		}
 	}
 
 }
