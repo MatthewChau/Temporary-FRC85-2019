@@ -34,8 +34,7 @@ public class ActivateClimbFront extends Command {
 
     @Override
     protected void execute() {
-        ClimbFront.getInstance().setClimbLeftMotor(_speed);
-        ClimbFront.getInstance().setClimbRightMotor(_speed);
+        ClimbFront.getInstance().setClimbFrontMotors(_speed);
     }
 
     @Override
@@ -44,13 +43,7 @@ public class ActivateClimbFront extends Command {
     }
 
     @Override
-    protected void end() {
-        ClimbFront.getInstance().setClimbFrontMotors(0.0);
-    }
-
-    @Override
     protected void interrupted() {
-        end();
     }
 
 }

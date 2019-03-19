@@ -22,6 +22,7 @@ public class ClimbFront extends Subsystem {
         _climbFrontMotorLeft = new CANSparkMax(Addresses.CLIMB_FRONT_MOTOR_LEFT, CANSparkMaxLowLevel.MotorType.kBrushless);
         _climbFrontMotorLeft.setIdleMode(IdleMode.kBrake);
         _climbFrontMotorRight = new CANSparkMax(Addresses.CLIMB_FRONT_MOTOR_RIGHT, CANSparkMaxLowLevel.MotorType.kBrushless);
+        _climbFrontMotorRight.setInverted(true);
         _climbFrontMotorRight.setIdleMode(IdleMode.kBrake);
     }
 
