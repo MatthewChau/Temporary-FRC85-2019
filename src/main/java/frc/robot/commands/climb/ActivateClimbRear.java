@@ -34,7 +34,8 @@ public class ActivateClimbRear extends Command {
 
     @Override
     protected void execute() {
-        ClimbRear.getInstance().setClimbRearMotor(_speed);
+        //ClimbRear.getInstance().setClimbRearMotor(_speed);
+        ClimbRear.getInstance().moveClimbRear(_speed);
     }
 
     @Override
@@ -42,4 +43,13 @@ public class ActivateClimbRear extends Command {
         return isTimedOut();
     }
 
+    @Override
+    protected void end() {
+        ClimbRear.getInstance().setClimbRearMotor(0.0);
+    }
+
+    @Override
+    protected void interrupted() {
+        end();
+    }
 }

@@ -41,4 +41,14 @@ public class ActivateClimbRearDrive extends Command {
         return isTimedOut();
     }
 
+    @Override
+    protected void end() {
+        ClimbRear.getInstance().setClimbRearDriveMotor(0.0);
+    }
+
+    @Override
+    protected void interrupted() {
+        end();
+    }
+
 }
