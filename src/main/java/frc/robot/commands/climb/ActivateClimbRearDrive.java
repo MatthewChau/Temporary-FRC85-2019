@@ -15,6 +15,11 @@ public class ActivateClimbRearDrive extends Command {
 
     private double _speed, _timeout;
 
+    public ActivateClimbRearDrive(double speed) {
+        requires(ClimbRear.getInstance());
+        _speed = speed;
+    }
+
     public ActivateClimbRearDrive(double speed, double seconds) {
         requires(ClimbRear.getInstance());
         _speed = speed;
