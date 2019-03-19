@@ -46,8 +46,8 @@ public class ClimbFront extends Subsystem {
                                                   Variables.getInstance().getClimbkP(), 
                                                   Variables.getInstance().getClimbkI(), 
                                                   Variables.getInstance().getClimbkD(),
-                                                  Variables.getInstance().getClimbMaxSpeedUp() / 5,
-                                                  Variables.getInstance().getClimbMaxSpeedDown() / 5);
+                                                  Variables.getInstance().getClimbMaxSpeedUp() / 3,
+                                                  Variables.getInstance().getClimbMaxSpeedDown() / 3);
 
         if (Sensors.getInstance().getClimbLeftLimit() || Sensors.getInstance().getClimbRightLimit()) {
             speed = 0;
@@ -65,6 +65,10 @@ public class ClimbFront extends Subsystem {
     */
 
     public void setClimbLeftMotor(double speed) {
+        if (Sensors.getInstance().getClimbLeftLimit() || Sensors.getInstance().getClimbRightLimit()) {
+            speed = 0;
+        }
+
         _climbFrontMotorLeft.set(speed);
     }
 

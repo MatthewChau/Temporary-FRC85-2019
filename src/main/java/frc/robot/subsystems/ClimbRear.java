@@ -51,7 +51,7 @@ public class ClimbRear extends Subsystem {
 
     @Override
     public void initDefaultCommand() {
-        //setDefaultCommand(new ClimbRearLock());
+        setDefaultCommand(new ClimbRearLock());
     }
     
     // CLIMB MOTOR
@@ -63,8 +63,8 @@ public class ClimbRear extends Subsystem {
                                                   Variables.getInstance().getClimbkP(), 
                                                   Variables.getInstance().getClimbkI(), 
                                                   Variables.getInstance().getClimbkD(),
-                                                  Variables.getInstance().getClimbMaxSpeedUp() / 5,
-                                                  Variables.getInstance().getClimbMaxSpeedDown() / 5);
+                                                  Variables.getInstance().getClimbMaxSpeedUp() / 3,
+                                                  Variables.getInstance().getClimbMaxSpeedDown() / 3);
 
         if (Sensors.getInstance().getClimbRearLimit() && speed < 0) {
             speed = 0;
@@ -80,6 +80,14 @@ public class ClimbRear extends Subsystem {
     }
 
     public void setClimbRearMotor(double speed) {
+        if (Sensors.getInstance().getClimbRearLimit() && speed < 0) {
+            speed = 0;
+        }
+
+        if (getServo() == Variables.getInstance().getClimbLocked()) {
+            speed = 0;
+        }
+        
         _climbRearMotor.set(speed);
     }
 
