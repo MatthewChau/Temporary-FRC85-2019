@@ -18,7 +18,6 @@ public class ActivateClimbRear extends Command {
     public ActivateClimbRear(double speed) {
         requires(ClimbRear.getInstance());
         _speed = speed;
-        _timeout = 0;
     }
 
     public ActivateClimbRear(double speed, double seconds) {
