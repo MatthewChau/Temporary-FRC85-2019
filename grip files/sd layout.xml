@@ -1,7 +1,16 @@
 <xml version="1.0">
 <dashboard>
+	<widget field="Rear Climb Limit Switch" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.BooleanBox">
+		<location x="1268" y="211"/>
+	</widget>
+	<widget field="Front Climb Left Limit Switch" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.BooleanBox">
+		<location x="1268" y="194"/>
+	</widget>
+	<widget field="Front Climb Right Limit Switch" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.BooleanBox">
+		<location x="1268" y="177"/>
+	</widget>
 	<widget field="CLIMB_LOCKED" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="0" y="447"/>
+		<location x="373" y="153"/>
 	</widget>
 	<widget field="CLIMB_MAX_SPEED_DOWN" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
 		<location x="668" y="281"/>
@@ -17,9 +26,6 @@
 	</widget>
 	<widget field="CLIMB_UNLOCKED" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
 		<location x="359" y="176"/>
-	</widget>
-	<widget field="CLIMG_LOCKED" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="372" y="154"/>
 	</widget>
 	<widget field="Wrist Soft Limits Activated" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.BooleanBox">
 		<location x="1120" y="177"/>
@@ -258,31 +264,31 @@
 </dashboard>
 <live-window>
 	<widget field="ClimbFront" type="LW Subsystem" class="edu.wpi.first.smartdashboard.livewindow.elements.LWSubsystem">
-		<location x="0" y="207"/>
+		<location x="0" y="369"/>
 	</widget>
 	<widget field="ClimbRear" type="LW Subsystem" class="edu.wpi.first.smartdashboard.livewindow.elements.LWSubsystem">
-		<location x="0" y="184"/>
+		<location x="0" y="346"/>
 	</widget>
 	<widget field="Elevator" type="LW Subsystem" class="edu.wpi.first.smartdashboard.livewindow.elements.LWSubsystem">
-		<location x="0" y="161"/>
+		<location x="0" y="323"/>
 	</widget>
 	<widget field="DriveTrain" type="LW Subsystem" class="edu.wpi.first.smartdashboard.livewindow.elements.LWSubsystem">
-		<location x="0" y="138"/>
+		<location x="0" y="300"/>
 	</widget>
 	<widget field="Spike" type="LW Subsystem" class="edu.wpi.first.smartdashboard.livewindow.elements.LWSubsystem">
-		<location x="0" y="115"/>
+		<location x="0" y="277"/>
 	</widget>
 	<widget field="Mast" type="LW Subsystem" class="edu.wpi.first.smartdashboard.livewindow.elements.LWSubsystem">
-		<location x="0" y="92"/>
+		<location x="0" y="254"/>
 	</widget>
 	<widget field="Sensors" type="LW Subsystem" class="edu.wpi.first.smartdashboard.livewindow.elements.LWSubsystem">
-		<location x="0" y="69"/>
+		<location x="0" y="231"/>
 	</widget>
 	<widget field="Interruptable" type="LW Subsystem" class="edu.wpi.first.smartdashboard.livewindow.elements.LWSubsystem">
-		<location x="0" y="46"/>
+		<location x="0" y="208"/>
 	</widget>
 	<widget field="Intake" type="LW Subsystem" class="edu.wpi.first.smartdashboard.livewindow.elements.LWSubsystem">
-		<location x="0" y="23"/>
+		<location x="0" y="0"/>
 	</widget>
 	<widget field="Ungrouped" type="LW Subsystem" class="edu.wpi.first.smartdashboard.livewindow.elements.LWSubsystem">
 		<widget field="DigitalInput[1]" type="Digital Input" class="edu.wpi.first.smartdashboard.livewindow.elements.DigitalInputDisplay">
@@ -296,50 +302,89 @@
 			<width>0</width>
 		</widget>
 		<widget field="DigitalInput[8]" type="Digital Input" class="edu.wpi.first.smartdashboard.livewindow.elements.DigitalInputDisplay">
-			<location x="6" y="16"/>
-			<height>20</height>
-			<width>86</width>
+			<location x="0" y="0"/>
+			<height>0</height>
+			<width>0</width>
+		</widget>
+		<widget field="DigitalInput[8]" type="Digital Input" class="edu.wpi.first.smartdashboard.livewindow.elements.DigitalInputDisplay">
+			<location x="0" y="0"/>
+			<height>0</height>
+			<width>0</width>
 		</widget>
 		<widget field="DigitalInput[0]" type="Digital Input" class="edu.wpi.first.smartdashboard.livewindow.elements.DigitalInputDisplay">
-			<location x="6" y="36"/>
-			<height>20</height>
-			<width>86</width>
+			<location x="0" y="0"/>
+			<height>0</height>
+			<width>0</width>
+		</widget>
+		<widget field="DigitalInput[0]" type="Digital Input" class="edu.wpi.first.smartdashboard.livewindow.elements.DigitalInputDisplay">
+			<location x="0" y="0"/>
+			<height>0</height>
+			<width>0</width>
 		</widget>
 		<widget field="DigitalInput[3]" type="Digital Input" class="edu.wpi.first.smartdashboard.livewindow.elements.DigitalInputDisplay">
-			<location x="6" y="56"/>
-			<height>20</height>
-			<width>86</width>
+			<location x="0" y="0"/>
+			<height>0</height>
+			<width>0</width>
+		</widget>
+		<widget field="DigitalInput[3]" type="Digital Input" class="edu.wpi.first.smartdashboard.livewindow.elements.DigitalInputDisplay">
+			<location x="0" y="0"/>
+			<height>0</height>
+			<width>0</width>
 		</widget>
 		<widget field="DigitalInput[5]" type="Digital Input" class="edu.wpi.first.smartdashboard.livewindow.elements.DigitalInputDisplay">
-			<location x="6" y="76"/>
-			<height>20</height>
-			<width>86</width>
+			<location x="0" y="0"/>
+			<height>0</height>
+			<width>0</width>
+		</widget>
+		<widget field="DigitalInput[5]" type="Digital Input" class="edu.wpi.first.smartdashboard.livewindow.elements.DigitalInputDisplay">
+			<location x="0" y="0"/>
+			<height>0</height>
+			<width>0</width>
 		</widget>
 		<widget field="DigitalInput[4]" type="Digital Input" class="edu.wpi.first.smartdashboard.livewindow.elements.DigitalInputDisplay">
-			<location x="6" y="96"/>
-			<height>20</height>
-			<width>86</width>
+			<location x="0" y="0"/>
+			<height>0</height>
+			<width>0</width>
+		</widget>
+		<widget field="DigitalInput[4]" type="Digital Input" class="edu.wpi.first.smartdashboard.livewindow.elements.DigitalInputDisplay">
+			<location x="0" y="0"/>
+			<height>0</height>
+			<width>0</width>
 		</widget>
 		<widget field="DigitalInput[6]" type="Digital Input" class="edu.wpi.first.smartdashboard.livewindow.elements.DigitalInputDisplay">
-			<location x="6" y="116"/>
-			<height>20</height>
-			<width>86</width>
+			<location x="0" y="0"/>
+			<height>0</height>
+			<width>0</width>
+		</widget>
+		<widget field="DigitalInput[6]" type="Digital Input" class="edu.wpi.first.smartdashboard.livewindow.elements.DigitalInputDisplay">
+			<location x="0" y="0"/>
+			<height>0</height>
+			<width>0</width>
 		</widget>
 		<widget field="DigitalInput[2]" type="Digital Input" class="edu.wpi.first.smartdashboard.livewindow.elements.DigitalInputDisplay">
-			<location x="6" y="136"/>
-			<height>20</height>
-			<width>86</width>
+			<location x="0" y="0"/>
+			<height>0</height>
+			<width>0</width>
+		</widget>
+		<widget field="DigitalInput[2]" type="Digital Input" class="edu.wpi.first.smartdashboard.livewindow.elements.DigitalInputDisplay">
+			<location x="0" y="0"/>
+			<height>0</height>
+			<width>0</width>
 		</widget>
 		<widget field="DigitalInput[7]" type="Digital Input" class="edu.wpi.first.smartdashboard.livewindow.elements.DigitalInputDisplay">
-			<location x="6" y="156"/>
-			<height>20</height>
-			<width>86</width>
+			<location x="0" y="0"/>
+			<height>0</height>
+			<width>0</width>
+		</widget>
+		<widget field="DigitalInput[7]" type="Digital Input" class="edu.wpi.first.smartdashboard.livewindow.elements.DigitalInputDisplay">
+			<location x="0" y="0"/>
+			<height>0</height>
+			<width>0</width>
 		</widget>
 		<location x="5" y="25"/>
 		<width>98</width>
 		<height>182</height>
 	</widget>
 </live-window>
-	<hidden field="UNLOCKED"/>
-	<hidden field="LOCKED"/>
+	<hidden field="CLIMG_LOCKED"/>
 </xml>
