@@ -27,7 +27,7 @@ public class Variables {
 
     private static final double kP_ELEVATOR = 0.0004, kI_ELEVATOR = 0.00000004, kD_ELEVATOR = 0.0009;
 
-    private static final double kP_MAST = 0.025, kI_MAST = 0.0, kD_MAST = 0.0;
+    private static final double kP_MAST = 0.00004, kI_MAST = 0.0, kD_MAST = 0.00003;
 
     private static final double kP_INTAKE = 0.001, kI_INTAKE = 0.0, kD_INTAKE = 0.0;
 
@@ -145,12 +145,16 @@ public class Variables {
     // CLIMB
 
     // climb positions
-    public static final int CLIMB_LEVEL_TWO = 0;
-    public static final int CLIMB_LEVEL_THREE = 0;
+    public static final double CLIMB_LEVEL_TWO = 0;
+    public static final double CLIMB_LEVEL_THREE = 0;
+
+    public static final double CLIMB_LEFT_SLOW_DOWN = 0;
+    public static final double CLIMB_RIGHT_SLOW_DOWN = 67.93026733398438;
+    public static final double CLIMB_REAR_SLOW_DOWN = 0;
 
     // climb position limits
-    public static final int CLIMB_MAX = 0;
-    public static final int CLIMB_MIN = 0;
+    public static final double CLIMB_MAX = 0;
+    public static final double CLIMB_MIN = 0;
 
     // climb speed limits
     public static final double CLIMB_MAX_SPEED_UP = 0.1;

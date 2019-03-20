@@ -13,19 +13,21 @@ import edu.wpi.first.wpilibj.command.Command;
 public class WristPosition extends Command {
     
     private int _target, _initial;
+    private boolean _run = true;
     
     public WristPosition(int target) {
         requires(Intake.getInstance());
-        if (target > 0) {
-            _initial = Intake.getInstance().getWristPosition();
-        } else {
-            _initial = target;
-        }
+        _initial = target;
     }
 
     @Override
     protected void initialize() {
-        _target = _initial;
+        if (_initial > 0) {
+            _target = Intake.getInstance().getWristPosition();
+            _run = false;
+        } else {
+            _target = _initial;
+        }
     }
 
     @Override
@@ -38,7 +40,7 @@ public class WristPosition extends Command {
     // Make this return true when this Command no longer needs to run execute()
     @Override
     protected boolean isFinished() {
-        return !Intake.getInstance().getAdjustingBool();
+        return (!Intake.getInstance().getAdjustingBool() || !_run);
     }
 
     @Override

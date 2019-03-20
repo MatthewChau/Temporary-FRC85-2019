@@ -14,19 +14,21 @@ import edu.wpi.first.wpilibj.command.Command;
 public class ElevatorPosition extends Command {
 
     private double _target, _initial;
+    private boolean _run = true;
 
     public ElevatorPosition(double target) {
         requires(Elevator.getInstance());
-        if (target < 0) {
-            _initial = Elevator.getInstance().getVerticalPosition();
-        } else {
-            _initial = target;
-        }
+        _initial = target;
     }
 
     @Override
     protected void initialize() {
-        _target = _initial;
+        if (_initial < 0) {
+            _target = Elevator.getInstance().getVerticalPosition();
+            _run = false;
+        } else {
+            _target = _initial;
+        }
     }
 
     @Override
@@ -39,7 +41,7 @@ public class ElevatorPosition extends Command {
     // Make this return true when this Command no longer needs to run execute()
     @Override
     protected boolean isFinished() {
-        return !Elevator.getInstance().getAdjustingBool();
+        return (!Elevator.getInstance().getAdjustingBool() || !_run);
     }
 
     @Override

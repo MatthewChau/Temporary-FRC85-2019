@@ -14,19 +14,21 @@ import edu.wpi.first.wpilibj.command.Command;
 public class MastPosition extends Command {
 
     private int _target, _initial;
+    private boolean _run = true;
 
     public MastPosition(int target) {
         requires(Mast.getInstance());
-        if (target < 0) {
-            _initial = Mast.getInstance().getHorizontalPosition();
-        } else {
-            _initial = target;
-        }
+        _initial = target;
     }
 
     @Override
     protected void initialize() {
-        _target = _initial;
+        if (_initial < 0) {
+            _target = Mast.getInstance().getHorizontalPosition();
+            _run = false;
+        } else {
+            _target = _initial;
+        }
     }
 
     @Override
@@ -39,7 +41,7 @@ public class MastPosition extends Command {
     // Make this return true when this Command no longer needs to run execute()
     @Override
     protected boolean isFinished() {
-        return !Mast.getInstance().getAdjustingBool();
+        return (!Mast.getInstance().getAdjustingBool() || !_run);
     }
 
     @Override

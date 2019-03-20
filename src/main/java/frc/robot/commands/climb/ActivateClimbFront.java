@@ -18,6 +18,7 @@ public class ActivateClimbFront extends Command {
     public ActivateClimbFront(double speed) {
         requires(ClimbFront.getInstance());
         _speed = speed;
+        _timeout = 20;
     }
 
     public ActivateClimbFront(double speed, double seconds) {
