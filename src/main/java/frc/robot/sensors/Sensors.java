@@ -18,6 +18,8 @@ import frc.robot.subsystems.ClimbRear;
 import frc.robot.subsystems.Mast;
 import frc.robot.subsystems.Intake;
 
+import edu.wpi.first.wpilibj.Timer;
+
 public class Sensors extends Subsystem {
 
     private static Sensors _instance = null;
@@ -26,6 +28,7 @@ public class Sensors extends Subsystem {
     private DigitalInput _intakeTopLimit;
 
     private DigitalInput _climbLeftLimit, _climbRightLimit, _climbRearLimit;
+    Timer timer = new Timer();
 
     private Sensors() {
         _liftTopLimit = new DigitalInput(Addresses.LIFT_TOP_LIMIT);
@@ -40,6 +43,7 @@ public class Sensors extends Subsystem {
         _climbLeftLimit = new DigitalInput(Addresses.CLIMB_LEFT_LIMIT);
         _climbRightLimit = new DigitalInput(Addresses.CLIMB_RIGHT_LIMIT);
         _climbRearLimit = new DigitalInput(Addresses.CLIMB_REAR_LIMIT);
+        startTimer();
     }
 
     public static Sensors getInstance() {
@@ -51,6 +55,18 @@ public class Sensors extends Subsystem {
 
     @Override
     public void initDefaultCommand() {
+    }
+
+    public void startTimer() {
+        timer.start();
+    }
+
+    public void resetTimer() {
+        timer.reset();
+    }
+
+    public void stopTimer() {
+        timer.stop();
     }
 
     public boolean getLiftTopLimit() {
@@ -103,7 +119,11 @@ public class Sensors extends Subsystem {
         }
 
         if (getClimbRightLimit()) {
-            ClimbFront.getInstance().setClimbRightPosition(0);
+            if (timer.get() > 1.0) {
+                ClimbFront.getInstance().setClimbRightPosition(0);
+            }
+        } else {
+            timer.reset();
         }
 
         if (getClimbLeftLimit()) {
