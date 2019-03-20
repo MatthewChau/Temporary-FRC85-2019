@@ -49,26 +49,41 @@ public class ClimbFront extends Subsystem {
                                                   Variables.getInstance().getClimbMaxSpeedUp() / 3,
                                                   Variables.getInstance().getClimbMaxSpeedDown() / 3);
 
-        if (Sensors.getInstance().getClimbLeftLimit() || Sensors.getInstance().getClimbRightLimit()) {
-            speed = 0;
-            modify = 0;
+        double speedLeft;
+        double speedRight;
+
+        // roll is positive clockwise
+
+        if (modify > 0) {
+            speedLeft = speed;
+            speedRight = speed - modify;
+        } else {
+            speedLeft = speed + modify;
+            speedRight = speed; // bc modify will be negative
+        }
+
+        if (Sensors.getInstance().getClimbLeftLimit() && speedLeft > 0) {
+            speedLeft = 0;
+        }
+
+        if (Sensors.getInstance().getClimbRightLimit() && speedRight > 0) {
+            speedRight = 0;
         }
     
-        setClimbLeftMotor(speed);
-        setClimbRightMotor(speed - modify);
+        setClimbLeftMotor(speedLeft);
+        setClimbRightMotor(speedRight);
     }
 
-    /* aight friendos let's talk about how dumb this is going to be
-       basically we need a pid loop to keep us stable
-       one between front and back
-       one between left and right
-    */
+    /*public boolean leftSoftLimits() {
+        if (getClimbLeftPosition() > Variables.MAX_NEO_POS) {
+            return true;
+        }
+        if () {
+            return true;
+        }
+    }*/
 
     public void setClimbLeftMotor(double speed) {
-        if (Sensors.getInstance().getClimbLeftLimit() || Sensors.getInstance().getClimbRightLimit()) {
-            speed = 0;
-        }
-
         _climbFrontMotorLeft.set(speed);
     }
 
@@ -77,8 +92,18 @@ public class ClimbFront extends Subsystem {
     }
 
     public void setClimbFrontMotors(double speed) {
-        _climbFrontMotorLeft.set(speed);
-        _climbFrontMotorRight.set(speed);
+        double speedLeft = speed;
+        double speedRight = speed;
+
+        if (Sensors.getInstance().getClimbLeftLimit() && speedLeft < 0) {
+            speedLeft = 0;
+        }
+
+        if (Sensors.getInstance().getClimbRightLimit() && speedRight < 0) {
+            speedRight = 0;
+        }
+        _climbFrontMotorLeft.set(speedLeft);
+        _climbFrontMotorRight.set(speedRight);
     }
 
     public double getClimbLeftPosition() {

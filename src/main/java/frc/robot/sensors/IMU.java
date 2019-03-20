@@ -84,12 +84,12 @@ public class IMU {
 
     public double getPitch() {
         _ypr = getYPR();
-        return _ypr[1] - _initialYPR[1];
+        return _ypr[2] - _initialYPR[2];
     }
 
     public double getRoll() {
         _ypr = getYPR();
-        return _ypr[2] - _initialYPR[2];
+        return _ypr[1] - _initialYPR[1];
     }
 
 }

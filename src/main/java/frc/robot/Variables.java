@@ -405,10 +405,16 @@ public class Variables {
         SmartDashboard.putBoolean("Rear Prox Sensor", Sensors.getInstance().getLiftRearLimit());
         SmartDashboard.putBoolean("Intake Top Prox Sensor", Sensors.getInstance().getIntakeTopLimit());
 
+        // Climb
+
         SmartDashboard.putNumber("Front Climb Left Position", ClimbFront.getInstance().getClimbLeftPosition());
         SmartDashboard.putNumber("Front Climb Right Position", ClimbFront.getInstance().getClimbRightPosition());
 
         SmartDashboard.putNumber("Rear Climb Position", ClimbRear.getInstance().getClimbRearPosition());
+
+        SmartDashboard.putBoolean("Front Climb Left Limit Switch", Sensors.getInstance().getClimbLeftLimit());
+        SmartDashboard.putBoolean("Front Climb Right Limit Switch", Sensors.getInstance().getClimbRightLimit());
+        SmartDashboard.putBoolean("Rear Climb Limit Switch", Sensors.getInstance().getClimbRearLimit());
 
         // IMU
 

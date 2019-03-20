@@ -32,4 +32,9 @@ public class ActivateIntake extends Command {
         return true;
     }
 
+    @Override
+    protected void interrupted() {
+        Intake.getInstance().setRoller(0.0);
+    }
+
 }
