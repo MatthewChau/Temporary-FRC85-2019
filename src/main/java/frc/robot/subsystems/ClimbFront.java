@@ -59,14 +59,24 @@ public class ClimbFront extends Subsystem {
             speedRight = speed - modify;
         } else {
             speedLeft = speed + modify;
-            speedRight = speed; // bc modify will be negative
+            speedRight = speed;
         }
 
-        if (Sensors.getInstance().getClimbLeftLimit() && speedLeft > 0) {
+        if (getClimbLeftPosition() > Variables.CLIMB_LEFT_SLOW_DOWN) {
+            speedLeft *= 0.05;
+        }
+
+        if (getClimbRightPosition() > Variables.CLIMB_RIGHT_SLOW_DOWN) {
+            speedRight *= 0.05;
+        }
+
+        if (Sensors.getInstance().getClimbLeftLimit() && speedLeft < 0
+            || leftSoftLimits(speedLeft)) {
             speedLeft = 0;
         }
 
-        if (Sensors.getInstance().getClimbRightLimit() && speedRight > 0) {
+        if (Sensors.getInstance().getClimbRightLimit() && speedRight < 0
+            || rightSoftLimits(speedRight)) {
             speedRight = 0;
         }
     
@@ -74,14 +84,25 @@ public class ClimbFront extends Subsystem {
         setClimbRightMotor(speedRight);
     }
 
-    /*public boolean leftSoftLimits() {
-        if (getClimbLeftPosition() > Variables.MAX_NEO_POS) {
+    public boolean leftSoftLimits(double speed) {
+        if (getClimbLeftPosition() > Variables.CLIMB_MAX && speed > 0) {
             return true;
         }
-        if () {
+        if (getClimbLeftPosition() < Variables.CLIMB_MIN && speed < 0) {
             return true;
         }
-    }*/
+        return false;
+    }
+
+    public boolean rightSoftLimits(double speed) {
+        if (getClimbRightPosition() > Variables.CLIMB_MAX && speed > 0) {
+            return true;
+        }
+        if (getClimbRightPosition() < Variables.CLIMB_MIN && speed < 0) {
+            return true;
+        }
+        return false;
+    }
 
     public void setClimbLeftMotor(double speed) {
         _climbFrontMotorLeft.set(speed);
@@ -102,6 +123,7 @@ public class ClimbFront extends Subsystem {
         if (Sensors.getInstance().getClimbRightLimit() && speedRight < 0) {
             speedRight = 0;
         }
+
         _climbFrontMotorLeft.set(speedLeft);
         _climbFrontMotorRight.set(speedRight);
     }

@@ -72,7 +72,8 @@ public class ClimbRear extends Subsystem {
             rearSpeed = 0;
         }
 
-        if (getServo() == Variables.getInstance().getClimbLocked()) {
+        if (getServo() == Variables.getInstance().getClimbLocked()
+            || softLimits(speed)) {
             rearSpeed = 0;
         }
 
@@ -89,6 +90,16 @@ public class ClimbRear extends Subsystem {
         //}
         
         _climbRearMotor.set(speed);
+    }
+
+    private boolean softLimits(double speed) {
+        if (getClimbRearPosition() > Variables.CLIMB_MAX && speed > 0) {
+            return true;
+        }
+        if (getClimbRearPosition() < Variables.CLIMB_MIN && speed < 0) {
+            return true;
+        }
+        return false;
     }
 
     public double getClimbRearPosition() {
