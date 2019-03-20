@@ -28,7 +28,9 @@ public class Sensors extends Subsystem {
     private DigitalInput _intakeTopLimit;
 
     private DigitalInput _climbLeftLimit, _climbRightLimit, _climbRearLimit;
-    Timer timer = new Timer();
+    private Timer rightTimer = new Timer();
+    private Timer leftTimer = new Timer();
+    private Timer rearTimer = new Timer();
 
     private Sensors() {
         _liftTopLimit = new DigitalInput(Addresses.LIFT_TOP_LIMIT);
@@ -43,7 +45,6 @@ public class Sensors extends Subsystem {
         _climbLeftLimit = new DigitalInput(Addresses.CLIMB_LEFT_LIMIT);
         _climbRightLimit = new DigitalInput(Addresses.CLIMB_RIGHT_LIMIT);
         _climbRearLimit = new DigitalInput(Addresses.CLIMB_REAR_LIMIT);
-        startTimer();
     }
 
     public static Sensors getInstance() {
@@ -57,16 +58,52 @@ public class Sensors extends Subsystem {
     public void initDefaultCommand() {
     }
 
-    public void startTimer() {
-        timer.start();
+    public void startTimers() {
+        startRightTimer();
+        startLeftTimer();
+        startRearTimer();
     }
 
-    public void resetTimer() {
-        timer.reset();
+    public void stopTimers() {
+        stopRightTimer();
+        stopLeftTimer();
+        stopRearTimer();
     }
 
-    public void stopTimer() {
-        timer.stop();
+    public void startRightTimer() {
+        rightTimer.start();
+    }
+
+    public void resetRightTimer() {
+        rightTimer.reset();
+    }
+
+    public void stopRightTimer() {
+        rightTimer.stop();
+    }
+
+    public void startLeftTimer() {
+        leftTimer.start();
+    }
+
+    public void resetLeftTimer() {
+        leftTimer.reset();
+    }
+
+    public void stopLeftTimer() {
+        leftTimer.stop();
+    }
+
+    public void startRearTimer() {
+        rearTimer.start();
+    }
+
+    public void resetRearTimer() {
+        rearTimer.reset();
+    }
+
+    public void stopRearTimer() {
+        rearTimer.stop();
     }
 
     public boolean getLiftTopLimit() {
@@ -119,19 +156,27 @@ public class Sensors extends Subsystem {
         }
 
         if (getClimbRightLimit()) {
-            if (timer.get() > 1.0) {
+            if (rightTimer.get() > 0.2) {
                 ClimbFront.getInstance().setClimbRightPosition(0);
             }
         } else {
-            timer.reset();
+            resetRightTimer();
         }
 
         if (getClimbLeftLimit()) {
-            ClimbFront.getInstance().setClimbLeftPosition(0);
+            if (leftTimer.get() > 0.2) {
+                ClimbFront.getInstance().setClimbLeftPosition(0);
+            }
+        } else {
+            resetLeftTimer();
         }
 
         if (getClimbRearLimit()) {
-            ClimbRear.getInstance().setClimbRearPosition(0);
+            if (rearTimer.get() > 0.2) {
+                ClimbRear.getInstance().setClimbRearPosition(0);
+            }
+        } else {
+            resetRearTimer();
         }
     }
 

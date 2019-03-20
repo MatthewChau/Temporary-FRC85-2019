@@ -9,6 +9,8 @@ package frc.robot;
 
 import frc.robot.sensors.IMU;
 import frc.robot.sensors.Sensors;
+import frc.robot.subsystems.ClimbRear;
+import frc.robot.subsystems.ClimbFront;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Interruptable;
@@ -58,6 +60,9 @@ public class Robot extends TimedRobot {
         Vision.getInstance();
         Interruptable.getInstance();
         Spike.getInstance();
+        ClimbRear.getInstance();
+        ClimbFront.getInstance();
+        Sensors.getInstance();
 
         _diagnostics = new Diagnostics();
     }
@@ -107,6 +112,8 @@ public class Robot extends TimedRobot {
         Arrays.fill(OI.getInstance().lastActual, 0.0);
         
         Arrays.fill(OI.getInstance().stopArray, 0.0);
+
+        Sensors.getInstance().startTimers();
     }
 
     /**
@@ -136,6 +143,7 @@ public class Robot extends TimedRobot {
         Elevator.getInstance().setTargetPosition(Elevator.getInstance().getVerticalPosition());
         Mast.getInstance().setTargetPosition(Mast.getInstance().getHorizontalPosition());
         Intake.getInstance().setTargetPos(Intake.getInstance().getWristPosition());
+        Sensors.getInstance().stopTimers();
 
         _diagnostics.close();
     }
