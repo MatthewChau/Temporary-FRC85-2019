@@ -96,7 +96,7 @@ public class Variables {
     public static final double ELEVATOR_MIN_SPEED = -.2;
 
     // Servo angles for elevator lock (clutch)
-    public static final double ELEVATOR_LOCKED = 80;
+    public static final double ELEVATOR_LOCKED = 60;
     public static final double ELEVATOR_UNLOCKED = 180;
 
     // MAST

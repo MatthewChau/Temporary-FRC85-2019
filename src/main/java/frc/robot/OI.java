@@ -149,37 +149,37 @@ public class OI {
         //_operatorHatchTwo.whenPressed(new ActivateClimbFront(-0.3));
         //_operatorHatchTwo.whenReleased(new ActivateClimbFront(0.0));
         _operatorHatchOne = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_HATCH_ONE);
-        _operatorHatchOne = new JoystickButton(_operatorJoystick, AddressesOpJoystick.OPERATOR_HATCH_ONE);
+        //_operatorHatchOne = new JoystickButton(_operatorJoystick, AddressesOpJoystick.OPERATOR_HATCH_ONE);
         _operatorHatchOne.whenPressed(new Place(Variables.HATCH_ONE, Variables.WRIST_0, Variables.MAST_FORWARD_POS));
         _operatorHatchOne.whenReleased(new Place(Variables.HATCH_ONE, Variables.WRIST_0, Variables.MAST_CURRENT_POS));
 
         // white
         _operatorElevator = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_ELEVATOR);
-        _operatorElevator = new JoystickButton(_operatorJoystick, AddressesOpJoystick.OPERATOR_ELEVATOR);
+        //_operatorElevator = new JoystickButton(_operatorJoystick, AddressesOpJoystick.OPERATOR_ELEVATOR);
         _operatorElevator.whenPressed(new Interrupt());
         _operatorElevator.whenPressed(new ElevatorWithJoystick());
         _operatorRollerIn = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_ROLLER_IN);
-        _operatorRollerIn = new JoystickButton(_operatorJoystick, AddressesOpJoystick.OPERATOR_ROLLER_IN);
+        //_operatorRollerIn = new JoystickButton(_operatorJoystick, AddressesOpJoystick.OPERATOR_ROLLER_IN);
         _operatorRollerIn.whenPressed(new ActivateIntake(Variables.ROLLER_IN));
         _operatorRollerIn.whenReleased(new ActivateIntake(0));
         _operatorCargoShip = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_CARGO_SHIP);
         _operatorCargoShip.whenPressed(new Place(Variables.CARGO_SHIP, Variables.WRIST_90, Variables.MAST_FORWARD_FOR_CARGO));
         _operatorCargoShip.whenPressed(new Place(Variables.CARGO_SHIP, Variables.WRIST_90, Variables.MAST_CURRENT_POS));
         _operatorRollerOut = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_CARGO_OUT);
-        _operatorRollerOut = new JoystickButton(_operatorJoystick, AddressesOpJoystick.OPERATOR_CARGO_OUT);
+        //_operatorRollerOut = new JoystickButton(_operatorJoystick, AddressesOpJoystick.OPERATOR_CARGO_OUT);
         _operatorRollerOut.whenPressed(new ActivateIntake(Variables.ROLLER_OUT));
         _operatorRollerOut.whenReleased(new ActivateIntake(0));
         _operatorCargoFloor = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_CARGO_FLOOR);
         _operatorCargoFloor.whenPressed(new CargoGroundOne());
         _operatorCargoFloor.whenReleased(new CargoGroundTwo());
         _operatorCargoThree = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_CARGO_THREE);
-        _operatorCargoThree = new JoystickButton(_operatorJoystick, AddressesOpJoystick.OPERATOR_CARGO_THREE);
+        //_operatorCargoThree = new JoystickButton(_operatorJoystick, AddressesOpJoystick.OPERATOR_CARGO_THREE);
         // _operatorCargoThree.whenPressed(new Place(Variables.CARGO_THREE,
         // Variables.WRIST_CARGO_HIGH, Variables.MAST_FORWARD_FOR_CARGO));
         // _operatorCargoThree.whenReleased(new Place(Variables.CARGO_THREE,
         // Variables.WRIST_CARGO_HIGH, Variables.MAST_CURRENT_POS));
         _operatorCargoTwo = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_CARGO_TWO);
-        _operatorCargoTwo = new JoystickButton(_operatorJoystick, AddressesOpJoystick.OPERATOR_CARGO_TWO);
+        //_operatorCargoTwo = new JoystickButton(_operatorJoystick, AddressesOpJoystick.OPERATOR_CARGO_TWO);
         // _operatorCargoTwo.whenPressed(new Place(Variables.CARGO_TWO,
         // Variables.WRIST_CARGO, Variables.MAST_FORWARD_FOR_CARGO));
         // _operatorCargoTwo.whenReleased(new Place(Variables.CARGO_TWO,
@@ -189,7 +189,7 @@ public class OI {
         _operatorCargoTwo.whenPressed(new ActivateClimbRear(-0.3));
         _operatorCargoTwo.whenReleased(new ActivateClimbRear(0.0));
         _operatorCargoOne = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_CARGO_ONE);
-        _operatorCargoOne = new JoystickButton(_operatorJoystick, AddressesOpJoystick.OPERATOR_CARGO_ONE);
+        //_operatorCargoOne = new JoystickButton(_operatorJoystick, AddressesOpJoystick.OPERATOR_CARGO_ONE);
         _operatorCargoOne.whenPressed(new Place(Variables.CARGO_ONE, Variables.WRIST_CARGO, Variables.MAST_FORWARD_FOR_CARGO));
         _operatorCargoOne.whenReleased(new Place(Variables.CARGO_ONE, Variables.WRIST_CARGO, Variables.MAST_CURRENT_POS));
 
