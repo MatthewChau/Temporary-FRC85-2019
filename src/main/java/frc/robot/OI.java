@@ -574,6 +574,7 @@ public class OI {
         // the proportional stuff just kinda exists, the initial correction
         termP = kP * error;
 
+        // initialize each system
         if (firstRun[system]) {
             lastActual[system] = current;
             firstRun[system] = false;
@@ -583,21 +584,19 @@ public class OI {
             return 0.0;
         }
 
-        // slow down correction if it's doing the right thing (in an effort to prevent
-        // major overshooting)
-        // formula: -kD * change in read, "change in read" being the instant derivative
-        // at that point in time
+        // slow down correction if it's doing the right thing (in an effort to prevent major overshooting)
+        // formula: -kD * change in read, "change in read" being the instant derivative at that point in time
         termD = -kD * (current - lastActual[system]);
         lastActual[system] = current;
 
-        // because the I term is the area under the curve, it gets a higher weight if
-        // it's been going on for a longer time, hence the errorSum
+        // because the I term is the area under the curve, it gets a higher weight if it's been going on for a longer time, hence the errorSum
         // formula: kI * errorSum (sum of all previous errors)
         termI = kI * errorSum[system];
 
+        // finally add everything together
         output = termP + termI + termD;
 
-        if (outputMax != outputMin) { // if we decide to use mins/maxes on outputs, then we can
+        if (outputMax != outputMin) { // if we decide to use mins/maxes on outputs
             if (output > outputMax) {
                 output = outputMax;
             } else if (output < outputMin) {
@@ -605,9 +604,9 @@ public class OI {
             }
         }
 
-        lastOutput[system] = output;
+        lastOutput[system] = output; // log the last output for speed checking purposes
 
-        logErrorForIntegral(system, error);
+        logErrorForIntegral(system, error); // log the new error for the integral
 
         debugMessages(system, current, error, target, output); // made a new method so as not to clog up this method
 
