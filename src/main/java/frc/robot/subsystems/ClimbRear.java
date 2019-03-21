@@ -31,12 +31,16 @@ public class ClimbRear extends Subsystem {
 
     private double _servoAngle;
 
+    private double targetPosition;
+    private boolean adjusting = false;
+    private boolean bothAdjusting = false;
+
     private ClimbRear() {
         _climbRearMotor = new CANSparkMax(Addresses.CLIMB_REAR_MOTOR, CANSparkMaxLowLevel.MotorType.kBrushless);
         _climbRearMotor.setIdleMode(IdleMode.kBrake);
         //_climbRearMotor.setSmartCurrentLimit(0, 5700, 3000);
         _climbRearDriveMotor = new TalonSRX(Addresses.CLIMB_REAR_DRIVE);
-        _climbRearDriveMotor.setNeutralMode(NeutralMode.Coast);
+        _climbRearDriveMotor.setNeutralMode(NeutralMode.Brake);
         _climbRearDriveMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
 
         _climbServo = new Servo(Addresses.CLIMB_SERVO);
@@ -51,7 +55,7 @@ public class ClimbRear extends Subsystem {
 
     @Override
     public void initDefaultCommand() {
-        //setDefaultCommand(new ClimbRearLock());
+        setDefaultCommand(new ClimbRearLock());
     }
     
     // CLIMB MOTOR
@@ -63,16 +67,30 @@ public class ClimbRear extends Subsystem {
                                                   Variables.getInstance().getClimbkP(), 
                                                   Variables.getInstance().getClimbkI(), 
                                                   Variables.getInstance().getClimbkD(),
-                                                  Variables.getInstance().getClimbMaxSpeedUp() / 3,
-                                                  Variables.getInstance().getClimbMaxSpeedDown() / 3);
+                                                  Variables.getInstance().getClimbMaxSpeedUp() / 2,
+                                                  Variables.getInstance().getClimbMaxSpeedDown() / 2);
+        double rearSpeed;
 
-        double rearSpeed = speed - modify; // pitch is positive down
-
-        if (Sensors.getInstance().getClimbRearLimit() && speed < 0) {
-            rearSpeed = 0;
+        if (adjusting || bothAdjusting) {
+            speed = OI.getInstance().applyPID(OI.CLIMB_POS_SYSTEM,
+                                              getClimbRearPosition(),
+                                              targetPosition,
+                                              Variables.getInstance().getClimbPoskP(),
+                                              Variables.getInstance().getClimbPoskI(),
+                                              Variables.getInstance().getClimbPoskD(),
+                                              Variables.getInstance().getClimbMaxSpeedUp(),
+                                              Variables.getInstance().getClimbMaxSpeedDown());
         }
 
-        if (getServo() == Variables.getInstance().getClimbLocked()
+        rearSpeed = speed + modify; // pitch is positive down
+
+        if ((getClimbRearPosition() < Variables.CLIMB_REAR_SLOW_DOWN_MIN && rearSpeed < 0)
+            || (getClimbRearPosition() > Variables.CLIMB_LEFT_SLOW_DOWN_MAX && rearSpeed > 0)) {
+            rearSpeed *= 0.1;
+        }
+
+        if (/*getServo() == Variables.getInstance().getClimbLocked()
+            || */(Sensors.getInstance().getClimbRearLimit() && speed < 0)
             || softLimits(speed)) {
             rearSpeed = 0;
         }
@@ -81,22 +99,26 @@ public class ClimbRear extends Subsystem {
     }
 
     public void setClimbRearMotor(double speed) {
-        if (Sensors.getInstance().getClimbRearLimit() && speed < 0) {
-            speed = 0;
+
+        if ((getClimbRearPosition() < Variables.CLIMB_REAR_SLOW_DOWN_MIN && speed < 0)
+            || (getClimbRearPosition() > Variables.CLIMB_LEFT_SLOW_DOWN_MAX && speed > 0)) {
+            speed *= 0.1;
         }
 
-        //if (getServo() == Variables.getInstance().getClimbLocked()) {
-        //    speed = 0;
-        //}
+        if (getServo() == Variables.getInstance().getClimbLocked()
+            || Sensors.getInstance().getClimbRearLimit() && speed < 0
+            || softLimits(speed)) {
+            speed = 0;
+        }
         
         _climbRearMotor.set(speed);
     }
 
     private boolean softLimits(double speed) {
-        if (getClimbRearPosition() > Variables.CLIMB_MAX && speed > 0) {
+        if (getClimbRearPosition() > Variables.CLIMB_REAR_MAX && speed > 0) {
             return true;
         }
-        if (getClimbRearPosition() < Variables.CLIMB_MIN && speed < 0) {
+        if (getClimbRearPosition() < 0 && speed < 0) {
             return true;
         }
         return false;
@@ -129,12 +151,36 @@ public class ClimbRear extends Subsystem {
     }
 
     public void setServo(double angle) {
-        _climbServo.set(angle);
+        _climbServo.setAngle(angle);
         _servoAngle = angle;
     }
 
     public double getServo() {
         return _servoAngle;
+    }
+
+    public void setTargetPosition(double target) {
+        targetPosition = target;
+    }
+
+    public double getTargetPosition() {
+        return targetPosition;
+    }
+
+    public void setAdjustingBool(boolean bool) {
+        adjusting = bool;
+    }
+
+    public boolean getAdjustingBool() {
+        return adjusting;
+    }
+
+    public void setBothAdjustingBool(boolean bool) { // set front adjusting bool to get the front to adjust with this
+        bothAdjusting = bool;
+    }
+
+    public boolean getBothAdjustingBool() {
+        return bothAdjusting;
     }
 
 }

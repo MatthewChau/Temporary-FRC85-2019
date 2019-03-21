@@ -135,7 +135,7 @@ public class Sensors extends Subsystem {
     }
 
     public boolean getClimbLeftLimit() {
-        return !_climbLeftLimit.get();
+        return _climbLeftLimit.get();
     }
 
     public boolean getClimbRearLimit() {
@@ -156,7 +156,7 @@ public class Sensors extends Subsystem {
         }
 
         if (getClimbRightLimit()) {
-            if (rightTimer.get() > 0.2) {
+            if (rightTimer.get() > 0.5) {
                 ClimbFront.getInstance().setClimbRightPosition(0);
             }
         } else {
@@ -164,7 +164,7 @@ public class Sensors extends Subsystem {
         }
 
         if (getClimbLeftLimit()) {
-            if (leftTimer.get() > 0.2) {
+            if (leftTimer.get() > 0.5) {
                 ClimbFront.getInstance().setClimbLeftPosition(0);
             }
         } else {
@@ -172,7 +172,7 @@ public class Sensors extends Subsystem {
         }
 
         if (getClimbRearLimit()) {
-            if (rearTimer.get() > 0.2) {
+            if (rearTimer.get() > 0.5) {
                 ClimbRear.getInstance().setClimbRearPosition(0);
             }
         } else {

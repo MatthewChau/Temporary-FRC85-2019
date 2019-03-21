@@ -8,6 +8,7 @@
 package frc.robot.commands.climb;
 
 import frc.robot.Variables;
+import frc.robot.OI;
 import frc.robot.sensors.Sensors;
 import frc.robot.subsystems.ClimbRear;
 
@@ -23,16 +24,13 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class setClimbRearLock extends Command {
 
-    double _angle;
-
-    public setClimbRearLock(double angle) {
+    public setClimbRearLock() {
         requires(ClimbRear.getInstance());
-        _angle = angle;
     }
 
     @Override
     protected void initialize() {
-        ClimbRear.getInstance().setServo(_angle);
+        ClimbRear.getInstance().setServo(Variables.getInstance().getClimbLocked());
     }
 
     @Override
@@ -41,11 +39,12 @@ public class setClimbRearLock extends Command {
 
     @Override
     protected boolean isFinished() {
-        return true;
+        return !OI.getInstance().getOperatorClimbAuto();
     }
 
     @Override 
     protected void end() {
+        ClimbRear.getInstance().setServo(Variables.getInstance().getClimbUnlocked());
     }
 
 }

@@ -8,7 +8,8 @@
 package frc.robot;
 
 import frc.robot.Variables;
-
+import frc.robot.subsystems.ClimbFront;
+import frc.robot.subsystems.ClimbRear;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.Mast;
@@ -36,6 +37,7 @@ import frc.robot.commands.climb.ClimbFrontWithJoystick;
 import frc.robot.commands.climb.ClimbRearLock;
 import frc.robot.commands.climb.ClimbRearWithJoystick;
 import frc.robot.commands.climb.setClimbRearLock;
+import frc.robot.commands.climb.MoveClimbPosition;
 import frc.robot.commands.driverassistance.Place;
 import frc.robot.commands.driverassistance.CargoStationOne;
 import frc.robot.commands.driverassistance.CargoStationTwo;
@@ -91,7 +93,9 @@ public class OI {
     public static final int VISION_Y_SYSTEM = 4;
     public static final int VISION_ROT_SYSTEM = 5;
     public static final int CLIMB_SYSTEM = 6;
-    public static final int INTAKE_SYSTEM = 7;
+    public static final int CLIMB_POS_SYSTEM = 7;
+    public static final int CLIMB_PITCH_SYSTEM = 8;
+    public static final int INTAKE_SYSTEM = 9;
 
     private int NUM_LOG_ENTRIES = 5;
 
@@ -124,16 +128,15 @@ public class OI {
         _operatorHatchFloor.whenPressed(new HatchGroundOne());
         _operatorHatchFloor.whenReleased(new HatchGroundTwo());
         _operatorHatchThree = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_HATCH_THREE);
-        _operatorHatchThree.whenPressed(new Place(Variables.HATCH_THREE, Variables.WRIST_0, Variables.MAST_FORWARD_POS));
-        _operatorHatchThree.whenReleased(new Place(Variables.HATCH_THREE, Variables.WRIST_0, Variables.MAST_CURRENT_POS));
+        //_operatorHatchThree.whenPressed(new Place(Variables.HATCH_THREE, Variables.WRIST_0, Variables.MAST_FORWARD_POS));
+        //_operatorHatchThree.whenReleased(new Place(Variables.HATCH_THREE, Variables.WRIST_0, Variables.MAST_CURRENT_POS));
         _operatorHatchTwo = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_HATCH_TWO);
-        _operatorHatchTwo.whenPressed(new Place(Variables.HATCH_TWO, Variables.WRIST_0, Variables.MAST_FORWARD_POS));
-        _operatorHatchTwo.whenReleased(new Place(Variables.HATCH_TWO, Variables.WRIST_0, Variables.MAST_CURRENT_POS));
-        //_operatorHatchThree.whenPressed(new ActivateClimbFront(0.3));
-        //_operatorHatchThree.whenReleased(new ActivateClimbFront(0.0));
-        //_operatorHatchTwo.whenPressed(new ActivateClimbFront(-0.3));
-        //_operatorHatchTwo.whenReleased(new ActivateClimbFront(0.0));
-        //_operatorHatchTwo.whenPressed(new Place(Variables.HATCH_TWO, Variables.WRIST_0));
+        //_operatorHatchTwo.whenPressed(new Place(Variables.HATCH_TWO, Variables.WRIST_0, Variables.MAST_FORWARD_POS));
+        //_operatorHatchTwo.whenReleased(new Place(Variables.HATCH_TWO, Variables.WRIST_0, Variables.MAST_CURRENT_POS));
+        _operatorHatchThree.whenPressed(new ActivateClimbFront(0.3));
+        _operatorHatchThree.whenReleased(new ActivateClimbFront(0.0));
+        _operatorHatchTwo.whenPressed(new ActivateClimbFront(-0.3));
+        _operatorHatchTwo.whenReleased(new ActivateClimbFront(0.0));
         _operatorHatchOne = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_HATCH_ONE);
         _operatorHatchOne.whenPressed(new Place(Variables.HATCH_ONE, Variables.WRIST_0, Variables.MAST_FORWARD_POS));
         _operatorHatchOne.whenReleased(new Place(Variables.HATCH_ONE, Variables.WRIST_0, Variables.MAST_CURRENT_POS));
@@ -155,15 +158,15 @@ public class OI {
         _operatorCargoFloor.whenPressed(new CargoGroundOne());
         _operatorCargoFloor.whenReleased(new CargoGroundTwo());
         _operatorCargoThree = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_CARGO_THREE);
-        _operatorCargoThree.whenPressed(new Place(Variables.CARGO_THREE, Variables.WRIST_CARGO_HIGH, Variables.MAST_FORWARD_FOR_CARGO));
-        _operatorCargoThree.whenReleased(new Place(Variables.CARGO_THREE, Variables.WRIST_CARGO_HIGH, Variables.MAST_CURRENT_POS));
+        //_operatorCargoThree.whenPressed(new Place(Variables.CARGO_THREE, Variables.WRIST_CARGO_HIGH, Variables.MAST_FORWARD_FOR_CARGO));
+        //_operatorCargoThree.whenReleased(new Place(Variables.CARGO_THREE, Variables.WRIST_CARGO_HIGH, Variables.MAST_CURRENT_POS));
         _operatorCargoTwo = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_CARGO_TWO);
-        _operatorCargoTwo.whenPressed(new Place(Variables.CARGO_TWO, Variables.WRIST_CARGO, Variables.MAST_FORWARD_FOR_CARGO));
-        _operatorCargoTwo.whenReleased(new Place(Variables.CARGO_TWO, Variables.WRIST_CARGO, Variables.MAST_CURRENT_POS));
-        /*_operatorCargoThree.whenPressed(new ActivateClimbRear(0.3));
+        //_operatorCargoTwo.whenPressed(new Place(Variables.CARGO_TWO, Variables.WRIST_CARGO, Variables.MAST_FORWARD_FOR_CARGO));
+        //_operatorCargoTwo.whenReleased(new Place(Variables.CARGO_TWO, Variables.WRIST_CARGO, Variables.MAST_CURRENT_POS));
+        _operatorCargoThree.whenPressed(new ActivateClimbRear(0.3));
         _operatorCargoThree.whenReleased(new ActivateClimbRear(0.0));
         _operatorCargoTwo.whenPressed(new ActivateClimbRear(-0.3));
-        _operatorCargoTwo.whenReleased(new ActivateClimbRear(0.0));*/
+        _operatorCargoTwo.whenReleased(new ActivateClimbRear(0.0));
         _operatorCargoOne = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_CARGO_ONE);
         _operatorCargoOne.whenPressed(new Place(Variables.CARGO_ONE, Variables.WRIST_CARGO, Variables.MAST_FORWARD_FOR_CARGO));
         _operatorCargoOne.whenReleased(new Place(Variables.CARGO_ONE, Variables.WRIST_CARGO, Variables.MAST_CURRENT_POS));
@@ -174,8 +177,8 @@ public class OI {
         _operatorClimbRear = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_CLIMB_REAR);
         //_operatorClimbRear.whenPressed(new ClimbRearWithJoystick());
         _operatorClimbAuto = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_CLIMB_AUTO);
-        _operatorClimbAuto.whenPressed(new setClimbRearLock(Variables.getInstance().CLIMB_LOCKED));
-        _operatorClimbAuto.whenReleased(new setClimbRearLock(Variables.getInstance().CLIMB_UNLOCKED));
+        //_operatorClimbAuto.whenPressed(new setClimbRearLock());
+        _operatorClimbAuto.whenPressed(new MoveClimbPosition(Variables.CLIMB_REAR_LEVEL_THREE));
 
         /*_driverController = new Joystick(Addresses.CONTROLLER_DRIVER); // drive controller
 
@@ -383,6 +386,10 @@ public class OI {
         return _operatorClimbRear.get();
     }
 
+    public boolean getOperatorClimbAuto() {
+        return _operatorClimbAuto.get();
+    }
+
     public int convertDegreesToIntake(int degrees) {
         return (-degrees * 100000 / 9);
     }
@@ -447,6 +454,16 @@ public class OI {
             SmartDashboard.putNumber("Climb PID Output", output);
             SmartDashboard.putNumber("Climb PID Target", target);
             break;
+        case CLIMB_POS_SYSTEM:
+            SmartDashboard.putNumber("Climb Pos Error", error);
+            SmartDashboard.putNumber("Climb Pos PID Output", output);
+            SmartDashboard.putNumber("Climb Pos PID Target", target);
+            break;
+        case CLIMB_PITCH_SYSTEM:
+            SmartDashboard.putNumber("Climb Pitch Error", error);
+            SmartDashboard.putNumber("Climb Pitch PID Output", output);
+            SmartDashboard.putNumber("Climb Pitch PID Target", target);
+            break;
         case INTAKE_SYSTEM:
             SmartDashboard.putNumber("Intake Error", error);
             SmartDashboard.putNumber("Intake PID Output", output);
@@ -489,6 +506,23 @@ public class OI {
             case VISION_ROT_SYSTEM:
                 if (DriveTrain.getInstance().getTurnInProgress() && Math.abs(error) < 3.0) {
                     DriveTrain.getInstance().setTurnInProgress(false);
+                    return false;
+                }
+                return true;
+            case CLIMB_POS_SYSTEM:
+                if (Math.abs(error) < 1.0) {
+                    if (ClimbRear.getInstance().getBothAdjustingBool()) { // bothadjusting takes priority
+                        ClimbRear.getInstance().setAdjustingBool(false);
+                    } else if (ClimbFront.getInstance().getAdjustingBool()) { // then front
+                        ClimbFront.getInstance().setAdjustingBool(false);
+                    } else if (ClimbRear.getInstance().getAdjustingBool()) { // then rear
+                        ClimbFront.getInstance().setAdjustingBool(false);
+                    }
+                    return false;
+                }
+                return true;
+            case CLIMB_PITCH_SYSTEM:
+                if (Math.abs(error) < 5.0) {
                     return false;
                 }
                 return true;

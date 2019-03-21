@@ -36,6 +36,10 @@ public class Variables {
     private static final double kP_VISION = 0.05, kI_VISION = 0.0, kD_VISION = 0.0;
 
     private static final double kP_VISION_ROT = 0.05, kI_VISION_ROT = 0.0, kD_VISION_ROT = 0.0;
+
+    private static final double kP_CLIMB = 0.0004, kI_CLIMB = 0.0, kD_CLIMB = 0.0;
+
+    private static final double kP_CLIMB_POS = 0.1, kI_CLIMB_POS = 0.0, kD_CLIMB_POS = 0.0;
     
     // OI
 
@@ -50,8 +54,6 @@ public class Variables {
     public static double B_POLYNOMIAL = 0;
     public static double C_POLYNOMIAL = .377931548393;
     public static double D_POLYNOMIAL = 0;
-
-    private static final double kP_CLIMB = 0.05, kI_CLIMB = 0.0, kD_CLIMB = 0.0;
 
     // ANGLES FOR VISION
 
@@ -92,7 +94,7 @@ public class Variables {
     public static final double ELEVATOR_MIN_SPEED = -.2;
 
     // Servo angles for elevator lock (clutch)
-    public static final double ELEVATOR_LOCKED = 72;
+    public static final double ELEVATOR_LOCKED = 80;
     public static final double ELEVATOR_UNLOCKED = 180;
 
     // MAST
@@ -143,26 +145,30 @@ public class Variables {
     public static final double WRIST_MAX_SPEED_DOWN = -0.8;
 
     // CLIMB
-
-    // climb positions
-    public static final double CLIMB_LEVEL_TWO = 0;
-    public static final double CLIMB_LEVEL_THREE = 0;
-
-    public static final double CLIMB_LEFT_SLOW_DOWN = 0;
-    public static final double CLIMB_RIGHT_SLOW_DOWN = 67.93026733398438;
-    public static final double CLIMB_REAR_SLOW_DOWN = 0;
+    public static final double CLIMB_LEFT_LEVEL_THREE = 82.05069732666016;
+    public static final double CLIMB_RIGHT_LEVEL_THREE = 79.62188720703125;
+    public static final double CLIMB_REAR_LEVEL_THREE = 70.88294219970703;
 
     // climb position limits
-    public static final double CLIMB_MAX = 0;
-    public static final double CLIMB_MIN = 0;
+    public static final double CLIMB_LEFT_MAX = 83;
+    public static final double CLIMB_RIGHT_MAX = 81;
+    public static final double CLIMB_REAR_MAX = 70.88294219970703;
+
+    public static final double CLIMB_LEFT_SLOW_DOWN_MIN = 6.357143878936768;
+    public static final double CLIMB_RIGHT_SLOW_DOWN_MIN = 3.1666641235351562;
+    public static final double CLIMB_REAR_SLOW_DOWN_MIN = 5.261898517608643;
+
+    public static final double CLIMB_LEFT_SLOW_DOWN_MAX = CLIMB_LEFT_MAX - 5;
+    public static final double CLIMB_RIGHT_SLOW_DOWN_MAX = CLIMB_RIGHT_MAX - 5;
+    public static final double CLIMB_REAR_SLOW_DOWN_MAX = CLIMB_REAR_MAX - 5;
 
     // climb speed limits
-    public static final double CLIMB_MAX_SPEED_UP = 0.1;
-    public static final double CLIMB_MAX_SPEED_DOWN = -0.1;
+    public static final double CLIMB_MAX_SPEED_UP = 0.3;
+    public static final double CLIMB_MAX_SPEED_DOWN = -0.3;
 
     // servo angles for climb
-    public static final double CLIMB_LOCKED = 72;
-    public static final double CLIMB_UNLOCKED = 180;
+    public static final double CLIMB_LOCKED = 50;
+    public static final double CLIMB_UNLOCKED = 70;
 
     // ROLLER
 
@@ -349,6 +355,18 @@ public class Variables {
 
     public double getClimbkD() {
         return SmartDashboard.getNumber("kD_CLIMB", kD_CLIMB);
+    }
+
+    public double getClimbPoskP() {
+        return SmartDashboard.getNumber("kP_CLIMB_POS", kP_CLIMB_POS);
+    }
+
+    public double getClimbPoskI() {
+        return SmartDashboard.getNumber("kI_CLIMB_POS", kI_CLIMB_POS);
+    }
+
+    public double getClimbPoskD() {
+        return SmartDashboard.getNumber("kD_CLIMB_POS", kD_CLIMB_POS);
     }
 
     public double getClimbMaxSpeedUp() {

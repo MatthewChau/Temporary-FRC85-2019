@@ -3,6 +3,7 @@ package frc.robot.subsystems;
 import frc.robot.Addresses;
 import frc.robot.OI;
 import frc.robot.Variables;
+import frc.robot.subsystems.ClimbRear;
 import frc.robot.sensors.IMU;
 import frc.robot.sensors.Sensors;
 
@@ -17,6 +18,9 @@ public class ClimbFront extends Subsystem {
     private static ClimbFront _instance = null;
 
     private CANSparkMax _climbFrontMotorLeft, _climbFrontMotorRight;
+
+    private double targetPosition;
+    private boolean adjusting = false;
 
     private ClimbFront() {
         _climbFrontMotorLeft = new CANSparkMax(Addresses.CLIMB_FRONT_MOTOR_LEFT, CANSparkMaxLowLevel.MotorType.kBrushless);
@@ -48,11 +52,30 @@ public class ClimbFront extends Subsystem {
                                                   Variables.getInstance().getClimbkD(),
                                                   Variables.getInstance().getClimbMaxSpeedUp() / 3,
                                                   Variables.getInstance().getClimbMaxSpeedDown() / 3);
-
         double speedLeft;
         double speedRight;
 
         // roll is positive clockwise
+
+        if (ClimbRear.getInstance().getBothAdjustingBool()) { // if we want this to sync w the rear climb, takes priority over the frontclimb
+            speed = OI.getInstance().applyPID(OI.CLIMB_POS_SYSTEM,
+                                              ClimbRear.getInstance().getClimbRearPosition(),
+                                              ClimbRear.getInstance().getTargetPosition(),
+                                              Variables.getInstance().getClimbPoskP(),
+                                              Variables.getInstance().getClimbPoskI(),
+                                              Variables.getInstance().getClimbPoskD(),
+                                              Variables.getInstance().getClimbMaxSpeedUp(),
+                                              Variables.getInstance().getClimbMaxSpeedDown());
+        } else if (adjusting) {
+            speed = OI.getInstance().applyPID(OI.CLIMB_POS_SYSTEM,
+                                              getClimbLeftPosition(),
+                                              targetPosition,
+                                              Variables.getInstance().getClimbPoskP(),
+                                              Variables.getInstance().getClimbPoskI(),
+                                              Variables.getInstance().getClimbPoskD(),
+                                              Variables.getInstance().getClimbMaxSpeedUp(),
+                                              Variables.getInstance().getClimbMaxSpeedDown());
+        }
 
         if (modify > 0) {
             speedLeft = speed;
@@ -62,12 +85,14 @@ public class ClimbFront extends Subsystem {
             speedRight = speed;
         }
 
-        if (getClimbLeftPosition() > Variables.CLIMB_LEFT_SLOW_DOWN) {
-            speedLeft *= 0.05;
+        if ((getClimbLeftPosition() > Variables.CLIMB_LEFT_SLOW_DOWN_MAX && speedLeft > 0)
+            || (getClimbLeftPosition() < Variables.CLIMB_LEFT_SLOW_DOWN_MIN && speedLeft < 0)) {
+            speedLeft *= 0.1;
         }
 
-        if (getClimbRightPosition() > Variables.CLIMB_RIGHT_SLOW_DOWN) {
-            speedRight *= 0.05;
+        if ((getClimbRightPosition() > Variables.CLIMB_RIGHT_SLOW_DOWN_MAX && speedRight > 0)
+            || (getClimbRightPosition() < Variables.CLIMB_RIGHT_SLOW_DOWN_MIN && speedRight < 0)) {
+            speedRight *= 0.1;
         }
 
         if (Sensors.getInstance().getClimbLeftLimit() && speedLeft < 0
@@ -85,20 +110,20 @@ public class ClimbFront extends Subsystem {
     }
 
     public boolean leftSoftLimits(double speed) {
-        if (getClimbLeftPosition() > Variables.CLIMB_MAX && speed > 0) {
+        if (getClimbLeftPosition() > Variables.CLIMB_LEFT_MAX && speed > 0) {
             return true;
         }
-        if (getClimbLeftPosition() < Variables.CLIMB_MIN && speed < 0) {
+        if (getClimbLeftPosition() < 0 && speed < 0) {
             return true;
         }
         return false;
     }
 
     public boolean rightSoftLimits(double speed) {
-        if (getClimbRightPosition() > Variables.CLIMB_MAX && speed > 0) {
+        if (getClimbRightPosition() > Variables.CLIMB_RIGHT_MAX && speed > 0) {
             return true;
         }
-        if (getClimbRightPosition() < Variables.CLIMB_MIN && speed < 0) {
+        if (getClimbRightPosition() < 0 && speed < 0) {
             return true;
         }
         return false;
@@ -116,11 +141,23 @@ public class ClimbFront extends Subsystem {
         double speedLeft = speed;
         double speedRight = speed;
 
-        if (Sensors.getInstance().getClimbLeftLimit() && speedLeft < 0) {
+        if ((getClimbLeftPosition() > Variables.CLIMB_LEFT_SLOW_DOWN_MAX && speedLeft > 0)
+            || (getClimbLeftPosition() < Variables.CLIMB_LEFT_SLOW_DOWN_MIN && speedLeft < 0)) {
+            speedLeft *= 0.1;
+        }
+
+        if ((getClimbRightPosition() > Variables.CLIMB_RIGHT_SLOW_DOWN_MAX && speedRight > 0)
+            || (getClimbRightPosition() < Variables.CLIMB_RIGHT_SLOW_DOWN_MIN && speedRight < 0)) {
+            speedRight *= 0.1;
+        }
+
+        if (Sensors.getInstance().getClimbLeftLimit() && speedLeft < 0
+            || leftSoftLimits(speedLeft)) {
             speedLeft = 0;
         }
 
-        if (Sensors.getInstance().getClimbRightLimit() && speedRight < 0) {
+        if (Sensors.getInstance().getClimbRightLimit() && speedRight < 0
+            || rightSoftLimits(speedRight)) {
             speedRight = 0;
         }
 
@@ -147,6 +184,22 @@ public class ClimbFront extends Subsystem {
     public void setClimbFrontEncoders(double position) {
         _climbFrontMotorLeft.setEncPosition(position);
         _climbFrontMotorRight.setEncPosition(position);
+    }
+
+    public void setTargetPosition(double target) {
+        targetPosition = target;
+    }
+
+    public double getTargetPosition() {
+        return targetPosition;
+    }
+
+    public void setAdjustingBool(boolean bool) {
+        adjusting = bool;
+    }
+
+    public boolean getAdjustingBool() {
+        return adjusting;
     }
 
 }
