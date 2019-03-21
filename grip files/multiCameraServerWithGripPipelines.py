@@ -64,8 +64,11 @@ if __name__ == "__main__":
     topCamera = startCamera("top", "/dev/video0", None)
     bottomCamera = startCamera("bottom", "/dev/video1", None)
 
-    topSink = cs.getVideo(camera=topCamera)
-    bottomSink = cs.getVideo(camera=bottomCamera)
+    topSink = cs.getVideo(camera=bottomCamera)
+    #topSink = cs.getVideo(camera=topCamera)
+    bottomSink = cs.getVideo(camera=topCamera)
+    #bottomSink = cs.getVideo(camera=bottomCamera)
+
     
     topImg = numpy.zeros(shape=(height, width, 3), dtype=numpy.uint8)
     bottomImg = numpy.zeros(shape=(height, width, 3), dtype=numpy.uint8)
