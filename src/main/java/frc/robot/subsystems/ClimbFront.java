@@ -43,15 +43,23 @@ public class ClimbFront extends Subsystem {
     public void initDefaultCommand() {
     }
 
-    public void moveClimbFront(double speed) {
-        double modify = OI.getInstance().applyPID(OI.CLIMB_SYSTEM, 
-                                                  IMU.getInstance().getRoll(), 
-                                                  0.0, 
-                                                  Variables.getInstance().getClimbkP(), 
-                                                  Variables.getInstance().getClimbkI(), 
-                                                  Variables.getInstance().getClimbkD(),
-                                                  Variables.getInstance().getClimbMaxSpeedUp() / 3,
-                                                  Variables.getInstance().getClimbMaxSpeedDown() / 3);
+    public void moveClimbFront(double speed) { // everything correctional is done here now
+        double modifyRoll = OI.getInstance().applyPID(OI.CLIMB_SYSTEM, 
+                                                      IMU.getInstance().getRoll(), 
+                                                      0.0, 
+                                                      Variables.getInstance().getClimbkP(), 
+                                                      Variables.getInstance().getClimbkI(), 
+                                                      Variables.getInstance().getClimbkD(),
+                                                      Variables.getInstance().getClimbMaxSpeedUp() / 2,
+                                                      Variables.getInstance().getClimbMaxSpeedDown() / 2);
+        double modifyPitch = OI.getInstance().applyPID(OI.CLIMB_PITCH_SYSTEM, 
+                                                       IMU.getInstance().getPitch(), 
+                                                       0.0, 
+                                                       Variables.getInstance().getClimbPitchkP(), 
+                                                       Variables.getInstance().getClimbPitchkI(), 
+                                                       Variables.getInstance().getClimbPitchkD(),
+                                                       Variables.getInstance().getClimbMaxSpeedUp() / 2,
+                                                       Variables.getInstance().getClimbMaxSpeedDown() / 2);
         double speedLeft;
         double speedRight;
 
@@ -66,6 +74,7 @@ public class ClimbFront extends Subsystem {
                                               Variables.getInstance().getClimbPoskD(),
                                               Variables.getInstance().getClimbMaxSpeedUp(),
                                               Variables.getInstance().getClimbMaxSpeedDown());
+            speed += modifyPitch;
         } else if (adjusting) {
             speed = OI.getInstance().applyPID(OI.CLIMB_POS_SYSTEM,
                                               getClimbLeftPosition(),
@@ -77,11 +86,11 @@ public class ClimbFront extends Subsystem {
                                               Variables.getInstance().getClimbMaxSpeedDown());
         }
 
-        if (modify > 0) {
+        if (modifyRoll > 0) {
             speedLeft = speed;
-            speedRight = speed - modify;
+            speedRight = speed - modifyRoll;
         } else {
-            speedLeft = speed + modify;
+            speedLeft = speed + modifyRoll;
             speedRight = speed;
         }
 
@@ -105,8 +114,8 @@ public class ClimbFront extends Subsystem {
             speedRight = 0;
         }
     
-        setClimbLeftMotor(speedLeft);
-        setClimbRightMotor(speedRight);
+        _climbFrontMotorLeft.set(speedLeft);
+        _climbFrontMotorRight.set(speedRight);
     }
 
     public boolean leftSoftLimits(double speed) {

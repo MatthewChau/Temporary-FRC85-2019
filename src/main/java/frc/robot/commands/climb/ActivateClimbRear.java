@@ -8,6 +8,7 @@
 package frc.robot.commands.climb;
 
 import frc.robot.subsystems.ClimbRear;
+import frc.robot.Variables;
 
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -22,6 +23,7 @@ public class ActivateClimbRear extends Command {
 
     @Override
     protected void initialize() {
+        ClimbRear.getInstance().setServo(Variables.getInstance().getClimbUnlocked());
     }
 
     @Override
@@ -32,12 +34,13 @@ public class ActivateClimbRear extends Command {
 
     @Override
     protected boolean isFinished() {
-        return isTimedOut();
+        return false;
     }
 
     @Override
     protected void end() {
         ClimbRear.getInstance().setClimbRearMotor(0.0);
+        ClimbRear.getInstance().setServo(Variables.getInstance().getClimbLocked());
     }
 
     @Override

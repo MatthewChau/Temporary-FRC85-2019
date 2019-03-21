@@ -22,7 +22,6 @@ public class IMU {
     private PigeonIMU _pigeon;
 
     private PigeonIMU.GeneralStatus _genStatus = new PigeonIMU.GeneralStatus();
-    private double[] _ypr = new double[3];
     private short[] _xyz = new short[3];
 
     private double _initialHeading = 0;
@@ -56,6 +55,7 @@ public class IMU {
     }
 
     public double[] getYPR() {
+        double[] _ypr = new double[3];
         ErrorCode error = _pigeon.getYawPitchRoll(_ypr);
         SmartDashboard.putString("IMU Error Code", error.toString());
         return _ypr;
@@ -78,17 +78,17 @@ public class IMU {
     }
 
     public double getYaw() {
-        _ypr = getYPR();
+        double[] _ypr = getYPR();
         return _ypr[0] - _initialYPR[0];
     }
 
     public double getPitch() {
-        _ypr = getYPR();
+        double[] _ypr = getYPR();
         return _ypr[2] - _initialYPR[2];
     }
 
     public double getRoll() {
-        _ypr = getYPR();
+        double[] _ypr = getYPR();
         return _ypr[1] - _initialYPR[1];
     }
 

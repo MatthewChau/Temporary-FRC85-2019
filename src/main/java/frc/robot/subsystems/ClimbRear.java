@@ -61,16 +61,6 @@ public class ClimbRear extends Subsystem {
     // CLIMB MOTOR
 
     public void moveClimbRear(double speed) {
-        double modify = OI.getInstance().applyPID(OI.CLIMB_SYSTEM, 
-                                                  IMU.getInstance().getPitch(), 
-                                                  0.0, 
-                                                  Variables.getInstance().getClimbkP(), 
-                                                  Variables.getInstance().getClimbkI(), 
-                                                  Variables.getInstance().getClimbkD(),
-                                                  Variables.getInstance().getClimbMaxSpeedUp() / 2,
-                                                  Variables.getInstance().getClimbMaxSpeedDown() / 2);
-        double rearSpeed;
-
         if (adjusting || bothAdjusting) {
             speed = OI.getInstance().applyPID(OI.CLIMB_POS_SYSTEM,
                                               getClimbRearPosition(),
@@ -82,20 +72,18 @@ public class ClimbRear extends Subsystem {
                                               Variables.getInstance().getClimbMaxSpeedDown());
         }
 
-        rearSpeed = speed + modify; // pitch is positive down
-
-        if ((getClimbRearPosition() < Variables.CLIMB_REAR_SLOW_DOWN_MIN && rearSpeed < 0)
-            || (getClimbRearPosition() > Variables.CLIMB_LEFT_SLOW_DOWN_MAX && rearSpeed > 0)) {
-            rearSpeed *= 0.1;
+        if ((getClimbRearPosition() < Variables.CLIMB_REAR_SLOW_DOWN_MIN && speed < 0)
+            || (getClimbRearPosition() > Variables.CLIMB_LEFT_SLOW_DOWN_MAX && speed > 0)) {
+            speed *= 0.1;
         }
 
-        if (/*getServo() == Variables.getInstance().getClimbLocked()
-            || */(Sensors.getInstance().getClimbRearLimit() && speed < 0)
+        if (getServo() == Variables.getInstance().getClimbLocked()
+            || (Sensors.getInstance().getClimbRearLimit() && speed < 0)
             || softLimits(speed)) {
-            rearSpeed = 0;
+            speed = 0;
         }
-
-        setClimbRearMotor(rearSpeed);
+        
+        _climbRearMotor.set(speed);
     }
 
     public void setClimbRearMotor(double speed) {

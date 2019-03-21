@@ -40,6 +40,8 @@ public class Variables {
     private static final double kP_CLIMB = 0.0004, kI_CLIMB = 0.0, kD_CLIMB = 0.0;
 
     private static final double kP_CLIMB_POS = 0.1, kI_CLIMB_POS = 0.0, kD_CLIMB_POS = 0.0;
+
+    private static final double kP_CLIMB_PITCH = 0.0004, kI_CLIMB_PITCH = 0.0, kD_CLIMB_PITCH = 0.0;
     
     // OI
 
@@ -152,15 +154,15 @@ public class Variables {
     // climb position limits
     public static final double CLIMB_LEFT_MAX = 83;
     public static final double CLIMB_RIGHT_MAX = 81;
-    public static final double CLIMB_REAR_MAX = 70.88294219970703;
+    public static final double CLIMB_REAR_MAX = 72;
 
     public static final double CLIMB_LEFT_SLOW_DOWN_MIN = 6.357143878936768;
     public static final double CLIMB_RIGHT_SLOW_DOWN_MIN = 3.1666641235351562;
     public static final double CLIMB_REAR_SLOW_DOWN_MIN = 5.261898517608643;
 
-    public static final double CLIMB_LEFT_SLOW_DOWN_MAX = CLIMB_LEFT_MAX - 5;
-    public static final double CLIMB_RIGHT_SLOW_DOWN_MAX = CLIMB_RIGHT_MAX - 5;
-    public static final double CLIMB_REAR_SLOW_DOWN_MAX = CLIMB_REAR_MAX - 5;
+    public static final double CLIMB_LEFT_SLOW_DOWN_MAX = CLIMB_LEFT_MAX - 3;
+    public static final double CLIMB_RIGHT_SLOW_DOWN_MAX = CLIMB_RIGHT_MAX - 3;
+    public static final double CLIMB_REAR_SLOW_DOWN_MAX = CLIMB_REAR_MAX - 3;
 
     // climb speed limits
     public static final double CLIMB_MAX_SPEED_UP = 0.3;
@@ -207,6 +209,14 @@ public class Variables {
         SmartDashboard.putNumber("kP_CLIMB", kP_CLIMB);
         SmartDashboard.putNumber("kI_CLIMB", kI_CLIMB);
         SmartDashboard.putNumber("kD_CLIMB", kD_CLIMB);
+
+        SmartDashboard.putNumber("kP_CLIMB_POS", kP_CLIMB_POS);
+        SmartDashboard.putNumber("kI_CLIMB_POS", kI_CLIMB_POS);
+        SmartDashboard.putNumber("kD_CLIMB_POS", kD_CLIMB_POS);
+
+        SmartDashboard.putNumber("kP_CLIMB_PITCH", kP_CLIMB_PITCH);
+        SmartDashboard.putNumber("kI_CLIMB_PITCH", kI_CLIMB_PITCH);
+        SmartDashboard.putNumber("kD_CLIMB_PITCH", kD_CLIMB_PITCH);
 
         SmartDashboard.putNumber("MAX_SPEED_UP_INTAKE", WRIST_MAX_SPEED_UP);
         SmartDashboard.putNumber("MAX_SPEED_DOWN_INTAKE", WRIST_MAX_SPEED_DOWN);
@@ -367,6 +377,18 @@ public class Variables {
 
     public double getClimbPoskD() {
         return SmartDashboard.getNumber("kD_CLIMB_POS", kD_CLIMB_POS);
+    }
+
+    public double getClimbPitchkP() {
+        return SmartDashboard.getNumber("kP_CLIMB_PITCH", kP_CLIMB_PITCH);
+    }
+
+    public double getClimbPitchkI() {
+        return SmartDashboard.getNumber("kI_CLIMB_PITCH", kI_CLIMB_PITCH);
+    }
+
+    public double getClimbPitchkD() {
+        return SmartDashboard.getNumber("kD_CLIMB_PITCH", kD_CLIMB_PITCH);
     }
 
     public double getClimbMaxSpeedUp() {

@@ -10,6 +10,7 @@ package frc.robot.commands.climb;
 import frc.robot.subsystems.ClimbFront;
 import frc.robot.subsystems.ClimbRear;
 import frc.robot.OI;
+import frc.robot.Variables;
 
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -26,6 +27,7 @@ public class MoveClimbPosition extends Command {
     @Override
     protected void initialize() {
         _target = _initial;
+        ClimbRear.getInstance().setServo(Variables.getInstance().getClimbUnlocked());
     }
 
     @Override
@@ -46,6 +48,7 @@ public class MoveClimbPosition extends Command {
         ClimbFront.getInstance().setClimbFrontMotors(0.0);
         ClimbRear.getInstance().setClimbRearMotor(0.0);
         ClimbRear.getInstance().setBothAdjustingBool(false);
+        ClimbRear.getInstance().setServo(Variables.getInstance().getClimbLocked());
     }
 
     @Override
