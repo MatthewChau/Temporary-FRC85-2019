@@ -61,26 +61,30 @@ public class OI {
     private Joystick _driverController, _driverJoystickRight, _driverJoystickLeft;
     private Joystick _operatorControllerWhite, _operatorControllerBlack, _operatorJoystick;
 
-    private JoystickButton _controllerAButton, _controllerBButton, _controllerXButton, _controllerYButton, _controllerLeftBumper, _controllerRightBumper, 
-            _controllerBackButton, _controllerStartButton, _controllerLeftStickIn, _controllerRightStickIn;
+    private JoystickButton _controllerAButton, _controllerBButton, _controllerXButton, _controllerYButton,
+            _controllerLeftBumper, _controllerRightBumper, _controllerBackButton, _controllerStartButton,
+            _controllerLeftStickIn, _controllerRightStickIn;
 
-    private JoystickButton _rightJoystickTrigger, _rightJoystickThumbButton, _rightJoystickFaceBottomLeft, _rightJoystickFaceBottomRight, _rightJoystickFaceTopLeft, 
-            _rightJoystickFaceTopRight, _rightJoystickSeven, _rightJoystickEight, _rightJoystickNine, _rightJoystickTen, _rightJoystickEleven, _rightJoystickTwelve;
+    private JoystickButton _rightJoystickTrigger, _rightJoystickThumbButton, _rightJoystickFaceBottomLeft,
+            _rightJoystickFaceBottomRight, _rightJoystickFaceTopLeft, _rightJoystickFaceTopRight, _rightJoystickSeven,
+            _rightJoystickEight, _rightJoystickNine, _rightJoystickTen, _rightJoystickEleven, _rightJoystickTwelve;
 
-    private JoystickButton _leftJoystickTrigger, _leftJoystickFaceBottom, _leftJoystickFaceCenter, _leftJoystickFaceLeft, _leftJoystickFaceRight,
-            _leftJoystickBaseLeftTop, _leftJoystickBaseLeftBottom, _leftJoystickBaseBottomLeft, _leftJoystickBaseBottomRight, _leftJoystickBaseRightBottom,
+    private JoystickButton _leftJoystickTrigger, _leftJoystickFaceBottom, _leftJoystickFaceCenter,
+            _leftJoystickFaceLeft, _leftJoystickFaceRight, _leftJoystickBaseLeftTop, _leftJoystickBaseLeftBottom,
+            _leftJoystickBaseBottomLeft, _leftJoystickBaseBottomRight, _leftJoystickBaseRightBottom,
             _leftJoystickBaseRightTop;
 
-    private JoystickButton _opJoystickTrigger, _opJoystickFaceBottom, _opJoystickFaceCenter, _opJoystickFaceLeft, _opJoystickFaceRight,
-            _opJoystickBaseLeftTop, _opJoystickBaseLeftBottom, _opJoystickBaseBottomLeft, _opJoystickBaseBottomRight, _opJoystickBaseRightBottom,
-            _opJoystickBaseRightTop;
+    private JoystickButton _opJoystickTrigger, _opJoystickFaceBottom, _opJoystickFaceCenter, _opJoystickFaceLeft,
+            _opJoystickFaceRight, _opJoystickBaseLeftTop, _opJoystickBaseLeftBottom, _opJoystickBaseBottomLeft,
+            _opJoystickBaseBottomRight, _opJoystickBaseRightBottom, _opJoystickBaseRightTop;
 
     // White
-    private JoystickButton _operatorCargoShip, _operatorCargoFloor, _operatorRollerOut, _operatorCargoOne, _operatorCargoTwo, _operatorCargoThree, _operatorClimbFront,
-            _operatorClimbRear, _operatorElevator, _operatorRollerIn;
+    private JoystickButton _operatorCargoShip, _operatorCargoFloor, _operatorRollerOut, _operatorCargoOne,
+            _operatorCargoTwo, _operatorCargoThree, _operatorClimbFront, _operatorClimbRear, _operatorElevator,
+            _operatorRollerIn;
     // Black
-    private JoystickButton _operatorHatchStation, _operatorHatchFloor, _operatorHatchRelease, _operatorHatchOne, _operatorHatchTwo, _operatorHatchThree, 
-            _operatorClimbAuto, _operatorMast, _operatorWrist;
+    private JoystickButton _operatorHatchStation, _operatorHatchFloor, _operatorHatchRelease, _operatorHatchOne,
+            _operatorHatchTwo, _operatorHatchThree, _operatorClimbAuto, _operatorMast, _operatorWrist;
 
     private double _xSpeed = 0, _ySpeed = 0, _zRotation = 0;
 
@@ -113,85 +117,119 @@ public class OI {
 
         // black
         _operatorMast = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_MAST);
+        _operatorMast = new JoystickButton(_operatorJoystick, AddressesOpJoystick.OPERATOR_MAST);
         _operatorMast.whenPressed(new Interrupt());
         _operatorMast.whenPressed(new MastWithJoystick());
         _operatorWrist = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_WRIST);
+        _operatorWrist = new JoystickButton(_operatorJoystick, AddressesOpJoystick.OPERATOR_WRIST);
         _operatorWrist.whenPressed(new Interrupt());
         _operatorWrist.whenPressed(new WristWithJoystick());
         _operatorHatchStation = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_HATCH_STATION);
-        _operatorHatchStation.whenPressed(new Place(Variables.HATCH_STATION, Variables.WRIST_30, Variables.MAST_FORWARD_POS));
-        _operatorHatchStation.whenReleased(new Place((Variables.HATCH_ONE + 500), Variables.WRIST_0, Variables.MAST_CURRENT_POS));
+        _operatorHatchStation
+                .whenPressed(new Place(Variables.HATCH_STATION, Variables.WRIST_30, Variables.MAST_FORWARD_POS));
+        _operatorHatchStation
+                .whenReleased(new Place((Variables.HATCH_ONE + 500), Variables.WRIST_0, Variables.MAST_CURRENT_POS));
         _operatorHatchRelease = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_HATCH_RELEASE);
-        _operatorHatchRelease.whenPressed(new Place(Variables.ELEVATOR_CURRENT_POS, Variables.WRIST_30, (Variables.MAST_FORWARD_POS - 100000)));
-        _operatorHatchRelease.whenReleased(new Place(Variables.ELEVATOR_CURRENT_POS, Variables.WRIST_CURR_POSITION, Variables.MAST_PROTECTED));
+        _operatorHatchRelease = new JoystickButton(_operatorJoystick, AddressesOpJoystick.OPERATOR_HATCH_RELEASE);
+        _operatorHatchRelease.whenPressed(
+                new Place(Variables.ELEVATOR_CURRENT_POS, Variables.WRIST_30, (Variables.MAST_FORWARD_POS - 100000)));
+        _operatorHatchRelease.whenReleased(
+                new Place(Variables.ELEVATOR_CURRENT_POS, Variables.WRIST_CURR_POSITION, Variables.MAST_PROTECTED));
         _operatorHatchFloor = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_HATCH_FLOOR);
         _operatorHatchFloor.whenPressed(new HatchGroundOne());
         _operatorHatchFloor.whenReleased(new HatchGroundTwo());
         _operatorHatchThree = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_HATCH_THREE);
-        //_operatorHatchThree.whenPressed(new Place(Variables.HATCH_THREE, Variables.WRIST_0, Variables.MAST_FORWARD_POS));
-        //_operatorHatchThree.whenReleased(new Place(Variables.HATCH_THREE, Variables.WRIST_0, Variables.MAST_CURRENT_POS));
+        _operatorHatchThree = new JoystickButton(_operatorJoystick, AddressesOpJoystick.OPERATOR_HATCH_THREE);
+        // _operatorHatchThree.whenPressed(new Place(Variables.HATCH_THREE,
+        // Variables.WRIST_0, Variables.MAST_FORWARD_POS));
+        // _operatorHatchThree.whenReleased(new Place(Variables.HATCH_THREE,
+        // Variables.WRIST_0, Variables.MAST_CURRENT_POS));
         _operatorHatchTwo = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_HATCH_TWO);
-        //_operatorHatchTwo.whenPressed(new Place(Variables.HATCH_TWO, Variables.WRIST_0, Variables.MAST_FORWARD_POS));
-        //_operatorHatchTwo.whenReleased(new Place(Variables.HATCH_TWO, Variables.WRIST_0, Variables.MAST_CURRENT_POS));
+        _operatorHatchTwo = new JoystickButton(_operatorJoystick, AddressesOpJoystick.OPERATOR_HATCH_TWO);
+        // _operatorHatchTwo.whenPressed(new Place(Variables.HATCH_TWO,
+        // Variables.WRIST_0, Variables.MAST_FORWARD_POS));
+        // _operatorHatchTwo.whenReleased(new Place(Variables.HATCH_TWO,
+        // Variables.WRIST_0, Variables.MAST_CURRENT_POS));
         _operatorHatchThree.whenPressed(new ActivateClimbFront(0.3));
         _operatorHatchThree.whenReleased(new ActivateClimbFront(0.0));
         _operatorHatchTwo.whenPressed(new ActivateClimbFront(-0.3));
         _operatorHatchTwo.whenReleased(new ActivateClimbFront(0.0));
         _operatorHatchOne = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_HATCH_ONE);
+        _operatorHatchOne = new JoystickButton(_operatorJoystick, AddressesOpJoystick.OPERATOR_HATCH_ONE);
         _operatorHatchOne.whenPressed(new Place(Variables.HATCH_ONE, Variables.WRIST_0, Variables.MAST_FORWARD_POS));
         _operatorHatchOne.whenReleased(new Place(Variables.HATCH_ONE, Variables.WRIST_0, Variables.MAST_CURRENT_POS));
 
         // white
         _operatorElevator = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_ELEVATOR);
+        _operatorElevator = new JoystickButton(_operatorJoystick, AddressesOpJoystick.OPERATOR_ELEVATOR);
         _operatorElevator.whenPressed(new Interrupt());
         _operatorElevator.whenPressed(new ElevatorWithJoystick());
         _operatorRollerIn = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_ROLLER_IN);
+        _operatorRollerIn = new JoystickButton(_operatorJoystick, AddressesOpJoystick.OPERATOR_ROLLER_IN);
         _operatorRollerIn.whenPressed(new ActivateIntake(Variables.ROLLER_IN));
         _operatorRollerIn.whenReleased(new ActivateIntake(0));
         _operatorCargoShip = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_CARGO_SHIP);
-        _operatorCargoShip.whenPressed(new Place(Variables.CARGO_SHIP, Variables.WRIST_90, Variables.MAST_FORWARD_FOR_CARGO));
+        _operatorCargoShip
+                .whenPressed(new Place(Variables.CARGO_SHIP, Variables.WRIST_90, Variables.MAST_FORWARD_FOR_CARGO));
         _operatorCargoShip.whenPressed(new Place(Variables.CARGO_SHIP, Variables.WRIST_90, Variables.MAST_CURRENT_POS));
         _operatorRollerOut = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_CARGO_OUT);
+        _operatorRollerOut = new JoystickButton(_operatorJoystick, AddressesOpJoystick.OPERATOR_CARGO_OUT);
         _operatorRollerOut.whenPressed(new ActivateIntake(Variables.ROLLER_OUT));
         _operatorRollerOut.whenReleased(new ActivateIntake(0));
         _operatorCargoFloor = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_CARGO_FLOOR);
         _operatorCargoFloor.whenPressed(new CargoGroundOne());
         _operatorCargoFloor.whenReleased(new CargoGroundTwo());
         _operatorCargoThree = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_CARGO_THREE);
-        //_operatorCargoThree.whenPressed(new Place(Variables.CARGO_THREE, Variables.WRIST_CARGO_HIGH, Variables.MAST_FORWARD_FOR_CARGO));
-        //_operatorCargoThree.whenReleased(new Place(Variables.CARGO_THREE, Variables.WRIST_CARGO_HIGH, Variables.MAST_CURRENT_POS));
+        _operatorCargoThree = new JoystickButton(_operatorJoystick, AddressesOpJoystick.OPERATOR_CARGO_THREE);
+        // _operatorCargoThree.whenPressed(new Place(Variables.CARGO_THREE,
+        // Variables.WRIST_CARGO_HIGH, Variables.MAST_FORWARD_FOR_CARGO));
+        // _operatorCargoThree.whenReleased(new Place(Variables.CARGO_THREE,
+        // Variables.WRIST_CARGO_HIGH, Variables.MAST_CURRENT_POS));
         _operatorCargoTwo = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_CARGO_TWO);
-        //_operatorCargoTwo.whenPressed(new Place(Variables.CARGO_TWO, Variables.WRIST_CARGO, Variables.MAST_FORWARD_FOR_CARGO));
-        //_operatorCargoTwo.whenReleased(new Place(Variables.CARGO_TWO, Variables.WRIST_CARGO, Variables.MAST_CURRENT_POS));
+        _operatorCargoTwo = new JoystickButton(_operatorJoystick, AddressesOpJoystick.OPERATOR_CARGO_TWO);
+        // _operatorCargoTwo.whenPressed(new Place(Variables.CARGO_TWO,
+        // Variables.WRIST_CARGO, Variables.MAST_FORWARD_FOR_CARGO));
+        // _operatorCargoTwo.whenReleased(new Place(Variables.CARGO_TWO,
+        // Variables.WRIST_CARGO, Variables.MAST_CURRENT_POS));
         _operatorCargoThree.whenPressed(new ActivateClimbRear(0.3));
         _operatorCargoThree.whenReleased(new ActivateClimbRear(0.0));
         _operatorCargoTwo.whenPressed(new ActivateClimbRear(-0.3));
         _operatorCargoTwo.whenReleased(new ActivateClimbRear(0.0));
         _operatorCargoOne = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_CARGO_ONE);
-        _operatorCargoOne.whenPressed(new Place(Variables.CARGO_ONE, Variables.WRIST_CARGO, Variables.MAST_FORWARD_FOR_CARGO));
-        _operatorCargoOne.whenReleased(new Place(Variables.CARGO_ONE, Variables.WRIST_CARGO, Variables.MAST_CURRENT_POS));
-        
+        _operatorCargoOne = new JoystickButton(_operatorJoystick, AddressesOpJoystick.OPERATOR_CARGO_ONE);
+        _operatorCargoOne
+                .whenPressed(new Place(Variables.CARGO_ONE, Variables.WRIST_CARGO, Variables.MAST_FORWARD_FOR_CARGO));
+        _operatorCargoOne
+                .whenReleased(new Place(Variables.CARGO_ONE, Variables.WRIST_CARGO, Variables.MAST_CURRENT_POS));
+
         // the thing off to the side
         _operatorClimbFront = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_CLIMB_FRONT);
-        //_operatorClimbFront.whenPressed(new ClimbFrontWithJoystick());
+        // _operatorClimbFront.whenPressed(new ClimbFrontWithJoystick());
         _operatorClimbRear = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_CLIMB_REAR);
-        //_operatorClimbRear.whenPressed(new ClimbRearWithJoystick());
+        // _operatorClimbRear.whenPressed(new ClimbRearWithJoystick());
         _operatorClimbAuto = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_CLIMB_AUTO);
-        //_operatorClimbAuto.whenPressed(new setClimbRearLock());
+        // _operatorClimbAuto.whenPressed(new setClimbRearLock());
         _operatorClimbAuto.whenPressed(new MoveClimbPosition(Variables.CLIMB_REAR_LEVEL_THREE));
 
-        /*_driverController = new Joystick(Addresses.CONTROLLER_DRIVER); // drive controller
-
-        _controllerAButton = new JoystickButton(_driverController, Addresses.A_BUTTON);
-        _controllerBButton = new JoystickButton(_driverController, Addresses.B_BUTTON);
-        _controllerXButton = new JoystickButton(_driverController, Addresses.X_BUTTON);
-        _controllerYButton = new JoystickButton(_driverController, Addresses.Y_BUTTON);
-        _controllerLeftBumper = new JoystickButton(_driverController, Addresses.LEFT_BUMPER);
-        _controllerRightBumper = new JoystickButton(_driverController, Addresses.RIGHT_BUMPER);
-        _controllerBackButton = new JoystickButton(_driverController, Addresses.BACK_BUTTON);
-        _controllerStartButton = new JoystickButton(_driverController, Addresses.START_BUTTON);
-        _controllerLeftStickIn = new JoystickButton(_driverController, Addresses.LEFT_STICK_IN);
-        _controllerRightStickIn = new JoystickButton(_driverController, Addresses.RIGHT_STICK_IN);*/
+        /*
+         * _driverController = new Joystick(Addresses.CONTROLLER_DRIVER); // drive
+         * controller
+         * 
+         * _controllerAButton = new JoystickButton(_driverController,
+         * Addresses.A_BUTTON); _controllerBButton = new
+         * JoystickButton(_driverController, Addresses.B_BUTTON); _controllerXButton =
+         * new JoystickButton(_driverController, Addresses.X_BUTTON); _controllerYButton
+         * = new JoystickButton(_driverController, Addresses.Y_BUTTON);
+         * _controllerLeftBumper = new JoystickButton(_driverController,
+         * Addresses.LEFT_BUMPER); _controllerRightBumper = new
+         * JoystickButton(_driverController, Addresses.RIGHT_BUMPER);
+         * _controllerBackButton = new JoystickButton(_driverController,
+         * Addresses.BACK_BUTTON); _controllerStartButton = new
+         * JoystickButton(_driverController, Addresses.START_BUTTON);
+         * _controllerLeftStickIn = new JoystickButton(_driverController,
+         * Addresses.LEFT_STICK_IN); _controllerRightStickIn = new
+         * JoystickButton(_driverController, Addresses.RIGHT_STICK_IN);
+         */
 
         _driverJoystickLeft = new Joystick(Addresses.CONTROLLER_DRIVER_STICK_LEFT); // logitech attack
 
@@ -215,7 +253,7 @@ public class OI {
         _rightJoystickFaceBottomLeft = new JoystickButton(_driverJoystickRight, Addresses.EXTREME_FACE_BOTTOM_LEFT);
         _rightJoystickFaceBottomRight = new JoystickButton(_driverJoystickRight, Addresses.EXTREME_FACE_BOTTOM_RIGHT);
         _rightJoystickFaceTopLeft = new JoystickButton(_driverJoystickRight, Addresses.EXTREME_FACE_TOP_LEFT);
-        _rightJoystickFaceTopRight  = new JoystickButton(_driverJoystickRight, Addresses.EXTREME_FACE_TOP_RIGHT);
+        _rightJoystickFaceTopRight = new JoystickButton(_driverJoystickRight, Addresses.EXTREME_FACE_TOP_RIGHT);
         _rightJoystickSeven = new JoystickButton(_driverJoystickRight, Addresses.EXTREME_BASE_SEVEN);
         _rightJoystickEight = new JoystickButton(_driverJoystickRight, Addresses.EXTREME_BASE_EIGHT);
         _rightJoystickNine = new JoystickButton(_driverJoystickRight, Addresses.EXTREME_BASE_NINE);
@@ -283,27 +321,19 @@ public class OI {
         return _driverController.getRawAxis(Addresses.LEFT_Y_AXIS);
     }
 
-    /*// CONTROLLER BUTTONS
-
-    public boolean getAButton() {
-        return _controllerAButton.get();
-    }
-
-    public boolean getBButton() {
-        return _controllerBButton.get();
-    }
-
-    public boolean getXButton() {
-        return _controllerXButton.get();
-    }
-
-    public boolean getYButton() {
-        return _controllerYButton.get();
-    }
-
-    public boolean getRightBumper() {
-        return _controllerRightBumper.get();
-    }*/
+    /*
+     * // CONTROLLER BUTTONS
+     * 
+     * public boolean getAButton() { return _controllerAButton.get(); }
+     * 
+     * public boolean getBButton() { return _controllerBButton.get(); }
+     * 
+     * public boolean getXButton() { return _controllerXButton.get(); }
+     * 
+     * public boolean getYButton() { return _controllerYButton.get(); }
+     * 
+     * public boolean getRightBumper() { return _controllerRightBumper.get(); }
+     */
 
     // JOYSTICKS
 
@@ -424,9 +454,10 @@ public class OI {
 
     private void debugMessages(int system, double current, double error, double target, double output) {
         switch (system) {
-        /*case ROT_SYSTEM: SmartDashboard.putNumber("Rot PID Target", target);
-            SmartDashboard.putNumber("Rot PID Error", error); 
-            break;*/
+        /*
+         * case ROT_SYSTEM: SmartDashboard.putNumber("Rot PID Target", target);
+         * SmartDashboard.putNumber("Rot PID Error", error); break;
+         */
         case ELEVATOR_SYSTEM:
             SmartDashboard.putNumber("Vertical Lift Error", error);
             SmartDashboard.putNumber("Vertical Lift PID Output", output);
@@ -437,18 +468,15 @@ public class OI {
             SmartDashboard.putNumber("Horizontal Lift PID Output", output);
             SmartDashboard.putNumber("Horizontal Lift PID Target", target);
             break;
-        /*case VISION_X_SYSTEM: 
-            SmartDashboard.putNumber("Vision PID Error X", error);
-            SmartDashboard.putNumber("Vision PID Output X", output); 
-            break; 
-        case VISION_Y_SYSTEM: 
-            SmartDashboard.putNumber("Vision PID Target Distance", target); 
-            SmartDashboard.putNumber("Vision PID Error Distance", error); 
-            break;
-        case VISION_ROT_SYSTEM: 
-            SmartDashboard.putNumber("Vision PID Rotation Error", error); 
-            SmartDashboard.putNumber("Vision PID Rotation Output", output);
-            break;*/
+        /*
+         * case VISION_X_SYSTEM: SmartDashboard.putNumber("Vision PID Error X", error);
+         * SmartDashboard.putNumber("Vision PID Output X", output); break; case
+         * VISION_Y_SYSTEM: SmartDashboard.putNumber("Vision PID Target Distance",
+         * target); SmartDashboard.putNumber("Vision PID Error Distance", error); break;
+         * case VISION_ROT_SYSTEM: SmartDashboard.putNumber("Vision PID Rotation Error",
+         * error); SmartDashboard.putNumber("Vision PID Rotation Output", output);
+         * break;
+         */
         case CLIMB_SYSTEM:
             SmartDashboard.putNumber("Climb Error", error);
             SmartDashboard.putNumber("Climb PID Output", output);
@@ -475,64 +503,64 @@ public class OI {
 
     public boolean checkIfNeedBeRun(int system, double error, double speed) {
         switch (system) {
-            case ROT_SYSTEM:
-                if (DriveTrain.getInstance().getTurnInProgress() && Math.abs(error) < 3.0) {
-                    DriveTrain.getInstance().setTurnInProgress(false);
-                    return false;
+        case ROT_SYSTEM:
+            if (DriveTrain.getInstance().getTurnInProgress() && Math.abs(error) < 3.0) {
+                DriveTrain.getInstance().setTurnInProgress(false);
+                return false;
+            }
+            return true;
+        case ELEVATOR_SYSTEM:
+            if (Math.abs(error) < 100) {
+                Elevator.getInstance().changeAdjustingBool(false);
+                return false;
+            }
+            return true;
+        case MAST_SYSTEM:
+            if (Math.abs(error) < 1000) {
+                Mast.getInstance().changeAdjustingBool(false);
+                return false;
+            }
+            return true;
+        case VISION_X_SYSTEM:
+            if (Math.abs(error) < 5) {
+                return false;
+            }
+            return true;
+        case VISION_Y_SYSTEM:
+            if (Math.abs(error) < 10) {
+                return false;
+            }
+            return true;
+        case VISION_ROT_SYSTEM:
+            if (DriveTrain.getInstance().getTurnInProgress() && Math.abs(error) < 3.0) {
+                DriveTrain.getInstance().setTurnInProgress(false);
+                return false;
+            }
+            return true;
+        case CLIMB_POS_SYSTEM:
+            if (Math.abs(error) < 1.0) {
+                if (ClimbRear.getInstance().getBothAdjustingBool()) { // bothadjusting takes priority
+                    ClimbRear.getInstance().setAdjustingBool(false);
+                } else if (ClimbFront.getInstance().getAdjustingBool()) { // then front
+                    ClimbFront.getInstance().setAdjustingBool(false);
+                } else if (ClimbRear.getInstance().getAdjustingBool()) { // then rear
+                    ClimbFront.getInstance().setAdjustingBool(false);
                 }
-                return true;
-            case ELEVATOR_SYSTEM:
-                if (Math.abs(error) < 100) {
-                    Elevator.getInstance().changeAdjustingBool(false);
-                    return false;
-                }
-                return true;
-            case MAST_SYSTEM:
-                if (Math.abs(error) < 1000) {
-                    Mast.getInstance().changeAdjustingBool(false);
-                    return false;
-                }
-                return true;
-            case VISION_X_SYSTEM:
-                if (Math.abs(error) < 5) {
-                    return false;
-                }
-                return true;
-            case VISION_Y_SYSTEM:
-                if (Math.abs(error) < 10) {
-                    return false;
-                }
-                return true;
-            case VISION_ROT_SYSTEM:
-                if (DriveTrain.getInstance().getTurnInProgress() && Math.abs(error) < 3.0) {
-                    DriveTrain.getInstance().setTurnInProgress(false);
-                    return false;
-                }
-                return true;
-            case CLIMB_POS_SYSTEM:
-                if (Math.abs(error) < 1.0) {
-                    if (ClimbRear.getInstance().getBothAdjustingBool()) { // bothadjusting takes priority
-                        ClimbRear.getInstance().setAdjustingBool(false);
-                    } else if (ClimbFront.getInstance().getAdjustingBool()) { // then front
-                        ClimbFront.getInstance().setAdjustingBool(false);
-                    } else if (ClimbRear.getInstance().getAdjustingBool()) { // then rear
-                        ClimbFront.getInstance().setAdjustingBool(false);
-                    }
-                    return false;
-                }
-                return true;
-            case CLIMB_PITCH_SYSTEM:
-                if (Math.abs(error) < 5.0) {
-                    return false;
-                }
-                return true;
-            case INTAKE_SYSTEM:
-                if (Math.abs(error) < 10000) {
-                    Intake.getInstance().changeAdjustingBool(false);
-                    return false;
-                }
-            default: // we probably don't even need a default case lmao
-                return true;
+                return false;
+            }
+            return true;
+        case CLIMB_PITCH_SYSTEM:
+            if (Math.abs(error) < 5.0) {
+                return false;
+            }
+            return true;
+        case INTAKE_SYSTEM:
+            if (Math.abs(error) < 10000) {
+                Intake.getInstance().changeAdjustingBool(false);
+                return false;
+            }
+        default: // we probably don't even need a default case lmao
+            return true;
         }
     }
 
@@ -546,7 +574,8 @@ public class OI {
      * mbolic integration or derivation: o(t) = kP(instant error) + kI(total error)
      * - kD(instant change in error)
      */
-    public double applyPID(int system, double current, double target, double kP, double kI, double kD, double outputMax, double outputMin) {
+    public double applyPID(int system, double current, double target, double kP, double kI, double kD, double outputMax,
+            double outputMin) {
         double output;
         double termP, termI, termD;
         double error = target - current;

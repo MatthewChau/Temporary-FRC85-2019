@@ -61,15 +61,13 @@ if __name__ == "__main__":
     topTable = table.getSubTable("Top")
     bottomTable = table.getSubTable("Bottom")
 
-    topCamera = startCamera("top", "/dev/video0", None)
-    bottomCamera = startCamera("bottom", "/dev/video1", None)
+    topCamera = startCamera("top", "/dev/video1", None)
+    bottomCamera = startCamera("bottom", "/dev/video0", None)
 
-    topSink = cs.getVideo(camera=bottomCamera)
-    #topSink = cs.getVideo(camera=topCamera)
-    bottomSink = cs.getVideo(camera=topCamera)
-    #bottomSink = cs.getVideo(camera=bottomCamera)
-
+    topSink = cs.getVideo(camera=topCamera)
     
+    bottomSink = cs.getVideo(camera=bottomCamera)
+
     topImg = numpy.zeros(shape=(height, width, 3), dtype=numpy.uint8)
     bottomImg = numpy.zeros(shape=(height, width, 3), dtype=numpy.uint8)
 
