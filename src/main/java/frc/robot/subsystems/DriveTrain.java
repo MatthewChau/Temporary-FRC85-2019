@@ -106,13 +106,13 @@ public class DriveTrain extends Subsystem {
                 inputs[i] = ((Variables.A_POLYNOMIAL * Math.pow(inputs[i], 3)) + (Variables.B_POLYNOMIAL * Math.pow(inputs[i], 2)) + (Variables.C_POLYNOMIAL * inputs[i]) + (Variables.D_POLYNOMIAL));
             }*/
 
-            if (OI.getInstance().getForwardBackwardOnlyButton()) {
+            if (OI.getInstance().getRightStickTrigger()) {
                 inputs[0] = 0.0;
                 inputs[2] = 0.0;
             }
 
             if (OI.getInstance().getLeftStickTrigger()) { // trigger for lowering speed
-                inputs[0] *= 0.4;
+                inputs[0] *= 0.5;
                 inputs[1] *= 0.33;
                 inputs[2] *= 0.45;
             }

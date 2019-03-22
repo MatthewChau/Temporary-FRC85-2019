@@ -370,10 +370,6 @@ public class OI {
         return _rightJoystickTrigger.get();
     }
 
-    public boolean getForwardBackwardOnlyButton() {
-        return _rightJoystickTwelve.get();
-    }
-
     public boolean getDriverThumbButton() {
         return _rightJoystickThumbButton.get();
     }
