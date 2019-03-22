@@ -33,11 +33,7 @@ public class ClimbRearDriveWithJoystick extends Command {
         _speed = OI.getInstance().getRightYInputJoystick();
         _position = ClimbRear.getInstance().getClimbRearPosition();
 
-        //if (_position < Variables.CLIMB_REAR_SLOW_DOWN_MIN) {
-        //    _speed = 0;
-        //}
-
-        ClimbRearDrive.getInstance().setClimbRearDriveMotor(_speed);
+        ClimbRearDrive.getInstance().setClimbRearDriveMotor(-_speed);
     }
 
     // Make this return true when this Command no longer needs to run execute()
