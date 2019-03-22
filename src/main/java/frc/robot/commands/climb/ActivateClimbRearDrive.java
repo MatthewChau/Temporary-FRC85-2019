@@ -13,40 +13,28 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class ActivateClimbRearDrive extends Command {
 
-    private double _speed, _timeout;
+    private double _speed;
 
     public ActivateClimbRearDrive(double speed) {
         requires(ClimbRear.getInstance());
         _speed = speed;
     }
 
-    public ActivateClimbRearDrive(double speed, double seconds) {
-        requires(ClimbRear.getInstance());
-        _speed = speed;
-    }
-
+    // Called just before this Command runs the first time
     @Override
     protected void initialize() {
         ClimbRear.getInstance().setClimbRearDriveMotor(_speed);
     }
 
-    @Override
-    protected void execute() {
-    }
-
+    // Make this return true when this Command no longer needs to run execute()
     @Override
     protected boolean isFinished() {
         return true;
     }
 
     @Override
-    protected void end() {
-        ClimbRear.getInstance().setClimbRearDriveMotor(0.0);
-    }
-
-    @Override
     protected void interrupted() {
-        end();
+        ClimbRear.getInstance().setClimbRearDriveMotor(0.0);
     }
 
 }

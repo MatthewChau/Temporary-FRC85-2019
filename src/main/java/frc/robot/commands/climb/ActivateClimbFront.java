@@ -13,23 +13,20 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class ActivateClimbFront extends Command {
 
-    private double _speed, _timeout;
+    private double _speed;
 
     public ActivateClimbFront(double speed) {
         requires(ClimbFront.getInstance());
         _speed = speed;
-        _timeout = 20;
     }
 
-    public ActivateClimbFront(double speed, double seconds) {
+    /*public ActivateClimbFront(double speed, double seconds) {
         requires(ClimbFront.getInstance());
         _speed = speed;
-        _timeout = seconds;
-    }
+    }*/
 
     @Override
     protected void initialize() {
-       setTimeout(_timeout); 
     }
 
     @Override

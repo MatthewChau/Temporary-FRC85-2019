@@ -41,7 +41,7 @@ public class Variables {
 
     private static final double kP_CLIMB_POS = 0.1, kI_CLIMB_POS = 0.0, kD_CLIMB_POS = 0.0;
 
-    private static final double kP_CLIMB_PITCH = 0.0004, kI_CLIMB_PITCH = 0.0, kD_CLIMB_PITCH = 0.0;
+    private static final double kP_CLIMB_PITCH = 0.034, kI_CLIMB_PITCH = 0.0, kD_CLIMB_PITCH = 0.0;
     
     // OI
 
@@ -149,28 +149,28 @@ public class Variables {
     // CLIMB
     public static final double CLIMB_LEFT_LEVEL_THREE = 82.05069732666016;
     public static final double CLIMB_RIGHT_LEVEL_THREE = 79.62188720703125;
-    public static final double CLIMB_REAR_LEVEL_THREE = 70.88294219970703;
+    public static final double CLIMB_REAR_LEVEL_THREE = 87.88459777832031;
 
     // climb position limits
     public static final double CLIMB_LEFT_MAX = 83;
     public static final double CLIMB_RIGHT_MAX = 81;
-    public static final double CLIMB_REAR_MAX = 72;
+    public static final double CLIMB_REAR_MAX = 89;
 
     public static final double CLIMB_LEFT_SLOW_DOWN_MIN = 6.357143878936768;
     public static final double CLIMB_RIGHT_SLOW_DOWN_MIN = 3.1666641235351562;
     public static final double CLIMB_REAR_SLOW_DOWN_MIN = 5.261898517608643;
 
-    public static final double CLIMB_LEFT_SLOW_DOWN_MAX = CLIMB_LEFT_MAX - 3;
-    public static final double CLIMB_RIGHT_SLOW_DOWN_MAX = CLIMB_RIGHT_MAX - 3;
-    public static final double CLIMB_REAR_SLOW_DOWN_MAX = CLIMB_REAR_MAX - 3;
+    public static final double CLIMB_LEFT_SLOW_DOWN_MAX = CLIMB_LEFT_LEVEL_THREE;
+    public static final double CLIMB_RIGHT_SLOW_DOWN_MAX = CLIMB_RIGHT_LEVEL_THREE;
+    public static final double CLIMB_REAR_SLOW_DOWN_MAX = CLIMB_REAR_LEVEL_THREE;
 
     // climb speed limits
-    public static final double CLIMB_MAX_SPEED_UP = 0.3;
+    public static final double CLIMB_MAX_SPEED_UP = 0.6;
     public static final double CLIMB_MAX_SPEED_DOWN = -0.3;
 
     // servo angles for climb
-    public static final double CLIMB_LOCKED = 50;
-    public static final double CLIMB_UNLOCKED = 70;
+    public static final double CLIMB_LOCKED = 0;
+    public static final double CLIMB_UNLOCKED = 20;
 
     // ROLLER
 

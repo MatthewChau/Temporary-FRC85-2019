@@ -114,6 +114,8 @@ public class Robot extends TimedRobot {
         Arrays.fill(OI.getInstance().stopArray, 0.0);
 
         Sensors.getInstance().startTimers();
+        
+        ClimbRear.getInstance().setServo(Variables.getInstance().getClimbUnlocked());
     }
 
     /**
@@ -123,12 +125,17 @@ public class Robot extends TimedRobot {
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
         Variables.getInstance().outputVariables();
+        Sensors.getInstance().checkSensorsForEncoderReset();
+
+        if (ClimbRear.getInstance().getAdjustingBool() || ClimbRear.getInstance().getBothAdjustingBool() || OI.getInstance().getOperatorClimbRear()) {
+            ClimbRear.getInstance().setServo(SmartDashboard.getNumber("CLIMB_UNLOCKED", 0));
+        } else {
+            ClimbRear.getInstance().setServo(SmartDashboard.getNumber("CLIMB_LOCKED", 0));
+        }
 
         if (SmartDashboard.getBoolean("Run Diagnostics?", false)) {
             _diagnostics.log();
         }
-
-        Sensors.getInstance().checkSensorsForEncoderReset();
     }
 
     /**
@@ -144,6 +151,7 @@ public class Robot extends TimedRobot {
         Mast.getInstance().setTargetPosition(Mast.getInstance().getHorizontalPosition());
         Intake.getInstance().setTargetPos(Intake.getInstance().getWristPosition());
         Sensors.getInstance().stopTimers();
+        IMU.getInstance().setInitialYPR();
 
         _diagnostics.close();
     }

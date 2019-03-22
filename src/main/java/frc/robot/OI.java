@@ -155,7 +155,7 @@ public class OI {
         _operatorRollerIn.whenReleased(new ActivateIntake(0));
         _operatorCargoShip = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_CARGO_SHIP);
         _operatorCargoShip.whenPressed(new Place(Variables.CARGO_SHIP, Variables.WRIST_90, Variables.MAST_FORWARD_FOR_CARGO));
-        _operatorCargoShip.whenPressed(new Place(Variables.CARGO_SHIP, Variables.WRIST_90, Variables.MAST_CURRENT_POS));
+        _operatorCargoShip.whenReleased(new Place(Variables.CARGO_SHIP, Variables.WRIST_90, Variables.MAST_CURRENT_POS));
         _operatorRollerOut = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_CARGO_OUT);
         _operatorRollerOut.whenPressed(new ActivateIntake(Variables.ROLLER_OUT));
         _operatorRollerOut.whenReleased(new ActivateIntake(0));
@@ -179,14 +179,14 @@ public class OI {
 
         // the thing off to the side
         _operatorClimbFront = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_CLIMB_FRONT);
-        // _operatorClimbFront.whenPressed(new ClimbFrontWithJoystick());
-        _operatorClimbFront.whenPressed(new MoveClimbPosition(0.0));
+        _operatorClimbFront.whenPressed(new ClimbFrontWithJoystick());
+        //_operatorClimbFront.whenPressed(new MoveClimbPosition(0.0));
         _operatorClimbRear = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_CLIMB_REAR);
-        // _operatorClimbRear.whenPressed(new ClimbRearWithJoystick());
-        _operatorClimbRear.whenPressed(new ActivateClimbFront(-0.6));
+        _operatorClimbRear.whenPressed(new ClimbRearWithJoystick());
+        //_operatorClimbRear.whenPressed(new ActivateClimbFront(-0.6));
         _operatorClimbAuto = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_CLIMB_AUTO);
-        // _operatorClimbAuto.whenPressed(new setClimbRearLock());
-        _operatorClimbAuto.whenPressed(new MoveClimbPosition(Variables.CLIMB_REAR_LEVEL_THREE / 2));
+        //_operatorClimbAuto.whenPressed(new setClimbRearLock());
+        _operatorClimbAuto.whenPressed(new MoveClimbPosition(Variables.CLIMB_REAR_LEVEL_THREE));
 
         /*
          * _driverController = new Joystick(Addresses.CONTROLLER_DRIVER); // drive
@@ -226,7 +226,7 @@ public class OI {
 
         _rightJoystickTrigger = new JoystickButton(_driverJoystickRight, Addresses.EXTREME_TRIGGER);
         _rightJoystickThumbButton = new JoystickButton(_driverJoystickRight, Addresses.EXTREME_THUMB_BUTTON);
-        _rightJoystickThumbButton.whileHeld(new ActivateClimbRearDrive(0.5));
+        _rightJoystickThumbButton.whenPressed(new ActivateClimbRearDrive(0.5));
         _rightJoystickThumbButton.whenReleased(new ActivateClimbRearDrive(0.0));
         _rightJoystickFaceBottomLeft = new JoystickButton(_driverJoystickRight, Addresses.EXTREME_FACE_BOTTOM_LEFT);
         _rightJoystickFaceBottomRight = new JoystickButton(_driverJoystickRight, Addresses.EXTREME_FACE_BOTTOM_RIGHT);

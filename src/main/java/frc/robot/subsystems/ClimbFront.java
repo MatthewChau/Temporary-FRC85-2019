@@ -58,8 +58,8 @@ public class ClimbFront extends Subsystem {
                                                        Variables.getInstance().getClimbPitchkP(), 
                                                        Variables.getInstance().getClimbPitchkI(), 
                                                        Variables.getInstance().getClimbPitchkD(),
-                                                       Variables.getInstance().getClimbMaxSpeedUp() / 2,
-                                                       Variables.getInstance().getClimbMaxSpeedDown() / 2);
+                                                       Variables.getInstance().getClimbMaxSpeedUp(),
+                                                       Variables.getInstance().getClimbMaxSpeedDown());
         double speedLeft;
         double speedRight;
 
@@ -86,13 +86,18 @@ public class ClimbFront extends Subsystem {
                                               Variables.getInstance().getClimbMaxSpeedDown());
         }
 
-        if (modifyRoll > 0) {
+        if (OI.getInstance().getOperatorClimbFront() && OI.getInstance().getOperatorClimbRear()) {
+            speed -= modifyPitch;
+        }
+
+        /*if (modifyRoll > 0) {
             speedLeft = speed;
             speedRight = speed - modifyRoll;
         } else {
             speedLeft = speed + modifyRoll;
             speedRight = speed;
-        }
+        }*/
+        speedLeft = speedRight = speed;
 
         if ((getClimbLeftPosition() > Variables.CLIMB_LEFT_SLOW_DOWN_MAX && speedLeft > 0)
             || (getClimbLeftPosition() < Variables.CLIMB_LEFT_SLOW_DOWN_MIN && speedLeft < 0)) {
