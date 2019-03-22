@@ -62,12 +62,14 @@ public class Sensors extends Subsystem {
         startRightTimer();
         startLeftTimer();
         startRearTimer();
+        Elevator.getInstance().startTimer();
     }
 
     public void stopTimers() {
         stopRightTimer();
         stopLeftTimer();
         stopRearTimer();
+        Elevator.getInstance().stopTimer();
     }
 
     public void startRightTimer() {

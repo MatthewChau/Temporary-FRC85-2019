@@ -137,6 +137,13 @@ public class Robot extends TimedRobot {
             ClimbRear.getInstance().setServo(SmartDashboard.getNumber("CLIMB_LOCKED", 0));
         }
 
+        if (Elevator.getInstance().getAdjustingBool() || OI.getInstance().getOperatorLiftVertical()) {
+            Elevator.getInstance().setServo(SmartDashboard.getNumber("ELEVATOR_UNLOCKED", 0.0));
+        } else {
+            Elevator.getInstance().setServo(SmartDashboard.getNumber("ELEVATOR_LOCKED", 0.0));
+            Elevator.getInstance().resetTimer();
+        }
+
         if (SmartDashboard.getBoolean("Run Diagnostics?", false)) {
             _diagnostics.log();
         }

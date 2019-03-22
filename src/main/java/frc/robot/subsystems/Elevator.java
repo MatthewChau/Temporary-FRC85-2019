@@ -15,6 +15,7 @@ import frc.robot.sensors.Sensors;
 import frc.robot.commands.lift.ElevatorLock;
 
 import edu.wpi.first.wpilibj.Servo;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -31,6 +32,8 @@ public class Elevator extends Subsystem {
 
     private Servo _liftServo;
 
+    private Timer _timer;
+
     private double targetPos, _servoAngle;
 
     private boolean adjusting;
@@ -41,6 +44,8 @@ public class Elevator extends Subsystem {
         _liftRightMotor = new TalonSRX(Addresses.LIFT_RIGHT_MOTOR);
         _liftRightMotor.setNeutralMode(NeutralMode.Brake);
         _liftRightMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
+
+        _timer = new Timer();
 
         _liftServo = new Servo(Addresses.LIFT_SERVO);
     }
@@ -54,7 +59,6 @@ public class Elevator extends Subsystem {
 
     @Override
     public void initDefaultCommand() {
-        setDefaultCommand(new ElevatorLock());
     }
 
     public void verticalShift(double speed) {
@@ -80,7 +84,8 @@ public class Elevator extends Subsystem {
         SmartDashboard.putBoolean("Lift Soft Limits Activated", softLimits(speed));
 
         if ((Sensors.getInstance().getLiftTopLimit() && speed > 0.0)
-             || (Sensors.getInstance().getLiftBottomLimit() && speed < 0.0)) {
+             || (Sensors.getInstance().getLiftBottomLimit() && speed < 0.0)
+             || (_timer.get() < 0.3)) {
             speed = 0.0;
         }
 
@@ -199,6 +204,18 @@ public class Elevator extends Subsystem {
 
     public double getServo() {
         return _servoAngle;
+    }
+
+    public void startTimer() {
+        _timer.start();
+    }
+
+    public void resetTimer() {
+        _timer.reset();
+    }
+
+    public void stopTimer() {
+        _timer.stop();
     }
 
     public TalonSRX getIMUTalon() {

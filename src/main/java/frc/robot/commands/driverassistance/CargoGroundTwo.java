@@ -11,7 +11,7 @@ public class CargoGroundTwo extends CommandGroup {
         addSequential(new Interrupt());
 
         addSequential(new ActivateIntake(0.0));
-        addSequential(new Place(Variables.CARGO_ONE, Variables.WRIST_CARGO, Variables.MAST_CURRENT_POS));
+        addSequential(new Place(Variables.CARGO_ONE, Variables.WRIST_CARGO, Variables.MAST_FORWARD_FOR_CARGO));
     }
     
 }
