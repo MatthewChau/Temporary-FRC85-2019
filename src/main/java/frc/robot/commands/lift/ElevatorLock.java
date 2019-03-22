@@ -53,7 +53,7 @@ public class ElevatorLock extends Command {
 
     @Override
     protected boolean isFinished() {
-        return isTimedOut();
+        return isTimedOut() || Elevator.getInstance().getServo() == Variables.getInstance().getElevatorLocked();
     }
 
     @Override 

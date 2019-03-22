@@ -131,7 +131,7 @@ public class Sensors extends Subsystem {
     }
 
     public boolean getClimbRightLimit() {
-        return !_climbRightLimit.get();
+        return _climbRightLimit.get();
     }
 
     public boolean getClimbLeftLimit() {
@@ -139,7 +139,7 @@ public class Sensors extends Subsystem {
     }
 
     public boolean getClimbRearLimit() {
-        return !_climbRearLimit.get();
+        return _climbRearLimit.get();
     }
 
     public void checkSensorsForEncoderReset() {

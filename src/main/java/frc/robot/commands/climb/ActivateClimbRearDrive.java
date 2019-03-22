@@ -23,22 +23,20 @@ public class ActivateClimbRearDrive extends Command {
     public ActivateClimbRearDrive(double speed, double seconds) {
         requires(ClimbRear.getInstance());
         _speed = speed;
-        _timeout = seconds;
     }
 
     @Override
     protected void initialize() {
-       setTimeout(_timeout); 
-    }
-
-    @Override
-    protected void execute() {
         ClimbRear.getInstance().setClimbRearDriveMotor(_speed);
     }
 
     @Override
+    protected void execute() {
+    }
+
+    @Override
     protected boolean isFinished() {
-        return isTimedOut();
+        return true;
     }
 
     @Override

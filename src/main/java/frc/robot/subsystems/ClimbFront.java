@@ -74,7 +74,7 @@ public class ClimbFront extends Subsystem {
                                               Variables.getInstance().getClimbPoskD(),
                                               Variables.getInstance().getClimbMaxSpeedUp(),
                                               Variables.getInstance().getClimbMaxSpeedDown());
-            speed += modifyPitch;
+            speed -= modifyPitch;
         } else if (adjusting) {
             speed = OI.getInstance().applyPID(OI.CLIMB_POS_SYSTEM,
                                               getClimbLeftPosition(),

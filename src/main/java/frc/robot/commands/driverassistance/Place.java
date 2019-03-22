@@ -21,11 +21,11 @@ public class Place extends CommandGroup {
     public Place(int elevatorPos, int wristPosition, int mastPosition) {
         addSequential(new Interrupt());
 
-        addParallel(new WristPosition(wristPosition)); // move the wrist (maybe this sequence will work better?)
         addSequential(new WaitForElevator(0.3)); // wait with the pid running (for lock)
         addParallel(new MastPosition(mastPosition)); // move the mast out to the pos
         addSequential(new ElevatorPosition(elevatorPos)); // move the elevator
-        addSequential(new ElevatorLock(0.25), 0.3); // lock the elevator, add the timeout just in case pretty much
+        addParallel(new ElevatorLock(0.25), 0.3); // lock the elevator, add the timeout just in case pretty much
+        addSequential(new WristPosition(wristPosition)); // move the wrist (maybe this sequence will work better?)
     }
 
 }

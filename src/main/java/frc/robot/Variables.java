@@ -130,7 +130,7 @@ public class Variables {
     public static final int WRIST_CARGO_HIGH = -585000;
     public static final int WRIST_CARGO = -767000;
     public static final int WRIST_CARGO_SHIP = -900000;
-    public static final int WRIST_CARGO_FLOOR = -990783;
+    public static final int WRIST_CARGO_FLOOR = -974615;
 
     public static final int WRIST_HATCH_FLOOR = -1140762;
 

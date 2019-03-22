@@ -32,6 +32,7 @@ import frc.robot.commands.lift.ElevatorWithJoystick;
 import frc.robot.commands.spike.SetSpike;
 import frc.robot.commands.spike.ToggleSpike;
 import frc.robot.commands.climb.ActivateClimbRear;
+import frc.robot.commands.climb.ActivateClimbRearDrive;
 import frc.robot.commands.climb.ActivateClimbFront;
 import frc.robot.commands.climb.ClimbFrontWithJoystick;
 import frc.robot.commands.climb.ClimbRearLock;
@@ -117,31 +118,24 @@ public class OI {
 
         // black
         _operatorMast = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_MAST);
-        //_operatorMast = new JoystickButton(_operatorJoystick, AddressesOpJoystick.OPERATOR_MAST);
         _operatorMast.whenPressed(new Interrupt());
         _operatorMast.whenPressed(new MastWithJoystick());
         _operatorWrist = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_WRIST);
-        //_operatorWrist = new JoystickButton(_operatorJoystick, AddressesOpJoystick.OPERATOR_WRIST);
         _operatorWrist.whenPressed(new Interrupt());
         _operatorWrist.whenPressed(new WristWithJoystick());
         _operatorHatchStation = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_HATCH_STATION);
         _operatorHatchStation.whenPressed(new Place(Variables.HATCH_STATION, Variables.WRIST_30, Variables.MAST_FORWARD_POS));
         _operatorHatchStation.whenReleased(new Place((Variables.HATCH_ONE + 500), Variables.WRIST_0, Variables.MAST_CURRENT_POS));
         _operatorHatchRelease = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_HATCH_RELEASE);
-        //_operatorHatchRelease = new JoystickButton(_operatorJoystick, AddressesOpJoystick.OPERATOR_HATCH_RELEASE);
         _operatorHatchRelease.whenPressed(new Place(Variables.ELEVATOR_CURRENT_POS, Variables.WRIST_30, (Variables.MAST_FORWARD_POS - 100000)));
         _operatorHatchRelease.whenReleased(new Place(Variables.ELEVATOR_CURRENT_POS, Variables.WRIST_CURR_POSITION, Variables.MAST_PROTECTED));
         _operatorHatchFloor = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_HATCH_FLOOR);
         _operatorHatchFloor.whenPressed(new HatchGroundOne());
         _operatorHatchFloor.whenReleased(new HatchGroundTwo());
         _operatorHatchThree = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_HATCH_THREE);
-        //_operatorHatchThree = new JoystickButton(_operatorJoystick, AddressesOpJoystick.OPERATOR_HATCH_THREE);
-        // _operatorHatchThree.whenPressed(new Place(Variables.HATCH_THREE,
-        // Variables.WRIST_0, Variables.MAST_FORWARD_POS));
-        // _operatorHatchThree.whenReleased(new Place(Variables.HATCH_THREE,
-        // Variables.WRIST_0, Variables.MAST_CURRENT_POS));
+        _operatorHatchThree.whenPressed(new Place(Variables.HATCH_THREE, Variables.WRIST_0, Variables.MAST_FORWARD_POS));
+        _operatorHatchThree.whenReleased(new Place(Variables.HATCH_THREE, Variables.WRIST_0, Variables.MAST_CURRENT_POS));
         _operatorHatchTwo = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_HATCH_TWO);
-        //_operatorHatchTwo = new JoystickButton(_operatorJoystick, AddressesOpJoystick.OPERATOR_HATCH_TWO);
         _operatorHatchTwo.whenPressed(new Place(Variables.HATCH_TWO, Variables.WRIST_0, Variables.MAST_FORWARD_POS));
         _operatorHatchTwo.whenReleased(new Place(Variables.HATCH_TWO, Variables.WRIST_0, Variables.MAST_CURRENT_POS));
         //_operatorHatchThree.whenPressed(new ActivateClimbFront(0.3));
@@ -149,45 +143,35 @@ public class OI {
         //_operatorHatchTwo.whenPressed(new ActivateClimbFront(-0.3));
         //_operatorHatchTwo.whenReleased(new ActivateClimbFront(0.0));
         _operatorHatchOne = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_HATCH_ONE);
-        //_operatorHatchOne = new JoystickButton(_operatorJoystick, AddressesOpJoystick.OPERATOR_HATCH_ONE);
         _operatorHatchOne.whenPressed(new Place(Variables.HATCH_ONE, Variables.WRIST_0, Variables.MAST_FORWARD_POS));
         _operatorHatchOne.whenReleased(new Place(Variables.HATCH_ONE, Variables.WRIST_0, Variables.MAST_CURRENT_POS));
 
         // white
         _operatorElevator = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_ELEVATOR);
-        //_operatorElevator = new JoystickButton(_operatorJoystick, AddressesOpJoystick.OPERATOR_ELEVATOR);
         _operatorElevator.whenPressed(new Interrupt());
         _operatorElevator.whenPressed(new ElevatorWithJoystick());
         _operatorRollerIn = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_ROLLER_IN);
-        //_operatorRollerIn = new JoystickButton(_operatorJoystick, AddressesOpJoystick.OPERATOR_ROLLER_IN);
         _operatorRollerIn.whenPressed(new ActivateIntake(Variables.ROLLER_IN));
         _operatorRollerIn.whenReleased(new ActivateIntake(0));
         _operatorCargoShip = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_CARGO_SHIP);
         _operatorCargoShip.whenPressed(new Place(Variables.CARGO_SHIP, Variables.WRIST_90, Variables.MAST_FORWARD_FOR_CARGO));
         _operatorCargoShip.whenPressed(new Place(Variables.CARGO_SHIP, Variables.WRIST_90, Variables.MAST_CURRENT_POS));
         _operatorRollerOut = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_CARGO_OUT);
-        //_operatorRollerOut = new JoystickButton(_operatorJoystick, AddressesOpJoystick.OPERATOR_CARGO_OUT);
         _operatorRollerOut.whenPressed(new ActivateIntake(Variables.ROLLER_OUT));
         _operatorRollerOut.whenReleased(new ActivateIntake(0));
         _operatorCargoFloor = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_CARGO_FLOOR);
         _operatorCargoFloor.whenPressed(new CargoGroundOne());
         _operatorCargoFloor.whenReleased(new CargoGroundTwo());
         _operatorCargoThree = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_CARGO_THREE);
-        //_operatorCargoThree = new JoystickButton(_operatorJoystick, AddressesOpJoystick.OPERATOR_CARGO_THREE);
-        // _operatorCargoThree.whenPressed(new Place(Variables.CARGO_THREE,
-        // Variables.WRIST_CARGO_HIGH, Variables.MAST_FORWARD_FOR_CARGO));
-        // _operatorCargoThree.whenReleased(new Place(Variables.CARGO_THREE,
-        // Variables.WRIST_CARGO_HIGH, Variables.MAST_CURRENT_POS));
+        _operatorCargoThree.whenPressed(new Place(Variables.CARGO_THREE, Variables.WRIST_CARGO_HIGH, Variables.MAST_FORWARD_FOR_CARGO));
+        _operatorCargoThree.whenReleased(new Place(Variables.CARGO_THREE, Variables.WRIST_CARGO_HIGH, Variables.MAST_CURRENT_POS));
         _operatorCargoTwo = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_CARGO_TWO);
-        //_operatorCargoTwo = new JoystickButton(_operatorJoystick, AddressesOpJoystick.OPERATOR_CARGO_TWO);
-        // _operatorCargoTwo.whenPressed(new Place(Variables.CARGO_TWO,
-        // Variables.WRIST_CARGO, Variables.MAST_FORWARD_FOR_CARGO));
-        // _operatorCargoTwo.whenReleased(new Place(Variables.CARGO_TWO,
-        // Variables.WRIST_CARGO, Variables.MAST_CURRENT_POS));
-        _operatorCargoThree.whenPressed(new ActivateClimbRear(0.3));
-        _operatorCargoThree.whenReleased(new ActivateClimbRear(0.0));
-        _operatorCargoTwo.whenPressed(new ActivateClimbRear(-0.3));
-        _operatorCargoTwo.whenReleased(new ActivateClimbRear(0.0));
+        _operatorCargoTwo.whenPressed(new Place(Variables.CARGO_TWO, Variables.WRIST_CARGO, Variables.MAST_FORWARD_FOR_CARGO));
+        _operatorCargoTwo.whenReleased(new Place(Variables.CARGO_TWO, Variables.WRIST_CARGO, Variables.MAST_CURRENT_POS));
+        //_operatorCargoThree.whenPressed(new ActivateClimbRear(0.3));
+        //_operatorCargoThree.whenReleased(new ActivateClimbRear(0.0));
+        //_operatorCargoTwo.whenPressed(new ActivateClimbRear(-0.3));
+        //_operatorCargoTwo.whenReleased(new ActivateClimbRear(0.0));
         _operatorCargoOne = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_CARGO_ONE);
         //_operatorCargoOne = new JoystickButton(_operatorJoystick, AddressesOpJoystick.OPERATOR_CARGO_ONE);
         _operatorCargoOne.whenPressed(new Place(Variables.CARGO_ONE, Variables.WRIST_CARGO, Variables.MAST_FORWARD_FOR_CARGO));
@@ -196,11 +180,13 @@ public class OI {
         // the thing off to the side
         _operatorClimbFront = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_CLIMB_FRONT);
         // _operatorClimbFront.whenPressed(new ClimbFrontWithJoystick());
+        _operatorClimbFront.whenPressed(new MoveClimbPosition(0.0));
         _operatorClimbRear = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_CLIMB_REAR);
         // _operatorClimbRear.whenPressed(new ClimbRearWithJoystick());
+        _operatorClimbRear.whenPressed(new ActivateClimbFront(-0.6));
         _operatorClimbAuto = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_CLIMB_AUTO);
         // _operatorClimbAuto.whenPressed(new setClimbRearLock());
-        _operatorClimbAuto.whenPressed(new MoveClimbPosition(Variables.CLIMB_REAR_LEVEL_THREE));
+        _operatorClimbAuto.whenPressed(new MoveClimbPosition(Variables.CLIMB_REAR_LEVEL_THREE / 2));
 
         /*
          * _driverController = new Joystick(Addresses.CONTROLLER_DRIVER); // drive
@@ -240,7 +226,8 @@ public class OI {
 
         _rightJoystickTrigger = new JoystickButton(_driverJoystickRight, Addresses.EXTREME_TRIGGER);
         _rightJoystickThumbButton = new JoystickButton(_driverJoystickRight, Addresses.EXTREME_THUMB_BUTTON);
-        _rightJoystickThumbButton.whenActive(new FollowOneTarget());
+        _rightJoystickThumbButton.whenPressed(new ActivateClimbRearDrive(0.5));
+        _rightJoystickThumbButton.whenReleased(new ActivateClimbRearDrive(0.0));
         _rightJoystickFaceBottomLeft = new JoystickButton(_driverJoystickRight, Addresses.EXTREME_FACE_BOTTOM_LEFT);
         _rightJoystickFaceBottomRight = new JoystickButton(_driverJoystickRight, Addresses.EXTREME_FACE_BOTTOM_RIGHT);
         _rightJoystickFaceTopLeft = new JoystickButton(_driverJoystickRight, Addresses.EXTREME_FACE_TOP_LEFT);

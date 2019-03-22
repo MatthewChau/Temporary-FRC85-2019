@@ -3,6 +3,7 @@ package frc.robot.commands.driverassistance;
 import frc.robot.Variables;
 import frc.robot.commands.intake.WristPosition;
 import frc.robot.commands.lift.ElevatorPosition;
+import frc.robot.commands.lift.MastPosition;
 import frc.robot.commands.lift.WaitForElevator;
 import frc.robot.commands.lift.ElevatorLock;
 
@@ -17,6 +18,7 @@ public class HatchGroundOne extends CommandGroup {
         addSequential(new WaitForElevator(0.3));
         addSequential(new ElevatorPosition(Variables.HATCH_FLOOR));
         addSequential(new ElevatorLock(0.25), 0.3); 
+        addSequential(new MastPosition(Variables.MAST_FORWARD_POS));
         addSequential(new WristPosition(Variables.WRIST_HATCH_FLOOR));
     }
 
