@@ -1,25 +1,53 @@
 <xml version="1.0">
 <dashboard>
+	<widget field="Climb Pitch PID Target" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="579" y="599"/>
+	</widget>
+	<widget field="Climb Pitch PID Output" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="576" y="575"/>
+	</widget>
+	<widget field="Climb Pitch Error" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="606" y="552"/>
+	</widget>
+	<widget field="kD_CLIMB_PITCH" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="2" y="558"/>
+	</widget>
+	<widget field="kI_CLIMB_PITCH" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="2" y="536"/>
+	</widget>
+	<widget field="kD_CLIMB_POS" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="1" y="491"/>
+	</widget>
+	<widget field="kI_CLIMB_POS" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="467"/>
+	</widget>
+	<widget field="kP_CLIMB_POS" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="445"/>
+	</widget>
+	<widget field="kP_CLIMB_PITCH" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="1" y="514"/>
+	</widget>
 	<widget field="Climb Pos PID Target" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="0" y="510"/>
+		<location x="797" y="599"/>
+		<height>20</height>
 	</widget>
 	<widget field="Climb Pos PID Output" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="0" y="489"/>
+		<location x="795" y="576"/>
 	</widget>
 	<widget field="Climb Pos Error" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="0" y="468"/>
+		<location x="825" y="552"/>
 	</widget>
 	<widget field="x1 and x2 conglomerated for vis1" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="0" y="447"/>
+		<location x="1046" y="426"/>
 	</widget>
 	<widget field="Climb PID Target" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="160" y="52"/>
+		<location x="353" y="595"/>
 	</widget>
 	<widget field="Climb PID Output" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="158" y="29"/>
+		<location x="351" y="572"/>
 	</widget>
 	<widget field="Climb Error" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="188" y="7"/>
+		<location x="381" y="550"/>
 	</widget>
 	<widget field="Rear Climb Limit Switch" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.BooleanBox">
 		<location x="1268" y="211"/>
@@ -100,37 +128,38 @@
 		<location x="917" y="36"/>
 	</widget>
 	<widget field="Horizontal Lift PID Target" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="363" y="341"/>
+		<location x="1194" y="598"/>
 	</widget>
 	<widget field="Horizontal Lift PID Output" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="361" y="320"/>
+		<location x="1192" y="576"/>
 	</widget>
 	<widget field="Horizontal Lift Error" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="391" y="299"/>
+		<location x="1222" y="554"/>
 	</widget>
 	<widget field="Intake PID Target" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="470" y="49"/>
+		<location x="1002" y="552"/>
 	</widget>
 	<widget field="Intake PID Output" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="468" y="91"/>
+		<location x="1002" y="598"/>
 	</widget>
 	<widget field="Intake Error" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="498" y="70"/>
+		<location x="1031" y="576"/>
 	</widget>
 	<widget field="Rot PID Error" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
 		<location x="153" y="426"/>
 	</widget>
 	<widget field="Rot PID Target" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="145" y="404"/>
+		<location x="616" y="638"/>
 	</widget>
 	<widget field="Vertical Lift PID Target" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="329" y="409"/>
+		<location x="325" y="685"/>
+		<height>20</height>
 	</widget>
 	<widget field="Vertical Lift PID Output" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="327" y="388"/>
+		<location x="322" y="660"/>
 	</widget>
 	<widget field="Vertical Lift Error" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="357" y="367"/>
+		<location x="352" y="636"/>
 	</widget>
 	<widget field="Lift Front" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.CheckBox">
 		<location x="817" y="78"/>
@@ -284,5 +313,82 @@
 	</widget>
 </dashboard>
 <live-window>
+	<widget field="Interruptable" type="LW Subsystem" class="edu.wpi.first.smartdashboard.livewindow.elements.LWSubsystem">
+		<location x="0" y="207"/>
+	</widget>
+	<widget field="ClimbFront" type="LW Subsystem" class="edu.wpi.first.smartdashboard.livewindow.elements.LWSubsystem">
+		<location x="0" y="184"/>
+	</widget>
+	<widget field="Intake" type="LW Subsystem" class="edu.wpi.first.smartdashboard.livewindow.elements.LWSubsystem">
+		<location x="0" y="161"/>
+	</widget>
+	<widget field="Spike" type="LW Subsystem" class="edu.wpi.first.smartdashboard.livewindow.elements.LWSubsystem">
+		<location x="0" y="138"/>
+	</widget>
+	<widget field="DriveTrain" type="LW Subsystem" class="edu.wpi.first.smartdashboard.livewindow.elements.LWSubsystem">
+		<location x="0" y="115"/>
+	</widget>
+	<widget field="Mast" type="LW Subsystem" class="edu.wpi.first.smartdashboard.livewindow.elements.LWSubsystem">
+		<location x="0" y="92"/>
+	</widget>
+	<widget field="ClimbRear" type="LW Subsystem" class="edu.wpi.first.smartdashboard.livewindow.elements.LWSubsystem">
+		<location x="0" y="69"/>
+	</widget>
+	<widget field="Sensors" type="LW Subsystem" class="edu.wpi.first.smartdashboard.livewindow.elements.LWSubsystem">
+		<location x="0" y="46"/>
+	</widget>
+	<widget field="Elevator" type="LW Subsystem" class="edu.wpi.first.smartdashboard.livewindow.elements.LWSubsystem">
+		<location x="0" y="23"/>
+	</widget>
+	<widget field="Ungrouped" type="LW Subsystem" class="edu.wpi.first.smartdashboard.livewindow.elements.LWSubsystem">
+		<widget field="DigitalInput[8]" type="Digital Input" class="edu.wpi.first.smartdashboard.livewindow.elements.DigitalInputDisplay">
+			<location x="6" y="16"/>
+			<height>20</height>
+			<width>86</width>
+		</widget>
+		<widget field="DigitalInput[0]" type="Digital Input" class="edu.wpi.first.smartdashboard.livewindow.elements.DigitalInputDisplay">
+			<location x="6" y="36"/>
+			<height>20</height>
+			<width>86</width>
+		</widget>
+		<widget field="DigitalInput[5]" type="Digital Input" class="edu.wpi.first.smartdashboard.livewindow.elements.DigitalInputDisplay">
+			<location x="6" y="56"/>
+			<height>20</height>
+			<width>86</width>
+		</widget>
+		<widget field="DigitalInput[7]" type="Digital Input" class="edu.wpi.first.smartdashboard.livewindow.elements.DigitalInputDisplay">
+			<location x="6" y="76"/>
+			<height>20</height>
+			<width>86</width>
+		</widget>
+		<widget field="DigitalInput[6]" type="Digital Input" class="edu.wpi.first.smartdashboard.livewindow.elements.DigitalInputDisplay">
+			<location x="6" y="96"/>
+			<height>20</height>
+			<width>86</width>
+		</widget>
+		<widget field="DigitalInput[3]" type="Digital Input" class="edu.wpi.first.smartdashboard.livewindow.elements.DigitalInputDisplay">
+			<location x="6" y="116"/>
+			<height>20</height>
+			<width>86</width>
+		</widget>
+		<widget field="DigitalInput[4]" type="Digital Input" class="edu.wpi.first.smartdashboard.livewindow.elements.DigitalInputDisplay">
+			<location x="6" y="136"/>
+			<height>20</height>
+			<width>86</width>
+		</widget>
+		<widget field="DigitalInput[1]" type="Digital Input" class="edu.wpi.first.smartdashboard.livewindow.elements.DigitalInputDisplay">
+			<location x="6" y="156"/>
+			<height>20</height>
+			<width>86</width>
+		</widget>
+		<widget field="DigitalInput[2]" type="Digital Input" class="edu.wpi.first.smartdashboard.livewindow.elements.DigitalInputDisplay">
+			<location x="6" y="176"/>
+			<height>20</height>
+			<width>86</width>
+		</widget>
+		<location x="0" y="0"/>
+		<width>98</width>
+		<height>202</height>
+	</widget>
 </live-window>
 </xml>
