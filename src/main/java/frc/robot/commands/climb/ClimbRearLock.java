@@ -30,7 +30,6 @@ public class ClimbRearLock extends Command {
 
     @Override
     protected void initialize() {
-        ClimbRear.getInstance().setClimbRearDriveMotor(0.0);
         ClimbRear.getInstance().setServo(Variables.getInstance().getClimbLocked());
     }
 
@@ -46,7 +45,6 @@ public class ClimbRearLock extends Command {
     @Override 
     protected void end() {
         ClimbRear.getInstance().setServo(Variables.getInstance().getClimbUnlocked());
-        ClimbRear.getInstance().setClimbRearDriveMotor(0.0);
     }
 
     @Override

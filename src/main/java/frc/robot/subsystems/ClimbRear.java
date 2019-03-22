@@ -10,11 +10,6 @@ import frc.robot.commands.climb.ClimbRearLock;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.Servo;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-import com.ctre.phoenix.motorcontrol.FeedbackDevice;
-import com.ctre.phoenix.motorcontrol.NeutralMode;
-
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel;
 import com.revrobotics.CANSparkMax.IdleMode;
@@ -24,8 +19,6 @@ public class ClimbRear extends Subsystem {
     private static ClimbRear _instance = null;
 
     private CANSparkMax _climbRearMotor;
-
-    private TalonSRX _climbRearDriveMotor;
 
     private Servo _climbServo;
 
@@ -39,9 +32,6 @@ public class ClimbRear extends Subsystem {
         _climbRearMotor = new CANSparkMax(Addresses.CLIMB_REAR_MOTOR, CANSparkMaxLowLevel.MotorType.kBrushless);
         _climbRearMotor.setIdleMode(IdleMode.kBrake);
         //_climbRearMotor.setSmartCurrentLimit(0, 5700, 3000);
-        _climbRearDriveMotor = new TalonSRX(Addresses.CLIMB_REAR_DRIVE);
-        _climbRearDriveMotor.setNeutralMode(NeutralMode.Brake);
-        _climbRearDriveMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
 
         _climbServo = new Servo(Addresses.CLIMB_SERVO);
     }
@@ -117,24 +107,6 @@ public class ClimbRear extends Subsystem {
 
     public void setClimbRearPosition(double position) {
         _climbRearMotor.setEncPosition(position);
-    }
-
-    // CLIMB DRIVE MOTOR
-
-    public void moveClimbRearDrive(double speed) {
-        // decide that pid exists here maybe?
-    }
-
-    public void setClimbRearDriveMotor(double speed) {
-        _climbRearDriveMotor.set(ControlMode.PercentOutput, speed);
-    }
-
-    public int getClimbRearDriveMotorPosition() {
-        return _climbRearDriveMotor.getSelectedSensorPosition();
-    }
-
-    public void setClimbRearDriveMotorPosition(int position) {
-        _climbRearDriveMotor.setSelectedSensorPosition(position);
     }
 
     public void setServo(double angle) {

@@ -77,6 +77,8 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void robotPeriodic() {
+        Variables.getInstance().outputVariables();
+
     }
 
     @Override
@@ -124,7 +126,7 @@ public class Robot extends TimedRobot {
     @Override
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
-        Variables.getInstance().outputVariables();
+        //Variables.getInstance().outputVariables();
         Sensors.getInstance().checkSensorsForEncoderReset();
 
         if (ClimbRear.getInstance().getAdjustingBool() || ClimbRear.getInstance().getBothAdjustingBool() || OI.getInstance().getOperatorClimbRear()) {

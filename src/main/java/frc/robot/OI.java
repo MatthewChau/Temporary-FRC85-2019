@@ -226,8 +226,7 @@ public class OI {
 
         _rightJoystickTrigger = new JoystickButton(_driverJoystickRight, Addresses.EXTREME_TRIGGER);
         _rightJoystickThumbButton = new JoystickButton(_driverJoystickRight, Addresses.EXTREME_THUMB_BUTTON);
-        _rightJoystickThumbButton.whenPressed(new ActivateClimbRearDrive(0.5));
-        _rightJoystickThumbButton.whenReleased(new ActivateClimbRearDrive(0.0));
+        // Vision goes here
         _rightJoystickFaceBottomLeft = new JoystickButton(_driverJoystickRight, Addresses.EXTREME_FACE_BOTTOM_LEFT);
         _rightJoystickFaceBottomRight = new JoystickButton(_driverJoystickRight, Addresses.EXTREME_FACE_BOTTOM_RIGHT);
         _rightJoystickFaceTopLeft = new JoystickButton(_driverJoystickRight, Addresses.EXTREME_FACE_TOP_LEFT);
@@ -340,6 +339,10 @@ public class OI {
 
     public double getYInputJoystick() {
         return _driverJoystickLeft.getRawAxis(Addresses.ATTACK_Y_AXIS);
+    }
+
+    public double getRightYInputJoystick() {
+        return _driverJoystickRight.getRawAxis(Addresses.EXTREME_Y_AXIS);
     }
 
     // JOYSTICKS BUTTONS
