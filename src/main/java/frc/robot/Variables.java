@@ -73,6 +73,7 @@ public class Variables {
 
     public static final int HATCH_FLOOR = HATCH_ONE;
     public static final int HATCH_STATION = 1965;
+    public static final int HATCH_STATION_JUMP = 2500;
     
     public static final int CARGO_ONE = 7016;
     public static final int CARGO_TWO = 14752;
