@@ -261,6 +261,25 @@ public class OI {
         return _instance;
     }
 
+    // generic things
+
+    public boolean getGenericButton(int joystick, int button) {
+        switch (joystick) {
+            case Addresses.CONTROLLER_OPERATOR_BLACK:
+                return _operatorControllerBlack.getRawButton(button);
+            case Addresses.CONTROLLER_OPERATOR_WHITE:
+                return _operatorControllerWhite.getRawButton(button);
+            case Addresses.CONTROLLER_DRIVER_STICK_LEFT:
+                return _driverJoystickLeft.getRawButton(button);
+            case Addresses.CONTROLLER_DRIVER_STICK_RIGHT:
+                return _driverJoystickRight.getRawButton(button);
+            case Addresses.CONTROLLER_OPERATOR_JOYSTICK:
+                return _operatorJoystick.getRawButton(button);
+            default:
+                return false;
+        }
+    }
+
     // DRIVER
 
     public double[] getControllerInput() {
