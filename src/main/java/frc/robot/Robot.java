@@ -10,6 +10,7 @@ package frc.robot;
 import frc.robot.sensors.IMU;
 import frc.robot.sensors.Sensors;
 import frc.robot.subsystems.ClimbRear;
+import frc.robot.subsystems.ClimbRearDrive;
 import frc.robot.subsystems.ClimbFront;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Intake;
@@ -61,6 +62,7 @@ public class Robot extends TimedRobot {
         Interruptable.getInstance();
         Spike.getInstance();
         ClimbRear.getInstance();
+        ClimbRearDrive.getInstance();
         ClimbFront.getInstance();
         Sensors.getInstance();
 
