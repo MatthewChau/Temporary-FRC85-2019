@@ -80,12 +80,18 @@ public class Robot extends TimedRobot {
     @Override
     public void robotPeriodic() {
         Variables.getInstance().outputVariables();
-
     }
 
     @Override
     public void autonomousInit() {
+        IMU.getInstance().setFusedHeading(0);
         teleopInit();
+
+        // init the pid stuff 
+
+        Arrays.fill(OI.getInstance().firstRun, true);
+        Arrays.fill(OI.getInstance().errorSum, 0.0);
+        Arrays.fill(OI.getInstance().lastActual, 0.0);
 
         //_sendItBro = new SendItBro();
         //_sendItBro.start();
@@ -105,21 +111,7 @@ public class Robot extends TimedRobot {
 
     @Override
     public void teleopInit() {
-        IMU.getInstance().setFusedHeading(0);
-
-        Scheduler.getInstance().removeAll();
-
-        // init the pid stuff 
-
-        Arrays.fill(OI.getInstance().firstRun, true);
-        Arrays.fill(OI.getInstance().errorSum, 0.0);
-        Arrays.fill(OI.getInstance().lastActual, 0.0);
-        
-        Arrays.fill(OI.getInstance().stopArray, 0.0);
-
         Sensors.getInstance().startTimers();
-        
-        ClimbRear.getInstance().setServo(Variables.getInstance().getClimbUnlocked());
     }
 
     /**
@@ -163,6 +155,8 @@ public class Robot extends TimedRobot {
         Intake.getInstance().setTargetPos(Intake.getInstance().getWristPosition());
         Sensors.getInstance().stopTimers();
         IMU.getInstance().setInitialYPR();
+
+        Scheduler.getInstance().removeAll();
 
         _diagnostics.close();
     }

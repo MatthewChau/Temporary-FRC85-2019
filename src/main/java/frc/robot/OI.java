@@ -55,6 +55,8 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
+import java.util.Arrays;
+
 public class OI {
 
     private static OI _instance;
@@ -250,6 +252,8 @@ public class OI {
         _opJoystickBaseBottomRight = new JoystickButton(_operatorJoystick, Addresses.ATTACK_BASE_BOTTOM_RIGHT);
         _opJoystickBaseRightBottom = new JoystickButton(_operatorJoystick, Addresses.ATTACK_BASE_RIGHT_BOTTOM);
         _opJoystickBaseRightTop = new JoystickButton(_operatorJoystick, Addresses.ATTACK_BASE_RIGHT_TOP);
+        
+        Arrays.fill(stopArray, 0.0);
     }
 
     public static OI getInstance() {
