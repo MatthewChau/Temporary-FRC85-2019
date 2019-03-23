@@ -79,12 +79,9 @@ public class Elevator extends Subsystem {
             targetPos = getElevatorPosition();
         }
 
-        if (adjusting && speed > 0 && speed < 0.3) { // fix for small outputs getting stall speed
-            speed = 0.3;
-        }
-
-        if (adjusting && speed > -0.1 && speed < 0) {
-            speed = -0.1;
+        if ((adjusting && speed > 0 && speed < 0.3) // better fix for this
+            || (adjusting && speed > -0.1 && speed < 0)) {
+            adjusting = false;
         }
 
         SmartDashboard.putBoolean("Lift Soft Limits Activated", softLimits(speed));

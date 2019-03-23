@@ -105,7 +105,7 @@ public class OI {
     public static final int CLIMB_PITCH_SYSTEM = 8;
     public static final int INTAKE_SYSTEM = 9;
 
-    private int NUM_LOG_ENTRIES = 20;
+    private int NUM_LOG_ENTRIES = 5;
 
     public boolean[] firstRun = new boolean[INTAKE_SYSTEM + 1];
     public double[] errorSum = new double[INTAKE_SYSTEM + 1];
