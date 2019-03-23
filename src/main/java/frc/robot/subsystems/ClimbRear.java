@@ -3,9 +3,7 @@ package frc.robot.subsystems;
 import frc.robot.Addresses;
 import frc.robot.OI;
 import frc.robot.Variables;
-import frc.robot.sensors.IMU;
 import frc.robot.sensors.Sensors;
-import frc.robot.commands.climb.ClimbRearLock;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.Servo;

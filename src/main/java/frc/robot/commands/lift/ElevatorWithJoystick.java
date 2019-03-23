@@ -8,11 +8,9 @@
 package frc.robot.commands.lift;
 
 import frc.robot.OI;
-import frc.robot.Variables;
 import frc.robot.subsystems.Elevator;
 
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class ElevatorWithJoystick extends Command {
 

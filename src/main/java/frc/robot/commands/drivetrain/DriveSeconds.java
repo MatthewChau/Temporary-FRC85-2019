@@ -7,7 +7,6 @@
 
 package frc.robot.commands.drivetrain;
 
-import frc.robot.OI;
 import frc.robot.sensors.IMU;
 import frc.robot.subsystems.DriveTrain;
 import edu.wpi.first.wpilibj.command.Command;

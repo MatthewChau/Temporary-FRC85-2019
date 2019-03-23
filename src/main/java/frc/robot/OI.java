@@ -19,25 +19,12 @@ import frc.robot.sensors.IMU;
 
 import frc.robot.commands.drivetrain.FollowOneTarget;
 import frc.robot.commands.drivetrain.FollowTwoTarget;
-import frc.robot.commands.drivetrain.DriveSeconds;
 import frc.robot.commands.intake.ActivateIntake;
-import frc.robot.commands.intake.ActivateWrist;
-import frc.robot.commands.intake.WristPosition;
 import frc.robot.commands.intake.WristWithJoystick;
-import frc.robot.commands.lift.ActivateMast;
-import frc.robot.commands.lift.ElevatorPosition;
-import frc.robot.commands.lift.MastPosition;
 import frc.robot.commands.lift.MastWithJoystick;
 import frc.robot.commands.lift.ElevatorWithJoystick;
-import frc.robot.commands.spike.SetSpike;
-import frc.robot.commands.spike.ToggleSpike;
-import frc.robot.commands.climb.ActivateClimbRear;
-import frc.robot.commands.climb.ActivateClimbRearDrive;
-import frc.robot.commands.climb.ActivateClimbFront;
 import frc.robot.commands.climb.ClimbFrontWithJoystick;
-import frc.robot.commands.climb.ClimbRearLock;
 import frc.robot.commands.climb.ClimbRearWithJoystick;
-import frc.robot.commands.climb.setClimbRearLock;
 import frc.robot.commands.climb.MoveClimbPosition;
 import frc.robot.commands.driverassistance.Place;
 import frc.robot.commands.driverassistance.CargoStationOne;
@@ -137,14 +124,8 @@ public class OI {
         _operatorHatchFloor.whenReleased(new HatchGroundTwo());
         _operatorHatchThree = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_HATCH_THREE);
         _operatorHatchThree.whenPressed(new Place(Variables.HATCH_THREE, Variables.WRIST_0, Variables.MAST_FORWARD_POS));
-        //_operatorHatchThree.whenReleased(new Place(Variables.HATCH_THREE, Variables.WRIST_0, Variables.MAST_FORWARD_POS));
         _operatorHatchTwo = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_HATCH_TWO);
         _operatorHatchTwo.whenPressed(new Place(Variables.HATCH_TWO, Variables.WRIST_0, Variables.MAST_FORWARD_POS));
-        //_operatorHatchTwo.whenReleased(new Place(Variables.HATCH_TWO, Variables.WRIST_0, Variables.MAST_FORWARD_POS));
-        //_operatorHatchThree.whenPressed(new ActivateClimbFront(0.3));
-        //_operatorHatchThree.whenReleased(new ActivateClimbFront(0.0));
-        //_operatorHatchTwo.whenPressed(new ActivateClimbFront(-0.3));
-        //_operatorHatchTwo.whenReleased(new ActivateClimbFront(0.0));
         _operatorHatchOne = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_HATCH_ONE);
         _operatorHatchOne.whenPressed(new Place(Variables.HATCH_ONE, Variables.WRIST_0, Variables.MAST_FORWARD_POS));
         _operatorHatchOne.whenReleased(new Place(Variables.HATCH_ONE, Variables.WRIST_0, Variables.MAST_FORWARD_POS));
@@ -167,18 +148,11 @@ public class OI {
         _operatorCargoFloor.whenReleased(new CargoGroundTwo());
         _operatorCargoThree = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_CARGO_THREE);
         _operatorCargoThree.whenPressed(new Place(Variables.CARGO_THREE, Variables.WRIST_CARGO_HIGH, Variables.MAST_FORWARD_FOR_CARGO));
-        //_operatorCargoThree.whenReleased(new Place(Variables.CARGO_THREE, Variables.WRIST_CARGO_HIGH, Variables.MAST_FORWARD_FOR_CARGO));
         _operatorCargoTwo = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_CARGO_TWO);
         _operatorCargoTwo.whenPressed(new Place(Variables.CARGO_TWO, Variables.WRIST_CARGO, Variables.MAST_FORWARD_FOR_CARGO));
-        //_operatorCargoTwo.whenReleased(new Place(Variables.CARGO_TWO, Variables.WRIST_CARGO, Variables.MAST_FORWARD_FOR_CARGO));
-        //_operatorCargoThree.whenPressed(new ActivateClimbRear(0.3));
-        //_operatorCargoThree.whenReleased(new ActivateClimbRear(0.0));
-        //_operatorCargoTwo.whenPressed(new ActivateClimbRear(-0.3));
-        //_operatorCargoTwo.whenReleased(new ActivateClimbRear(0.0));
         _operatorCargoOne = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_CARGO_ONE);
         //_operatorCargoOne = new JoystickButton(_operatorJoystick, AddressesOpJoystick.OPERATOR_CARGO_ONE);
         _operatorCargoOne.whenPressed(new Place(Variables.CARGO_ONE, Variables.WRIST_CARGO, Variables.MAST_FORWARD_FOR_CARGO));
-        //_operatorCargoOne.whenReleased(new Place(Variables.CARGO_ONE, Variables.WRIST_CARGO, Variables.MAST_FORWARD_FOR_CARGO));
 
         // the thing off to the side
         _operatorClimbFront = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_CLIMB_FRONT);
@@ -188,7 +162,6 @@ public class OI {
         _operatorClimbRear.whenPressed(new ClimbRearWithJoystick());
         //_operatorClimbRear.whenPressed(new ActivateClimbFront(-0.6));
         _operatorClimbAuto = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_CLIMB_AUTO);
-        //_operatorClimbAuto.whenPressed(new setClimbRearLock());
         _operatorClimbAuto.whenPressed(new MoveClimbPosition(Variables.CLIMB_REAR_LEVEL_THREE));
 
         /*

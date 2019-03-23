@@ -8,7 +8,6 @@
 package frc.robot.commands.climb;
 
 import frc.robot.OI;
-import frc.robot.Variables;
 import frc.robot.subsystems.ClimbRear;
 
 import edu.wpi.first.wpilibj.command.Command;

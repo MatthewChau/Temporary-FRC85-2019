@@ -1,18 +1,13 @@
 package frc.robot.subsystems;
-   
+
 import frc.robot.Addresses;
-import frc.robot.OI;
-import frc.robot.Variables;
-import frc.robot.sensors.IMU;
-import frc.robot.sensors.Sensors;
+
 import frc.robot.commands.climb.ClimbRearDriveWithJoystick;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.Servo;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 
 public class ClimbRearDrive extends Subsystem {
@@ -37,7 +32,7 @@ public class ClimbRearDrive extends Subsystem {
     public void initDefaultCommand() {
         setDefaultCommand(new ClimbRearDriveWithJoystick());
     }
-    
+
     // CLIMB DRIVE MOTOR
 
     public void moveClimbRearDrive(double speed) {
@@ -48,7 +43,7 @@ public class ClimbRearDrive extends Subsystem {
         if (Math.abs(speed) < 0.1) {
             speed = 0;
         }
-        
+
         _climbRearDriveMotor.set(ControlMode.PercentOutput, speed);
     }
 

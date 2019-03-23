@@ -8,15 +8,13 @@
 package frc.robot.commands.climb;
 
 import frc.robot.OI;
-import frc.robot.Variables;
-import frc.robot.subsystems.ClimbRear;
 import frc.robot.subsystems.ClimbRearDrive;
 
 import edu.wpi.first.wpilibj.command.Command;
 
 public class ClimbRearDriveWithJoystick extends Command {
 
-    private double _speed, _position;
+    private double _speed;
 
     public ClimbRearDriveWithJoystick() {
         requires(ClimbRearDrive.getInstance());
@@ -31,7 +29,6 @@ public class ClimbRearDriveWithJoystick extends Command {
     @Override
     protected void execute() {
         _speed = OI.getInstance().getRightYInputJoystick();
-        _position = ClimbRear.getInstance().getClimbRearPosition();
 
         ClimbRearDrive.getInstance().setClimbRearDriveMotor(-_speed);
     }

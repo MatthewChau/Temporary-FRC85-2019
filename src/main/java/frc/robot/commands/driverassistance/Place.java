@@ -1,8 +1,5 @@
 package frc.robot.commands.driverassistance;
 
-import frc.robot.Variables;
-import frc.robot.OI;
-import frc.robot.commands.drivetrain.FollowTwoTarget;
 import frc.robot.commands.intake.WristPosition;
 import frc.robot.commands.lift.MastPosition;
 import frc.robot.commands.lift.ElevatorPosition;

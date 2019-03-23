@@ -11,7 +11,6 @@ import frc.robot.Addresses;
 import frc.robot.OI;
 import frc.robot.Variables;
 import frc.robot.sensors.Sensors;
-import frc.robot.commands.intake.WristWithJoystick;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
