@@ -443,13 +443,13 @@ public class OI {
     private void logErrorForIntegral(int system, double error) {
         int i;
 
-        for (i = 1; i < 4; i++) { // shift the error log, the oldest entries are the higher numbers
+        for (i = 1; i < NUM_LOG_ENTRIES - 1; i++) { // shift the error log, the oldest entries are the higher numbers
             errorLog[system][i] = errorLog[system][i - 1];
         }
 
         errorLog[system][0] = error; // log the newest error
 
-        for (i = 0; i < 4; i++) { // get the error sum for the system
+        for (i = 0; i < NUM_LOG_ENTRIES; i++) { // get the error sum for the system
             errorSum[system] += errorLog[system][i];
         }
     }
