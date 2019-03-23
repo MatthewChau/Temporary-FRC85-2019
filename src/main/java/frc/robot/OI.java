@@ -50,6 +50,7 @@ import frc.robot.commands.driverassistance.HatchGroundOne;
 import frc.robot.commands.driverassistance.HatchGroundTwo;
 import frc.robot.commands.driverassistance.HatchRelease;
 import frc.robot.commands.driverassistance.Interrupt;
+import frc.robot.commands.driverassistance.ZeroSystems;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -77,9 +78,9 @@ public class OI {
             _leftJoystickBaseBottomLeft, _leftJoystickBaseBottomRight, _leftJoystickBaseRightBottom,
             _leftJoystickBaseRightTop;
 
-    private JoystickButton _opJoystickTrigger, _opJoystickFaceBottom, _opJoystickFaceCenter, _opJoystickFaceLeft,
-            _opJoystickFaceRight, _opJoystickBaseLeftTop, _opJoystickBaseLeftBottom, _opJoystickBaseBottomLeft,
-            _opJoystickBaseBottomRight, _opJoystickBaseRightBottom, _opJoystickBaseRightTop;
+    private JoystickButton _opJoystickTrigger, _opJoystickThumbButton, _opJoystickFaceBottomLeft,
+            _opJoystickFaceBottomRight, _opJoystickFaceTopLeft, _opJoystickFaceTopRight, _opJoystickSeven,
+            _opJoystickEight, _opJoystickNine, _opJoystickTen, _opJoystickEleven, _opJoystickTwelve;
 
     // White
     private JoystickButton _operatorCargoShip, _operatorCargoFloor, _operatorRollerOut, _operatorCargoOne,
@@ -239,19 +240,21 @@ public class OI {
         _rightJoystickEleven = new JoystickButton(_driverJoystickRight, Addresses.EXTREME_BASE_ELEVEN);
         _rightJoystickTwelve = new JoystickButton(_driverJoystickRight, Addresses.EXTREME_BASE_TWELVE);
 
-        _operatorJoystick = new Joystick(Addresses.CONTROLLER_OPERATOR_JOYSTICK); // logitech attack
+        _operatorJoystick = new Joystick(Addresses.CONTROLLER_OPERATOR_JOYSTICK); // logitech extreme 3d
 
-        _opJoystickTrigger = new JoystickButton(_operatorJoystick, Addresses.ATTACK_TRIGGER);
-        _opJoystickFaceBottom = new JoystickButton(_operatorJoystick, Addresses.ATTACK_FACE_BOTTOM);
-        _opJoystickFaceCenter = new JoystickButton(_operatorJoystick, Addresses.ATTACK_FACE_CENTER);
-        _opJoystickFaceLeft = new JoystickButton(_operatorJoystick, Addresses.ATTACK_FACE_LEFT);
-        _opJoystickFaceRight = new JoystickButton(_operatorJoystick, Addresses.ATTACK_FACE_RIGHT);
-        _opJoystickBaseLeftTop = new JoystickButton(_operatorJoystick, Addresses.ATTACK_BASE_LEFT_TOP);
-        _opJoystickBaseLeftBottom = new JoystickButton(_operatorJoystick, Addresses.ATTACK_BASE_LEFT_BOTTOM);
-        _opJoystickBaseBottomLeft = new JoystickButton(_operatorJoystick, Addresses.ATTACK_BASE_BOTTOM_LEFT);
-        _opJoystickBaseBottomRight = new JoystickButton(_operatorJoystick, Addresses.ATTACK_BASE_BOTTOM_RIGHT);
-        _opJoystickBaseRightBottom = new JoystickButton(_operatorJoystick, Addresses.ATTACK_BASE_RIGHT_BOTTOM);
-        _opJoystickBaseRightTop = new JoystickButton(_operatorJoystick, Addresses.ATTACK_BASE_RIGHT_TOP);
+        _opJoystickTrigger = new JoystickButton(_driverJoystickRight, Addresses.EXTREME_TRIGGER);
+        _opJoystickThumbButton = new JoystickButton(_driverJoystickRight, Addresses.EXTREME_THUMB_BUTTON);
+        //_opJoystickThumbButton.whenPressed(new ZeroSystems());
+        _opJoystickFaceBottomLeft = new JoystickButton(_driverJoystickRight, Addresses.EXTREME_FACE_BOTTOM_LEFT);
+        _opJoystickFaceBottomRight = new JoystickButton(_driverJoystickRight, Addresses.EXTREME_FACE_BOTTOM_RIGHT);
+        _opJoystickFaceTopLeft = new JoystickButton(_driverJoystickRight, Addresses.EXTREME_FACE_TOP_LEFT);
+        _opJoystickFaceTopRight = new JoystickButton(_driverJoystickRight, Addresses.EXTREME_FACE_TOP_RIGHT);
+        _opJoystickSeven = new JoystickButton(_driverJoystickRight, Addresses.EXTREME_BASE_SEVEN);
+        _opJoystickEight = new JoystickButton(_driverJoystickRight, Addresses.EXTREME_BASE_EIGHT);
+        _opJoystickNine = new JoystickButton(_driverJoystickRight, Addresses.EXTREME_BASE_NINE);
+        _opJoystickTen = new JoystickButton(_driverJoystickRight, Addresses.EXTREME_BASE_TEN);
+        _opJoystickEleven = new JoystickButton(_driverJoystickRight, Addresses.EXTREME_BASE_ELEVEN);
+        _opJoystickTwelve = new JoystickButton(_driverJoystickRight, Addresses.EXTREME_BASE_TWELVE);
         
         Arrays.fill(stopArray, 0.0);
     }
@@ -453,113 +456,100 @@ public class OI {
 
     private void debugMessages(int system, double current, double error, double target, double output) {
         switch (system) {
-        /*
-         * case ROT_SYSTEM: SmartDashboard.putNumber("Rot PID Target", target);
-         * SmartDashboard.putNumber("Rot PID Error", error); break;
-         */
-        case ELEVATOR_SYSTEM:
-            SmartDashboard.putNumber("Vertical Lift Error", error);
-            SmartDashboard.putNumber("Vertical Lift PID Output", output);
-            SmartDashboard.putNumber("Vertical Lift PID Target", target);
-            break;
-        case MAST_SYSTEM:
-            SmartDashboard.putNumber("Horizontal Lift Error", error);
-            SmartDashboard.putNumber("Horizontal Lift PID Output", output);
-            SmartDashboard.putNumber("Horizontal Lift PID Target", target);
-            break;
-        /*
-         * case VISION_X_SYSTEM: SmartDashboard.putNumber("Vision PID Error X", error);
-         * SmartDashboard.putNumber("Vision PID Output X", output); break; case
-         * VISION_Y_SYSTEM: SmartDashboard.putNumber("Vision PID Target Distance",
-         * target); SmartDashboard.putNumber("Vision PID Error Distance", error); break;
-         * case VISION_ROT_SYSTEM: SmartDashboard.putNumber("Vision PID Rotation Error",
-         * error); SmartDashboard.putNumber("Vision PID Rotation Output", output);
-         * break;
-         */
-        case CLIMB_SYSTEM:
-            SmartDashboard.putNumber("Climb Error", error);
-            SmartDashboard.putNumber("Climb PID Output", output);
-            SmartDashboard.putNumber("Climb PID Target", target);
-            break;
-        case CLIMB_POS_SYSTEM:
-            SmartDashboard.putNumber("Climb Pos Error", error);
-            SmartDashboard.putNumber("Climb Pos PID Output", output);
-            SmartDashboard.putNumber("Climb Pos PID Target", target);
-            break;
-        case CLIMB_PITCH_SYSTEM:
-            SmartDashboard.putNumber("Climb Pitch Error", error);
-            SmartDashboard.putNumber("Climb Pitch PID Output", output);
-            SmartDashboard.putNumber("Climb Pitch PID Target", target);
-            break;
-        case INTAKE_SYSTEM:
-            SmartDashboard.putNumber("Intake Error", error);
-            SmartDashboard.putNumber("Intake PID Output", output);
-            SmartDashboard.putNumber("Intake PID Target", target);
-        default:
-            break;
+            case ELEVATOR_SYSTEM:
+                SmartDashboard.putNumber("Vertical Lift Error", error);
+                SmartDashboard.putNumber("Vertical Lift PID Output", output);
+                SmartDashboard.putNumber("Vertical Lift PID Target", target);
+                break;
+            case MAST_SYSTEM:
+                SmartDashboard.putNumber("Horizontal Lift Error", error);
+                SmartDashboard.putNumber("Horizontal Lift PID Output", output);
+                SmartDashboard.putNumber("Horizontal Lift PID Target", target);
+                break;
+            case CLIMB_SYSTEM:
+                SmartDashboard.putNumber("Climb Error", error);
+                SmartDashboard.putNumber("Climb PID Output", output);
+                SmartDashboard.putNumber("Climb PID Target", target);
+                break;
+            case CLIMB_POS_SYSTEM:
+                SmartDashboard.putNumber("Climb Pos Error", error);
+                SmartDashboard.putNumber("Climb Pos PID Output", output);
+                SmartDashboard.putNumber("Climb Pos PID Target", target);
+                break;
+            case CLIMB_PITCH_SYSTEM:
+                SmartDashboard.putNumber("Climb Pitch Error", error);
+                SmartDashboard.putNumber("Climb Pitch PID Output", output);
+                SmartDashboard.putNumber("Climb Pitch PID Target", target);
+                break;
+            case INTAKE_SYSTEM:
+                SmartDashboard.putNumber("Intake Error", error);
+                SmartDashboard.putNumber("Intake PID Output", output);
+                SmartDashboard.putNumber("Intake PID Target", target);
+            default:
+                break;
         }
     }
 
     public boolean checkIfNeedBeRun(int system, double error, double speed) {
         switch (system) {
-        case ROT_SYSTEM:
-            if (DriveTrain.getInstance().getTurnInProgress() && Math.abs(error) < 3.0) {
-                DriveTrain.getInstance().setTurnInProgress(false);
-                return false;
-            }
-            return true;
-        case ELEVATOR_SYSTEM:
-            if (Math.abs(error) < 100) {
-                Elevator.getInstance().changeAdjustingBool(false);
-                return false;
-            }
-            return true;
-        case MAST_SYSTEM:
-            if (Math.abs(error) < 1000) {
-                Mast.getInstance().changeAdjustingBool(false);
-                return false;
-            }
-            return true;
-        case VISION_X_SYSTEM:
-            if (Math.abs(error) < 5) {
-                return false;
-            }
-            return true;
-        case VISION_Y_SYSTEM:
-            if (Math.abs(error) < 10) {
-                return false;
-            }
-            return true;
-        case VISION_ROT_SYSTEM:
-            if (DriveTrain.getInstance().getTurnInProgress() && Math.abs(error) < 3.0) {
-                DriveTrain.getInstance().setTurnInProgress(false);
-                return false;
-            }
-            return true;
-        case CLIMB_POS_SYSTEM:
-            if (Math.abs(error) < 1.0) {
-                if (ClimbRear.getInstance().getBothAdjustingBool()) { // bothadjusting takes priority
-                    ClimbRear.getInstance().setAdjustingBool(false);
-                } else if (ClimbFront.getInstance().getAdjustingBool()) { // then front
-                    ClimbFront.getInstance().setAdjustingBool(false);
-                } else if (ClimbRear.getInstance().getAdjustingBool()) { // then rear
-                    ClimbFront.getInstance().setAdjustingBool(false);
+            case ROT_SYSTEM:
+                if (DriveTrain.getInstance().getTurnInProgress() && Math.abs(error) < 3.0) {
+                    DriveTrain.getInstance().setTurnInProgress(false);
+                    return false;
                 }
-                return false;
-            }
-            return true;
-        case CLIMB_PITCH_SYSTEM:
-            if (Math.abs(error) < 1.5) {
-                return false;
-            }
-            return true;
-        case INTAKE_SYSTEM:
-            if (Math.abs(error) < 10000) {
-                Intake.getInstance().changeAdjustingBool(false);
-                return false;
-            }
-        default: // we probably don't even need a default case lmao
-            return true;
+                return true;
+            case ELEVATOR_SYSTEM:
+                if (Math.abs(error) < 100) {
+                    Elevator.getInstance().changeAdjustingBool(false);
+                    return false;
+                }
+                return true;
+            case MAST_SYSTEM:
+                if (Math.abs(error) < 1000) {
+                    Mast.getInstance().changeAdjustingBool(false);
+                    return false;
+                }
+                return true;
+            case VISION_X_SYSTEM:
+                if (Math.abs(error) < 5) {
+                    return false;
+                }
+                return true;
+            case VISION_Y_SYSTEM:
+                if (Math.abs(error) < 10) {
+                    return false;
+                }
+                return true;
+            case VISION_ROT_SYSTEM:
+                if (DriveTrain.getInstance().getTurnInProgress() && Math.abs(error) < 3.0) {
+                    DriveTrain.getInstance().setTurnInProgress(false);
+                    return false;
+                }
+                return true;
+            case CLIMB_POS_SYSTEM:
+                if (Math.abs(error) < 1.0) {
+                    if (ClimbRear.getInstance().getBothAdjustingBool()) { // bothadjusting takes priority
+                        ClimbRear.getInstance().setAdjustingBool(false);
+                    } else if (ClimbFront.getInstance().getAdjustingBool()) { // then front
+                        ClimbFront.getInstance().setAdjustingBool(false);
+                    } else if (ClimbRear.getInstance().getAdjustingBool()) { // then rear
+                        ClimbFront.getInstance().setAdjustingBool(false);
+                    }
+                    return false;
+                }
+                return true;
+            case CLIMB_PITCH_SYSTEM:
+                if (Math.abs(error) < 1.5) {
+                    return false;
+                }
+                return true;
+            case INTAKE_SYSTEM:
+                if (Math.abs(error) < 10000) {
+                    Intake.getInstance().changeAdjustingBool(false);
+                    return false;
+                }
+            default: // we probably don't even need a default case lmao
+                return true;
         }
     }
 
@@ -573,8 +563,7 @@ public class OI {
      * mbolic integration or derivation: o(t) = kP(instant error) + kI(total error)
      * - kD(instant change in error)
      */
-    public double applyPID(int system, double current, double target, double kP, double kI, double kD, double outputMax,
-            double outputMin) {
+    public double applyPID(int system, double current, double target, double kP, double kI, double kD, double outputMax, double outputMin) {
         double output;
         double termP, termI, termD;
         double error = target - current;
