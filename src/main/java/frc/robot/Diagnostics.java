@@ -92,8 +92,8 @@ public class Diagnostics {
             String liftFrontLimit = Boolean.toString(Sensors.getInstance().getLiftFrontLimit());
             String liftRearLimit = Boolean.toString(Sensors.getInstance().getLiftRearLimit());
 
-            String elevatorPos = Integer.toString(Elevator.getInstance().getVerticalPosition());
-            String mastPos = Integer.toString(Mast.getInstance().getHorizontalPosition());
+            String elevatorPos = Integer.toString(Elevator.getInstance().getElevatorPosition());
+            String mastPos = Integer.toString(Mast.getInstance().getMastPosition());
 
             String elevatorLeftMotor = Double.toString(Elevator.getInstance().getElevatorLeftVoltage());
                 String elevatorLeftCurrent = Double.toString(Elevator.getInstance().getElevatorLeftCurrent());

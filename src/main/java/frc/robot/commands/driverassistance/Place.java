@@ -5,9 +5,7 @@ import frc.robot.OI;
 import frc.robot.commands.drivetrain.FollowTwoTarget;
 import frc.robot.commands.intake.WristPosition;
 import frc.robot.commands.lift.MastPosition;
-import frc.robot.commands.lift.ElevatorLock;
 import frc.robot.commands.lift.ElevatorPosition;
-import frc.robot.commands.lift.WaitForElevator;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 

@@ -127,7 +127,7 @@ public class OI {
         _operatorWrist.whenPressed(new WristWithJoystick());
         _operatorHatchStation = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_HATCH_STATION);
         _operatorHatchStation.whenPressed(new Place(Variables.HATCH_STATION, Variables.WRIST_30, Variables.MAST_FORWARD_POS));
-        _operatorHatchStation.whenReleased(new Place(Variables.HATCH_STATION_JUMP, Variables.WRIST_0, Variables.MAST_FORWARD_POS));
+        _operatorHatchStation.whenReleased(new Place(Variables.HATCH_STATION, Variables.WRIST_0, Variables.MAST_FORWARD_POS));
         _operatorHatchRelease = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_HATCH_RELEASE);
         _operatorHatchRelease.whenPressed(new Place(Variables.ELEVATOR_CURRENT_POS, Variables.WRIST_30, (Variables.MAST_FORWARD_POS - 100000)));
         _operatorHatchRelease.whenReleased(new Place(Variables.ELEVATOR_CURRENT_POS, Variables.WRIST_CURR_POSITION, Variables.MAST_PROTECTED));
@@ -395,11 +395,11 @@ public class OI {
         return axis;
     }
 
-    public boolean getOperatorLiftHorizontal() {
+    public boolean getOperatorMast() {
         return _operatorMast.get();
     }
 
-    public boolean getOperatorLiftVertical() {
+    public boolean getOperatorElevator() {
         return _operatorElevator.get();
     }
 
@@ -549,7 +549,7 @@ public class OI {
             }
             return true;
         case CLIMB_PITCH_SYSTEM:
-            if (Math.abs(error) < 5.0) {
+            if (Math.abs(error) < 1.5) {
                 return false;
             }
             return true;

@@ -8,6 +8,7 @@
 package frc.robot.commands.lift;
 
 import frc.robot.subsystems.Mast;
+import frc.robot.OI;
 
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -24,7 +25,7 @@ public class MastPosition extends Command {
     @Override
     protected void initialize() {
         if (_initial < 0) {
-            _target = Mast.getInstance().getHorizontalPosition();
+            _target = Mast.getInstance().getMastPosition();
             _run = false;
         } else {
             _target = _initial;
@@ -41,12 +42,14 @@ public class MastPosition extends Command {
     // Make this return true when this Command no longer needs to run execute()
     @Override
     protected boolean isFinished() {
-        return (!Mast.getInstance().getAdjustingBool() || !_run);
+        return (!Mast.getInstance().getAdjustingBool() || !_run || OI.getInstance().getOperatorMast());
     }
 
     @Override
     protected void end() {
         Mast.getInstance().setMastMotor(0.0);
+        Mast.getInstance().changeAdjustingBool(false);
+        Mast.getInstance().setTargetPosition(Mast.getInstance().getMastPosition());
     }
 
     @Override

@@ -47,9 +47,9 @@ public class Mast extends Subsystem {
     }
 
     public void horizontalShift(double speed) {
-        if (adjusting && !OI.getInstance().getOperatorLiftHorizontal()) {
+        if (adjusting && !OI.getInstance().getOperatorMast()) {
             speed = OI.getInstance().applyPID(OI.MAST_SYSTEM, 
-                                              getHorizontalPosition(), 
+                                              getMastPosition(), 
                                               targetPos, 
                                               Variables.getInstance().getMastKP(), 
                                               Variables.getInstance().getMastKI(), 
@@ -58,17 +58,17 @@ public class Mast extends Subsystem {
                                               -0.7);
         } else if (speed > 0.0) {
             speed *= 0.7;
-            setTargetPosition(getHorizontalPosition());
+            setTargetPosition(getMastPosition());
         } else if (speed < 0.0) {
             speed *= 0.7;
-            setTargetPosition(getHorizontalPosition());
+            setTargetPosition(getMastPosition());
         } else {
             speed = 0.0;
         }
 
         if ((Sensors.getInstance().getLiftFrontLimit() && speed > 0.0)
             || (Sensors.getInstance().getLiftRearLimit() && speed < 0.0)
-            || (!OI.getInstance().getOperatorLiftHorizontal() && !adjusting)
+            || (!OI.getInstance().getOperatorMast() && !adjusting)
             || (softLimits(speed) && !SmartDashboard.getBoolean("Disable Mast Soft Limits", false))) {
             _mastMotor.set(ControlMode.PercentOutput, 0);
         } else {
@@ -80,12 +80,12 @@ public class Mast extends Subsystem {
 
     public void setMastMotor(double speed) {
         _mastMotor.set(ControlMode.PercentOutput, speed);
-        setTargetPosition(getHorizontalPosition());
+        setTargetPosition(getMastPosition());
     }
 
     private boolean softLimits(double speed) {
-        double mastPosition = getHorizontalPosition();
-        double verticalPosition = Elevator.getInstance().getVerticalPosition();
+        double mastPosition = getMastPosition();
+        double verticalPosition = Elevator.getInstance().getElevatorPosition();
         double intakePosition = Intake.getInstance().getWristPosition();
 
         // mast limits need a front limit, a rear limit, & a thing if both wrist & elevator are low 
@@ -109,7 +109,7 @@ public class Mast extends Subsystem {
         _mastMotor.setSelectedSensorPosition(position);
     }
 
-    public int getHorizontalPosition() {
+    public int getMastPosition() {
         return _mastMotor.getSelectedSensorPosition();
     }
 

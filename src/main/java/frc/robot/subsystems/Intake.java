@@ -81,9 +81,9 @@ public class Intake extends Subsystem {
     }
 
     private boolean softLimits(double speed) {
-        double verticalPosition = Elevator.getInstance().getVerticalPosition();
+        double verticalPosition = Elevator.getInstance().getElevatorPosition();
         double intakePosition = getWristPosition();
-        double mastPosition = Mast.getInstance().getHorizontalPosition();
+        double mastPosition = Mast.getInstance().getMastPosition();
 
         if (!SmartDashboard.getBoolean("Disable Intake Top Limit", false) // top limit
             && intakePosition >= Variables.WRIST_MAX_POS

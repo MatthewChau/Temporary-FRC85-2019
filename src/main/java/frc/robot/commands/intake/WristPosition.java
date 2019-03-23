@@ -7,6 +7,7 @@
 
 package frc.robot.commands.intake;
 import frc.robot.subsystems.Intake;
+import frc.robot.OI;
 
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -40,12 +41,14 @@ public class WristPosition extends Command {
     // Make this return true when this Command no longer needs to run execute()
     @Override
     protected boolean isFinished() {
-        return (!Intake.getInstance().getAdjustingBool() || !_run);
+        return (!Intake.getInstance().getAdjustingBool() || !_run || OI.getInstance().getOperatorWristRotate());
     }
 
     @Override
     protected void end() {
         Intake.getInstance().setWristMotor(0.0);
+        Intake.getInstance().changeAdjustingBool(false);
+        Intake.getInstance().setTargetPos(Intake.getInstance().getWristPosition());
     }
 
     @Override

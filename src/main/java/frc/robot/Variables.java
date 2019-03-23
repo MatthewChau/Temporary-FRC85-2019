@@ -73,7 +73,6 @@ public class Variables {
 
     public static final int HATCH_FLOOR = HATCH_ONE;
     public static final int HATCH_STATION = 1965;
-    public static final int HATCH_STATION_JUMP = 2500;
     
     public static final int CARGO_ONE = 7016;
     public static final int CARGO_TWO = 14752;
@@ -430,7 +429,7 @@ public class Variables {
 
         // Elevator
 
-        SmartDashboard.putNumber("Vertical Lift", Elevator.getInstance().getVerticalPosition());
+        SmartDashboard.putNumber("Vertical Lift", Elevator.getInstance().getElevatorPosition());
 
         SmartDashboard.putBoolean("Lift Top", Sensors.getInstance().getLiftTopLimit());
         SmartDashboard.putBoolean("Lift Center", Sensors.getInstance().getLiftCenterLimit());
@@ -444,7 +443,7 @@ public class Variables {
         
         // Mast
         
-        SmartDashboard.putNumber("Horizontal Lift", Mast.getInstance().getHorizontalPosition());
+        SmartDashboard.putNumber("Horizontal Lift", Mast.getInstance().getMastPosition());
 
         SmartDashboard.putBoolean("Front Prox Sensor", Sensors.getInstance().getLiftFrontLimit());
         SmartDashboard.putBoolean("Rear Prox Sensor", Sensors.getInstance().getLiftRearLimit());

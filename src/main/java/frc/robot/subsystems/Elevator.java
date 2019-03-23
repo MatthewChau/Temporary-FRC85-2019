@@ -12,8 +12,6 @@ import frc.robot.Addresses;
 import frc.robot.Variables;
 import frc.robot.sensors.Sensors;
 
-import frc.robot.commands.lift.ElevatorLock;
-
 import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -66,7 +64,7 @@ public class Elevator extends Subsystem {
             || speed == 0.0
             || (softLimits(speed) && !SmartDashboard.getBoolean("Disable Elevator Soft Limits", false))) {
             speed = OI.getInstance().applyPID(OI.ELEVATOR_SYSTEM, 
-                                              getVerticalPosition(), 
+                                              getElevatorPosition(), 
                                               targetPos, 
                                               Variables.getInstance().getElevatorKP(), 
                                               Variables.getInstance().getElevatorKI(), 
@@ -75,10 +73,14 @@ public class Elevator extends Subsystem {
                                               -0.3);
         } else if (speed > 0) {
             speed *= 0.5;
-            targetPos = getVerticalPosition();
+            targetPos = getElevatorPosition();
         } else if (speed < 0) {
             speed *= 0.2;
-            targetPos = getVerticalPosition();
+            targetPos = getElevatorPosition();
+        }
+
+        if (adjusting && speed > 0 && speed < 0.3) { // fix for small outputs getting stall speed
+            speed = 0.3;
         }
 
         SmartDashboard.putBoolean("Lift Soft Limits Activated", softLimits(speed));
@@ -98,8 +100,8 @@ public class Elevator extends Subsystem {
     }
 
     private boolean softLimits(double speed) {
-        double mastPosition = Mast.getInstance().getHorizontalPosition();
-        double verticalPosition = getVerticalPosition();
+        double mastPosition = Mast.getInstance().getMastPosition();
+        double verticalPosition = getElevatorPosition();
         double intakePosition = Intake.getInstance().getWristPosition();
 
         // lift needs a top limit, a bottom limit,
@@ -140,7 +142,7 @@ public class Elevator extends Subsystem {
         _liftRightMotor.setSelectedSensorPosition(position);
     }
 
-    public int getVerticalPosition() {
+    public int getElevatorPosition() {
         return _liftRightMotor.getSelectedSensorPosition();
     }
 

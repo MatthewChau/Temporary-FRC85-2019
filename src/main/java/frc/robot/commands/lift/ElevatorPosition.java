@@ -8,6 +8,7 @@
 package frc.robot.commands.lift;
 
 import frc.robot.subsystems.Elevator;
+import frc.robot.OI;
 
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -24,7 +25,7 @@ public class ElevatorPosition extends Command {
     @Override
     protected void initialize() {
         if (_initial < 0) {
-            _target = Elevator.getInstance().getVerticalPosition();
+            _target = Elevator.getInstance().getElevatorPosition();
             _run = false;
         } else {
             _target = _initial;
@@ -41,12 +42,14 @@ public class ElevatorPosition extends Command {
     // Make this return true when this Command no longer needs to run execute()
     @Override
     protected boolean isFinished() {
-        return (!Elevator.getInstance().getAdjustingBool() || !_run);
+        return (!Elevator.getInstance().getAdjustingBool() || !_run || OI.getInstance().getOperatorElevator());
     }
 
     @Override
     protected void end() {
         Elevator.getInstance().setElevatorMotors(0.0);
+        Elevator.getInstance().changeAdjustingBool(false);
+        Elevator.getInstance().setTargetPosition(Elevator.getInstance().getElevatorPosition());
     }
 
     @Override

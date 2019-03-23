@@ -129,7 +129,7 @@ public class Robot extends TimedRobot {
             ClimbRear.getInstance().setServo(SmartDashboard.getNumber("CLIMB_LOCKED", 0));
         }
 
-        if (Elevator.getInstance().getAdjustingBool() || OI.getInstance().getOperatorLiftVertical()) {
+        if (Elevator.getInstance().getAdjustingBool() || OI.getInstance().getOperatorElevator()) {
             Elevator.getInstance().setServo(SmartDashboard.getNumber("ELEVATOR_UNLOCKED", 0.0));
         } else {
             Elevator.getInstance().setServo(SmartDashboard.getNumber("ELEVATOR_LOCKED", 0.0));
@@ -150,8 +150,8 @@ public class Robot extends TimedRobot {
 
     @Override
     public void disabledPeriodic() {
-        Elevator.getInstance().setTargetPosition(Elevator.getInstance().getVerticalPosition());
-        Mast.getInstance().setTargetPosition(Mast.getInstance().getHorizontalPosition());
+        Elevator.getInstance().setTargetPosition(Elevator.getInstance().getElevatorPosition());
+        Mast.getInstance().setTargetPosition(Mast.getInstance().getMastPosition());
         Intake.getInstance().setTargetPos(Intake.getInstance().getWristPosition());
         Sensors.getInstance().stopTimers();
         IMU.getInstance().setInitialYPR();
