@@ -379,7 +379,7 @@ public class OI {
 
     // OPERATOR JOYSTICK
     public double getOperatorJoystickX() {
-        double axis = _operatorJoystick.getRawAxis(Addresses.ATTACK_X_AXIS);
+        double axis = _operatorJoystick.getRawAxis(Addresses.EXTREME_X_AXIS);
 
         if (Math.abs(axis) < Variables.DEADBAND_OPERATORSTICK) {
             axis = 0;
@@ -389,7 +389,7 @@ public class OI {
     }
 
     public double getOperatorJoystickY() {
-        double axis = -_operatorJoystick.getRawAxis(Addresses.ATTACK_Y_AXIS);
+        double axis = -_operatorJoystick.getRawAxis(Addresses.EXTREME_Y_AXIS);
 
         if (Math.abs(axis) < Variables.DEADBAND_OPERATORSTICK) {
             axis = 0;
