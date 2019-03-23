@@ -143,8 +143,8 @@ public class Variables {
     public static final int WRIST_MIN_POS = -1170000;
 
     // Wrist speed limits
-    public static final double WRIST_MAX_SPEED_UP = 0.8;
-    public static final double WRIST_MAX_SPEED_DOWN = -0.8;
+    public static final double WRIST_MAX_SPEED_UP = 0.9;
+    public static final double WRIST_MAX_SPEED_DOWN = -0.9;
 
     // CLIMB
     public static final double CLIMB_LEFT_LEVEL_THREE = 82.05069732666016;
