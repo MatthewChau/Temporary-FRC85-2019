@@ -62,7 +62,7 @@ public class ClimbRear extends Subsystem {
         }
 
         if ((getClimbRearPosition() < Variables.CLIMB_REAR_SLOW_DOWN_MIN && speed < 0)
-            || (getClimbRearPosition() > Variables.CLIMB_LEFT_SLOW_DOWN_MAX && speed > 0)) {
+            || (getClimbRearPosition() > Variables.CLIMB_REAR_SLOW_DOWN_MAX && speed > 0)) {
             speed *= 0.1;
         }
 

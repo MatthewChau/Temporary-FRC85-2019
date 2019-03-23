@@ -170,7 +170,7 @@ public class Variables {
 
     // servo angles for climb
     public static final double CLIMB_LOCKED = 0;
-    public static final double CLIMB_UNLOCKED = 20;
+    public static final double CLIMB_UNLOCKED = 25;
 
     // ROLLER
 
