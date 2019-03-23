@@ -79,7 +79,7 @@ public class Elevator extends Subsystem {
             targetPos = getElevatorPosition();
         }
 
-        if ((adjusting && speed > 0 && speed < 0.3) // better fix for this
+        if ((adjusting && speed > 0 && speed < 0.3) // there is a better fix for this, will work on that later
             || (adjusting && speed > -0.1 && speed < 0)) {
             adjusting = false;
         }
