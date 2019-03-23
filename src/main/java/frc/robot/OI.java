@@ -128,7 +128,6 @@ public class OI {
         _operatorHatchTwo.whenPressed(new Place(Variables.HATCH_TWO, Variables.WRIST_0, Variables.MAST_FORWARD_POS));
         _operatorHatchOne = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_HATCH_ONE);
         _operatorHatchOne.whenPressed(new Place(Variables.HATCH_ONE, Variables.WRIST_0, Variables.MAST_FORWARD_POS));
-        _operatorHatchOne.whenReleased(new Place(Variables.HATCH_ONE, Variables.WRIST_0, Variables.MAST_FORWARD_POS));
 
         // white
         _operatorElevator = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_ELEVATOR);
