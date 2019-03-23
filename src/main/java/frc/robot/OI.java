@@ -242,19 +242,19 @@ public class OI {
 
         _operatorJoystick = new Joystick(Addresses.CONTROLLER_OPERATOR_JOYSTICK); // logitech extreme 3d
 
-        _opJoystickTrigger = new JoystickButton(_driverJoystickRight, Addresses.EXTREME_TRIGGER);
-        _opJoystickThumbButton = new JoystickButton(_driverJoystickRight, Addresses.EXTREME_THUMB_BUTTON);
+        _opJoystickTrigger = new JoystickButton(_operatorJoystick, Addresses.EXTREME_TRIGGER);
+        _opJoystickThumbButton = new JoystickButton(_operatorJoystick, Addresses.EXTREME_THUMB_BUTTON);
         //_opJoystickThumbButton.whenPressed(new ZeroSystems());
-        _opJoystickFaceBottomLeft = new JoystickButton(_driverJoystickRight, Addresses.EXTREME_FACE_BOTTOM_LEFT);
-        _opJoystickFaceBottomRight = new JoystickButton(_driverJoystickRight, Addresses.EXTREME_FACE_BOTTOM_RIGHT);
-        _opJoystickFaceTopLeft = new JoystickButton(_driverJoystickRight, Addresses.EXTREME_FACE_TOP_LEFT);
-        _opJoystickFaceTopRight = new JoystickButton(_driverJoystickRight, Addresses.EXTREME_FACE_TOP_RIGHT);
-        _opJoystickSeven = new JoystickButton(_driverJoystickRight, Addresses.EXTREME_BASE_SEVEN);
-        _opJoystickEight = new JoystickButton(_driverJoystickRight, Addresses.EXTREME_BASE_EIGHT);
-        _opJoystickNine = new JoystickButton(_driverJoystickRight, Addresses.EXTREME_BASE_NINE);
-        _opJoystickTen = new JoystickButton(_driverJoystickRight, Addresses.EXTREME_BASE_TEN);
-        _opJoystickEleven = new JoystickButton(_driverJoystickRight, Addresses.EXTREME_BASE_ELEVEN);
-        _opJoystickTwelve = new JoystickButton(_driverJoystickRight, Addresses.EXTREME_BASE_TWELVE);
+        _opJoystickFaceBottomLeft = new JoystickButton(_operatorJoystick, Addresses.EXTREME_FACE_BOTTOM_LEFT);
+        _opJoystickFaceBottomRight = new JoystickButton(_operatorJoystick, Addresses.EXTREME_FACE_BOTTOM_RIGHT);
+        _opJoystickFaceTopLeft = new JoystickButton(_operatorJoystick, Addresses.EXTREME_FACE_TOP_LEFT);
+        _opJoystickFaceTopRight = new JoystickButton(_operatorJoystick, Addresses.EXTREME_FACE_TOP_RIGHT);
+        _opJoystickSeven = new JoystickButton(_operatorJoystick, Addresses.EXTREME_BASE_SEVEN);
+        _opJoystickEight = new JoystickButton(_operatorJoystick, Addresses.EXTREME_BASE_EIGHT);
+        _opJoystickNine = new JoystickButton(_operatorJoystick, Addresses.EXTREME_BASE_NINE);
+        _opJoystickTen = new JoystickButton(_operatorJoystick, Addresses.EXTREME_BASE_TEN);
+        _opJoystickEleven = new JoystickButton(_operatorJoystick, Addresses.EXTREME_BASE_ELEVEN);
+        _opJoystickTwelve = new JoystickButton(_operatorJoystick, Addresses.EXTREME_BASE_TWELVE);
         
         Arrays.fill(stopArray, 0.0);
     }

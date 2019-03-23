@@ -1,8 +1,5 @@
 package frc.robot.commands.driverassistance;
 
-import frc.robot.Variables;
-import frc.robot.OI;
-import frc.robot.commands.drivetrain.FollowTwoTarget;
 import frc.robot.commands.intake.WristPosition;
 import frc.robot.commands.lift.MastPosition;
 import frc.robot.commands.lift.ElevatorPosition;
@@ -19,9 +16,9 @@ public class ZeroSystems extends CommandGroup {
     public ZeroSystems() {
         addSequential(new Interrupt());
 
+        addSequential(new WristPosition(0));
         addParallel(new MastPosition(0)); // move the mast out to the pos
         addSequential(new ElevatorPosition(0)); // move the elevator
-        addSequential(new WristPosition(0)); // move the wrist
     }
 
 }
