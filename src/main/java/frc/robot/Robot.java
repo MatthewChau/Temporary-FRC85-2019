@@ -50,19 +50,23 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void robotInit() {
-        DriveTrain.getInstance();
-        Intake.getInstance();
-        Elevator.getInstance();
-        Mast.getInstance();
-        OI.getInstance();
         IMU.getInstance();
-        Vision.getInstance();
-        Interruptable.getInstance();
-        Spike.getInstance();
+        Sensors.getInstance();
+
+        ClimbFront.getInstance();
         ClimbRear.getInstance();
         ClimbRearDrive.getInstance();
-        ClimbFront.getInstance();
-        Sensors.getInstance();
+        DriveTrain.getInstance();
+        Elevator.getInstance();
+        Intake.getInstance();
+        Mast.getInstance();
+        Spike.getInstance();
+
+        OI.getInstance();
+        Variables.getInstance();
+        Vision.getInstance();
+
+        Interruptable.getInstance();
 
         _diagnostics = new Diagnostics();
     }
@@ -83,6 +87,7 @@ public class Robot extends TimedRobot {
     @Override
     public void autonomousInit() {
         IMU.getInstance().setFusedHeading(0);
+        
         teleopInit();
 
         // init the pid stuff 
@@ -90,9 +95,6 @@ public class Robot extends TimedRobot {
         Arrays.fill(OI.getInstance().firstRun, true);
         Arrays.fill(OI.getInstance().errorSum, 0.0);
         Arrays.fill(OI.getInstance().lastActual, 0.0);
-
-        //_sendItBro = new SendItBro();
-        //_sendItBro.start();
     }
 
     /**
@@ -101,10 +103,6 @@ public class Robot extends TimedRobot {
     @Override
     public void autonomousPeriodic() {
         teleopPeriodic();
-        
-        //_diagnostics.log();
-        //Scheduler.getInstance().run();
-        //Variables.getInstance().outputVariables();
     }
 
     @Override
@@ -118,7 +116,7 @@ public class Robot extends TimedRobot {
     @Override
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
-        //Variables.getInstance().outputVariables();
+        
         Sensors.getInstance().checkSensorsForEncoderReset();
 
         if (ClimbRear.getInstance().getAdjustingBool() || ClimbRear.getInstance().getBothAdjustingBool() || OI.getInstance().getOperatorClimbRear()) {
