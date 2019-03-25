@@ -216,7 +216,8 @@ public class OI {
 
         _opJoystickTrigger = new JoystickButton(_operatorJoystick, Addresses.EXTREME_TRIGGER);
         _opJoystickThumbButton = new JoystickButton(_operatorJoystick, Addresses.EXTREME_THUMB_BUTTON);
-        //_opJoystickThumbButton.whenPressed(new ZeroSystems());
+        _opJoystickThumbButton.whenPressed(new ZeroSystems());
+        _opJoystickThumbButton.whenReleased(new Interrupt());
         _opJoystickFaceBottomLeft = new JoystickButton(_operatorJoystick, Addresses.EXTREME_FACE_BOTTOM_LEFT);
         _opJoystickFaceBottomRight = new JoystickButton(_operatorJoystick, Addresses.EXTREME_FACE_BOTTOM_RIGHT);
         _opJoystickFaceTopLeft = new JoystickButton(_operatorJoystick, Addresses.EXTREME_FACE_TOP_LEFT);
