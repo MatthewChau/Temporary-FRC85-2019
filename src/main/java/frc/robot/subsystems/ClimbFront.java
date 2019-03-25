@@ -89,14 +89,13 @@ public class ClimbFront extends Subsystem {
             speed -= modifyPitch;
         }
 
-        /*if (modifyRoll > 0) {
+        if (modifyRoll > 0) {
             speedLeft = speed;
             speedRight = speed - modifyRoll;
         } else {
             speedLeft = speed + modifyRoll;
             speedRight = speed;
-        }*/
-        speedLeft = speedRight = speed;
+        }
 
         if ((getClimbLeftPosition() > Variables.CLIMB_LEFT_SLOW_DOWN_MAX && speedLeft > 0)
             || (getClimbLeftPosition() < Variables.CLIMB_LEFT_SLOW_DOWN_MIN && speedLeft < 0)) {
