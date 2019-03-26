@@ -13,7 +13,7 @@ public class HatchGroundOne extends CommandGroup {
         addSequential(new Interrupt());
 
         //addSequential(new Place(Variables.HATCH_FLOOR, Variables.WRIST_HATCH_FLOOR, Variables.MAST_CURRENT_POS));
-        addSequential(new MastPosition(Variables.MAST_FORWARD_POS));
+        addParallel(new MastPosition(Variables.MAST_FORWARD_POS));
         addSequential(new ElevatorPosition(Variables.HATCH_FLOOR));
         addSequential(new WristPosition(Variables.WRIST_HATCH_FLOOR));
     }
