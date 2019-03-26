@@ -79,11 +79,11 @@ public class DriveTrain extends Subsystem {
     public void cartDrive(double[] inputs) {
         int i;
 
-        if (OI.getInstance().getTurnLeft90()) {
+        if (OI.getInstance().getLeftJoystickFaceLeft()) {
             setTurn90TargetAngle(true, inputs[3]); // turn left
-        } else if (OI.getInstance().getTurnRight90()) {
+        } else if (OI.getInstance().getLeftJoystickFaceRight()) {
             setTurn90TargetAngle(false, inputs[3]); // turn right
-        } else if (OI.getInstance().getTurn180Button()) {
+        } else if (OI.getInstance().getLeftJoystickFaceBottom()) {
             setTurn180TargetAngle(inputs[3]);
         } else if (Math.abs(inputs[0]) > Variables.DEADBAND_DRIVERSTICK
             || Math.abs(inputs[1]) > Variables.DEADBAND_DRIVERSTICK
@@ -174,13 +174,8 @@ public class DriveTrain extends Subsystem {
     private void setForwardOnlyTargetAngle() {
         double joystickAngle;
         
-        if (SmartDashboard.getBoolean("Joysticks Enabled", false)) {
-            joystickAngle = Math.toDegrees(Math.atan(-OI.getInstance().getXInputJoystick() / Math.abs(OI.getInstance().getYInputJoystick())));
-            joystickAngle = OI.getInstance().fixArcTangent(joystickAngle, OI.getInstance().getXInputJoystick(), OI.getInstance().getYInputJoystick());
-        } else {
-            joystickAngle = Math.toDegrees(Math.atan(-OI.getInstance().getXInputController() / Math.abs(OI.getInstance().getYInputController())));
-            joystickAngle = OI.getInstance().fixArcTangent(joystickAngle, OI.getInstance().getXInputController(), OI.getInstance().getYInputController()); // fix the arctan angle so that we get a full 360 degrees
-        }
+        joystickAngle = Math.toDegrees(Math.atan(-OI.getInstance().getLeftXInputJoystick() / Math.abs(OI.getInstance().getLeftYInputJoystick())));
+        joystickAngle = OI.getInstance().fixArcTangent(joystickAngle, OI.getInstance().getLeftXInputJoystick(), OI.getInstance().getLeftYInputJoystick());
 
         if (Math.abs((Math.abs(targetAngle) % 360) - Math.abs(joystickAngle)) > Variables.TOLERANCE_ANGLE) { // if the new angle differs "significantly"
             targetAngle = joystickAngle;

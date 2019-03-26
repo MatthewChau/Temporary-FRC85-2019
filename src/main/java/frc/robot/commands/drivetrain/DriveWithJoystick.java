@@ -30,11 +30,7 @@ public class DriveWithJoystick extends Command {
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
-        if (SmartDashboard.getBoolean("Joysticks Enabled", false)) {
-            DriveTrain.getInstance().cartDrive(OI.getInstance().getJoystickInput());
-        } else {
-            DriveTrain.getInstance().cartDrive(OI.getInstance().getControllerInput());
-        }
+        DriveTrain.getInstance().cartDrive(OI.getInstance().getJoystickInput());
     }
 
     // Make this return true when this Command no longer needs to run execute()

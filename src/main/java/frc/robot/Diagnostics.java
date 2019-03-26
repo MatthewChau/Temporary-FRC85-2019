@@ -70,8 +70,8 @@ public class Diagnostics {
             String time = Integer.toString(_placeHolder);
             String matchTime = Double.toString(DriverStation.getInstance().getMatchTime());
 
-            String leftJoystickXInput = Double.toString(OI.getInstance().getXInputJoystick());
-            String leftJoystickYInput = Double.toString(OI.getInstance().getYInputJoystick());
+            String leftJoystickXInput = Double.toString(OI.getInstance().getLeftXInputJoystick());
+            String leftJoystickYInput = Double.toString(OI.getInstance().getLeftYInputJoystick());
 
             String leftFrontMotor = Double.toString(DriveTrain.getInstance().getLeftFrontVoltage());
                 String leftFrontCurrent = Double.toString(DriveTrain.getInstance().getLeftFrontCurrent());

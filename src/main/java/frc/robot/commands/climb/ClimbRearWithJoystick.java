@@ -32,7 +32,7 @@ public class ClimbRearWithJoystick extends Command {
     // Make this return true when this Command no longer needs to run execute()
     @Override
     protected boolean isFinished() {
-        return !OI.getInstance().getOperatorClimbRear();
+        return !OI.getInstance().getOpStickTwelve();
     }
 
     // Called once after isFinished returns true

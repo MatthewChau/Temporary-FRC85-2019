@@ -32,7 +32,7 @@ public class WristWithJoystick extends Command {
     // Make this return true when this Command no longer needs to run execute()
     @Override
     protected boolean isFinished() {
-        return !OI.getInstance().getOperatorWristRotate(); 
+        return !OI.getInstance().getOpStickFaceBottomLeft(); 
     }
 
     // Called once after isFinished returns true

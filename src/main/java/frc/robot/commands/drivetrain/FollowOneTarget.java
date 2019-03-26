@@ -28,7 +28,7 @@ public class FollowOneTarget extends Command {
         
         gyroAngle = IMU.getInstance().getFusedHeading();
 
-        if (OI.getInstance().getDriverThumbButton()) { // define different buttons for the separate alignments (these are the dumbest things ever ok)
+        if (OI.getInstance().getRightStickThumbButton()) { // define different buttons for the separate alignments (these are the dumbest things ever ok)
             DriveTrain.getInstance().targetAngle = Variables.ROT_POS_1;
             DriveTrain.getInstance().fixAngles(gyroAngle);
         }
@@ -59,7 +59,7 @@ public class FollowOneTarget extends Command {
 
     @Override
     protected boolean isFinished() {
-        return !OI.getInstance().getDriverThumbButton();
+        return !OI.getInstance().getRightStickThumbButton();
     }
 
     @Override

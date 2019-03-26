@@ -108,11 +108,7 @@ public class OI {
 
         // black
         _operatorMast = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_MAST);
-        _operatorMast.whenPressed(new Interrupt());
-        _operatorMast.whenPressed(new MastWithJoystick());
         _operatorWrist = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_WRIST);
-        _operatorWrist.whenPressed(new Interrupt());
-        _operatorWrist.whenPressed(new WristWithJoystick());
         _operatorHatchStation = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_HATCH_STATION);
         _operatorHatchStation.whenPressed(new Place(Variables.HATCH_STATION, Variables.WRIST_30, Variables.MAST_FORWARD_POS));
         _operatorHatchStation.whenReleased(new Place(Variables.HATCH_STATION, Variables.WRIST_0, Variables.MAST_FORWARD_POS));
@@ -131,8 +127,6 @@ public class OI {
 
         // white
         _operatorElevator = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_ELEVATOR);
-        _operatorElevator.whenPressed(new Interrupt());
-        _operatorElevator.whenPressed(new ElevatorWithJoystick());
         _operatorRollerIn = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_ROLLER_IN);
         _operatorRollerIn.whenPressed(new ActivateIntake(Variables.ROLLER_IN));
         _operatorRollerIn.whenReleased(new ActivateIntake(0));
@@ -154,10 +148,8 @@ public class OI {
 
         // the thing off to the side
         _operatorClimbFront = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_CLIMB_FRONT);
-        _operatorClimbFront.whenPressed(new ClimbFrontWithJoystick());
         //_operatorClimbFront.whenPressed(new MoveClimbPosition(0.0));
         _operatorClimbRear = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_CLIMB_REAR);
-        _operatorClimbRear.whenPressed(new ClimbRearWithJoystick());
         //_operatorClimbRear.whenPressed(new ActivateClimbFront(-0.6));
         _operatorClimbAuto = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_CLIMB_AUTO);
         _operatorClimbAuto.whenPressed(new MoveClimbPosition(Variables.CLIMB_REAR_LEVEL_THREE));
@@ -218,21 +210,25 @@ public class OI {
         _opJoystickThumbButton.whenPressed(new ZeroSystems());
         _opJoystickThumbButton.whenReleased(new Interrupt());
         _opJoystickFaceBottomLeft = new JoystickButton(_operatorJoystick, Addresses.EXTREME_FACE_BOTTOM_LEFT);
+        _opJoystickFaceBottomLeft.whenPressed(new Interrupt());
+        _opJoystickFaceBottomLeft.whenPressed(new WristWithJoystick());
         _opJoystickFaceBottomRight = new JoystickButton(_operatorJoystick, Addresses.EXTREME_FACE_BOTTOM_RIGHT);
         _opJoystickFaceTopLeft = new JoystickButton(_operatorJoystick, Addresses.EXTREME_FACE_TOP_LEFT);
+        _opJoystickFaceTopLeft.whenPressed(new Interrupt());
+        _opJoystickFaceTopLeft.whenPressed(new ElevatorWithJoystick());
         _opJoystickFaceTopRight = new JoystickButton(_operatorJoystick, Addresses.EXTREME_FACE_TOP_RIGHT);
+        _opJoystickFaceTopRight.whenPressed(new Interrupt());
+        _opJoystickFaceTopRight.whenPressed(new MastWithJoystick());
         _opJoystickSeven = new JoystickButton(_operatorJoystick, Addresses.EXTREME_BASE_SEVEN);
-        _opJoystickSeven.whenPressed(new Place(Variables.CARGO_THREE, Variables.WRIST_CARGO_HIGH, Variables.MAST_FORWARD_FOR_CARGO));
         _opJoystickEight = new JoystickButton(_operatorJoystick, Addresses.EXTREME_BASE_EIGHT);
-        _opJoystickEight.whenPressed(new Place(Variables.HATCH_THREE, Variables.WRIST_0, Variables.MAST_FORWARD_POS));
         _opJoystickNine = new JoystickButton(_operatorJoystick, Addresses.EXTREME_BASE_NINE);
-        _opJoystickNine.whenPressed(new Place(Variables.CARGO_TWO, Variables.WRIST_CARGO_HIGH, Variables.MAST_FORWARD_FOR_CARGO));
         _opJoystickTen = new JoystickButton(_operatorJoystick, Addresses.EXTREME_BASE_TEN);
-        _opJoystickTen.whenPressed(new Place(Variables.HATCH_TWO, Variables.WRIST_0, Variables.MAST_FORWARD_POS));
         _opJoystickEleven = new JoystickButton(_operatorJoystick, Addresses.EXTREME_BASE_ELEVEN);
-        _opJoystickEleven.whenPressed(new Place(Variables.CARGO_ONE, Variables.WRIST_CARGO_HIGH, Variables.MAST_FORWARD_FOR_CARGO));
+        _opJoystickEleven.whenPressed(new Interrupt());
+        _opJoystickEleven.whenPressed(new ClimbFrontWithJoystick());
         _opJoystickTwelve = new JoystickButton(_operatorJoystick, Addresses.EXTREME_BASE_TWELVE);
-        _opJoystickTwelve.whenPressed(new Place(Variables.HATCH_ONE, Variables.WRIST_0, Variables.MAST_FORWARD_POS));
+        _opJoystickTwelve.whenPressed(new Interrupt());
+        _opJoystickTwelve.whenPressed(new ClimbRearWithJoystick());
         
         Arrays.fill(stopArray, 0.0);
     }
@@ -265,18 +261,9 @@ public class OI {
 
     // DRIVER
 
-    public double[] getControllerInput() {
-        _xSpeed = getXInputController();
-        _ySpeed = getYInputController();
-        _zRotation = -_driverController.getRawAxis(Addresses.RIGHT_X_AXIS);
-        _gyroAngle = IMU.getInstance().getFusedHeading();
-
-        return new double[] { _xSpeed, _ySpeed, _zRotation, _gyroAngle };
-    }
-
     public double[] getJoystickInput() {
-        _xSpeed = getXInputJoystick();
-        _ySpeed = getYInputJoystick();
+        _xSpeed = getLeftXInputJoystick();
+        _ySpeed = getLeftYInputJoystick();
         _zRotation = -_driverJoystickRight.getRawAxis(Addresses.EXTREME_ROT_AXIS);
         _gyroAngle = IMU.getInstance().getFusedHeading();
 
@@ -291,71 +278,166 @@ public class OI {
         return false;
     }
 
-    // CONTROLLER
+    // LEFT DRIVER JOYSTICK
 
-    public double getXInputController() {
-        return _driverController.getRawAxis(Addresses.LEFT_X_AXIS);
-    }
-
-    public double getYInputController() {
-        return _driverController.getRawAxis(Addresses.LEFT_Y_AXIS);
-    }
-
-    /*
-     * // CONTROLLER BUTTONS
-     * 
-     * public boolean getAButton() { return _controllerAButton.get(); }
-     * 
-     * public boolean getBButton() { return _controllerBButton.get(); }
-     * 
-     * public boolean getXButton() { return _controllerXButton.get(); }
-     * 
-     * public boolean getYButton() { return _controllerYButton.get(); }
-     * 
-     * public boolean getRightBumper() { return _controllerRightBumper.get(); }
-     */
-
-    // JOYSTICKS
-
-    public double getXInputJoystick() {
+    public double getLeftXInputJoystick() {
         return _driverJoystickLeft.getRawAxis(Addresses.ATTACK_X_AXIS);
     }
 
-    public double getYInputJoystick() {
+    public double getLeftYInputJoystick() {
         return _driverJoystickLeft.getRawAxis(Addresses.ATTACK_Y_AXIS);
     }
-
-    public double getRightYInputJoystick() {
-        return _driverJoystickRight.getRawAxis(Addresses.EXTREME_Y_AXIS);
-    }
-
-    // JOYSTICKS BUTTONS
-
+    
     public boolean getLeftStickTrigger() {
         return _leftJoystickTrigger.get();
     }
 
-    public boolean getTurn180Button() {
+    public boolean getLeftJoystickFaceBottom() {
         return _leftJoystickFaceBottom.get();
     }
 
-    public boolean getTurnLeft90() {
+    public boolean getLeftJoystickFaceCenter() {
+        return _leftJoystickFaceCenter.get();
+    }
+
+    public boolean getLeftJoystickFaceLeft() {
         return _leftJoystickFaceLeft.get();
     }
 
-    public boolean getTurnRight90() {
+    public boolean getLeftJoystickFaceRight() {
         return _leftJoystickFaceRight.get();
+    }
+
+    public boolean getLeftJoystickBaseLeftTop() {
+        return _leftJoystickBaseLeftTop.get();
+    }
+
+    public boolean getLeftJoystickBaseLeftBottom() {
+        return _leftJoystickBaseLeftBottom.get();
+    }
+
+    public boolean getLeftJoystickBaseBottomLeft() {
+        return _leftJoystickBaseBottomLeft.get();
+    }
+
+    public boolean getLeftJoystickBaseBottomRight() {
+        return _leftJoystickBaseBottomRight.get();
+    }
+
+    public boolean getLeftJoystickBaseRightBottom() {
+        return _leftJoystickBaseRightBottom.get();
+    }
+
+    public boolean getLeftJoystickBaseRightTop() {
+        return _leftJoystickBaseRightTop.get();
+    }
+
+    // RIGHT DRIVER JOYSTICK
+
+    public double getRightYInputJoystick() {
+        return _driverJoystickRight.getRawAxis(Addresses.EXTREME_Y_AXIS);
     }
 
     public boolean getRightStickTrigger() {
         return _rightJoystickTrigger.get();
     }
 
-    public boolean getDriverThumbButton() {
+    public boolean getRightStickThumbButton() {
         return _rightJoystickThumbButton.get();
     }
 
+    public boolean getRightStickFaceBottomLeft() {
+        return _rightJoystickFaceBottomLeft.get();
+    }
+
+    public boolean getRightStickFaceBottomRight() {
+        return _rightJoystickFaceBottomRight.get();
+    }
+
+    public boolean getRightStickFaceTopLeft() {
+        return _rightJoystickFaceTopLeft.get();
+    }
+
+    public boolean getRightStickFaceTopRight() {
+        return _rightJoystickFaceTopRight.get();
+    }
+
+    public boolean getRightStickSeven() {
+        return _rightJoystickSeven.get();
+    }
+
+    public boolean getRightStickEight() {
+        return _rightJoystickEight.get();
+    }
+
+    public boolean getRightStickNine() {
+        return _rightJoystickNine.get();
+    }
+
+    public boolean getRightStickTen() {
+        return _rightJoystickTen.get();
+    }
+
+    public boolean getRightStickEleven() {
+        return _rightJoystickEleven.get();
+    }
+
+    public boolean getRightStickTwelve() {
+        return _rightJoystickTwelve.get();
+    }
+
     // OPERATOR JOYSTICK
+
+    public boolean getOpStickTrigger() {
+        return _opJoystickTrigger.get();
+    }
+
+    public boolean getOpStickThumbButton() {
+        return _opJoystickThumbButton.get();
+    }
+
+    public boolean getOpStickFaceBottomLeft() {
+        return _opJoystickFaceBottomLeft.get();
+    }
+
+    public boolean getOpStickFaceBottomRight() {
+        return _opJoystickFaceBottomRight.get();
+    }
+
+    public boolean getOpStickFaceTopLeft() {
+        return _opJoystickFaceTopLeft.get();
+    }
+
+    public boolean getOpStickFaceTopRight() {
+        return _opJoystickFaceTopRight.get();
+    }
+
+    public boolean getOpStickSeven() {
+        return _opJoystickSeven.get();
+    }
+
+    public boolean getOpStickEight() {
+        return _opJoystickEight.get();
+    }
+
+    public boolean getOpStickNine() {
+        return _opJoystickNine.get();
+    }
+
+    public boolean getOpStickTen() {
+        return _opJoystickTen.get();
+    }
+
+    public boolean getOpStickEleven() {
+        return _opJoystickEleven.get();
+    }
+
+    public boolean getOpStickTwelve() {
+        return _opJoystickTwelve.get();
+    }
+
+    // operator board
+
     public double getOperatorJoystickX() {
         double axis = _operatorJoystick.getRawAxis(Addresses.EXTREME_X_AXIS);
 
