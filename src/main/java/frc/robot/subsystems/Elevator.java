@@ -11,6 +11,7 @@ import frc.robot.OI;
 import frc.robot.Addresses;
 import frc.robot.Variables;
 import frc.robot.sensors.Sensors;
+import frc.robot.subsystems.ClimbRear;
 
 import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.Timer;
@@ -184,8 +185,11 @@ public class Elevator extends Subsystem {
                     target = Variables.ELEVATOR_MIN_POS_MAST_FORWARD_CARGO;
             }
         } else {*/
+        if (ClimbRear.getInstance().getClimbRearPosition() > Variables.CLIMB_REAR_SLOW_DOWN_MIN) { // if the rear climb is ever working
+            targetPos = getElevatorPosition();
+        } else {
             targetPos = target;
-        //}
+        }
     }
 
     public double getTargetPosition() {
