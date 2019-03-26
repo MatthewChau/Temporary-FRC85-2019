@@ -223,11 +223,17 @@ public class OI {
         _opJoystickFaceTopLeft = new JoystickButton(_operatorJoystick, Addresses.EXTREME_FACE_TOP_LEFT);
         _opJoystickFaceTopRight = new JoystickButton(_operatorJoystick, Addresses.EXTREME_FACE_TOP_RIGHT);
         _opJoystickSeven = new JoystickButton(_operatorJoystick, Addresses.EXTREME_BASE_SEVEN);
+        _opJoystickSeven.whenPressed(new Place(Variables.CARGO_THREE, Variables.WRIST_CARGO_HIGH, Variables.MAST_FORWARD_FOR_CARGO));
         _opJoystickEight = new JoystickButton(_operatorJoystick, Addresses.EXTREME_BASE_EIGHT);
+        _opJoystickEight.whenPressed(new Place(Variables.HATCH_THREE, Variables.WRIST_0, Variables.MAST_FORWARD_POS));
         _opJoystickNine = new JoystickButton(_operatorJoystick, Addresses.EXTREME_BASE_NINE);
+        _opJoystickNine.whenPressed(new Place(Variables.CARGO_TWO, Variables.WRIST_CARGO_HIGH, Variables.MAST_FORWARD_FOR_CARGO));
         _opJoystickTen = new JoystickButton(_operatorJoystick, Addresses.EXTREME_BASE_TEN);
+        _opJoystickTen.whenPressed(new Place(Variables.HATCH_TWO, Variables.WRIST_0, Variables.MAST_FORWARD_POS));
         _opJoystickEleven = new JoystickButton(_operatorJoystick, Addresses.EXTREME_BASE_ELEVEN);
+        _opJoystickEleven.whenPressed(new Place(Variables.CARGO_ONE, Variables.WRIST_CARGO_HIGH, Variables.MAST_FORWARD_FOR_CARGO));
         _opJoystickTwelve = new JoystickButton(_operatorJoystick, Addresses.EXTREME_BASE_TWELVE);
+        _opJoystickTwelve.whenPressed(new Place(Variables.HATCH_ONE, Variables.WRIST_0, Variables.MAST_FORWARD_POS));
         
         Arrays.fill(stopArray, 0.0);
     }
