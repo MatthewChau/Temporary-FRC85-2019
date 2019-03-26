@@ -165,7 +165,7 @@ public class Variables {
 
     // climb speed limits
     public static final double CLIMB_MAX_SPEED_UP = 0.6;
-    public static final double CLIMB_MAX_SPEED_DOWN = -0.3;
+    public static final double CLIMB_MAX_SPEED_DOWN = -0.6;
 
     // servo angles for climb
     public static final double CLIMB_LOCKED = 0;

@@ -30,7 +30,7 @@ public class ClimbRearDriveWithJoystick extends Command {
     protected void execute() {
         _speed = OI.getInstance().getRightYInputJoystick();
 
-        ClimbRearDrive.getInstance().setClimbRearDriveMotor(-_speed);
+        ClimbRearDrive.getInstance().setClimbRearDriveMotor(-_speed / 2);
     }
 
     // Make this return true when this Command no longer needs to run execute()
