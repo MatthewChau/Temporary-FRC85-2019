@@ -234,9 +234,9 @@ public class Variables {
         SmartDashboard.putBoolean("Disable Intake Top Limit", true);
         SmartDashboard.putBoolean("Disable Intake Prox Limit", false);
 
-        SmartDashboard.putBoolean("Disable Intake Soft Limits", true);
-        SmartDashboard.putBoolean("Disable Mast Soft Limits", true);
-        SmartDashboard.putBoolean("Disable Elevator Soft Limits", true);
+        SmartDashboard.putBoolean("Disable Intake Soft Limits", false);
+        SmartDashboard.putBoolean("Disable Mast Soft Limits", false);
+        SmartDashboard.putBoolean("Disable Elevator Soft Limits", false);
 
         SmartDashboard.putBoolean("Reset Wrist Encoder", false);
 

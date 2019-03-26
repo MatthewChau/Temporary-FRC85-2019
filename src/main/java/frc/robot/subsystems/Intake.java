@@ -88,7 +88,7 @@ public class Intake extends Subsystem {
             && intakePosition >= Variables.WRIST_MAX_POS
             && speed > 0) {
             return true;
-        } else if (mastPosition < Variables.MAST_BREAKPOINT // bottom limit when mast is back
+        } /*else if (mastPosition < Variables.MAST_BREAKPOINT // bottom limit when mast is back
                    && intakePosition <= Variables.WRIST_MIN_POS_MAST_BACK
                    && verticalPosition <= Variables.ELEVATOR_MIN_POS_MAST_PROTECTED
                    && speed < 0) {
@@ -97,7 +97,7 @@ public class Intake extends Subsystem {
                     && intakePosition <= Variables.WRIST_90
                     && speed < 0) {
             return true;
-        } else if (intakePosition <= Variables.WRIST_MIN_POS // general bottom limit
+        } */else if (intakePosition <= Variables.WRIST_MIN_POS // general bottom limit
                    && speed < 0) {
             return true;
         }
