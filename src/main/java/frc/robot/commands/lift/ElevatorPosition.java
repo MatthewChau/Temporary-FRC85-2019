@@ -42,7 +42,7 @@ public class ElevatorPosition extends Command {
     // Make this return true when this Command no longer needs to run execute()
     @Override
     protected boolean isFinished() {
-        return (!Elevator.getInstance().getAdjustingBool() || !_run || OI.getInstance().getOperatorElevator());
+        return (!Elevator.getInstance().getAdjustingBool() || !_run || OI.getInstance().getElevatorJoystickButton());
     }
 
     @Override

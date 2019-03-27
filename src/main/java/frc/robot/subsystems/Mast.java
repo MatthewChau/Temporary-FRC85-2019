@@ -47,7 +47,7 @@ public class Mast extends Subsystem {
     }
 
     public void horizontalShift(double speed) {
-        if (adjusting && !OI.getInstance().getOperatorMast()) {
+        if (adjusting && !OI.getInstance().getMastJoystickButton()) {
             speed = OI.getInstance().applyPID(OI.MAST_SYSTEM, 
                                               getMastPosition(), 
                                               targetPos, 
@@ -68,7 +68,7 @@ public class Mast extends Subsystem {
 
         if ((Sensors.getInstance().getLiftFrontLimit() && speed > 0.0)
             || (Sensors.getInstance().getLiftRearLimit() && speed < 0.0)
-            || (!OI.getInstance().getOperatorMast() && !adjusting)
+            || (!OI.getInstance().getMastJoystickButton() && !adjusting)
             || (softLimits(speed) && !SmartDashboard.getBoolean("Disable Mast Soft Limits", false))) {
             _mastMotor.set(ControlMode.PercentOutput, 0);
         } else {

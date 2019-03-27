@@ -93,29 +93,29 @@ public class Addresses {
 
 
     // Black op station
-    public static final int OPERATOR_MAST = 1;
-    public static final int OPERATOR_WRIST = 2;
+    public static final int OPERATOR_BLACK_ONE = 1;
+    public static final int OPERATOR_BLACK_TWO = 2;
 
-    public static final int OPERATOR_HATCH_STATION = 3;
-    public static final int OPERATOR_HATCH_RELEASE = 4;
-    public static final int OPERATOR_HATCH_FLOOR = 5;
+    public static final int OPERATOR_BLACK_THREE = 3;
+    public static final int OPERATOR_BLACK_FOUR = 4;
+    public static final int OPERATOR_BLACK_FIVE = 5;
 
-    public static final int OPERATOR_HATCH_THREE = 6;
-    public static final int OPERATOR_HATCH_TWO = 7;
-    public static final int OPERATOR_HATCH_ONE = 8;
+    public static final int OPERATOR_BLACK_SIX = 6;
+    public static final int OPERATOR_BLACK_SEVEN = 7;
+    public static final int OPERATOR_BLACK_EIGHT = 8;
 
     public static final int OPERATOR_CLIMB_AUTO = 10; // black button on the white joystick
 
     // White operator station
-    public static final int OPERATOR_ELEVATOR = 1; // old elevator
-    public static final int OPERATOR_ROLLER_IN = 2; // old roller
-    public static final int OPERATOR_CARGO_SHIP = 3;
-    public static final int OPERATOR_CARGO_OUT = 4;
-    public static final int OPERATOR_CARGO_FLOOR = 5;
+    public static final int OPERATOR_WHITE_ONE = 1; // old elevator
+    public static final int OPERATOR_WHITE_TWO = 2; // old roller
+    public static final int OPERATOR_WHITE_THREE = 3;
+    public static final int OPERATOR_WHITE_FOUR = 4;
+    public static final int OPERATOR_WHITE_FIVE = 5;
 
-    public static final int OPERATOR_CARGO_THREE = 6;
-    public static final int OPERATOR_CARGO_TWO = 7;
-    public static final int OPERATOR_CARGO_ONE = 8;
+    public static final int OPERATOR_WHITE_SIX = 6;
+    public static final int OPERATOR_WHITE_SEVEN = 7;
+    public static final int OPERATOR_WHITE_EIGHT = 8;
 
     public static final int OPERATOR_CLIMB_REAR = 9;
     public static final int OPERATOR_CLIMB_FRONT = 9; // white button on the black joystick
