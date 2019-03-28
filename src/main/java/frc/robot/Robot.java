@@ -69,6 +69,7 @@ public class Robot extends TimedRobot {
         Interruptable.getInstance();
 
         _diagnostics = new Diagnostics();
+        _diagnostics.log();
     }
 
     /**
@@ -135,6 +136,15 @@ public class Robot extends TimedRobot {
         if (SmartDashboard.getBoolean("Run Diagnostics?", false)) {
             _diagnostics.log();
         }
+
+        if (DriverStation.getInstance().getMatchTime() > 134.5) {
+            _diagnostics.close();
+        }
+    }
+
+    @Override
+    public void testInit() {
+        _diagnostics.init();
     }
 
     /**
@@ -154,7 +164,9 @@ public class Robot extends TimedRobot {
 
         Scheduler.getInstance().removeAll();
 
-        _diagnostics.close();
+        if (SmartDashboard.getBoolean("Close Diagnostics?", true)) {
+            _diagnostics.close();
+        }
     }
 
 }

@@ -95,7 +95,7 @@ public class Variables {
     public static final double ELEVATOR_MIN_SPEED = -.2;
 
     // Servo angles for elevator lock (clutch)
-    public static final double ELEVATOR_LOCKED = 60;
+    public static final double ELEVATOR_LOCKED = 80;
     public static final double ELEVATOR_UNLOCKED = 180;
 
     // MAST
@@ -240,7 +240,8 @@ public class Variables {
 
         SmartDashboard.putBoolean("Reset Wrist Encoder", false);
 
-        SmartDashboard.putBoolean("Run Diagnostics?", false);
+        SmartDashboard.putBoolean("Run Diagnostics?", true);
+        SmartDashboard.putBoolean("Close Diagnostics?", false);
     }
 
     public static Variables getInstance() {
