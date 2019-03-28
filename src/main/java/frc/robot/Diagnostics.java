@@ -50,6 +50,11 @@ public class Diagnostics {
                     + "Intake Top Limit,Wrist Position,"
                     + "Wrist Motor Voltage,Wrist Motor Current,Roller Motor Voltage,Roller Motor Current,"
                     + "Yaw,Pitch,Roll,"
+                    + "Black1,Black2,Hatch Station,Hatch Release,Hatch Ground,Hatch 3,Hatch 2,Hatch 1,Climb Front,Auto Climb,"
+                    + "White1,Roller In,Cargo Ship,Roller Out,Cargo Ground,Cargo 3, Cargo 2, Cargo 1,Climb Rear,"
+                    + "DriverLeftTrigger,DriverLeftFaceBottom,DriverLeftFaceCenter,DriverLeftFaceLeft,DriverLeftFaceRight,DriverLeftBaseLeftTop,DriverLeftBaseLeftBottom,DriverLeftBaseBottomLeft,DriverLeftBaseBottomRight,DriverLeftBaseRightBottom,DriverLeftBaseRightTop"
+                    + "DriverRightTrigger,DriverRightThumbButton,DriverRightFaceBottomLeft,DriverRightFaceBottomRight,DriverRightFaceTopLeft,DriverRightFaceTopRight,DriverRight7,DriverRight8,DriverRight9,DriverRight10,DriverRight11,DriverRight12"
+                    + "OpJoystickTrigger,OpJoystickThumbButton,OpJoystickFaceBottomLeft,OpJoystickFaceBottomRight,OpJoystickFaceTopLeft,OpJoystickFaceTopRight,OpJoystick,OpJoystick7,OpJoystick8,OpJoystick9,OpJoystick10,OpJoystick11,OpJoystick12"
                     + ",");
             out.newLine();
         } catch (Exception ex) {
@@ -114,6 +119,14 @@ public class Diagnostics {
             String pitch = Double.toString(IMU.getInstance().getPitch());
             String roll = Double.toString(IMU.getInstance().getRoll());
 
+            int i;
+            int j;
+            String[][] bools = new String[Addresses.EXTREME_NUM_BUTTONS][]; // maximum amount of numbers
+            for (i = 0; i < Addresses.NUM_CONTROLLERS; i++) {
+                for (j = 0; j < Addresses.EXTREME_NUM_BUTTONS; j++) {
+                    bools[i][j] = Boolean.toString(OI.getInstance().getGenericButton(i, j));
+                }
+            }
 
             out.append(time + "," + matchTime + ","
                     + leftJoystickXInput + "," + leftJoystickYInput + ","
@@ -125,7 +138,11 @@ public class Diagnostics {
                     + intakeTopLimit + "," + wristPos + ","
                     + wristMotor + "," + wristCurrent + "," + rollerMotor + "," + rollerCurrent + ","
                     + yaw + "," + pitch + "," + roll + ","
-                    );
+                    + bools[0][0] + "," + bools[0][1] + "," + bools[0][2] + "," + bools[0][3] + "," + bools[0][4] + "," + bools[0][5] + "," + bools[0][6] + "," + bools[0][7] + "," + bools[0][8] + "," + bools[0][9] + ","
+                    + bools[1][0] + "," + bools[1][1] + "," + bools[1][2] + "," + bools[1][3] + "," + bools[1][4] + "," + bools[1][5] + "," + bools[1][6] + "," + bools[1][7] + "," + bools[1][8] + ","
+                    + bools[2][0] + "," + bools[2][1] + "," + bools[2][2] + "," + bools[2][3] + "," + bools[2][4] + "," + bools[2][5] + "," + bools[2][6] + "," + bools[2][7] + "," + bools[2][8] + "," + bools[2][9] + "," + bools[2][10] + ","
+                    + bools[3][0] + "," + bools[3][1] + "," + bools[3][2] + "," + bools[3][3] + "," + bools[3][4] + "," + bools[3][5] + "," + bools[3][6] + "," + bools[3][7] + "," + bools[3][8] + "," + bools[3][9] + "," + bools[3][10] + "," + bools[3][11] + ","
+                    + bools[4][0] + "," + bools[4][1] + "," + bools[4][2] + "," + bools[4][3] + "," + bools[4][4] + "," + bools[4][5] + "," + bools[4][6] + "," + bools[4][7] + "," + bools[4][8] + "," + bools[4][9] + "," + bools[4][10] + "," + bools[4][11] + ",");
 
             out.newLine();
         } catch (Exception ex) {

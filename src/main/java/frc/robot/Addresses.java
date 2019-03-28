@@ -17,6 +17,8 @@ public class Addresses {
     public static final int CONTROLLER_DRIVER_STICK_LEFT = 3;
     public static final int CONTROLLER_OPERATOR_JOYSTICK = 4;
 
+    public static final int NUM_CONTROLLERS = CONTROLLER_OPERATOR_JOYSTICK + 1;
+
     // controller (gamepad F310)
     // buttons
     public static final int A_BUTTON = 1;
@@ -91,6 +93,8 @@ public class Addresses {
     public static final int EXTREME_ROT_AXIS = 2; // clockwise is positive
     public static final int EXTREME_DIAL = 3; // down is positive
 
+    public static final int EXTREME_NUM_BUTTONS = EXTREME_BASE_TWELVE;
+
 
     // Black op station
     public static final int OPERATOR_BLACK_ONE = 1;
@@ -106,6 +110,8 @@ public class Addresses {
 
     public static final int OPERATOR_CLIMB_AUTO = 10; // black button on the white joystick
 
+    public static final int OPERATOR_BLACK_NUM_BUTTONS = OPERATOR_CLIMB_AUTO;
+
     // White operator station
     public static final int OPERATOR_WHITE_ONE = 1; // old elevator
     public static final int OPERATOR_WHITE_TWO = 2; // old roller
@@ -119,6 +125,8 @@ public class Addresses {
 
     public static final int OPERATOR_CLIMB_REAR = 9;
     public static final int OPERATOR_CLIMB_FRONT = 9; // white button on the black joystick
+
+    public static final int OPERATOR_WHITE_NUM_BUTTONS = OPERATOR_CLIMB_REAR;
 
 
     // DriveTrain
