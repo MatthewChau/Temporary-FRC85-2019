@@ -33,25 +33,18 @@ public class FollowOneTarget extends Command {
             DriveTrain.getInstance().fixAngles(gyroAngle);
         }
 
-        xSpeed = -OI.getInstance().applyPID(OI.VISION_X_SYSTEM, 
-                                            Vision.getInstance().oneTargetCenter(), 
-                                            160.0, // appears to be the center of the camera
-                                            Variables.getInstance().getVisionKP(), 
-                                            Variables.getInstance().getVisionKI(), 
-                                            Variables.getInstance().getVisionKD(), 
-                                            .25, 
-                                            -.25);
+        xSpeed = OI.getInstance().getLeftXInputJoystick();
 
-        ySpeed = 0.0;
+        ySpeed = OI.getInstance().getLeftYInputJoystick();
 
-        zRotation = 0;/*OI.getInstance().applyPID(OI.VISION_ROT_SYSTEM,
+        zRotation = OI.getInstance().applyPID(OI.VISION_ROT_SYSTEM,
                                               gyroAngle, 
                                               DriveTrain.getInstance().targetAngle,
                                               Variables.getInstance().getVisionRotKP(),
                                               Variables.getInstance().getVisionRotKI(),
                                               Variables.getInstance().getVisionRotKD(),
-                                              .25,
-                                              -.25);*/
+                                              .6,
+                                              -.6);
 
         double[] _speedArray = {xSpeed, ySpeed, zRotation, gyroAngle};
         DriveTrain.getInstance().cartDrive(_speedArray);
