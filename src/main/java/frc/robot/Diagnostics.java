@@ -56,6 +56,7 @@ public class Diagnostics {
                     + "DriverRightTrigger,DriverRightThumbButton,DriverRightFaceBottomLeft,DriverRightFaceBottomRight,DriverRightFaceTopLeft,DriverRightFaceTopRight,DriverRight7,DriverRight8,DriverRight9,DriverRight10,DriverRight11,DriverRight12"
                     + "OpJoystickTrigger,OpJoystickThumbButton,OpJoystickFaceBottomLeft,OpJoystickFaceBottomRight,OpJoystickFaceTopLeft,OpJoystickFaceTopRight,OpJoystick,OpJoystick7,OpJoystick8,OpJoystick9,OpJoystick10,OpJoystick11,OpJoystick12"
                     + ",");
+            SmartDashboard.putString("Diagnostics Error Creating File", "OK");
             out.newLine();
         } catch (Exception ex) {
             System.out.println("Error creating log file: " + ex.toString());
@@ -121,9 +122,9 @@ public class Diagnostics {
 
             int i;
             int j;
-            String[][] bools = new String[Addresses.EXTREME_NUM_BUTTONS][]; // maximum amount of numbers
-            for (i = 0; i < Addresses.NUM_CONTROLLERS; i++) {
-                for (j = 0; j < Addresses.EXTREME_NUM_BUTTONS; j++) {
+            String[][] bools = new String[Addresses.NUM_CONTROLLERS + 1][Addresses.EXTREME_NUM_BUTTONS]; // maximum amount of numbers
+            for (i = 0; i <= Addresses.NUM_CONTROLLERS; i++) {
+                for (j = 1; j < Addresses.EXTREME_NUM_BUTTONS; j++) {
                     bools[i][j] = Boolean.toString(OI.getInstance().getGenericButton(i, j));
                 }
             }
@@ -143,7 +144,7 @@ public class Diagnostics {
                     + bools[2][0] + "," + bools[2][1] + "," + bools[2][2] + "," + bools[2][3] + "," + bools[2][4] + "," + bools[2][5] + "," + bools[2][6] + "," + bools[2][7] + "," + bools[2][8] + "," + bools[2][9] + "," + bools[2][10] + ","
                     + bools[3][0] + "," + bools[3][1] + "," + bools[3][2] + "," + bools[3][3] + "," + bools[3][4] + "," + bools[3][5] + "," + bools[3][6] + "," + bools[3][7] + "," + bools[3][8] + "," + bools[3][9] + "," + bools[3][10] + "," + bools[3][11] + ","
                     + bools[4][0] + "," + bools[4][1] + "," + bools[4][2] + "," + bools[4][3] + "," + bools[4][4] + "," + bools[4][5] + "," + bools[4][6] + "," + bools[4][7] + "," + bools[4][8] + "," + bools[4][9] + "," + bools[4][10] + "," + bools[4][11] + ",");
-
+            SmartDashboard.putString("Diagnostics Error Writing", "OK");
             out.newLine();
         } catch (Exception ex) {
             System.out.println("Error writing diagnostic log: " + ex.toString());
@@ -156,6 +157,7 @@ public class Diagnostics {
             try {
                 out.close();
                 out = null;
+                SmartDashboard.putString("Diagnostics Error Closing", "OK");
             } catch (Exception ex) {
                 System.out.println("Error closing file: " + ex.toString());
                 SmartDashboard.putString("Diagnostics Error Closing", ex.toString());

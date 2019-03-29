@@ -17,7 +17,7 @@ public class Addresses {
     public static final int CONTROLLER_DRIVER_STICK_LEFT = 3;
     public static final int CONTROLLER_OPERATOR_JOYSTICK = 4;
 
-    public static final int NUM_CONTROLLERS = CONTROLLER_OPERATOR_JOYSTICK + 1;
+    public static final int NUM_CONTROLLERS = CONTROLLER_OPERATOR_JOYSTICK;
 
     // controller (gamepad F310)
     // buttons

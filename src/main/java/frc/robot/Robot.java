@@ -144,7 +144,7 @@ public class Robot extends TimedRobot {
 
     @Override
     public void testInit() {
-        _diagnostics.init();
+        _diagnostics.log();
     }
 
     /**
