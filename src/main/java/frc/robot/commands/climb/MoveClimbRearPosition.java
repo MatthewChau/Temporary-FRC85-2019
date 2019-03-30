@@ -7,39 +7,42 @@
 
 package frc.robot.commands.climb;
 
-import frc.robot.subsystems.ClimbRear;
 import frc.robot.Variables;
+import frc.robot.subsystems.ClimbRear;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class ActivateClimbRear extends Command {
+public class MoveClimbRearPosition extends Command {
 
-    private double _speed;
+    private double _initial, _target;
 
-    public ActivateClimbRear(double speed) {
+    public MoveClimbRearPosition(double target) {
         requires(ClimbRear.getInstance());
-        _speed = speed;
+        _initial = target;
     }
 
     @Override
     protected void initialize() {
+        _target = _initial;
         ClimbRear.getInstance().setServo(Variables.getInstance().getClimbUnlocked());
     }
 
     @Override
     protected void execute() {
-        //ClimbRear.getInstance().setClimbRearMotor(_speed);
-        ClimbRear.getInstance().moveClimbRear(_speed);
+        ClimbRear.getInstance().setAdjustingBool(true);
+        ClimbRear.getInstance().setTargetPosition(_target);
+        ClimbRear.getInstance().moveClimbRear(0.0);
     }
 
     @Override
     protected boolean isFinished() {
-        return false;
+        return !ClimbRear.getInstance().getAdjustingBool();
     }
 
     @Override
     protected void end() {
         ClimbRear.getInstance().setClimbRearMotor(0.0);
+        ClimbRear.getInstance().setAdjustingBool(false);
         ClimbRear.getInstance().setServo(Variables.getInstance().getClimbLocked());
     }
 
@@ -47,4 +50,5 @@ public class ActivateClimbRear extends Command {
     protected void interrupted() {
         end();
     }
+
 }

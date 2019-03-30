@@ -11,38 +11,36 @@ import frc.robot.subsystems.ClimbFront;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class ActivateClimbFront extends Command {
+public class MoveClimbFrontPosition extends Command {
 
-    private double _speed;
+    private double _initial, _target;
 
-    public ActivateClimbFront(double speed) {
+    public MoveClimbFrontPosition(double target) {
         requires(ClimbFront.getInstance());
-        _speed = speed;
+        _initial = target;
     }
-
-    /*public ActivateClimbFront(double speed, double seconds) {
-        requires(ClimbFront.getInstance());
-        _speed = speed;
-    }*/
 
     @Override
     protected void initialize() {
+        _target = _initial;
     }
 
     @Override
     protected void execute() {
-        //ClimbFront.getInstance().setClimbFrontMotors(_speed);
-        ClimbFront.getInstance().moveClimbFront(_speed);
+        ClimbFront.getInstance().setAdjustingBool(true);
+        ClimbFront.getInstance().setTargetPosition(_target);
+        ClimbFront.getInstance().moveClimbFront(0.0);
     }
 
     @Override
     protected boolean isFinished() {
-        return isTimedOut();
+        return !ClimbFront.getInstance().getAdjustingBool();
     }
 
     @Override
     protected void end() {
         ClimbFront.getInstance().setClimbFrontMotors(0.0);
+        ClimbFront.getInstance().setAdjustingBool(false);
     }
 
     @Override

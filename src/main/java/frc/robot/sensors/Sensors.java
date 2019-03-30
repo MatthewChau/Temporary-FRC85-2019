@@ -32,6 +32,8 @@ public class Sensors extends Subsystem {
     private Timer leftTimer = new Timer();
     private Timer rearTimer = new Timer();
 
+    private DigitalInput _climbFrontPhotoeye, _climbRearPhotoeye;
+
     private Sensors() {
         _liftTopLimit = new DigitalInput(Addresses.LIFT_TOP_LIMIT);
         _liftCenterLimit = new DigitalInput(Addresses.LIFT_CENTER_LIMIT);
@@ -45,6 +47,9 @@ public class Sensors extends Subsystem {
         _climbLeftLimit = new DigitalInput(Addresses.CLIMB_LEFT_LIMIT);
         _climbRightLimit = new DigitalInput(Addresses.CLIMB_RIGHT_LIMIT);
         _climbRearLimit = new DigitalInput(Addresses.CLIMB_REAR_LIMIT);
+
+        _climbFrontPhotoeye = new DigitalInput(Addresses.CLIMB_FRONT_PHOTOEYE);
+        _climbRearPhotoeye = new DigitalInput(Addresses.CLIMB_REAR_PHOTOEYE);
     }
 
     public static Sensors getInstance() {
@@ -180,6 +185,14 @@ public class Sensors extends Subsystem {
         } else {
             resetRearTimer();
         }
+    }
+
+    public boolean getClimbFrontPhotoeye() {
+        return !_climbFrontPhotoeye.get();
+    }
+
+    public boolean getClimbRearPhotoeye() {
+        return !_climbRearPhotoeye.get();
     }
 
 }

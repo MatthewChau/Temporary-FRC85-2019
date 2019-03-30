@@ -147,9 +147,7 @@ public class OI {
 
         // the thing off to the side
         _operatorClimbFront = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_CLIMB_FRONT);
-        //_operatorClimbFront.whenPressed(new MoveClimbPosition(0.0));
         _operatorClimbRear = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_CLIMB_REAR);
-        //_operatorClimbRear.whenPressed(new ActivateClimbFront(-0.6));
         _operatorClimbAuto = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_CLIMB_AUTO);
         _operatorClimbAuto.whenPressed(new MoveClimbPosition(Variables.CLIMB_REAR_LEVEL_THREE));
 
@@ -239,7 +237,7 @@ public class OI {
     public double[] getJoystickInput() {
         _xSpeed = getLeftXInputJoystick();
         _ySpeed = getLeftYInputJoystick();
-        _zRotation = -_driverJoystickRight.getRawAxis(Addresses.EXTREME_ROT_AXIS);
+        _zRotation = getRightRotJoystick();
         _gyroAngle = IMU.getInstance().getFusedHeading();
 
         return new double[] { _xSpeed, _ySpeed, _zRotation, _gyroAngle };
@@ -333,6 +331,10 @@ public class OI {
 
     public double getRightYInputJoystick() {
         return _driverJoystickRight.getRawAxis(Addresses.EXTREME_Y_AXIS);
+    }
+
+    public double getRightRotJoystick() {
+        return -_driverJoystickRight.getRawAxis(Addresses.EXTREME_ROT_AXIS);
     }
 
     public boolean getRightStickTrigger() {
@@ -604,7 +606,8 @@ public class OI {
     public boolean checkIfNeedBeRun(int system, double error, double speed) {
         switch (system) {
             case ROT_SYSTEM:
-                if (DriveTrain.getInstance().getTurnInProgress() && Math.abs(error) < 3.0) {
+                if (DriveTrain.getInstance().getTurnInProgress() && Math.abs(error) < 3.0 
+                    && !ClimbRear.getInstance().getClimbInProgress()) {
                     DriveTrain.getInstance().setTurnInProgress(false);
                     return false;
                 }

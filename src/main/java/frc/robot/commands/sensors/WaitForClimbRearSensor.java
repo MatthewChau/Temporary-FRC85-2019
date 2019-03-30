@@ -5,35 +5,25 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.intake;
+package frc.robot.commands.sensors;
 
-import frc.robot.subsystems.Intake;
+import frc.robot.sensors.Sensors;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class ActivateWrist extends Command {
+public class WaitForClimbRearSensor extends Command {
 
-    private double _speed, _timeout;
-
-    public ActivateWrist(double speed, double seconds) {
-        requires(Intake.getInstance());
-        _speed = speed;
-        _timeout = seconds;
-    }
-
-    @Override
-    protected void initialize() {
-       setTimeout(_timeout); 
-    }
-
-    @Override
-    protected void execute() {
-        Intake.getInstance().setWristMotor(_speed);
+    public WaitForClimbRearSensor() {
+        requires(Sensors.getInstance());
     }
 
     @Override
     protected boolean isFinished() {
-        return isTimedOut();
+        if (Sensors.getInstance().getClimbRearPhotoeye()) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
 }

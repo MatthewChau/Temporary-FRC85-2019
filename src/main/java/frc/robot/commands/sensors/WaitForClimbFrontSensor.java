@@ -5,35 +5,25 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.lift;
+package frc.robot.commands.sensors;
 
-import frc.robot.subsystems.Mast;
+import frc.robot.sensors.Sensors;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class ActivateMast extends Command {
+public class WaitForClimbFrontSensor extends Command {
 
-    private double _speed, _timeout;
-    
-    public ActivateMast(double speed, double seconds) {
-        requires(Mast.getInstance());
-        _speed = speed;
-        _timeout = seconds;
-    }
-
-    @Override
-    protected void initialize() {
-        setTimeout(_timeout);
-    }
-
-    @Override
-    protected void execute() {
-        Mast.getInstance().setMastMotor(_speed);
+    public WaitForClimbFrontSensor() {
+        requires(Sensors.getInstance());
     }
 
     @Override
     protected boolean isFinished() {
-        return isTimedOut();
+        if (Sensors.getInstance().getClimbFrontPhotoeye()) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
 }
