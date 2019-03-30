@@ -54,13 +54,13 @@ public class Mast extends Subsystem {
                                               Variables.getInstance().getMastKP(), 
                                               Variables.getInstance().getMastKI(), 
                                               Variables.getInstance().getMastKD(), 
-                                              0.7, 
-                                              -0.7);
+                                              0.8, 
+                                              -0.8);
         } else if (speed > 0.0) {
-            speed *= 0.7;
+            speed *= 0.8;
             setTargetPosition(getMastPosition());
         } else if (speed < 0.0) {
-            speed *= 0.7;
+            speed *= 0.8;
             setTargetPosition(getMastPosition());
         } else {
             speed = 0.0;

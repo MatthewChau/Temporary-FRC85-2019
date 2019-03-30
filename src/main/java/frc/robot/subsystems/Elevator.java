@@ -70,13 +70,13 @@ public class Elevator extends Subsystem {
                                               Variables.getInstance().getElevatorKP(), 
                                               Variables.getInstance().getElevatorKI(), 
                                               Variables.getInstance().getElevatorKD(), 
-                                              0.6, 
-                                              -0.3);
+                                              0.7, 
+                                              -0.35);
         } else if (speed > 0) {
-            speed *= 0.5;
+            speed *= 0.7;
             targetPos = getElevatorPosition();
         } else if (speed < 0) {
-            speed *= 0.2;
+            speed *= 0.35;
             targetPos = getElevatorPosition();
         }
 

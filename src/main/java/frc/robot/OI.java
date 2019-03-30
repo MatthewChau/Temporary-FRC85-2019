@@ -113,7 +113,7 @@ public class OI {
         _operatorBlackThree.whenPressed(new Place(Variables.HATCH_STATION, Variables.WRIST_30, Variables.MAST_FORWARD_POS));
         _operatorBlackThree.whenReleased(new Place(Variables.HATCH_STATION, Variables.WRIST_0, Variables.MAST_FORWARD_POS));
         _operatorBlackFour = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_BLACK_FOUR);
-        _operatorBlackFour.whenPressed(new Place(Variables.ELEVATOR_CURRENT_POS, Variables.WRIST_30, (Variables.MAST_FORWARD_POS - 100000)));
+        _operatorBlackFour.whenPressed(new Place(Variables.ELEVATOR_CURRENT_POS, Variables.WRIST_30, (Variables.MAST_FORWARD_POS - 200000)));
         _operatorBlackFour.whenReleased(new Place(Variables.ELEVATOR_CURRENT_POS, Variables.WRIST_CURR_POSITION, Variables.MAST_PROTECTED));
         _operatorBlackFive = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_BLACK_FIVE);
         _operatorBlackFive.whenPressed(new HatchGroundOne());

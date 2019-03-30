@@ -79,7 +79,7 @@ public class Variables {
 
     public static final int CARGO_SHIP = 11740;
 
-    public static final int CARGO_FLOOR = 1700;
+    public static final int CARGO_FLOOR = 1907;
 
     public static final int ELEVATOR_CURRENT_POS = -1;
 
@@ -120,16 +120,16 @@ public class Variables {
     // WRIST
 
     // Wrist positions
-    public static final int WRIST_0 = 0;
+    public static final int WRIST_0 = -53714;
     public static final int WRIST_30 = -333333;
     public static final int WRIST_45 = -500000;
     public static final int WRIST_60 = -666666;
     public static final int WRIST_90 = -908000;
 
-    public static final int WRIST_CARGO_HIGH = -585000;
+    public static final int WRIST_CARGO_HIGH = -750860;
     public static final int WRIST_CARGO = -767000;
     public static final int WRIST_CARGO_SHIP = -900000;
-    public static final int WRIST_CARGO_FLOOR = -974615;
+    public static final int WRIST_CARGO_FLOOR = -1142068;
 
     public static final int WRIST_HATCH_FLOOR = -1140762;
 

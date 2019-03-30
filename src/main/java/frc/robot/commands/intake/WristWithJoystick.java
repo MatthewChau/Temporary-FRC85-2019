@@ -26,7 +26,7 @@ public class WristWithJoystick extends Command {
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
-        Intake.getInstance().setWrist(-OI.getInstance().getOperatorJoystickY());
+        Intake.getInstance().setWrist(OI.getInstance().getOperatorJoystickY());
     }
 
     // Make this return true when this Command no longer needs to run execute()
