@@ -112,7 +112,7 @@ public class DriveTrain extends Subsystem {
             }
 
             if (OI.getInstance().getLeftStickTrigger()) { // trigger for lowering speed
-                inputs[0] *= 0.5;
+                inputs[0] *= 0.6;
                 inputs[1] *= 0.33;
                 inputs[2] *= 0.45;
             }
