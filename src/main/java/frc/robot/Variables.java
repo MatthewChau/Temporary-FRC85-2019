@@ -15,7 +15,7 @@ import frc.robot.subsystems.ClimbFront;
 import frc.robot.subsystems.ClimbRear;
 import frc.robot.sensors.Sensors;
 import frc.robot.sensors.IMU;
-
+import frc.robot.sensors.RangeFinder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Variables {
@@ -472,6 +472,9 @@ public class Variables {
 
         SmartDashboard.putNumber("Initial Roll", IMU.getInstance().getInitialRoll());
         SmartDashboard.putNumber("Roll", IMU.getInstance().getRoll());
+
+        //RangeFinder
+        SmartDashboard.putNumber("Range Finder Distance", RangeFinder.getInstance().getDistance());
     }
 
 }
