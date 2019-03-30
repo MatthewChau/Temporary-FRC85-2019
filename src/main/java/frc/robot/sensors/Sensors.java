@@ -188,11 +188,11 @@ public class Sensors extends Subsystem {
     }
 
     public boolean getClimbFrontPhotoeye() {
-        return _climbFrontPhotoeye.get();
+        return !_climbFrontPhotoeye.get();
     }
 
     public boolean getClimbRearPhotoeye() {
-        return _climbRearPhotoeye.get();
+        return !_climbRearPhotoeye.get();
     }
 
 }
