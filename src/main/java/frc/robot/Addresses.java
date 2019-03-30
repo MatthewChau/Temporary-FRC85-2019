@@ -149,6 +149,9 @@ public class Addresses {
     public static final int LIFT_FRONT_LIMIT = 3;
     public static final int LIFT_BACK_LIMIT = 4;
 
+    // Range Finder
+    public static final int RANGEFINDER = 50;
+
     // Intake 
     public static final int INTAKE_WRIST = 31;
     public static final int INTAKE_ROLLER = 32;

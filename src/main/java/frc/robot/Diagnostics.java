@@ -8,6 +8,7 @@
 package frc.robot;
 
 import frc.robot.sensors.IMU;
+import frc.robot.sensors.RangeFinder;
 import frc.robot.sensors.Sensors;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Mast;
@@ -50,6 +51,7 @@ public class Diagnostics {
                     + "Intake Top Limit,Wrist Position,"
                     + "Wrist Motor Voltage,Wrist Motor Current,Roller Motor Voltage,Roller Motor Current,"
                     + "Yaw,Pitch,Roll,"
+                    + "Range Finder Distance,"
                     + "Black1,Black2,Hatch Station,Hatch Release,Hatch Ground,Hatch 3,Hatch 2,Hatch 1,Climb Front,Auto Climb,"
                     + "White1,Roller In,Cargo Ship,Roller Out,Cargo Ground,Cargo 3, Cargo 2, Cargo 1,Climb Rear,"
                     + "DriverLeftTrigger,DriverLeftFaceBottom,DriverLeftFaceCenter,DriverLeftFaceLeft,DriverLeftFaceRight,DriverLeftBaseLeftTop,DriverLeftBaseLeftBottom,DriverLeftBaseBottomLeft,DriverLeftBaseBottomRight,DriverLeftBaseRightBottom,DriverLeftBaseRightTop"
@@ -120,6 +122,8 @@ public class Diagnostics {
             String pitch = Double.toString(IMU.getInstance().getPitch());
             String roll = Double.toString(IMU.getInstance().getRoll());
 
+            String rangeFinderDistance = Double.toString(RangeFinder.getInstance().getDistance());
+
             int i;
             int j;
             String[][] bools = new String[Addresses.NUM_CONTROLLERS + 1][Addresses.EXTREME_NUM_BUTTONS]; // maximum amount of numbers
@@ -139,6 +143,7 @@ public class Diagnostics {
                     + intakeTopLimit + "," + wristPos + ","
                     + wristMotor + "," + wristCurrent + "," + rollerMotor + "," + rollerCurrent + ","
                     + yaw + "," + pitch + "," + roll + ","
+                    + rangeFinderDistance + ","
                     + bools[0][0] + "," + bools[0][1] + "," + bools[0][2] + "," + bools[0][3] + "," + bools[0][4] + "," + bools[0][5] + "," + bools[0][6] + "," + bools[0][7] + "," + bools[0][8] + "," + bools[0][9] + ","
                     + bools[1][0] + "," + bools[1][1] + "," + bools[1][2] + "," + bools[1][3] + "," + bools[1][4] + "," + bools[1][5] + "," + bools[1][6] + "," + bools[1][7] + "," + bools[1][8] + ","
                     + bools[2][0] + "," + bools[2][1] + "," + bools[2][2] + "," + bools[2][3] + "," + bools[2][4] + "," + bools[2][5] + "," + bools[2][6] + "," + bools[2][7] + "," + bools[2][8] + "," + bools[2][9] + "," + bools[2][10] + ","
