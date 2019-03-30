@@ -239,7 +239,7 @@ public class OI {
     public double[] getJoystickInput() {
         _xSpeed = getLeftXInputJoystick();
         _ySpeed = getLeftYInputJoystick();
-        _zRotation = -_driverJoystickRight.getRawAxis(Addresses.EXTREME_ROT_AXIS);
+        _zRotation = getRightRotJoystick();
         _gyroAngle = IMU.getInstance().getFusedHeading();
 
         return new double[] { _xSpeed, _ySpeed, _zRotation, _gyroAngle };
@@ -333,6 +333,10 @@ public class OI {
 
     public double getRightYInputJoystick() {
         return _driverJoystickRight.getRawAxis(Addresses.EXTREME_Y_AXIS);
+    }
+
+    public double getRightRotJoystick() {
+        return -_driverJoystickRight.getRawAxis(Addresses.EXTREME_ROT_AXIS);
     }
 
     public boolean getRightStickTrigger() {

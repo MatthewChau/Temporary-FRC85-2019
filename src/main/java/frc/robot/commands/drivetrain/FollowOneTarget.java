@@ -28,23 +28,18 @@ public class FollowOneTarget extends Command {
         
         gyroAngle = IMU.getInstance().getFusedHeading();
 
-        if (OI.getInstance().getRightStickThumbButton()) { // define different buttons for the separate alignments (these are the dumbest things ever ok)
-            DriveTrain.getInstance().targetAngle = Variables.ROT_POS_1;
-            DriveTrain.getInstance().fixAngles(gyroAngle);
-        }
-
-        xSpeed = OI.getInstance().getLeftXInputJoystick();
+        xSpeed = OI.getInstance().applyPID(OI.VISION_ROT_SYSTEM,
+                                           Vision.getInstance().oneTargetCenter(), 
+                                           0.0,
+                                           Variables.getInstance().getVisionRotKP(),
+                                           Variables.getInstance().getVisionRotKI(),
+                                           Variables.getInstance().getVisionRotKD(),
+                                           .6,
+                                           -.6);
 
         ySpeed = OI.getInstance().getLeftYInputJoystick();
 
-        zRotation = OI.getInstance().applyPID(OI.VISION_ROT_SYSTEM,
-                                              gyroAngle, 
-                                              DriveTrain.getInstance().targetAngle,
-                                              Variables.getInstance().getVisionRotKP(),
-                                              Variables.getInstance().getVisionRotKI(),
-                                              Variables.getInstance().getVisionRotKD(),
-                                              .6,
-                                              -.6);
+        zRotation = OI.getInstance().getRightRotJoystick();
 
         double[] _speedArray = {xSpeed, ySpeed, zRotation, gyroAngle};
         DriveTrain.getInstance().cartDrive(_speedArray);
