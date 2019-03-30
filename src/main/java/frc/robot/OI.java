@@ -604,7 +604,8 @@ public class OI {
     public boolean checkIfNeedBeRun(int system, double error, double speed) {
         switch (system) {
             case ROT_SYSTEM:
-                if (DriveTrain.getInstance().getTurnInProgress() && Math.abs(error) < 3.0) {
+                if (DriveTrain.getInstance().getTurnInProgress() && Math.abs(error) < 3.0 
+                    && !ClimbRear.getInstance().getClimbInProgress()) {
                     DriveTrain.getInstance().setTurnInProgress(false);
                     return false;
                 }

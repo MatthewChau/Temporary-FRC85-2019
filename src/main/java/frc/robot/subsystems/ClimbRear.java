@@ -140,4 +140,12 @@ public class ClimbRear extends Subsystem {
         return bothAdjusting;
     }
 
+    public boolean getClimbInProgress() {
+        if (getClimbRearPosition() < Variables.CLIMB_REAR_SLOW_DOWN_MIN) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
 }
