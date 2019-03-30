@@ -150,6 +150,10 @@ public class Variables {
     public static final double CLIMB_RIGHT_LEVEL_THREE = 79.62188720703125;
     public static final double CLIMB_REAR_LEVEL_THREE = 87.88459777832031;
 
+    public static final double CLIMB_LEFT_LEVEL_TW0 = 38.428192138671875;
+    public static final double CLIMB_RIGHT_LEVEL_TWO = 34.57111358642578;
+    public static final double CLIMB_REAR_LEVEL_TWO = 39.78531265258789;
+
     // climb position limits
     public static final double CLIMB_LEFT_MAX = 83;
     public static final double CLIMB_RIGHT_MAX = 81;
