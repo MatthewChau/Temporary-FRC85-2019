@@ -28,18 +28,18 @@ public class FollowOneTarget extends Command {
         
         gyroAngle = IMU.getInstance().getFusedHeading();
 
-        xSpeed = OI.getInstance().applyPID(OI.VISION_ROT_SYSTEM,
-                                           Vision.getInstance().oneTargetCenter(), 
-                                           0.0,
-                                           Variables.getInstance().getVisionRotKP(),
-                                           Variables.getInstance().getVisionRotKI(),
-                                           Variables.getInstance().getVisionRotKD(),
-                                           .6,
-                                           -.6);
+        xSpeed = OI.getInstance().getLeftXInputJoystick();
 
         ySpeed = OI.getInstance().getLeftYInputJoystick();
 
-        zRotation = OI.getInstance().getRightRotJoystick();
+        zRotation = OI.getInstance().applyPID(OI.VISION_ROT_SYSTEM,
+                                              Vision.getInstance().oneTargetAngle(), 
+                                              0.0,
+                                              Variables.getInstance().getVisionRotKP(),
+                                              Variables.getInstance().getVisionRotKI(),
+                                              Variables.getInstance().getVisionRotKD(),
+                                              .6,
+                                              -.6);
 
         double[] _speedArray = {xSpeed, ySpeed, zRotation, gyroAngle};
         DriveTrain.getInstance().cartDrive(_speedArray);
