@@ -245,7 +245,7 @@ public class Variables {
         SmartDashboard.putBoolean("Reset Wrist Encoder", false);
 
         SmartDashboard.putBoolean("Run Diagnostics?", true);
-        SmartDashboard.putBoolean("Close Diagnostics?", false);
+        SmartDashboard.putBoolean("Close Diagnostics?", true);
     }
 
     public static Variables getInstance() {

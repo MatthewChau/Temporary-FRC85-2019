@@ -10,6 +10,8 @@ package frc.robot;
 import frc.robot.sensors.IMU;
 import frc.robot.sensors.RangeFinder;
 import frc.robot.sensors.Sensors;
+import frc.robot.subsystems.ClimbFront;
+import frc.robot.subsystems.ClimbRear;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Mast;
 import frc.robot.subsystems.Elevator;
@@ -50,6 +52,7 @@ public class Diagnostics {
                     + "Elevator Left Motor Voltage,Elevator Left Motor Current,Elevator Right Motor Voltage,Elevator Right Motor Current,Mast Motor Voltage,Mast Motor Current,"
                     + "Intake Top Limit,Wrist Position,"
                     + "Wrist Motor Voltage,Wrist Motor Current,Roller Motor Voltage,Roller Motor Current,"
+                    + "Climb Front Left Position,Climb Front Right Position,Climb Rear Position"
                     + "Yaw,Pitch,Roll,"
                     + "Range Finder Distance,"
                     + "Black1,Black2,Hatch Station,Hatch Release,Hatch Ground,Hatch 3,Hatch 2,Hatch 1,Climb Front,Auto Climb,"
@@ -118,6 +121,10 @@ public class Diagnostics {
             String rollerMotor = Double.toString(Intake.getInstance().getRollerMotorVoltage());
                 String rollerCurrent = Double.toString(Intake.getInstance().getRollerMotorCurrent());
 
+            String climbFrontLeftPos = Double.toString(ClimbFront.getInstance().getClimbLeftPosition());
+            String climbFrontRightPos = Double.toString(ClimbFront.getInstance().getClimbRightPosition());
+            String climbRearPos = Double.toString(ClimbRear.getInstance().getClimbRearPosition());
+
             String yaw = Double.toString(IMU.getInstance().getYaw());
             String pitch = Double.toString(IMU.getInstance().getPitch());
             String roll = Double.toString(IMU.getInstance().getRoll());
@@ -142,6 +149,7 @@ public class Diagnostics {
                     + elevatorLeftMotor + "," + elevatorLeftCurrent + "," + elevatorRightMotor + "," + elevatorRightCurrent + "," + mastMotor + "," + mastMotorCurrent + ","
                     + intakeTopLimit + "," + wristPos + ","
                     + wristMotor + "," + wristCurrent + "," + rollerMotor + "," + rollerCurrent + ","
+                    + climbFrontLeftPos + "," + climbFrontRightPos + "," + climbRearPos + ","
                     + yaw + "," + pitch + "," + roll + ","
                     + rangeFinderDistance + ","
                     + bools[0][0] + "," + bools[0][1] + "," + bools[0][2] + "," + bools[0][3] + "," + bools[0][4] + "," + bools[0][5] + "," + bools[0][6] + "," + bools[0][7] + "," + bools[0][8] + "," + bools[0][9] + ","
