@@ -67,7 +67,7 @@ public class Variables {
 
     // Elevator positions
     public static final int HATCH_ONE = 1665;
-    public static final int HATCH_TWO = 9900;
+    public static final int HATCH_TWO = 9900 + 300;
     public static final int HATCH_THREE = 17900;
 
     public static final int HATCH_FLOOR = HATCH_ONE;
@@ -79,7 +79,7 @@ public class Variables {
 
     public static final int CARGO_SHIP = 11740;
 
-    public static final int CARGO_FLOOR = 1907;
+    public static final int CARGO_FLOOR = 1907 + 75;
 
     public static final int ELEVATOR_CURRENT_POS = -1;
 
@@ -97,6 +97,8 @@ public class Variables {
     // Servo angles for elevator lock (clutch)
     public static final double ELEVATOR_LOCKED = 80;
     public static final double ELEVATOR_UNLOCKED = 180;
+
+    public static final double ELEVATOR_TIMER = 0.4;
 
     // MAST
 
@@ -129,7 +131,7 @@ public class Variables {
     public static final int WRIST_CARGO_HIGH = -750860;
     public static final int WRIST_CARGO = -767000;
     public static final int WRIST_CARGO_SHIP = -900000;
-    public static final int WRIST_CARGO_FLOOR = -1142068;
+    public static final int WRIST_CARGO_FLOOR = -1142068 + 50000;
 
     public static final int WRIST_HATCH_FLOOR = -1140762;
 

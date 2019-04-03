@@ -89,7 +89,7 @@ public class Elevator extends Subsystem {
 
         if ((Sensors.getInstance().getLiftTopLimit() && speed > 0.0)
              || (Sensors.getInstance().getLiftBottomLimit() && speed < 0.0)
-             || (_timer.get() < 0.3)) {
+             || (_timer.get() < Variables.ELEVATOR_TIMER)) {
             speed = 0.0;
         }
 
