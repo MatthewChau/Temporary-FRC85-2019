@@ -7,6 +7,7 @@
 
 package frc.robot.sensors;
 
+import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -32,7 +33,7 @@ public class Sensors extends Subsystem {
     private Timer leftTimer = new Timer();
     private Timer rearTimer = new Timer();
 
-    private DigitalInput _climbFrontPhotoeye, _climbRearPhotoeye;
+    private AnalogInput _climbFrontPhotoeye, _climbRearPhotoeye;
 
     private Sensors() {
         _liftTopLimit = new DigitalInput(Addresses.LIFT_TOP_LIMIT);
@@ -48,8 +49,8 @@ public class Sensors extends Subsystem {
         _climbRightLimit = new DigitalInput(Addresses.CLIMB_RIGHT_LIMIT);
         _climbRearLimit = new DigitalInput(Addresses.CLIMB_REAR_LIMIT);
 
-        _climbFrontPhotoeye = new DigitalInput(Addresses.CLIMB_FRONT_PHOTOEYE);
-        _climbRearPhotoeye = new DigitalInput(Addresses.CLIMB_REAR_PHOTOEYE);
+        _climbFrontPhotoeye = new AnalogInput(Addresses.CLIMB_FRONT_PHOTOEYE);
+        _climbRearPhotoeye = new AnalogInput(Addresses.CLIMB_REAR_PHOTOEYE);
     }
 
     public static Sensors getInstance() {
@@ -188,11 +189,29 @@ public class Sensors extends Subsystem {
     }
 
     public boolean getClimbFrontPhotoeye() {
-        return !_climbFrontPhotoeye.get();
+        if (Math.abs(getClimbFrontPhotoeyeValue()) <= 0.1) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
     public boolean getClimbRearPhotoeye() {
-        return !_climbRearPhotoeye.get();
+        if (Math.abs(getClimbRearPhotoeyeValue()) <= 0.1) {
+            return false;
+        } else {
+            return true;
+        }
     }
+
+    private int getClimbFrontPhotoeyeValue() {
+        return _climbFrontPhotoeye.getValue();
+    }
+
+    private int getClimbRearPhotoeyeValue() {
+        return _climbRearPhotoeye.getValue();
+    }
+
+
 
 }
