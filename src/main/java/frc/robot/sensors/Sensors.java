@@ -33,7 +33,8 @@ public class Sensors extends Subsystem {
     private Timer leftTimer = new Timer();
     private Timer rearTimer = new Timer();
 
-    private AnalogInput _climbFrontPhotoeye, _climbRearPhotoeye;
+    private DigitalInput _climbRearPhotoeye;
+    private AnalogInput _climbFrontLeftPhotoeye, _climbFrontRightPhotoeye;
 
     private Sensors() {
         _liftTopLimit = new DigitalInput(Addresses.LIFT_TOP_LIMIT);
@@ -49,8 +50,9 @@ public class Sensors extends Subsystem {
         _climbRightLimit = new DigitalInput(Addresses.CLIMB_RIGHT_LIMIT);
         _climbRearLimit = new DigitalInput(Addresses.CLIMB_REAR_LIMIT);
 
-        _climbFrontPhotoeye = new AnalogInput(Addresses.CLIMB_FRONT_PHOTOEYE);
-        _climbRearPhotoeye = new AnalogInput(Addresses.CLIMB_REAR_PHOTOEYE);
+        _climbFrontLeftPhotoeye = new AnalogInput(Addresses.CLIMB_FRONT_LEFT_PHOTOEYE);
+        _climbFrontRightPhotoeye = new AnalogInput(Addresses.CLIMB_FRONT_RIGHT_PHOTOEYE);
+        _climbRearPhotoeye = new DigitalInput(Addresses.CLIMB_REAR_PHOTOEYE);
     }
 
     public static Sensors getInstance() {
@@ -188,8 +190,16 @@ public class Sensors extends Subsystem {
         }
     }
 
-    public boolean getClimbFrontPhotoeye() {
-        if (Math.abs(getClimbFrontPhotoeyeValue()) <= 0.1) {
+    public boolean getClimbFrontLeftPhotoeye() {
+        if (Math.abs(getClimbFrontLeftPhotoeyeValue()) <= 0.1) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public boolean getClimbFrontRightPhotoeye() {
+        if (Math.abs(getClimbFrontRightPhotoeyeValue()) <= 0.1) {
             return false;
         } else {
             return true;
@@ -197,21 +207,15 @@ public class Sensors extends Subsystem {
     }
 
     public boolean getClimbRearPhotoeye() {
-        if (Math.abs(getClimbRearPhotoeyeValue()) <= 0.1) {
-            return false;
-        } else {
-            return true;
-        }
+        return _climbRearPhotoeye.get();
     }
 
-    private int getClimbFrontPhotoeyeValue() {
-        return _climbFrontPhotoeye.getValue();
+    private int getClimbFrontLeftPhotoeyeValue() {
+        return _climbFrontLeftPhotoeye.getValue();
     }
 
-    private int getClimbRearPhotoeyeValue() {
-        return _climbRearPhotoeye.getValue();
+    private int getClimbFrontRightPhotoeyeValue() {
+        return _climbFrontRightPhotoeye.getValue();
     }
-
-
 
 }

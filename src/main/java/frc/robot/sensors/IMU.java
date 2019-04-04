@@ -21,9 +21,9 @@ public class IMU {
     private PigeonIMU _pigeon;
 
     private PigeonIMU.GeneralStatus _genStatus = new PigeonIMU.GeneralStatus();
-    private short[] _xyz = new short[3];
+    //private short[] _xyz = new short[3];
 
-    private double _initialHeading = 0;
+    //private double _initialHeading = 0;
     private double[] _initialYPR = new double[3];
 
     private IMU() {

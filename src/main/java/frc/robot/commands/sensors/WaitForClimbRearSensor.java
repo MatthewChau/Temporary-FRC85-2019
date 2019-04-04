@@ -19,11 +19,7 @@ public class WaitForClimbRearSensor extends Command {
 
     @Override
     protected boolean isFinished() {
-        if (Sensors.getInstance().getClimbRearPhotoeye()) {
-            return true;
-        } else {
-            return false;
-        }
+        return Sensors.getInstance().getClimbRearPhotoeye();
     }
 
 }

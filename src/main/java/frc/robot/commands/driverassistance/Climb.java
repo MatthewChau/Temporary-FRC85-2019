@@ -12,7 +12,7 @@ import frc.robot.commands.climb.MoveClimbFrontPosition;
 import frc.robot.commands.climb.MoveClimbRearPosition;
 import frc.robot.commands.climb.ActivateClimbRearDrive;
 import frc.robot.commands.drivetrain.ActivateDriveTrain;
-import frc.robot.commands.sensors.WaitForClimbFrontSensor;
+import frc.robot.commands.sensors.WaitForClimbFrontSensors;
 import frc.robot.commands.sensors.WaitForClimbRearSensor;
 import frc.robot.commands.driverassistance.Wait;
 
@@ -26,7 +26,7 @@ public class Climb extends CommandGroup {
         addSequential(new MoveClimbPosition(position));
         addParallel(new ActivateClimbRearDrive(0.25));
         addParallel(new ActivateDriveTrain(0.0, 0.15));
-        addSequential(new WaitForClimbFrontSensor());
+        addSequential(new WaitForClimbFrontSensors());
         addParallel(new ActivateClimbRearDrive(0.0));
         addParallel(new ActivateDriveTrain(0.0));
         addSequential(new MoveClimbFrontPosition(0.0));

@@ -466,7 +466,8 @@ public class Variables {
         SmartDashboard.putBoolean("Front Climb Right Limit Switch", Sensors.getInstance().getClimbRightLimit());
         SmartDashboard.putBoolean("Rear Climb Limit Switch", Sensors.getInstance().getClimbRearLimit());
 
-        SmartDashboard.putBoolean("Front Climb Photoeye", Sensors.getInstance().getClimbFrontPhotoeye());
+        SmartDashboard.putBoolean("Front Climb Left Photoeye", Sensors.getInstance().getClimbFrontLeftPhotoeye());
+        SmartDashboard.putBoolean("Front Climb Right Climb Photoeye", Sensors.getInstance().getClimbFrontRightPhotoeye());
         SmartDashboard.putBoolean("Rear Climb Photoeye", Sensors.getInstance().getClimbRearPhotoeye());
 
         // IMU

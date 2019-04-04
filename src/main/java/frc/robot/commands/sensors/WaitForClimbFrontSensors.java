@@ -11,15 +11,15 @@ import frc.robot.sensors.Sensors;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class WaitForClimbFrontSensor extends Command {
+public class WaitForClimbFrontSensors extends Command {
 
-    public WaitForClimbFrontSensor() {
+    public WaitForClimbFrontSensors() {
         requires(Sensors.getInstance());
     }
 
     @Override
     protected boolean isFinished() {
-        if (Sensors.getInstance().getClimbFrontPhotoeye()) {
+        if (Sensors.getInstance().getClimbFrontLeftPhotoeye() && Sensors.getInstance().getClimbFrontRightPhotoeye()) {
             return true;
         } else {
             return false;

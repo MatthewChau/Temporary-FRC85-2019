@@ -3,7 +3,6 @@ package frc.robot.sensors;
 import frc.robot.Addresses;
 
 import edu.wpi.first.wpilibj.I2C;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class RangeFinder {
 

@@ -176,7 +176,8 @@ public class Addresses {
     public static final int CLIMB_REAR_LIMIT = 8;
 
     // Climb photo eyes
-    public static final int CLIMB_FRONT_PHOTOEYE = 0;
-    public static final int CLIMB_REAR_PHOTOEYE = 1;
+    public static final int CLIMB_FRONT_LEFT_PHOTOEYE = 0;
+    public static final int CLIMB_FRONT_RIGHT_PHOTOEYE = 1;
+    public static final int CLIMB_REAR_PHOTOEYE = 9;
 
 }
