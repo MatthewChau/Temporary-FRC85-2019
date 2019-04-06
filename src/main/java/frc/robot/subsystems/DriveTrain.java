@@ -93,7 +93,7 @@ public class DriveTrain extends Subsystem {
                     inputs[i] = 1.0;
                 } else if (inputs[i] < -1.0) {
                     inputs[i] = -1.0; 
-                } else if (i < 2 && Math.abs(inputs[i]) > Variables.DEADBAND_DRIVERSTICK) {
+                } else if (i < 2 && Math.abs(inputs[i]) < Variables.DEADBAND_DRIVERSTICK) {
                     inputs[i] = 0;
                 } else {
                     if (inputs[2] < Variables.DEADBAND_Z_DRIVERSTICK) {
@@ -107,7 +107,7 @@ public class DriveTrain extends Subsystem {
                 inputs[2] /= Variables.getInstance().DEADBAND_Z_DRIVERSTICK;
             }*/
             
-            /*for (i = 0; i < 2; i++) { // scale everything using a polynomial
+            /*for (i = 0; i <= 2; i++) { // scale everything using a polynomial
                 inputs[i] = ((Variables.A_POLYNOMIAL * Math.pow(inputs[i], 3)) + (Variables.B_POLYNOMIAL * Math.pow(inputs[i], 2)) + (Variables.C_POLYNOMIAL * inputs[i]) + (Variables.D_POLYNOMIAL));
             }*/
 
