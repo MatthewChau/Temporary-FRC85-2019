@@ -191,30 +191,30 @@ public class Sensors extends Subsystem {
     }
 
     public boolean getClimbFrontLeftPhotoeye() {
-        if (Math.abs(getClimbFrontLeftPhotoeyeValue()) <= 0.1) {
-            return false;
-        } else {
+        if (Math.abs(getClimbFrontLeftPhotoeyeValue()) <= 10) { // 3844 is off, 5 is on
             return true;
+        } else {
+            return false;
         }
     }
 
     public boolean getClimbFrontRightPhotoeye() {
-        if (Math.abs(getClimbFrontRightPhotoeyeValue()) <= 0.1) {
-            return false;
-        } else {
+        if (Math.abs(getClimbFrontRightPhotoeyeValue()) <= 10) { // 3844 is off, 5 is on
             return true;
+        } else {
+            return false;
         }
     }
 
     public boolean getClimbRearPhotoeye() {
-        return _climbRearPhotoeye.get();
+        return !_climbRearPhotoeye.get();
     }
 
-    private int getClimbFrontLeftPhotoeyeValue() {
+    public int getClimbFrontLeftPhotoeyeValue() {
         return _climbFrontLeftPhotoeye.getValue();
     }
 
-    private int getClimbFrontRightPhotoeyeValue() {
+    public int getClimbFrontRightPhotoeyeValue() {
         return _climbFrontRightPhotoeye.getValue();
     }
 
