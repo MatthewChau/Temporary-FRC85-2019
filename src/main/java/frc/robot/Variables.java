@@ -180,7 +180,7 @@ public class Variables {
 
     // servo angles for climb
     public static final double CLIMB_LOCKED = 0;
-    public static final double CLIMB_UNLOCKED = 25;
+    public static final double CLIMB_UNLOCKED = 35;
 
     // ROLLER
 
@@ -279,11 +279,11 @@ public class Variables {
     // SERVO
 
     public double getElevatorUnlocked() {
-        return SmartDashboard.getNumber("UNLOCKED", ELEVATOR_UNLOCKED);
+        return SmartDashboard.getNumber("ELEVATOR_UNLOCKED", ELEVATOR_UNLOCKED);
     }
 
     public double getElevatorLocked() {
-        return SmartDashboard.getNumber("LOCKED", ELEVATOR_LOCKED);
+        return SmartDashboard.getNumber("ELEVATOR_LOCKED", ELEVATOR_LOCKED);
     }
 
     // MAST

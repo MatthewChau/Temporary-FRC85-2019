@@ -141,11 +141,11 @@ public class ClimbRear extends Subsystem {
     }
 
     public boolean getClimbInProgress() {
-        if (getClimbRearPosition() < Variables.CLIMB_REAR_SLOW_DOWN_MIN) {
+        //if (getClimbRearPosition() < Variables.CLIMB_REAR_SLOW_DOWN_MIN) {
             return false;
-        } else {
-            return true;
-        }
+        //} else {
+        //    return true;
+        //}
     }
 
 }

@@ -118,15 +118,15 @@ public class Robot extends TimedRobot {
         Sensors.getInstance().checkSensorsForEncoderReset();
 
         if (ClimbRear.getInstance().getAdjustingBool() || ClimbRear.getInstance().getBothAdjustingBool() || OI.getInstance().getClimbRearJoystickButton()) {
-            ClimbRear.getInstance().setServo(SmartDashboard.getNumber("CLIMB_UNLOCKED", 0));
+            ClimbRear.getInstance().setServo(Variables.getInstance().getClimbUnlocked());
         } else {
-            ClimbRear.getInstance().setServo(SmartDashboard.getNumber("CLIMB_LOCKED", 0));
+            ClimbRear.getInstance().setServo(Variables.getInstance().getClimbLocked());
         }
 
         if (Elevator.getInstance().getAdjustingBool() || OI.getInstance().getElevatorJoystickButton()) {
-            Elevator.getInstance().setServo(SmartDashboard.getNumber("ELEVATOR_UNLOCKED", 0.0));
+            Elevator.getInstance().setServo(Variables.getInstance().getElevatorUnlocked());
         } else {
-            Elevator.getInstance().setServo(SmartDashboard.getNumber("ELEVATOR_LOCKED", 0.0));
+            Elevator.getInstance().setServo(Variables.getInstance().getElevatorLocked());
             Elevator.getInstance().resetTimer();
         }
 
