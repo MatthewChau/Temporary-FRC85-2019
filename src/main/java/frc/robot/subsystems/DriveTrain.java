@@ -96,7 +96,7 @@ public class DriveTrain extends Subsystem {
                 } else if (i < 2 && Math.abs(inputs[i]) < Variables.DEADBAND_DRIVERSTICK) {
                     inputs[i] = 0;
                 } else {
-                    if (inputs[2] < Variables.DEADBAND_Z_DRIVERSTICK) {
+                    if (Math.abs((inputs[2]) < Variables.DEADBAND_Z_DRIVERSTICK) {
                         inputs[2] = 0;
                     }
                 }
