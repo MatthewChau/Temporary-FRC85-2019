@@ -85,7 +85,7 @@ public class ClimbFront extends Subsystem {
                                               Variables.getInstance().getClimbMaxSpeedDown());
         }
 
-        if ((OI.getInstance().getOperatorClimbFront() && OI.getInstance().getOperatorClimbRear()) || ClimbRear.getInstance().getBothAdjustingBool()) {
+        if ((OI.getInstance().getClimbFrontJoystickButton() && OI.getInstance().getClimbRearJoystickButton()) || ClimbRear.getInstance().getBothAdjustingBool()) {
             speed -= modifyPitch;
         }
 

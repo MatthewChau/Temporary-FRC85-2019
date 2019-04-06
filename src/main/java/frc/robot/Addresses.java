@@ -10,8 +10,8 @@ package frc.robot;
 public class Addresses {
 
     // Drivestation
-    public static final int CONTROLLER_OPERATOR_BLACK = 0;
-    public static final int CONTROLLER_OPERATOR_WHITE = 1;
+    public static final int CONTROLLER_OPERATOR_BLUE = 0;
+    public static final int CONTROLLER_OPERATOR_RED = 1;
     public static final int CONTROLLER_DRIVER = 2;
     public static final int CONTROLLER_DRIVER_STICK_RIGHT = 2;
     public static final int CONTROLLER_DRIVER_STICK_LEFT = 3;
@@ -97,37 +97,27 @@ public class Addresses {
 
 
     // Black op station
-    public static final int OPERATOR_BLACK_ONE = 1;
-    public static final int OPERATOR_BLACK_TWO = 2;
+    public static final int OPERATOR_RED_ONE = 1;
+    public static final int OPERATOR_RED_TWO = 2;
+    public static final int OPERATOR_RED_THREE = 3;
+    public static final int OPERATOR_RED_FOUR = 4;
+    public static final int OPERATOR_RED_FIVE = 5;
+    public static final int OPERATOR_RED_SIX = 6;
+    public static final int OPERATOR_RED_SEVEN = 7;
+    public static final int OPERATOR_RED_EIGHT = 8;
 
-    public static final int OPERATOR_BLACK_THREE = 3;
-    public static final int OPERATOR_BLACK_FOUR = 4;
-    public static final int OPERATOR_BLACK_FIVE = 5;
-
-    public static final int OPERATOR_BLACK_SIX = 6;
-    public static final int OPERATOR_BLACK_SEVEN = 7;
-    public static final int OPERATOR_BLACK_EIGHT = 8;
-
-    public static final int OPERATOR_CLIMB_AUTO = 10; // black button on the white joystick
-
-    public static final int OPERATOR_BLACK_NUM_BUTTONS = OPERATOR_CLIMB_AUTO;
+    public static final int OPERATOR_RED_NUM_BUTTONS = OPERATOR_RED_EIGHT;
 
     // White operator station
-    public static final int OPERATOR_WHITE_ONE = 1; // old elevator
-    public static final int OPERATOR_WHITE_TWO = 2; // old roller
-    public static final int OPERATOR_WHITE_THREE = 3;
-    public static final int OPERATOR_WHITE_FOUR = 4;
-    public static final int OPERATOR_WHITE_FIVE = 5;
+    public static final int OPERATOR_BLUE_ONE = 1;
+    public static final int OPERATOR_BLUE_TWO = 2;
+    public static final int OPERATOR_BLUE_THREE = 3;
+    public static final int OPERATOR_BLUE_FOUR = 4;
+    public static final int OPERATOR_BLUE_FIVE = 5;
+    public static final int OPERATOR_BLUE_SIX = 6;
+    public static final int OPERATOR_BLUE_SEVEN = 7;
 
-    public static final int OPERATOR_WHITE_SIX = 6;
-    public static final int OPERATOR_WHITE_SEVEN = 7;
-    public static final int OPERATOR_WHITE_EIGHT = 8;
-
-    public static final int OPERATOR_CLIMB_REAR = 9;
-    public static final int OPERATOR_CLIMB_FRONT = 9; // white button on the black joystick
-
-    public static final int OPERATOR_WHITE_NUM_BUTTONS = OPERATOR_CLIMB_REAR;
-
+    public static final int OPERATOR_BLUE_NUM_BUTTONS = OPERATOR_BLUE_SEVEN;
 
     // DriveTrain
     public static final int DRIVETRAIN_LEFT_FRONT_MOTOR = 11;

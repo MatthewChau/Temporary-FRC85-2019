@@ -50,7 +50,7 @@ public class OI {
     private static OI _instance;
 
     private Joystick _driverJoystickRight, _driverJoystickLeft;
-    private Joystick _operatorControllerWhite, _operatorControllerBlack, _operatorJoystick;
+    private Joystick _operatorControllerBlue, _operatorControllerRed, _operatorJoystick;
 
     private JoystickButton _rightJoystickTrigger, _rightJoystickThumbButton, _rightJoystickFaceBottomLeft,
             _rightJoystickFaceBottomRight, _rightJoystickFaceTopLeft, _rightJoystickFaceTopRight, _rightJoystickSeven,
@@ -66,11 +66,11 @@ public class OI {
             _opJoystickEight, _opJoystickNine, _opJoystickTen, _opJoystickEleven, _opJoystickTwelve;
 
     // White
-    private JoystickButton _operatorWhiteOne, _operatorWhiteTwo, _operatorWhiteThree, _operatorWhiteFour, 
-            _operatorWhiteFive, _operatorWhiteSix, _operatorWhiteEight, _operatorWhiteSeven, _operatorClimbFront, _operatorClimbRear;
+    private JoystickButton _operatorBlueOne, _operatorBlueTwo, _operatorBlueThree, _operatorBlueFour, 
+            _operatorBlueFive, _operatorBlueSix, _operatorBlueSeven;
     // Black
-    private JoystickButton _operatorBlackOne, _operatorBlackTwo, _operatorBlackThree, _operatorBlackFour, 
-            _operatorBlackFive, _operatorBlackSix, _operatorBlackSeven, _operatorBlackEight, _operatorClimbAuto;
+    private JoystickButton _operatorRedOne, _operatorRedTwo, _operatorRedThree, _operatorRedFour, 
+            _operatorRedFive, _operatorRedSix, _operatorRedSeven, _operatorRedEight;
 
     private double _xSpeed = 0, _ySpeed = 0, _zRotation = 0;
 
@@ -98,58 +98,53 @@ public class OI {
     public double[] stopArray = new double[4];
 
     private OI() {
-        _operatorControllerBlack = new Joystick(Addresses.CONTROLLER_OPERATOR_BLACK); // op board
-        _operatorControllerWhite = new Joystick(Addresses.CONTROLLER_OPERATOR_WHITE); // op board
+        _operatorControllerBlue = new Joystick(Addresses.CONTROLLER_OPERATOR_BLUE); // op board
+        _operatorControllerRed = new Joystick(Addresses.CONTROLLER_OPERATOR_RED); // op board
 
         _driverJoystickLeft = new Joystick(Addresses.CONTROLLER_DRIVER_STICK_LEFT); // logitech attack
         _driverJoystickRight = new Joystick(Addresses.CONTROLLER_DRIVER_STICK_RIGHT); // logitech extreme 3d
 
         _operatorJoystick = new Joystick(Addresses.CONTROLLER_OPERATOR_JOYSTICK); // logitech extreme 3d
 
-        // black
-        _operatorBlackOne = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_BLACK_ONE);
-        _operatorBlackTwo = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_BLACK_TWO);
-        _operatorBlackThree = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_BLACK_THREE);
-        _operatorBlackThree.whenPressed(new Place(Variables.HATCH_STATION, Variables.WRIST_30, Variables.MAST_FORWARD_POS));
-        _operatorBlackThree.whenReleased(new Place(Variables.HATCH_STATION, Variables.WRIST_0, Variables.MAST_FORWARD_POS));
-        _operatorBlackFour = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_BLACK_FOUR);
-        _operatorBlackFour.whenPressed(new Place(Variables.ELEVATOR_CURRENT_POS, Variables.WRIST_30, (Variables.MAST_FORWARD_POS - 200000)));
-        _operatorBlackFour.whenReleased(new Place(Variables.ELEVATOR_CURRENT_POS, Variables.WRIST_CURR_POSITION, Variables.MAST_PROTECTED));
-        _operatorBlackFive = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_BLACK_FIVE);
-        _operatorBlackFive.whenPressed(new HatchGroundOne());
-        _operatorBlackFive.whenReleased(new HatchGroundTwo());
-        _operatorBlackSix = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_BLACK_SIX);
-        _operatorBlackSix.whenPressed(new Place(Variables.HATCH_THREE, Variables.WRIST_0, Variables.MAST_FORWARD_POS));
-        _operatorBlackSeven = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_BLACK_SEVEN);
-        _operatorBlackSeven.whenPressed(new Place(Variables.HATCH_TWO, Variables.WRIST_0, Variables.MAST_FORWARD_POS));
-        _operatorBlackEight = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_BLACK_EIGHT);
-        _operatorBlackEight.whenPressed(new Place(Variables.HATCH_ONE, Variables.WRIST_0, Variables.MAST_FORWARD_POS));
+        // blue
+        _operatorBlueOne = new JoystickButton(_operatorControllerBlue, Addresses.OPERATOR_BLUE_ONE);
+        _operatorBlueOne.whenPressed(new Place(Variables.HATCH_THREE, Variables.WRIST_0, Variables.MAST_FORWARD_POS));
+        _operatorBlueTwo = new JoystickButton(_operatorControllerBlue, Addresses.OPERATOR_BLUE_TWO);
+        _operatorBlueTwo.whenPressed(new Place(Variables.HATCH_STATION, Variables.WRIST_30, Variables.MAST_FORWARD_POS));
+        _operatorBlueTwo.whenReleased(new Place(Variables.HATCH_STATION, Variables.WRIST_0, Variables.MAST_FORWARD_POS));
+        _operatorBlueThree = new JoystickButton(_operatorControllerBlue, Addresses.OPERATOR_BLUE_THREE);
+        _operatorBlueThree.whenPressed(new Place(Variables.ELEVATOR_CURRENT_POS, Variables.WRIST_30, (Variables.MAST_FORWARD_POS - 200000)));
+        _operatorBlueThree.whenReleased(new Place(Variables.ELEVATOR_CURRENT_POS, Variables.WRIST_CURR_POSITION, Variables.MAST_PROTECTED));
+        _operatorBlueFour = new JoystickButton(_operatorControllerBlue, Addresses.OPERATOR_BLUE_FOUR);
+        _operatorBlueFour.whenPressed(new Place(Variables.HATCH_TWO, Variables.WRIST_0, Variables.MAST_FORWARD_POS));
+        _operatorBlueFive = new JoystickButton(_operatorControllerBlue, Addresses.OPERATOR_BLUE_FIVE);
+        _operatorBlueFive.whenPressed(new Place(Variables.HATCH_ONE, Variables.WRIST_0, Variables.MAST_FORWARD_POS));
+        _operatorBlueSix = new JoystickButton(_operatorControllerBlue, Addresses.OPERATOR_BLUE_SIX);
+        _operatorBlueSix.whenPressed(new Place(Variables.HATCH_ONE, Variables.WRIST_0, Variables.MAST_CARGO_SHIP));
+        _operatorBlueSeven = new JoystickButton(_operatorControllerBlue, Addresses.OPERATOR_BLUE_SEVEN);
+        _operatorBlueSeven.whenPressed(new HatchGroundOne());
+        _operatorBlueSeven.whenReleased(new HatchGroundTwo());
 
-        // white
-        _operatorWhiteOne = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_WHITE_ONE);
-        _operatorWhiteTwo = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_WHITE_TWO);
-        _operatorWhiteTwo.whenPressed(new ActivateIntake(Variables.ROLLER_IN));
-        _operatorWhiteTwo.whenReleased(new ActivateIntake(0));
-        _operatorWhiteThree = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_WHITE_THREE);
-        _operatorWhiteThree.whenPressed(new Place(Variables.CARGO_SHIP, Variables.WRIST_90, Variables.MAST_FORWARD_FOR_CARGO));
-        _operatorWhiteFour = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_WHITE_FOUR);
-        _operatorWhiteFour.whenPressed(new ActivateIntake(Variables.ROLLER_OUT));
-        _operatorWhiteFour.whenReleased(new ActivateIntake(0));
-        _operatorWhiteFive = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_WHITE_FIVE);
-        _operatorWhiteFive.whenPressed(new CargoGroundOne());
-        _operatorWhiteFive.whenReleased(new CargoGroundTwo());
-        _operatorWhiteSix = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_WHITE_SIX);
-        _operatorWhiteSix.whenPressed(new Place(Variables.CARGO_THREE, Variables.WRIST_CARGO_HIGH, Variables.MAST_FORWARD_FOR_CARGO));
-        _operatorWhiteSeven = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_WHITE_SEVEN);
-        _operatorWhiteSeven.whenPressed(new Place(Variables.CARGO_TWO, Variables.WRIST_CARGO, Variables.MAST_FORWARD_FOR_CARGO));
-        _operatorWhiteEight = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_WHITE_EIGHT);
-        _operatorWhiteEight.whenPressed(new Place(Variables.CARGO_ONE, Variables.WRIST_CARGO, Variables.MAST_FORWARD_FOR_CARGO));
-
-        // the thing off to the side
-        _operatorClimbFront = new JoystickButton(_operatorControllerBlack, Addresses.OPERATOR_CLIMB_FRONT);
-        _operatorClimbRear = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_CLIMB_REAR);
-        _operatorClimbAuto = new JoystickButton(_operatorControllerWhite, Addresses.OPERATOR_CLIMB_AUTO);
-        _operatorClimbAuto.whenPressed(new MoveClimbPosition(Variables.CLIMB_REAR_LEVEL_THREE));
+        // red
+        _operatorRedOne = new JoystickButton(_operatorControllerRed, Addresses.OPERATOR_RED_ONE);
+        _operatorRedOne.whenPressed(new Place(Variables.CARGO_STATION, Variables.WRIST_90, Variables.MAST_FORWARD_FOR_CARGO));
+        _operatorRedTwo = new JoystickButton(_operatorControllerRed, Addresses.OPERATOR_RED_TWO);
+        _operatorRedTwo.whenPressed(new ActivateIntake(Variables.ROLLER_OUT));
+        _operatorRedTwo.whenReleased(new ActivateIntake(0));
+        _operatorRedThree = new JoystickButton(_operatorControllerRed, Addresses.OPERATOR_RED_THREE);
+        _operatorRedThree.whenPressed(new Place(Variables.CARGO_THREE, Variables.WRIST_CARGO_HIGH, Variables.MAST_FORWARD_FOR_CARGO));
+        _operatorRedFour = new JoystickButton(_operatorControllerRed, Addresses.OPERATOR_RED_FOUR);
+        _operatorRedFour.whenPressed(new Place(Variables.CARGO_TWO, Variables.WRIST_CARGO, Variables.MAST_FORWARD_FOR_CARGO));
+        _operatorRedFive = new JoystickButton(_operatorControllerRed, Addresses.OPERATOR_RED_FIVE);
+        _operatorRedFive.whenPressed(new ActivateIntake(Variables.ROLLER_IN));
+        _operatorRedFive.whenReleased(new ActivateIntake(0));
+        _operatorRedSix = new JoystickButton(_operatorControllerRed, Addresses.OPERATOR_RED_SIX);
+        _operatorRedSix.whenPressed(new Place(Variables.CARGO_ONE, Variables.WRIST_CARGO, Variables.MAST_FORWARD_FOR_CARGO));
+        _operatorRedSeven = new JoystickButton(_operatorControllerRed, Addresses.OPERATOR_RED_SEVEN);
+        _operatorRedSeven.whenPressed(new Place(Variables.CARGO_SHIP, Variables.WRIST_90, Variables.MAST_FORWARD_FOR_CARGO));
+        _operatorRedEight = new JoystickButton(_operatorControllerRed, Addresses.OPERATOR_RED_EIGHT);
+        _operatorRedEight.whenPressed(new CargoGroundOne());
+        _operatorRedEight.whenReleased(new CargoGroundTwo());
 
         _leftJoystickTrigger = new JoystickButton(_driverJoystickLeft, Addresses.ATTACK_TRIGGER);
         _leftJoystickFaceBottom = new JoystickButton(_driverJoystickLeft, Addresses.ATTACK_FACE_BOTTOM);
@@ -197,8 +192,10 @@ public class OI {
         _opJoystickFaceTopRight.whenPressed(new Interrupt());
         _opJoystickFaceTopRight.whenPressed(new MastWithJoystick());
         _opJoystickSeven = new JoystickButton(_operatorJoystick, Addresses.EXTREME_BASE_SEVEN);
+        _opJoystickSeven.whenPressed(new MoveClimbPosition(Variables.CLIMB_REAR_LEVEL_THREE));
         _opJoystickEight = new JoystickButton(_operatorJoystick, Addresses.EXTREME_BASE_EIGHT);
         _opJoystickNine = new JoystickButton(_operatorJoystick, Addresses.EXTREME_BASE_NINE);
+        _opJoystickNine.whenPressed(new MoveClimbPosition(Variables.CLIMB_REAR_LEVEL_TWO));
         _opJoystickTen = new JoystickButton(_operatorJoystick, Addresses.EXTREME_BASE_TEN);
         _opJoystickEleven = new JoystickButton(_operatorJoystick, Addresses.EXTREME_BASE_ELEVEN);
         _opJoystickEleven.whenPressed(new Interrupt());
@@ -221,10 +218,10 @@ public class OI {
 
     public boolean getGenericButton(int joystick, int button) {
         switch (joystick) {
-            case Addresses.CONTROLLER_OPERATOR_BLACK:
-                return _operatorControllerBlack.getRawButton(button);
-            case Addresses.CONTROLLER_OPERATOR_WHITE:
-                return _operatorControllerWhite.getRawButton(button);
+            case Addresses.CONTROLLER_OPERATOR_BLUE:
+                return _operatorControllerRed.getRawButton(button);
+            case Addresses.CONTROLLER_OPERATOR_RED:
+                return _operatorControllerBlue.getRawButton(button);
             case Addresses.CONTROLLER_DRIVER_STICK_LEFT:
                 return _driverJoystickLeft.getRawButton(button);
             case Addresses.CONTROLLER_DRIVER_STICK_RIGHT:
@@ -275,6 +272,14 @@ public class OI {
 
     public boolean getClimbRearJoystickButton() {
         return getOpStickTwelve();
+    }
+
+    public boolean getOperatorClimbTwoAuto() {
+        return getOpStickNine();
+    }
+
+    public boolean getOperatorClimbThreeAuto() {
+        return getOpStickEleven();
     }
 
     // LEFT DRIVER JOYSTICK
@@ -462,81 +467,65 @@ public class OI {
     // white op board
 
     public boolean getOperatorWhiteOne() {
-        return _operatorWhiteOne.get();
+        return _operatorBlueOne.get();
     }
 
     public boolean getOperatorWhiteTwo() {
-        return _operatorWhiteTwo.get();
+        return _operatorBlueTwo.get();
     }
 
     public boolean getOperatorWhiteThree() {
-        return _operatorWhiteThree.get();
+        return _operatorBlueThree.get();
     }
 
     public boolean getOperatorWhiteFour() {
-        return _operatorWhiteFour.get();
+        return _operatorBlueFour.get();
     }
 
     public boolean getOperatorWhiteFive() {
-        return _operatorWhiteFive.get();
+        return _operatorBlueFive.get();
     }
 
     public boolean getOperatorWhiteSix() {
-        return _operatorWhiteSix.get();
+        return _operatorBlueSix.get();
     }
 
     public boolean getOperatorWhiteSeven() {
-        return _operatorWhiteSeven.get();
-    }
-
-    public boolean getOperatorWhiteEight() {
-        return _operatorWhiteEight.get();
+        return _operatorBlueSeven.get();
     }
 
     // black op board
     
     public boolean getOperatorBlackOne() {
-        return _operatorBlackOne.get();
+        return _operatorRedOne.get();
     }
 
     public boolean getOperatorBlackTwo() {
-        return _operatorBlackTwo.get();
+        return _operatorRedTwo.get();
     }
 
     public boolean getOperatorBlackThree() {
-        return _operatorBlackThree.get();
+        return _operatorRedThree.get();
     }
 
     public boolean getOperatorBlackFour() {
-        return _operatorBlackFour.get();
+        return _operatorRedFour.get();
     }
 
     public boolean getOperatorBlackFive() {
-        return _operatorBlackFive.get();
+        return _operatorRedFive.get();
     }
 
     public boolean getOperatorBlackSix() {
-        return _operatorBlackSix.get();
+        return _operatorRedSix.get();
     }
 
     public boolean getOperatorBlackSeven() {
-        return _operatorBlackSeven.get();
+        return _operatorRedSeven.get();
     }
 
     public boolean getOperatorBlackEight() {
-        return _operatorBlackEight.get();
-    }
-
-    public boolean getOperatorClimbFront() {
-        return _operatorClimbFront.get();
-    }
-
-    public boolean getOperatorClimbRear() {
-        return _operatorClimbRear.get();
-    }
-
-    public boolean getOperatorClimbAuto() {
-        return _operatorClimbAuto.get();
+        return _operatorRedEight.get();
     }
 
     public int convertDegreesToIntake(int degrees) {

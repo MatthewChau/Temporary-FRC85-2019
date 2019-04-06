@@ -80,6 +80,7 @@ public class Variables {
     public static final int CARGO_SHIP = 11740;
 
     public static final int CARGO_FLOOR = 1907 + 75;
+    public static final int CARGO_STATION = CARGO_TWO;
 
     public static final int ELEVATOR_CURRENT_POS = -1;
 
@@ -109,6 +110,8 @@ public class Variables {
     public static final int MAST_PROTECTED = 100000; // behind bumpers
 
     public static final int MAST_CURRENT_POS = -1;
+
+    public static final int MAST_CARGO_SHIP = 0;
 
     public static final double MAST_PER_RANGEFINDER = (870047 - 323914) / (1.0498688 - .82021);
 
