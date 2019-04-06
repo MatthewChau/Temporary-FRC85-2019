@@ -44,7 +44,7 @@ public class Variables {
     
     // OI
 
-    public static final double DEADBAND_DRIVERSTICK = 0.1;
+    public static final double DEADBAND_DRIVERSTICK = 0.15;
     public static final double DEADBAND_Z_DRIVERSTICK = 0.3;  
     public static final double DEADBAND_OPERATORSTICK = 0.2;
     public static final double TOLERANCE_ANGLE = 3.0;

@@ -88,11 +88,17 @@ public class DriveTrain extends Subsystem {
             || Math.abs(inputs[1]) > Variables.DEADBAND_DRIVERSTICK
             || Math.abs(inputs[2]) > Variables.DEADBAND_Z_DRIVERSTICK
             || turnInProgress) {
-            for (i = 0; i < 2; i++) { // normalize axis inputs (just in case)
+            for (i = 0; i <= 2; i++) { // normalize axis inputs (just in case)
                 if (inputs[i] > 1.0) {
                     inputs[i] = 1.0;
                 } else if (inputs[i] < -1.0) {
                     inputs[i] = -1.0; 
+                } else if (i < 2 && Math.abs(inputs[i]) > Variables.DEADBAND_DRIVERSTICK) {
+                    inputs[i] = 0;
+                } else {
+                    if (inputs[2] < Variables.DEADBAND_Z_DRIVERSTICK) {
+                        inputs[2] = 0;
+                    }
                 }
             }
 
