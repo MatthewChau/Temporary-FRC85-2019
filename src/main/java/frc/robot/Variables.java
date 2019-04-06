@@ -110,6 +110,8 @@ public class Variables {
 
     public static final int MAST_CURRENT_POS = -1;
 
+    public static final double MAST_PER_RANGEFINDER = (870047 - 323914) / (1.0498688 - .82021);
+
     // Mast position limits
     public static final int MAST_MIN_POS = 0;
     public static final int MAST_BREAKPOINT = 571100;
@@ -413,6 +415,10 @@ public class Variables {
         return SmartDashboard.getNumber("CLIMB_LOCKED", CLIMB_LOCKED);
     }
 
+    public double getRangeFinderBasedOnMast(double mastPos) { // rangefinder from the front bumpers of the robot
+        return ((-(mastPos - MAST_FORWARD_FOR_HATCH) / MAST_PER_RANGEFINDER) + 1);
+    }
+
     /**
      * Repeatedly called in Robot.java
      */
@@ -485,6 +491,7 @@ public class Variables {
 
         //RangeFinder
         SmartDashboard.putNumber("Range Finder Distance", RangeFinder.getInstance().getDistance());
+        SmartDashboard.putNumber("Range Finder Based On Mast", getRangeFinderBasedOnMast(Mast.getInstance().getMastPosition()));
     }
 
 }

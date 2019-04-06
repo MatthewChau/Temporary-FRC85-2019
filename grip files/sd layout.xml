@@ -1,7 +1,19 @@
 <xml version="1.0">
 <dashboard>
+	<widget field="Range Finder Based On Mast" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="1038" y="307"/>
+	</widget>
+	<widget field="kD_ACCEL" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="621"/>
+	</widget>
+	<widget field="kI_ACCEL" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="600"/>
+	</widget>
+	<widget field="kP_ACCEL" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="579"/>
+	</widget>
 	<widget field="BobDashConnected" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.BooleanBox">
-		<location x="796" y="126"/>
+		<location x="795" y="126"/>
 	</widget>
 	<widget field="Rear Prox Sensor" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.BooleanBox">
 		<location x="795" y="104"/>
