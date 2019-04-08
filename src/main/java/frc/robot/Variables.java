@@ -46,7 +46,7 @@ public class Variables {
 
     public static final double DEADBAND_DRIVERSTICK = 0.15;
     public static final double DEADBAND_Z_DRIVERSTICK = 0.3;  
-    public static final double DEADBAND_OPERATORSTICK = 0.2;
+    public static final double DEADBAND_OPERATORSTICK = 0.15;
     public static final double TOLERANCE_ANGLE = 3.0;
 
     public static final int MAX_TURNS = 7; // if we go over 2520 degrees in either direction in one match then help.

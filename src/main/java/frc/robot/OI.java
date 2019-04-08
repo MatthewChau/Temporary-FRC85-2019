@@ -414,7 +414,7 @@ public class OI {
             axis = 0;
         }
 
-        return axis;
+        return Math.pow(axis, 3);
     }
 
     public boolean getOpStickTrigger() {
