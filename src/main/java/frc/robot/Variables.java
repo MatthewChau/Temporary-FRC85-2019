@@ -83,7 +83,7 @@ public class Variables {
 
     //public static final int CARGO_FLOOR = 1907 + 75;
     public static final int CARGO_FLOOR = 1991;
-    public static final int CARGO_STATION = CARGO_TWO;
+    public static final int CARGO_STATION = 11777;
 
     public static final int ELEVATOR_CURRENT_POS = -1;
 
