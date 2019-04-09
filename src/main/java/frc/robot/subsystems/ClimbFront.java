@@ -125,9 +125,9 @@ public class ClimbFront extends Subsystem {
         if (getClimbLeftPosition() > Variables.CLIMB_LEFT_MAX && speed > 0) {
             return true;
         }
-        if (getClimbLeftPosition() < 0 && speed < 0) {
+        /*if (getClimbLeftPosition() < 0 && speed < 0) {
             return true;
-        }
+        }*/
         return false;
     }
 

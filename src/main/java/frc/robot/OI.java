@@ -109,7 +109,7 @@ public class OI {
 
         // blue
         _operatorBlueOne = new JoystickButton(_operatorControllerBlue, Addresses.OPERATOR_BLUE_ONE);
-        _operatorBlueOne.whenPressed(new Place(Variables.HATCH_THREE, Variables.WRIST_0, Variables.MAST_FORWARD_POS));
+        _operatorBlueOne.whenPressed(new Place(Variables.HATCH_THREE, Variables.WRIST_0, Variables.MAST_FORWARD_FOR_HATCH));
         _operatorBlueTwo = new JoystickButton(_operatorControllerBlue, Addresses.OPERATOR_BLUE_TWO);
         _operatorBlueTwo.whenPressed(new Place(Variables.HATCH_STATION, Variables.WRIST_HATCH_STATION, Variables.MAST_MIN_POS));
         _operatorBlueTwo.whenReleased(new Place(Variables.HATCH_STATION, 0, Variables.MAST_MIN_POS));
@@ -117,9 +117,9 @@ public class OI {
         _operatorBlueThree.whenPressed(new Place(Variables.ELEVATOR_CURRENT_POS, Variables.WRIST_30, Variables.MAST_CURRENT_POS));
         _operatorBlueThree.whenReleased(new Place(Variables.ELEVATOR_CURRENT_POS, Variables.WRIST_CURR_POSITION, Variables.MAST_CURRENT_POS));
         _operatorBlueFour = new JoystickButton(_operatorControllerBlue, Addresses.OPERATOR_BLUE_FOUR);
-        _operatorBlueFour.whenPressed(new Place(Variables.HATCH_TWO, Variables.WRIST_0, Variables.MAST_FORWARD_POS));
+        _operatorBlueFour.whenPressed(new Place(Variables.HATCH_TWO, Variables.WRIST_0, Variables.MAST_FORWARD_FOR_HATCH));
         _operatorBlueFive = new JoystickButton(_operatorControllerBlue, Addresses.OPERATOR_BLUE_FIVE);
-        _operatorBlueFive.whenPressed(new Place(Variables.HATCH_ONE, Variables.WRIST_0, Variables.MAST_FORWARD_POS));
+        _operatorBlueFive.whenPressed(new Place(Variables.HATCH_ONE, Variables.WRIST_0, Variables.MAST_FORWARD_FOR_HATCH));
         _operatorBlueSix = new JoystickButton(_operatorControllerBlue, Addresses.OPERATOR_BLUE_SIX);
         _operatorBlueSix.whenPressed(new Place(Variables.HATCH_ONE, Variables.WRIST_0, Variables.MAST_CARGO_SHIP));
         _operatorBlueSeven = new JoystickButton(_operatorControllerBlue, Addresses.OPERATOR_BLUE_SEVEN);

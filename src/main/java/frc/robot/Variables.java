@@ -108,7 +108,8 @@ public class Variables {
 
     // Mast Positions
     public static final int MAST_FORWARD_POS = 700000;
-    public static final int MAST_FORWARD_FOR_HATCH = 441398;
+    //public static final int MAST_FORWARD_FOR_HATCH = 441398;
+    public static final int MAST_FORWARD_FOR_HATCH = 429798;
     public static final int MAST_FORWARD_FOR_CARGO = 131659;
     public static final int MAST_PROTECTED = 100000; // behind bumpers
 

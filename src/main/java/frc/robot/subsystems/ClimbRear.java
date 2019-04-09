@@ -93,9 +93,9 @@ public class ClimbRear extends Subsystem {
         if (getClimbRearPosition() > Variables.CLIMB_REAR_MAX && speed > 0) {
             return true;
         }
-        if (getClimbRearPosition() < 0 && speed < 0) {
+        /*if (getClimbRearPosition() < 0 && speed < 0) {
             return true;
-        }
+        }*/
         return false;
     }
 
