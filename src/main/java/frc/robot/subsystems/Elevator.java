@@ -76,13 +76,12 @@ public class Elevator extends Subsystem {
             speed *= 0.7;
             targetPos = getElevatorPosition();
         } else if (speed < 0) {
-            if (getElevatorPosition() < 1000) {
-                speed *= 0.2;
-                targetPos = getElevatorPosition();
-            } else {
-                speed *= 0.35;
-                targetPos = getElevatorPosition();
-            }
+            speed *= 0.35;
+            targetPos = getElevatorPosition();
+        }
+
+        if (getElevatorPosition() < 1000) {
+            speed *= 0.5;
         }
 
         if ((adjusting && speed > 0 && speed < 0.3) // there is a better fix for this, will work on that later
