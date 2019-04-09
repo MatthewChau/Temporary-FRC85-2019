@@ -73,13 +73,16 @@ public class Variables {
     public static final int HATCH_FLOOR = HATCH_ONE;
     public static final int HATCH_STATION = 1965;
     
-    public static final int CARGO_ONE = 7016;
+    //public static final int CARGO_ONE = 7016;
+    public static final int CARGO_ONE = 5851;
     public static final int CARGO_TWO = 14752;
     public static final int CARGO_THREE = 22212;
 
-    public static final int CARGO_SHIP = 11740;
+    //public static final int CARGO_SHIP = 11740;
+    public static final int CARGO_SHIP = 10679;
 
-    public static final int CARGO_FLOOR = 1907 + 75;
+    //public static final int CARGO_FLOOR = 1907 + 75;
+    public static final int CARGO_FLOOR = 1991;
     public static final int CARGO_STATION = CARGO_TWO;
 
     public static final int ELEVATOR_CURRENT_POS = -1;
@@ -135,9 +138,12 @@ public class Variables {
 
     public static final int WRIST_CARGO_HIGH = -750860;
     public static final int WRIST_CARGO = -767000;
-    public static final int WRIST_CARGO_SHIP = -900000;
+    public static final int WRIST_CARGO_ONE = -768170;
+    //public static final int WRIST_CARGO_SHIP = -900000;
+    public static final int WRIST_CARGO_SHIP = -975850;
     public static final int WRIST_CARGO_FLOOR = -1142068 + 50000;
 
+    public static final int WRIST_HATCH_STATION = -392327;
     public static final int WRIST_HATCH_FLOOR = -1140762;
 
     public static final int WRIST_CURR_POSITION = 1;

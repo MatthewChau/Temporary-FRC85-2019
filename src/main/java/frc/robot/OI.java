@@ -111,11 +111,11 @@ public class OI {
         _operatorBlueOne = new JoystickButton(_operatorControllerBlue, Addresses.OPERATOR_BLUE_ONE);
         _operatorBlueOne.whenPressed(new Place(Variables.HATCH_THREE, Variables.WRIST_0, Variables.MAST_FORWARD_POS));
         _operatorBlueTwo = new JoystickButton(_operatorControllerBlue, Addresses.OPERATOR_BLUE_TWO);
-        _operatorBlueTwo.whenPressed(new Place(Variables.HATCH_STATION, Variables.WRIST_30, Variables.MAST_FORWARD_POS));
-        _operatorBlueTwo.whenReleased(new Place(Variables.HATCH_STATION, Variables.WRIST_0, Variables.MAST_FORWARD_POS));
+        _operatorBlueTwo.whenPressed(new Place(Variables.HATCH_STATION, Variables.WRIST_HATCH_STATION, Variables.MAST_MIN_POS));
+        _operatorBlueTwo.whenReleased(new Place(Variables.HATCH_STATION, 0, Variables.MAST_MIN_POS));
         _operatorBlueThree = new JoystickButton(_operatorControllerBlue, Addresses.OPERATOR_BLUE_THREE);
-        _operatorBlueThree.whenPressed(new Place(Variables.ELEVATOR_CURRENT_POS, Variables.WRIST_30, (Variables.MAST_FORWARD_POS - 200000)));
-        _operatorBlueThree.whenReleased(new Place(Variables.ELEVATOR_CURRENT_POS, Variables.WRIST_CURR_POSITION, Variables.MAST_PROTECTED));
+        _operatorBlueThree.whenPressed(new Place(Variables.ELEVATOR_CURRENT_POS, Variables.WRIST_30, Variables.MAST_CURRENT_POS));
+        _operatorBlueThree.whenReleased(new Place(Variables.ELEVATOR_CURRENT_POS, Variables.WRIST_CURR_POSITION, Variables.MAST_CURRENT_POS));
         _operatorBlueFour = new JoystickButton(_operatorControllerBlue, Addresses.OPERATOR_BLUE_FOUR);
         _operatorBlueFour.whenPressed(new Place(Variables.HATCH_TWO, Variables.WRIST_0, Variables.MAST_FORWARD_POS));
         _operatorBlueFive = new JoystickButton(_operatorControllerBlue, Addresses.OPERATOR_BLUE_FIVE);
@@ -140,7 +140,7 @@ public class OI {
         _operatorRedFive.whenPressed(new ActivateIntake(Variables.ROLLER_IN));
         _operatorRedFive.whenReleased(new ActivateIntake(0));
         _operatorRedSix = new JoystickButton(_operatorControllerRed, Addresses.OPERATOR_RED_SIX);
-        _operatorRedSix.whenPressed(new Place(Variables.CARGO_ONE, Variables.WRIST_CARGO, Variables.MAST_FORWARD_FOR_CARGO));
+        _operatorRedSix.whenPressed(new Place(Variables.CARGO_ONE, Variables.WRIST_CARGO_ONE, Variables.MAST_FORWARD_FOR_CARGO));
         _operatorRedSeven = new JoystickButton(_operatorControllerRed, Addresses.OPERATOR_RED_SEVEN);
         _operatorRedSeven.whenPressed(new Place(Variables.CARGO_SHIP, Variables.WRIST_90, Variables.MAST_FORWARD_FOR_CARGO));
         _operatorRedEight = new JoystickButton(_operatorControllerRed, Addresses.OPERATOR_RED_EIGHT);
