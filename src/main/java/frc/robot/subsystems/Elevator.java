@@ -113,7 +113,7 @@ public class Elevator extends Subsystem {
         // lift needs a top limit, a bottom limit,
         // if the wrist is down and the mast is back
         // if the wrist is down and the mast is forward
-        if (verticalPosition > Variables.ELEVATOR_MAX_POS // top limit
+        if (verticalPosition > Variables.ELEVATOR_MAX_POS[Variables.getInstance().isPracticeBot()] // top limit
             && speed > 0) {
             return true;
             } /*else if (mastPosition < Variables.MAST_BREAKPOINT // mast is back & wrist is down

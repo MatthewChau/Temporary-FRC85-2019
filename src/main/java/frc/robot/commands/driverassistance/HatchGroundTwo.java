@@ -16,7 +16,7 @@ public class HatchGroundTwo extends CommandGroup {
 
         addSequential(new WristPosition(Variables.WRIST_0));
         addParallel(new MastPosition(Variables.MAST_CURRENT_POS));
-        addSequential(new ElevatorPosition(Variables.HATCH_ONE));
+        addSequential(new ElevatorPosition(Variables.HATCH_ONE[Variables.getInstance().isPracticeBot()]));
     }
 
 }

@@ -12,7 +12,7 @@ public class HatchStationTwo extends CommandGroup {
         addSequential(new Interrupt());
 
         addSequential(new WristPosition(Variables.WRIST_0));
-        addSequential(new ElevatorPosition(Variables.HATCH_ONE + 500));
+        addSequential(new ElevatorPosition(Variables.HATCH_ONE[Variables.getInstance().isPracticeBot()] + 500));
     }
     
 }

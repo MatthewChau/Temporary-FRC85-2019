@@ -65,31 +65,47 @@ public class Variables {
 
     // ELEVATOR
 
-    // Elevator positions
-    public static final int HATCH_ONE = 2591;
-    public static final int HATCH_TWO = 9900 + 600;
-    public static final int HATCH_THREE = 17900 + 600;
+    // Elevator positionsX
+    public static final int HATCH_ONE_COMP = 1991;
+    public static final int HATCH_ONE_PRACTICE = 2591;
+    public static final int[] HATCH_ONE = {HATCH_ONE_COMP, HATCH_ONE_PRACTICE};
+    public static final int HATCH_TWO_COMP = 9900 + 600;
+    public static final int HATCH_TWO_PRACTICE = 9900;
+    public static final int[] HATCH_TWO = {HATCH_TWO_COMP, HATCH_TWO_PRACTICE};
+    public static final int HATCH_THREE_COMP = 17900 + 600;
+    public static final int HATCH_THREE_PRACTICE = 17900;
+    public static final int[] HATCH_THREE = {HATCH_THREE_COMP, HATCH_THREE_PRACTICE};
 
-    public static final int HATCH_FLOOR = HATCH_ONE;
-    public static final int HATCH_STATION = 1965;
+    public static final int[] HATCH_FLOOR = HATCH_ONE;
+    public static final int HATCH_STATION_COMP = 1965;
+    public static final int HATCH_STATION_PRACTICE = 1965;
+    public static final int[] HATCH_STATION = {HATCH_STATION_COMP, HATCH_STATION_PRACTICE};
     
-    public static final int CARGO_ONE = 6932;
-    //public static final int CARGO_ONE = 5851;
-    public static final int CARGO_TWO = 14909;
-    //public static final int CARGO_TWO = 14752;
-    public static final int CARGO_THREE = 22212;
+    public static final int CARGO_ONE_COMP = 6932;
+    public static final int CARGO_ONE_PRACTICE = 5851;
+    public static final int[] CARGO_ONE = {CARGO_ONE_COMP, CARGO_ONE_PRACTICE};
+    public static final int CARGO_TWO_COMP = 14909;
+    public static final int CARGO_TWO_PRACTICE = 14752;
+    public static final int[] CARGO_TWO = {CARGO_TWO_COMP, CARGO_TWO_PRACTICE};
+    public static final int CARGO_THREE_COMP = 22600;
+    public static final int CARGO_THREE_PRACTICE = 22212;
+    public static final int[] CARGO_THREE = {CARGO_THREE_COMP, CARGO_THREE_PRACTICE};
 
-    public static final int CARGO_SHIP = 11740;
-    //public static final int CARGO_SHIP = 10679;
+    public static final int CARGO_SHIP_COMP = 11740;
+    public static final int CARGO_SHIP_PRACTICE = 10679;
+    public static final int[] CARGO_SHIP = {CARGO_SHIP_COMP, CARGO_SHIP_PRACTICE};
 
-    //public static final int CARGO_FLOOR = 1907/* + 75*/;
-    public static final int CARGO_FLOOR = 2662;
-    public static final int CARGO_STATION = 11777;
+    public static final int CARGO_FLOOR_COMP = 1907;
+    public static final int CARGO_FLOOR_PRACTICE = 2662;
+    public static final int[] CARGO_FLOOR = {CARGO_FLOOR_COMP, CARGO_FLOOR_PRACTICE};
+    public static final int CARGO_STATION_COMP = 11777;
+    public static final int CARGO_STATION_PRACTICE = 11777;
+    public static final int[] CARGO_STATION = {CARGO_STATION_COMP, CARGO_STATION_PRACTICE};
 
     public static final int ELEVATOR_CURRENT_POS = -1;
 
     // Elevator position limits
-    public static final int ELEVATOR_MAX_POS = (CARGO_THREE + 1000);
+    public static final int[] ELEVATOR_MAX_POS = {CARGO_THREE_COMP + 2000, CARGO_THREE_PRACTICE + 2000};
     public static final int ELEVATOR_MIN_POS_MAST_PROTECTED = 3200;
     public static final int ELEVATOR_MIN_POS_MAST_FORWARD_CARGO = 1250;
     public static final int ELEVATOR_MIN_POS_MAST_FORWARD_HATCH = 0;
@@ -138,15 +154,28 @@ public class Variables {
     public static final int WRIST_60 = -666666;
     public static final int WRIST_90 = -908000;
 
-    public static final int WRIST_CARGO_HIGH = -750860;
-    public static final int WRIST_CARGO = -767000;
-    public static final int WRIST_CARGO_ONE = -768170;
-    public static final int WRIST_CARGO_SHIP = -900000;
-    //public static final int WRIST_CARGO_SHIP = -975850;
-    public static final int WRIST_CARGO_FLOOR = -1142068/* + 50000*/;
+    public static final int WRIST_CARGO_HIGH_COMP = -750860;
+    public static final int WRIST_CARGO_HIGH_PRACTICE = -750860;
+    public static final int[] WRIST_CARGO_HIGH = {WRIST_CARGO_HIGH_COMP, WRIST_CARGO_HIGH_PRACTICE};
+    public static final int WRIST_CARGO_COMP = -767000;
+    public static final int WRIST_CARGO_PRACTICE = -767000;
+    public static final int[] WRIST_CARGO = {WRIST_CARGO_COMP, WRIST_CARGO_PRACTICE};
+    public static final int WRIST_CARGO_ONE_COMP = -768170;
+    public static final int WRIST_CARGO_ONE_PRACTICE = -768170;
+    public static final int[] WRIST_CARGO_ONE = {WRIST_CARGO_ONE_COMP, WRIST_CARGO_ONE_PRACTICE};
+    public static final int WRIST_CARGO_SHIP_COMP = -900000;
+    public static final int WRIST_CARGO_SHIP_PRACTICE = -975850;
+    public static final int[] WRIST_CARGO_SHIP = {WRIST_CARGO_SHIP_COMP, WRIST_CARGO_SHIP_PRACTICE};
+    public static final int WRIST_CARGO_FLOOR_COMP = -1142068;
+    public static final int WRIST_CARGO_FLOOR_PRACTICE = -1142068 + 50000;
+    public static final int[] WRIST_CARGO_FLOOR = {WRIST_CARGO_FLOOR_COMP, WRIST_CARGO_FLOOR_PRACTICE};
 
-    public static final int WRIST_HATCH_STATION = -392327;
-    public static final int WRIST_HATCH_FLOOR = -1140762;
+    public static final int WRIST_HATCH_STATION_COMP = -392327;
+    public static final int WRIST_HATCH_STATION_PRACTICE = -392327;
+    public static final int[] WRIST_HATCH_STATION = {WRIST_HATCH_STATION_COMP, WRIST_HATCH_STATION_PRACTICE};
+    public static final int WRIST_HATCH_FLOOR_COMP = -1140762;
+    public static final int WRIST_HATCH_FLOOR_PRACTICE = -1140762;
+    public static final int[] WRIST_HATCH_FLOOR = {WRIST_HATCH_FLOOR_COMP, WRIST_HATCH_FLOOR_PRACTICE};
 
     public static final int WRIST_CURR_POSITION = 1;
 
@@ -261,6 +290,8 @@ public class Variables {
 
         SmartDashboard.putBoolean("Run Diagnostics?", true);
         SmartDashboard.putBoolean("Close Diagnostics?", true);
+
+        SmartDashboard.putBoolean("Practice Bot?", false);
     }
 
     public static Variables getInstance() {
@@ -428,6 +459,18 @@ public class Variables {
 
     public double getRangeFinderBasedOnMast(double mastPos) { // rangefinder from the front bumpers of the robot
         return ((-(mastPos - MAST_FORWARD_FOR_HATCH) / MAST_PER_RANGEFINDER) + 1);
+    }
+
+    public double getDistanceFromWall() { // from the bumpers
+        return (getRangeFinderBasedOnMast(Mast.getInstance().getMastPosition()) - RangeFinder.getInstance().getDistance());
+    }
+
+    public int isPracticeBot() {
+        if (SmartDashboard.getBoolean("Practice Bot?", false)) {
+            return 1;
+        } else {
+            return 0;
+        }
     }
 
     /**
