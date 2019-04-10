@@ -14,6 +14,9 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class ClimbRearWithJoystick extends Command {
 
+    private double _speed;
+    private double _multiplier;
+
     public ClimbRearWithJoystick() {
         requires(ClimbRear.getInstance());
     }
@@ -26,7 +29,15 @@ public class ClimbRearWithJoystick extends Command {
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
-        ClimbRear.getInstance().moveClimbRear(OI.getInstance().getOperatorJoystickY() / 2);
+        _speed = OI.getInstance().getOperatorJoystickY();
+
+        if (_speed > 0) {
+            _multiplier = 0.6;
+        } else {
+            _multiplier = 0.8;
+        }
+
+        ClimbRear.getInstance().moveClimbRear(_speed * _multiplier);
     }
 
     // Make this return true when this Command no longer needs to run execute()
