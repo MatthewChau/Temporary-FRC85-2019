@@ -601,7 +601,7 @@ public class OI {
         switch (system) {
             case ROT_SYSTEM:
                 if (DriveTrain.getInstance().getTurnInProgress() && Math.abs(error) < 3.0 
-                    && !ClimbRear.getInstance().getClimbInProgress()) {
+                    /*&& !ClimbRear.getInstance().getClimbInProgress()*/) {
                     DriveTrain.getInstance().setTurnInProgress(false);
                     return false;
                 }
