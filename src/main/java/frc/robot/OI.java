@@ -701,11 +701,17 @@ public class OI {
         // because the I term is the area under the curve, it gets a higher weight if it's been going on for a longer time, hence the errorSum
         // formula: kI * errorSum (sum of all previous errors)
     
-        //if (system == ELEVATOR_SYSTEM && ) {
-        //    kI = Variables.getInstance().getElevatorKIUp();
-        //} else if (system == ELEVATOR_SYSTEM) {
-        //    kI = Variables.getInstance().getElevatorKIDown();
-        //}
+        if (system == ELEVATOR_SYSTEM) {
+            if (error > 0 && errorSum[system] > 0) { // needs to go up
+                kI = Variables.getInstance().getElevatorKIUp();
+            } else if (error < 0 && errorSum[system] < 0) { // needs to go down
+                kI = Variables.getInstance().getElevatorKIDown();
+            } else if (error > 0 && errorSum[system] < 0) { // needs to go up after having overshot down
+                kI = -Variables.getInstance().getElevatorKIUp();
+            } else { // needs to go down after having overshot up
+                kI = -Variables.getInstance().getElevatorKIDown();
+            }
+        }
         termI = kI * errorSum[system];
 
         if (system == ELEVATOR_SYSTEM) {

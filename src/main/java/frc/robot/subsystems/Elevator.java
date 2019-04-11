@@ -68,7 +68,7 @@ public class Elevator extends Subsystem {
                                               getElevatorPosition(), 
                                               targetPos, 
                                               Variables.getInstance().getElevatorKP(), 
-                                              Variables.getInstance().getElevatorKIDown(), 
+                                              0, 
                                               Variables.getInstance().getElevatorKD(), 
                                               0.7, 
                                               -0.35);
