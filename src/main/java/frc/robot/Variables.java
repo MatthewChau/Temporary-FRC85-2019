@@ -76,7 +76,9 @@ public class Variables {
     public static final int HATCH_THREE_PRACTICE = 17900;
     public static final int[] HATCH_THREE = {HATCH_THREE_COMP, HATCH_THREE_PRACTICE};
 
-    public static final int[] HATCH_FLOOR = HATCH_ONE;
+    public static final int HATCH_FLOOR_COMP = 1210;
+    public static final int HATCH_FLOOR_PRACTICE = 1991;
+    public static final int[] HATCH_FLOOR = {HATCH_FLOOR_COMP, HATCH_FLOOR_PRACTICE};
     public static final int HATCH_STATION_COMP = 1965;
     public static final int HATCH_STATION_PRACTICE = 1965;
     public static final int[] HATCH_STATION = {HATCH_STATION_COMP, HATCH_STATION_PRACTICE};

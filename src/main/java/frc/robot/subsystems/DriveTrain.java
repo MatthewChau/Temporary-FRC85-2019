@@ -78,13 +78,27 @@ public class DriveTrain extends Subsystem {
     public void cartDrive(double[] inputs) {
         int i;
 
-        if (OI.getInstance().getLeftJoystickFaceLeft()) {
-            setTurn90TargetAngle(true, inputs[3]); // turn left
-        } else if (OI.getInstance().getLeftJoystickFaceRight()) {
-            setTurn90TargetAngle(false, inputs[3]); // turn right
-        } else if (OI.getInstance().getLeftJoystickFaceBottom()) {
+        if (OI.getInstance().getLeftJoystickFaceLeft()) { // turn left
+            setTurn90TargetAngle(true, inputs[3]);
+        } else if (OI.getInstance().getLeftJoystickFaceRight()) { // turn right
+            setTurn90TargetAngle(false, inputs[3]);
+        } else if (OI.getInstance().getLeftJoystickFaceBottom()) { // 180
             setTurn180TargetAngle(inputs[3]);
-        } else if (Math.abs(inputs[0]) > Variables.DEADBAND_DRIVERSTICK
+        } else if (OI.getInstance().getRightStickNine()) { // back left rocket alignment
+            setTargetAngle(150);
+            fixTargetAngle(inputs[3]);
+        } else if (OI.getInstance().getRightStickTen()) { // back right rocket alignment
+            setTargetAngle(-150);
+            fixTargetAngle(inputs[3]);
+        } else if (OI.getInstance().getRightStickEleven()) { // front left rocket alignment
+            setTargetAngle(30);
+            fixTargetAngle(inputs[3]);
+        } else if (OI.getInstance().getRightStickTwelve()) { // front right rocket alignment
+            setTargetAngle(-30);
+            fixTargetAngle(inputs[3]);
+        }
+        
+        if (Math.abs(inputs[0]) > Variables.DEADBAND_DRIVERSTICK
             || Math.abs(inputs[1]) > Variables.DEADBAND_DRIVERSTICK
             || Math.abs(inputs[2]) > Variables.DEADBAND_Z_DRIVERSTICK
             || turnInProgress) {

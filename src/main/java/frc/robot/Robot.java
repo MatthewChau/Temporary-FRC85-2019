@@ -158,6 +158,7 @@ public class Robot extends TimedRobot {
         Intake.getInstance().setTargetPos(Intake.getInstance().getWristPosition());
         Sensors.getInstance().stopTimers();
         IMU.getInstance().setInitialYPR();
+        IMU.getInstance().setFusedHeading(0);
 
         Scheduler.getInstance().removeAll();
 
