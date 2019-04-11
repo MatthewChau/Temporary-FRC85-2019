@@ -32,7 +32,7 @@ public class ClimbRearWithJoystick extends Command {
         _speed = OI.getInstance().getOperatorJoystickY();
 
         if (_speed > 0) {
-            _multiplier = 0.6;
+            _multiplier = 0.9;
         } else {
             _multiplier = 0.9;
         }

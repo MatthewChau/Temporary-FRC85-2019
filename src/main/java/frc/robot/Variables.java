@@ -30,13 +30,13 @@ public class Variables {
 
     private static final double kP_INTAKE = 0.001, kI_INTAKE = 0.0, kD_INTAKE = 0.0;
 
-    private static final double kP_DRIVE = 0.05, kI_DRIVE = 0.0, kD_DRIVE = 0.0;
+    private static final double kP_DRIVE = 0.01, kI_DRIVE = 0.0, kD_DRIVE = 0.0;
 
     private static final double kP_VISION = 0.05, kI_VISION = 0.0, kD_VISION = 0.0;
 
     private static final double kP_VISION_ROT = 0.05, kI_VISION_ROT = 0.0, kD_VISION_ROT = 0.0;
 
-    private static final double kP_CLIMB = 0.0004, kI_CLIMB = 0.0, kD_CLIMB = 0.0;
+    private static final double kP_CLIMB = 0.034, kI_CLIMB = 0.0, kD_CLIMB = 0.0;
 
     private static final double kP_CLIMB_POS = 0.1, kI_CLIMB_POS = 0.0, kD_CLIMB_POS = 0.0;
 
@@ -191,8 +191,12 @@ public class Variables {
     public static final double WRIST_MAX_SPEED_DOWN = -1.0;
 
     // CLIMB
-    public static final double CLIMB_LEFT_LEVEL_THREE = 82.05069732666016;
-    public static final double CLIMB_RIGHT_LEVEL_THREE = 79.62188720703125;
+    public static final double CLIMB_LEFT_LEVEL_THREE_COMP = 82.05069732666016;
+    public static final double CLIMB_LEFT_LEVEL_THREE_PRACTICE = 82.05069732666016;
+    public static final double[] CLIMB_LEFT_LEVEL_THREE = {CLIMB_LEFT_LEVEL_THREE_COMP, CLIMB_LEFT_LEVEL_THREE_PRACTICE};
+    public static final double CLIMB_RIGHT_LEVEL_THREE_COMP = 79.62188720703125 + 0.5;
+    public static final double CLIMB_RIGHT_LEVEL_THREE_PRACTICE = 79.62188720703125;
+    public static final double[] CLIMB_RIGHT_LEVEL_THREE = {CLIMB_RIGHT_LEVEL_THREE_COMP, CLIMB_RIGHT_LEVEL_THREE_PRACTICE};
     public static final double CLIMB_REAR_LEVEL_THREE = 87.88459777832031;
 
     public static final double CLIMB_LEFT_LEVEL_TW0 = 38.428192138671875;
@@ -201,15 +205,15 @@ public class Variables {
 
     // climb position limits
     public static final double CLIMB_LEFT_MAX = 83;
-    public static final double CLIMB_RIGHT_MAX = 81;
+    public static final double CLIMB_RIGHT_MAX = 82;
     public static final double CLIMB_REAR_MAX = 89;
 
     public static final double CLIMB_LEFT_SLOW_DOWN_MIN = 6.357143878936768;
     public static final double CLIMB_RIGHT_SLOW_DOWN_MIN = 3.1666641235351562;
     public static final double CLIMB_REAR_SLOW_DOWN_MIN = 5.261898517608643;
 
-    public static final double CLIMB_LEFT_SLOW_DOWN_MAX = CLIMB_LEFT_LEVEL_THREE;
-    public static final double CLIMB_RIGHT_SLOW_DOWN_MAX = CLIMB_RIGHT_LEVEL_THREE;
+    public static final double[] CLIMB_LEFT_SLOW_DOWN_MAX = CLIMB_LEFT_LEVEL_THREE;
+    public static final double[] CLIMB_RIGHT_SLOW_DOWN_MAX = CLIMB_RIGHT_LEVEL_THREE;
     public static final double CLIMB_REAR_SLOW_DOWN_MAX = CLIMB_REAR_LEVEL_THREE;
 
     // climb speed limits

@@ -131,6 +131,10 @@ public class DriveTrain extends Subsystem {
             if (OI.getInstance().isHeadless() || OI.getInstance().isForwardOnlyMode()) { // if headless/forward only, account for it
                 vector.rotate(inputs[3]);
             }
+
+            if (Math.abs(inputs[2]) > (Variables.DEADBAND_Z_DRIVERSTICK * 0.45)) {
+                turnInProgress = false;
+            }
             
             if (turnInProgress) { // note that this block exists for the sole purpose of overriding things when they are in progress
                 inputs[2] = OI.getInstance().applyPID(OI.ROT_SYSTEM, inputs[3], targetAngle, Variables.getInstance().getDriveKP(), Variables.getInstance().getDriveKI(), Variables.getInstance().getDriveKD());
