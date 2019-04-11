@@ -24,7 +24,7 @@ public class Variables {
 
     // PID
 
-    private static final double kP_ELEVATOR = 0.0004, kI_ELEVATOR = 0.00000004, kD_ELEVATOR = 0.0009;
+    private static final double kP_ELEVATOR = 0.0004, kI_ELEVATOR_UP = .0000003, kI_ELEVATOR_DOWN = 0.00000002, kD_ELEVATOR = 0.0009;
 
     private static final double kP_MAST = 0.00004, kI_MAST = 0.0, kD_MAST = 0.00003;
 
@@ -84,7 +84,7 @@ public class Variables {
     public static final int CARGO_ONE_COMP = 6932;
     public static final int CARGO_ONE_PRACTICE = 5851;
     public static final int[] CARGO_ONE = {CARGO_ONE_COMP, CARGO_ONE_PRACTICE};
-    public static final int CARGO_TWO_COMP = 14909;
+    public static final int CARGO_TWO_COMP = 13486;
     public static final int CARGO_TWO_PRACTICE = 14752;
     public static final int[] CARGO_TWO = {CARGO_TWO_COMP, CARGO_TWO_PRACTICE};
     public static final int CARGO_THREE_COMP = 22600;
@@ -95,10 +95,11 @@ public class Variables {
     public static final int CARGO_SHIP_PRACTICE = 10679;
     public static final int[] CARGO_SHIP = {CARGO_SHIP_COMP, CARGO_SHIP_PRACTICE};
 
-    public static final int CARGO_FLOOR_COMP = 1907;
+    public static final int CARGO_FLOOR_COMP = 1870;
     public static final int CARGO_FLOOR_PRACTICE = 2662;
     public static final int[] CARGO_FLOOR = {CARGO_FLOOR_COMP, CARGO_FLOOR_PRACTICE};
-    public static final int CARGO_STATION_COMP = 11777;
+
+    public static final int CARGO_STATION_COMP = 10677;
     public static final int CARGO_STATION_PRACTICE = 11777;
     public static final int[] CARGO_STATION = {CARGO_STATION_COMP, CARGO_STATION_PRACTICE};
 
@@ -230,7 +231,8 @@ public class Variables {
      */
     private Variables() {
         SmartDashboard.putNumber("kP_VLIFT", kP_ELEVATOR);
-        SmartDashboard.putNumber("kI_VLIFT", kI_ELEVATOR);
+        SmartDashboard.putNumber("kI_VLIFT_UP", kI_ELEVATOR_UP);
+        SmartDashboard.putNumber("kI_VLIFT_DOWN", kI_ELEVATOR_DOWN);
         SmartDashboard.putNumber("kD_VLIFT", kD_ELEVATOR);
 
         SmartDashboard.putNumber("kP_HLIFT", kP_MAST);
@@ -307,8 +309,12 @@ public class Variables {
         return SmartDashboard.getNumber("kP_VLIFT", kP_ELEVATOR); // these are gonna have to be small af
     }
 
-    public double getElevatorKI() {
-        return SmartDashboard.getNumber("kI_VLIFT", kI_ELEVATOR);
+    public double getElevatorKIUp() {
+        return SmartDashboard.getNumber("kI_VLIFT_UP", kI_ELEVATOR_UP);
+    }
+
+    public double getElevatorKIDown() {
+        return SmartDashboard.getNumber("kI_VLIFT_DOWN", kI_ELEVATOR_DOWN);
     }
 
     public double getElevatorKD() {

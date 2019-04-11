@@ -258,7 +258,7 @@ public class DriveTrain extends Subsystem {
             }
         }
 
-        if (maxMagnitude > 1.0) { // this thus normalizes the speeds proportionally speaking
+        if (maxMagnitude > .95) { // this thus normalizes the speeds proportionally speaking
             for (i = 0; i < 3; i++) {
                 speeds[i] = speeds[i] / maxMagnitude;
             }

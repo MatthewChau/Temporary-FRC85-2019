@@ -68,7 +68,7 @@ public class Elevator extends Subsystem {
                                               getElevatorPosition(), 
                                               targetPos, 
                                               Variables.getInstance().getElevatorKP(), 
-                                              Variables.getInstance().getElevatorKI(), 
+                                              Variables.getInstance().getElevatorKIDown(), 
                                               Variables.getInstance().getElevatorKD(), 
                                               0.7, 
                                               -0.35);
@@ -84,7 +84,7 @@ public class Elevator extends Subsystem {
             speed *= 0.5;
         }
 
-        if ((adjusting && speed > 0 && speed < 0.3) // there is a better fix for this, will work on that later
+        if ((adjusting && speed > 0 && speed < 0.22) // there is a better fix for this probably based on acceleration, will work on that later
             || (adjusting && speed > -0.1 && speed < 0)) {
             adjusting = false;
         }

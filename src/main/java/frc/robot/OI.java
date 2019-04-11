@@ -88,7 +88,7 @@ public class OI {
     public static final int CLIMB_PITCH_SYSTEM = 8;
     public static final int INTAKE_SYSTEM = 9;
 
-    private int NUM_LOG_ENTRIES = 5;
+    private int NUM_LOG_ENTRIES = 10;
 
     public boolean[] firstRun = new boolean[INTAKE_SYSTEM + 1];
     public double[] errorSum = new double[INTAKE_SYSTEM + 1];
@@ -693,10 +693,24 @@ public class OI {
         // formula: -kD * change in read, "change in read" being the instant derivative at that point in time
         termD = -kD * (current - lastActual[system]);
         lastActual[system] = current;
+        
+        //if (system == ELEVATOR_SYSTEM) {
+        //    termD -= 0.2;
+        //}
 
         // because the I term is the area under the curve, it gets a higher weight if it's been going on for a longer time, hence the errorSum
         // formula: kI * errorSum (sum of all previous errors)
+    
+        //if (system == ELEVATOR_SYSTEM && ) {
+        //    kI = Variables.getInstance().getElevatorKIUp();
+        //} else if (system == ELEVATOR_SYSTEM) {
+        //    kI = Variables.getInstance().getElevatorKIDown();
+        //}
         termI = kI * errorSum[system];
+
+        if (system == ELEVATOR_SYSTEM) {
+            SmartDashboard.putNumber("I term for Elevator", termI);
+        }
 
         // finally add everything together
         output = termP + termI + termD;
