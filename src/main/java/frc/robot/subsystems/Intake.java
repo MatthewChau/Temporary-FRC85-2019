@@ -59,10 +59,10 @@ public class Intake extends Subsystem {
                                               Variables.getInstance().getMaxSpeedUpIntake(), 
                                               Variables.getInstance().getMaxSpeedDownIntake());
         } else if (speed > 0.0) {
-            speed *= Variables.getInstance().getMaxSpeedUpIntake();
+            speed *= 0.9;
             targetPos = getWristPosition();
         } else if (speed < 0.0) {
-            speed *= Variables.getInstance().getMaxSpeedUpIntake();
+            speed *= 0.9;
             targetPos = getWristPosition();
         } else {
             speed = 0.0;

@@ -702,14 +702,10 @@ public class OI {
         // formula: kI * errorSum (sum of all previous errors)
     
         if (system == ELEVATOR_SYSTEM) {
-            if (error > 0 && errorSum[system] > 0) { // needs to go up
-                kI = Variables.getInstance().getElevatorKIUp();
-            } else if (error < 0 && errorSum[system] < 0) { // needs to go down
-                kI = Variables.getInstance().getElevatorKIDown();
-            } else if (error > 0 && errorSum[system] < 0) { // needs to go up after having overshot down
+            if (error > 0 && errorSum[system] < 0) { // needs to go up after having overshot down
                 kI = -Variables.getInstance().getElevatorKIUp();
             } else { // needs to go down after having overshot up
-                kI = -Variables.getInstance().getElevatorKIDown();
+                kI = Variables.getInstance().getElevatorKIDown();
             }
         }
         termI = kI * errorSum[system];

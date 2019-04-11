@@ -24,7 +24,7 @@ public class Variables {
 
     // PID
 
-    private static final double kP_ELEVATOR = 0.0004, kI_ELEVATOR_UP = .0000003, kI_ELEVATOR_DOWN = 0.00000002, kD_ELEVATOR = 0.0009;
+    private static final double kP_ELEVATOR = 0.0004, kI_ELEVATOR_UP = .00000045, kI_ELEVATOR_DOWN = 0.00000002, kD_ELEVATOR = 0.0009;
 
     private static final double kP_MAST = 0.00004, kI_MAST = 0.0, kD_MAST = 0.00003;
 
@@ -187,8 +187,8 @@ public class Variables {
     public static final int WRIST_MIN_POS = -1170000;
 
     // Wrist speed limits
-    public static final double WRIST_MAX_SPEED_UP = 0.9;
-    public static final double WRIST_MAX_SPEED_DOWN = -0.9;
+    public static final double WRIST_MAX_SPEED_UP = 1.0;
+    public static final double WRIST_MAX_SPEED_DOWN = -1.0;
 
     // CLIMB
     public static final double CLIMB_LEFT_LEVEL_THREE = 82.05069732666016;
