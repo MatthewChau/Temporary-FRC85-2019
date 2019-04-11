@@ -163,7 +163,7 @@ public class DriveTrain extends Subsystem {
                 }
             }
 
-            inputs[2] *= (.80 / .95); // because josiah is a wimp
+            inputs[2] *= (.90); // josiah has semi-CHADified
 
             wheelSpeeds[0] = (vector.x + vector.y - inputs[2]);
             wheelSpeeds[1] = (vector.x - vector.y + inputs[2]);
@@ -278,7 +278,7 @@ public class DriveTrain extends Subsystem {
             }
         }
 
-        if (maxMagnitude > .95) { // this thus normalizes the speeds proportionally speaking
+        if (maxMagnitude > 1.0) { // this thus normalizes the speeds proportionally speaking
             for (i = 0; i < 3; i++) {
                 speeds[i] = speeds[i] / maxMagnitude;
             }
