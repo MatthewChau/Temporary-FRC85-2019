@@ -34,7 +34,7 @@ public class ClimbRearWithJoystick extends Command {
         if (_speed > 0) {
             _multiplier = 0.6;
         } else {
-            _multiplier = 0.8;
+            _multiplier = 0.9;
         }
 
         ClimbRear.getInstance().moveClimbRear(_speed * _multiplier);

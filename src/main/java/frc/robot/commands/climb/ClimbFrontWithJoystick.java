@@ -34,7 +34,7 @@ public class ClimbFrontWithJoystick extends Command {
         if (_speed > 0) {
             _multiplier = 0.6;
         } else {
-            _multiplier = 0.8;
+            _multiplier = 0.9; // because ryan is a well-to-do individual.
         }
         ClimbFront.getInstance().moveClimbFront(_speed * _multiplier);
     }
@@ -57,3 +57,46 @@ public class ClimbFrontWithJoystick extends Command {
     }
 
 }
+
+/*
+
+josiah, the slowboy:
+                    .--,
+     .-.    __,,,__/    |
+    /   \-'`        `-./_
+    |    |               `)
+     \   `             `\ ;
+    /       ,        ,    |
+    |      /         : O /_
+    |          O  .--;__   '.
+    |                (  )`.  |
+    \                 `-` /  |
+     \          ,_  _.-./`  /        apparently this is supposed to be bored
+      \          \``-.(    /
+      |           `---'   /--.
+    ,--\___..__        _.'   /--.
+    \          `-._  _`/    '    '.
+    .' ` ' .       ``    '        .
+
+RYAN, who likes his things fast:
+
+            _____----''''       
+   ----''''             |
+  |                      |
+  |                      |
+  .                      .
+   |                      |
+   |                  ____|--                     
+   |      ____----''''    ;
+  --'''''      _     ,-'  |
+    |       .'   '.  : O /_
+    |       '. _ .'-;__    '.
+    |                (  )`.  |
+    \                 `-` /  |
+     \         -,_  _.-./`  /        help i can't make a smirk
+      \          '         /
+      |                   /--.
+    ,--\___..__        _.'   /--.
+    \          `-._  _`/    '    '.
+    .' ` ' .       ``    '        .
+*/
