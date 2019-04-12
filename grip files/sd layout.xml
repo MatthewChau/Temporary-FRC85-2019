@@ -4,7 +4,7 @@
 		<location x="1146" y="58"/>
 	</widget>
 	<widget field="I term for Elevator" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="0" y="642"/>
+		<location x="467" y="622"/>
 	</widget>
 	<widget field="Practice Bot?" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.CheckBox">
 		<location x="1115" y="124"/>

@@ -8,6 +8,7 @@
 package frc.robot.commands.climb;
 
 import frc.robot.subsystems.ClimbFront;
+import frc.robot.sensors.IMU;
 
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -23,6 +24,7 @@ public class MoveClimbFrontPosition extends Command {
     @Override
     protected void initialize() {
         _target = _initial;
+        IMU.getInstance().setInitialYPR();
     }
 
     @Override
