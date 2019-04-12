@@ -128,8 +128,7 @@ public class OI {
 
         // red
         _operatorRedOne = new JoystickButton(_operatorControllerRed, Addresses.OPERATOR_RED_ONE);
-        _operatorRedOne.whenPressed(new CargoStationOne());
-        _operatorRedTwo.whenReleased(new ActivateIntake(0.0));
+        _operatorRedOne.whenPressed(new Place(Variables.CARGO_STATION[Variables.getInstance().isPracticeBot()], Variables.WRIST_90 /*?*/, Variables.MAST_FORWARD_FOR_CARGO));
         _operatorRedTwo = new JoystickButton(_operatorControllerRed, Addresses.OPERATOR_RED_TWO);
         _operatorRedTwo.whenPressed(new ActivateIntake(Variables.ROLLER_OUT));
         _operatorRedTwo.whenReleased(new ActivateIntake(0));
@@ -145,7 +144,7 @@ public class OI {
         _operatorRedSeven = new JoystickButton(_operatorControllerRed, Addresses.OPERATOR_RED_SEVEN);
         _operatorRedSeven.whenPressed(new Place(Variables.CARGO_SHIP[Variables.getInstance().isPracticeBot()], Variables.WRIST_90, Variables.MAST_FORWARD_FOR_CARGO));
         _operatorRedEight = new JoystickButton(_operatorControllerRed, Addresses.OPERATOR_RED_EIGHT);
-        _operatorRedEight.whenPressed(new CargoGroundOne());
+        _operatorRedEight.whenPressed(new Place(Variables.CARGO_FLOOR[Variables.getInstance().isPracticeBot()], Variables.WRIST_CARGO_FLOOR[Variables.getInstance().isPracticeBot()], Variables.MAST_FORWARD_POS));
         _operatorRedEight.whenReleased(new CargoGroundTwo());
 
         _leftJoystickTrigger = new JoystickButton(_driverJoystickLeft, Addresses.ATTACK_TRIGGER);
