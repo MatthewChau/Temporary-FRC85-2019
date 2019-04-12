@@ -137,6 +137,10 @@ public class Robot extends TimedRobot {
         if (DriverStation.getInstance().getMatchTime() > 134.5) {
             _diagnostics.close();
         }
+
+        if (SmartDashboard.getBoolean("Relay?", false)) {
+            Spike.getInstance().setRelay(true);
+        }
     }
 
     @Override

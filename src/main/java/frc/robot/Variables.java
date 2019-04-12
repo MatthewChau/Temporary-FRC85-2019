@@ -300,6 +300,8 @@ public class Variables {
         SmartDashboard.putBoolean("Close Diagnostics?", true);
 
         SmartDashboard.putBoolean("Practice Bot?", false);
+
+        SmartDashboard.putBoolean("Relay?", false);
     }
 
     public static Variables getInstance() {
