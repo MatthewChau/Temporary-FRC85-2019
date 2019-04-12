@@ -140,6 +140,8 @@ public class Robot extends TimedRobot {
 
         if (SmartDashboard.getBoolean("Relay?", false)) {
             Spike.getInstance().setRelay(true);
+        } else {
+            Spike.getInstance().setRelay(false);
         }
     }
 
