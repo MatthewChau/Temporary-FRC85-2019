@@ -79,7 +79,7 @@ public class Variables {
     public static final int HATCH_FLOOR_COMP = 1210;
     public static final int HATCH_FLOOR_PRACTICE = 1991;
     public static final int[] HATCH_FLOOR = {HATCH_FLOOR_COMP, HATCH_FLOOR_PRACTICE};
-    public static final int HATCH_STATION_COMP = 1965;
+    public static final int HATCH_STATION_COMP = 1991;
     public static final int HATCH_STATION_PRACTICE = 1965;
     public static final int[] HATCH_STATION = {HATCH_STATION_COMP, HATCH_STATION_PRACTICE};
     
@@ -97,7 +97,7 @@ public class Variables {
     public static final int CARGO_SHIP_PRACTICE = 10679;
     public static final int[] CARGO_SHIP = {CARGO_SHIP_COMP, CARGO_SHIP_PRACTICE};
 
-    public static final int CARGO_FLOOR_COMP = 1870;
+    public static final int CARGO_FLOOR_COMP = HATCH_ONE_COMP;
     public static final int CARGO_FLOOR_PRACTICE = 2662;
     public static final int[] CARGO_FLOOR = {CARGO_FLOOR_COMP, CARGO_FLOOR_PRACTICE};
 
