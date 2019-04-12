@@ -128,7 +128,8 @@ public class OI {
 
         // red
         _operatorRedOne = new JoystickButton(_operatorControllerRed, Addresses.OPERATOR_RED_ONE);
-        _operatorRedOne.whenPressed(new Place(Variables.CARGO_STATION[Variables.getInstance().isPracticeBot()], Variables.WRIST_90, Variables.MAST_FORWARD_FOR_CARGO));
+        _operatorRedOne.whenPressed(new CargoStationOne());
+        _operatorRedTwo.whenReleased(new ActivateIntake(0.0));
         _operatorRedTwo = new JoystickButton(_operatorControllerRed, Addresses.OPERATOR_RED_TWO);
         _operatorRedTwo.whenPressed(new ActivateIntake(Variables.ROLLER_OUT));
         _operatorRedTwo.whenReleased(new ActivateIntake(0));

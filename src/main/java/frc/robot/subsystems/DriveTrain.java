@@ -79,11 +79,17 @@ public class DriveTrain extends Subsystem {
         int i;
 
         if (OI.getInstance().getLeftJoystickFaceLeft()) { // turn left
-            setTurn90TargetAngle(true, inputs[3]);
+            setTargetAngle(90);
+            fixTargetAngle(inputs[3]);
         } else if (OI.getInstance().getLeftJoystickFaceRight()) { // turn right
-            setTurn90TargetAngle(false, inputs[3]);
+            setTargetAngle(-90);
+            fixTargetAngle(inputs[3]);
         } else if (OI.getInstance().getLeftJoystickFaceBottom()) { // 180
-            setTurn180TargetAngle(inputs[3]);
+            setTargetAngle(180);
+            fixTargetAngle(inputs[3]);
+        } else if (OI.getInstance().getLeftJoystickFaceCenter()) { // 0
+            setTargetAngle(0);
+            fixTargetAngle(inputs[3]);
         } else if (OI.getInstance().getRightStickNine()) { // back left rocket alignment
             setTargetAngle(150);
             fixTargetAngle(inputs[3]);
