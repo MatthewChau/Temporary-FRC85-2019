@@ -276,14 +276,22 @@ public class OI {
         return getOpStickTwelve();
     }
 
+    public boolean getOperatorClimbTwo() {
+        return getOpStickTen();
+    }
+
+    public boolean getOperatorClimbThree() {
+        return getOpStickEight();
+    }
+
     public boolean getOperatorClimbTwoAuto() {
         return getOpStickNine();
     }
 
     public boolean getOperatorClimbThreeAuto() {
-        return getOpStickEleven();
+        return getOpStickSeven();
     }
-
+    
     // LEFT DRIVER JOYSTICK
 
     public double getLeftXInputJoystick() {
