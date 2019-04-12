@@ -422,7 +422,7 @@ public class OI {
             axis = 0;
         }
 
-        return Math.pow(axis, 3);
+        return ((Variables.A_POLYNOMIAL * Math.pow(axis, 3)) + (Variables.B_POLYNOMIAL * Math.pow(axis, 2)) + (Variables.C_POLYNOMIAL * axis) + (Variables.D_POLYNOMIAL));
     }
 
     public boolean getOpStickTrigger() {

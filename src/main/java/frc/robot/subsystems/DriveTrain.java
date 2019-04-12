@@ -144,7 +144,7 @@ public class DriveTrain extends Subsystem {
             if (OI.getInstance().getLeftStickTrigger()) { // trigger for lowering speed
                 inputs[0] *= 0.6;
                 inputs[1] *= 0.33;
-                inputs[2] *= 0.45;
+                inputs[2] *= 0.38;
             }
 
             Vector2d vector = new Vector2d(-inputs[1], inputs[0]);
