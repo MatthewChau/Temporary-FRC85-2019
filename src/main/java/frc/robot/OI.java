@@ -615,7 +615,7 @@ public class OI {
                 }
                 return true;
             case ELEVATOR_SYSTEM:
-                if (Math.abs(error) < 100) {
+                if (Math.abs(error) < 150) {
                     Elevator.getInstance().changeAdjustingBool(false);
                     return false;
                 }
