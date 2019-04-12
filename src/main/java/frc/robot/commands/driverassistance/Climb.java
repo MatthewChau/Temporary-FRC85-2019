@@ -23,22 +23,13 @@ public class Climb extends CommandGroup {
     public Climb(double position) {
         addSequential(new Interrupt());
         
-        addSequential(new MoveClimbPosition(position));
-        addParallel(new ActivateClimbRearDrive(0.25));
-        addParallel(new ActivateDriveTrain(0.0, 0.15));
-        addSequential(new WaitForClimbFrontSensors());
-        addParallel(new ActivateClimbRearDrive(0.0));
-        addParallel(new ActivateDriveTrain(0.0));
-        addSequential(new MoveClimbFrontPosition(0.0));
-        addParallel(new ActivateClimbRearDrive(0.25));
-        addParallel(new ActivateDriveTrain(0.0, 0.15));
-        addSequential(new WaitForClimbRearSensor());
-        addParallel(new ActivateClimbRearDrive(0.1));
-        addParallel(new ActivateDriveTrain(0.0, 0.1));
-        addSequential(new MoveClimbRearPosition(0.0));
-        addSequential(new Wait(0.5));
-        addSequential(new ActivateClimbRearDrive(0.0));
-        addSequential(new ActivateDriveTrain(0.0));
+        addSequential(new MoveClimbPosition(position));         // actually climb
+        addSequential(new ActivateClimbRearDrive(0.25, 0));     // activate climbreardrive & check for front photoeye
+        addSequential(new MoveClimbFrontPosition(0.0));         // retract front
+        addSequential(new ActivateClimbRearDrive(0.25, 1));     // activate climbreardrive & check for rear photoeye
+        addParallel(new ActivateClimbRearDrive(0.1, 2));        // move climbrearwheel forward without checking for a photoeye
+        addParallel(new ActivateDriveTrain(0.0, 0.15));         // move drive train forward
+        addSequential(new MoveClimbRearPosition(0.0));          // retract rear
     }
 
 }
