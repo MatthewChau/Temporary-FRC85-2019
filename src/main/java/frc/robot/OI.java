@@ -365,7 +365,7 @@ public class OI {
     public double getRightYInputJoystick() {
         double axis = _driverJoystickRight.getRawAxis(Addresses.EXTREME_Y_AXIS);
 
-        if (Math.abs(axis) < 0.25) {
+        if (Math.abs(axis) < 0.25) { // higher deadband to account for neutral position being gay
             axis = 0;
         }
         return axis;
