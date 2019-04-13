@@ -40,10 +40,6 @@ public class ClimbRearDrive extends Subsystem {
     }
 
     public void setClimbRearDriveMotor(double speed) {
-        if (Math.abs(speed) < 0.1) {
-            speed = 0;
-        }
-
         _climbRearDriveMotor.set(ControlMode.PercentOutput, speed);
     }
 

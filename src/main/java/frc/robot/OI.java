@@ -347,7 +347,13 @@ public class OI {
     // RIGHT DRIVER JOYSTICK
 
     public double getRightYInputJoystick() {
-        return _driverJoystickRight.getRawAxis(Addresses.EXTREME_Y_AXIS);
+        double axis = _driverJoystickRight.getRawAxis(Addresses.EXTREME_Y_AXIS);
+
+        if (Math.abs(axis) < Variables.DEADBAND_DRIVERSTICK) {
+            axis = 0;
+        }
+
+        return axis;
     }
 
     public double getRightRotJoystick() {
