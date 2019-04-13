@@ -54,7 +54,7 @@ public class ActivateDriveTrain extends Command {
     @Override
     protected boolean isFinished() {
         if (_state)
-            return (Math.abs(Variables.getInstance().getDistanceFromWall()) < 0.5);
+            return (Math.abs(Variables.getInstance().getDistanceFromWall()) < 0.25);
         else 
             return false;
     }

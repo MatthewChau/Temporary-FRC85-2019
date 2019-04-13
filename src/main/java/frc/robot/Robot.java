@@ -122,6 +122,7 @@ public class Robot extends TimedRobot {
             ClimbRear.getInstance().setServo(Variables.getInstance().getClimbUnlocked());
         } else {
             ClimbRear.getInstance().setServo(Variables.getInstance().getClimbLocked());
+            ClimbRear.getInstance().resetTimer();
         }
 
         if (Elevator.getInstance().getAdjustingBool() || OI.getInstance().getElevatorJoystickButton()) {

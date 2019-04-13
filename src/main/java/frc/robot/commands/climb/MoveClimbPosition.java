@@ -43,8 +43,8 @@ public class MoveClimbPosition extends Command {
     @Override
     protected boolean isFinished() {
         return (!ClimbRear.getInstance().getBothAdjustingBool() 
-            || (!OI.getInstance().getOperatorClimbTwo() && !OI.getInstance().getOperatorClimbThree() 
-                && !OI.getInstance().getOperatorClimbTwoAuto() && !OI.getInstance().getOperatorClimbThreeAuto()));
+            //|| (!OI.getInstance().getOperatorClimbTwo() && !OI.getInstance().getOperatorClimbThree() 
+            /*    && !OI.getInstance().getOperatorClimbTwoAuto() && !OI.getInstance().getOperatorClimbThreeAuto())*/);
     }
 
     @Override

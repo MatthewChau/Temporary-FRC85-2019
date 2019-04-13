@@ -71,6 +71,7 @@ public class Sensors extends Subsystem {
         startLeftTimer();
         startRearTimer();
         Elevator.getInstance().startTimer();
+        ClimbRear.getInstance().startTimer();
     }
 
     public void stopTimers() {
@@ -78,6 +79,7 @@ public class Sensors extends Subsystem {
         stopLeftTimer();
         stopRearTimer();
         Elevator.getInstance().stopTimer();
+        ClimbRear.getInstance().stopTimer();
     }
 
     public void startRightTimer() {
