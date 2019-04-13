@@ -223,8 +223,8 @@ public class Variables {
     public static final double CLIMB_MAX_SPEED_DOWN = -0.8;
 
     // servo angles for climb
-    public static final double CLIMB_LOCKED = 0;
-    public static final double CLIMB_UNLOCKED = 35;
+    public static final double CLIMB_LOCKED = 110;
+    public static final double CLIMB_UNLOCKED = 70;
 
     // ROLLER
 

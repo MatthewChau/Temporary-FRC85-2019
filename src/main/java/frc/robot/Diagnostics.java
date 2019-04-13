@@ -40,7 +40,20 @@ public class Diagnostics {
 
             String date = new SimpleDateFormat("dd MMM yyyy HH:mm:ss")
                     .format(new java.util.Date(System.currentTimeMillis()));
-            log = new File("home/lvuser/log " + date + ".csv");
+            /*if (DriverStation.getInstance().isFMSAttached()) {
+                String match = Integer.toString(DriverStation.getInstance().getMatchNumber());
+                log = new File("home/lvuser/log " + date + " (match " + match + ")" + ".csv");
+            } else {
+                log = new File("home/lvuser/log " + date + ".csv");
+            }*/
+
+            if (DriverStation.getInstance().isFMSAttached()) {
+                String match = Integer.toString(DriverStation.getInstance().getMatchNumber());
+                log = new File("home/lvuser/log " + date + " (match " + match + ")" + ".csv");
+            } else {
+                log = new File("home/lvuser/log " + date + ".csv");
+            }
+
             log.createNewFile();
             out = new BufferedWriter(new FileWriter(log, true));
             out.append("Time,Match Time,"
