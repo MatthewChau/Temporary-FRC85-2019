@@ -118,7 +118,7 @@ public class Robot extends TimedRobot {
         Sensors.getInstance().checkSensorsForEncoderReset();
 
         if ((ClimbRear.getInstance().getAdjustingBool() || ClimbRear.getInstance().getBothAdjustingBool() || OI.getInstance().getClimbRearJoystickButton())
-            && DriverStation.getInstance().getMatchTime() < 134.5) {
+            && (DriverStation.getInstance().getMatchTime() > 0.5 || DriverStation.getInstance().getMatchTime() < 0)) {
             ClimbRear.getInstance().setServo(Variables.getInstance().getClimbUnlocked());
         } else {
             ClimbRear.getInstance().setServo(Variables.getInstance().getClimbLocked());
@@ -135,7 +135,7 @@ public class Robot extends TimedRobot {
             _diagnostics.log();
         }
 
-        if (DriverStation.getInstance().getMatchTime() > 134.5) {
+        if (DriverStation.getInstance().getMatchTime() < 0.3) {
             _diagnostics.close();
         }
 
