@@ -191,7 +191,8 @@ public class DriveTrain extends Subsystem {
     }
 
     private void setTargetAngleMoving(double gyroAngle) { // if necessary, change the target angle
-        if (Math.abs(Math.abs(gyroAngle) - Math.abs(targetAngle)) > Variables.TOLERANCE_ANGLE) {
+        if (Math.abs(Math.abs(gyroAngle) - Math.abs(targetAngle)) > Variables.TOLERANCE_ANGLE
+            && !turnInProgress) { // fuck me this is the dumbest fix i have ever had to elaborate on god fuck
             targetAngle = gyroAngle;
         }
     }
