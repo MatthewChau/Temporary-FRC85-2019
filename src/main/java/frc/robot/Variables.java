@@ -119,8 +119,12 @@ public class Variables {
     public static final double ELEVATOR_MIN_SPEED = -.2;
 
     // Servo angles for elevator lock (clutch)
-    public static final double ELEVATOR_LOCKED = 80;
-    public static final double ELEVATOR_UNLOCKED = 180;
+    public static final double ELEVATOR_LOCKED_COMP = 80;
+    public static final double ELEVATOR_LOCKED_PRACTICE = 80;
+    public static final double[] ELEVATOR_LOCKED = {ELEVATOR_LOCKED_COMP, ELEVATOR_LOCKED_PRACTICE};
+    public static final double ELEVATOR_UNLOCKED_COMP = 180;
+    public static final double ELEVATOR_UNLOCKED_PRACTICE = 180;
+    public static final double[] ELEVATOR_UNLOCKED = {ELEVATOR_UNLOCKED_COMP, ELEVATOR_UNLOCKED_PRACTICE};
 
     public static final double ELEVATOR_TIMER = 0.4;
 
@@ -223,8 +227,12 @@ public class Variables {
     public static final double CLIMB_MAX_SPEED_DOWN = -0.8;
 
     // servo angles for climb
-    public static final double CLIMB_LOCKED = 110;
-    public static final double CLIMB_UNLOCKED = 70;
+    public static final double CLIMB_LOCKED_COMP = 110;
+    public static final double CLIMB_LOCKED_PRACTICE = 0;
+    public static final double[] CLIMB_LOCKED = {CLIMB_LOCKED_COMP, CLIMB_LOCKED_PRACTICE};
+    public static final double CLIMB_UNLOCKED_COMP = 70;
+    public static final double CLIMB_UNLOCKED_PRACTICE = 25;
+    public static final double[] CLIMB_UNLOCKED = {CLIMB_UNLOCKED_COMP, CLIMB_UNLOCKED_PRACTICE};
 
     // ROLLER
 
@@ -276,11 +284,11 @@ public class Variables {
         SmartDashboard.putNumber("MAX_SPEED_UP_INTAKE", WRIST_MAX_SPEED_UP);
         SmartDashboard.putNumber("MAX_SPEED_DOWN_INTAKE", WRIST_MAX_SPEED_DOWN);
 
-        SmartDashboard.putNumber("ELEVATOR_UNLOCKED", ELEVATOR_UNLOCKED);
-        SmartDashboard.putNumber("ELEVATOR_LOCKED", ELEVATOR_LOCKED);
+        SmartDashboard.putNumber("ELEVATOR_UNLOCKED", ELEVATOR_UNLOCKED[isPracticeBot()]);
+        SmartDashboard.putNumber("ELEVATOR_LOCKED", ELEVATOR_LOCKED[isPracticeBot()]);
 
-        SmartDashboard.putNumber("CLIMB_UNLOCKED", CLIMB_UNLOCKED);
-        SmartDashboard.putNumber("CLIMB_LOCKED", CLIMB_LOCKED);
+        SmartDashboard.putNumber("CLIMB_UNLOCKED", CLIMB_UNLOCKED[isPracticeBot()]);
+        SmartDashboard.putNumber("CLIMB_LOCKED", CLIMB_LOCKED[isPracticeBot()]);
 
         SmartDashboard.putNumber("CLIMB_MAX_SPEED_UP", CLIMB_MAX_SPEED_UP);
         SmartDashboard.putNumber("CLIMB_MAX_SPEED_DOWN", CLIMB_MAX_SPEED_DOWN);
@@ -332,11 +340,11 @@ public class Variables {
     // SERVO
 
     public double getElevatorUnlocked() {
-        return SmartDashboard.getNumber("ELEVATOR_UNLOCKED", ELEVATOR_UNLOCKED);
+        return SmartDashboard.getNumber("ELEVATOR_UNLOCKED", ELEVATOR_UNLOCKED[isPracticeBot()]);
     }
 
     public double getElevatorLocked() {
-        return SmartDashboard.getNumber("ELEVATOR_LOCKED", ELEVATOR_LOCKED);
+        return SmartDashboard.getNumber("ELEVATOR_LOCKED", ELEVATOR_LOCKED[isPracticeBot()]);
     }
 
     // MAST
@@ -464,11 +472,11 @@ public class Variables {
     }
 
     public double getClimbUnlocked() {
-        return SmartDashboard.getNumber("CLIMB_UNLOCKED", CLIMB_UNLOCKED);
+        return SmartDashboard.getNumber("CLIMB_UNLOCKED", CLIMB_UNLOCKED[isPracticeBot()]);
     }
 
     public double getClimbLocked() {
-        return SmartDashboard.getNumber("CLIMB_LOCKED", CLIMB_LOCKED);
+        return SmartDashboard.getNumber("CLIMB_LOCKED", CLIMB_LOCKED[isPracticeBot()]);
     }
 
     public double getRangeFinderBasedOnMast(double mastPos) { // rangefinder from the front bumpers of the robot
