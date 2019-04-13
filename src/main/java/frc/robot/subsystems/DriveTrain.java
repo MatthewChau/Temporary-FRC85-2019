@@ -169,7 +169,7 @@ public class DriveTrain extends Subsystem {
                 }
             }
 
-            inputs[2] *= (.90); // josiah has semi-CHADified
+            inputs[2] *= (.90); // josiah has semi-CHADified (limit his turning speed further)
 
             wheelSpeeds[0] = (vector.x + vector.y - inputs[2]);
             wheelSpeeds[1] = (vector.x - vector.y + inputs[2]);
