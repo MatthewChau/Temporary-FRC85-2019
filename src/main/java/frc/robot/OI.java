@@ -91,13 +91,10 @@ public class OI {
     public static final int CLIMB_PITCH_SYSTEM = 8;
     public static final int INTAKE_SYSTEM = 9;
 
-    private int NUM_LOG_ENTRIES = 10;
-
     public boolean[] firstRun = new boolean[INTAKE_SYSTEM + 1];
     public double[] errorSum = new double[INTAKE_SYSTEM + 1];
     public double[] lastActual = new double[INTAKE_SYSTEM + 1];
     public double[] lastOutput = new double[INTAKE_SYSTEM + 1];
-    public double[][] errorLog = new double[INTAKE_SYSTEM + 1][NUM_LOG_ENTRIES];
 
     public double[] stopArray = new double[4];
 
@@ -575,20 +572,6 @@ public class OI {
         return angle;
     }
 
-    private void logErrorForIntegral(int system, double error) {
-        int i;
-
-        for (i = 1; i < NUM_LOG_ENTRIES - 1; i++) { // shift the error log, the oldest entries are the higher numbers
-            errorLog[system][i] = errorLog[system][i - 1];
-        }
-
-        errorLog[system][0] = error; // log the newest error
-
-        for (i = 0; i < NUM_LOG_ENTRIES; i++) { // get the error sum for the system
-            errorSum[system] += errorLog[system][i];
-        }
-    }
-
     private void debugMessages(int system, double current, double error, double target, double output) {
         switch (system) {
             case ELEVATOR_SYSTEM:
@@ -629,6 +612,7 @@ public class OI {
         switch (system) {
             case ROT_SYSTEM:
                 if (DriveTrain.getInstance().getTurnInProgress() && Math.abs(error) < 3.0 
+                    && speed < 0.1
                     /*&& !ClimbRear.getInstance().getClimbInProgress()*/) {
                     DriveTrain.getInstance().setTurnInProgress(false);
                     return false;
@@ -715,28 +699,24 @@ public class OI {
         }
 
         if (!checkIfNeedBeRun(system, error, lastOutput[system])) {
+            errorSum[system] = 0; // reset the errorsum if the target has been reached
             return 0.0;
+        }
+
+        if (system == ELEVATOR_SYSTEM
+            && ((errorSum[system] > 0 && error < 0)
+                || (errorSum[system] < 0 && error > 0))) {
+            errorSum[system] = 0; // reset the errorsum if it overshoots
         }
 
         // slow down correction if it's doing the right thing (in an effort to prevent major overshooting)
         // formula: -kD * change in read, "change in read" being the instant derivative at that point in time
         termD = -kD * (current - lastActual[system]);
         lastActual[system] = current;
-        
-        //if (system == ELEVATOR_SYSTEM) {
-        //    termD -= 0.2;
-        //}
 
         // because the I term is the area under the curve, it gets a higher weight if it's been going on for a longer time, hence the errorSum
         // formula: kI * errorSum (sum of all previous errors)
     
-        if (system == ELEVATOR_SYSTEM) {
-            if (error > 0 && errorSum[system] < 0) { // needs to go up after having overshot down
-                kI = -Variables.getInstance().getElevatorKIUp();
-            } else { // needs to go down after having overshot up
-                kI = Variables.getInstance().getElevatorKIDown();
-            }
-        }
         termI = kI * errorSum[system];
 
         if (system == ELEVATOR_SYSTEM) {
@@ -755,8 +735,8 @@ public class OI {
         }
 
         lastOutput[system] = output; // log the last output for speed checking purposes
-
-        logErrorForIntegral(system, error); // log the new error for the integral
+        
+        errorSum[system] += error; // log the most recent error
 
         debugMessages(system, current, error, target, output); // made a new method so as not to clog up this method
 
