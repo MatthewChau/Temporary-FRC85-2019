@@ -246,7 +246,7 @@ public class Variables {
     private Variables() {
         SmartDashboard.putNumber("kP_VLIFT", kP_ELEVATOR);
         SmartDashboard.putNumber("kI_VLIFT_UP", kI_ELEVATOR_UP);
-        SmartDashboard.putNumber("kI_VLIFT_DOWN", kI_ELEVATOR_DOWN);
+        SmartDashboard.putNumber("kI_VLIFT", kI_ELEVATOR);
         SmartDashboard.putNumber("kD_VLIFT", kD_ELEVATOR);
 
         SmartDashboard.putNumber("kP_HLIFT", kP_MAST);
