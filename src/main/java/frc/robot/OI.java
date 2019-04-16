@@ -688,6 +688,12 @@ public class OI {
             return 0.0;
         }
 
+        if (system == ELEVATOR_SYSTEM
+            && ((errorSum[system] > 0 && error < 0)
+                || (errorSum[system] < 0 && error > 0))) {
+            errorSum[system] = 0; // reset the errorsum if it overshoots
+        }
+
         // slow down correction if it's doing the right thing (in an effort to prevent major overshooting)
         // formula: -kD * change in read, "change in read" being the instant derivative at that point in time
         termD = -kD * (current - lastActual[system]);
