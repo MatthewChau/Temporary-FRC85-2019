@@ -24,7 +24,7 @@ public class Variables {
 
     // PID
 
-    private static final double kP_ELEVATOR = 0.0004, kI_ELEVATOR_UP = .00000045, kI_ELEVATOR_DOWN = 0.00000002, kD_ELEVATOR = 0.0009;
+    private static final double kP_ELEVATOR = 0.0004, kI_ELEVATOR_UP = .00000045, kI_ELEVATOR = 0.00000002, kD_ELEVATOR = 0.0009;
 
     private static final double kP_MAST = 0.00004, kI_MAST = 0.0, kD_MAST = 0.00003;
 
@@ -329,8 +329,8 @@ public class Variables {
         return SmartDashboard.getNumber("kI_VLIFT_UP", kI_ELEVATOR_UP);
     }
 
-    public double getElevatorKIDown() {
-        return SmartDashboard.getNumber("kI_VLIFT_DOWN", kI_ELEVATOR_DOWN);
+    public double getElevatorKI() {
+        return SmartDashboard.getNumber("kI_VLIFT", kI_ELEVATOR);
     }
 
     public double getElevatorKD() {
