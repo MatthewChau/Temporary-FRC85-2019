@@ -18,7 +18,7 @@ public class FollowOneTarget extends Command {
     private double[] _errors = new double[TARGET_ANGLES.length];
 
     private int index = 0;
-    private double minimum = 360;
+    private double minimum = 2520;
     
     public FollowOneTarget() {
         requires(DriveTrain.getInstance());
@@ -26,10 +26,16 @@ public class FollowOneTarget extends Command {
     
     @Override
     protected void initialize() {
+        int i;
+
         Spike.getInstance().setRelay(true);
 
-        for (int i=0; i<TARGET_ANGLES.length; i++) {
-            _errors[i] = Math.abs(TARGET_ANGLES[i] - IMU.getInstance().getFusedHeading());
+        double _currentAngle = IMU.getInstance().getFusedHeading();
+
+        _currentAngle = _currentAngle %360; //Finds the modulus (does long division and only returns the remainder)
+
+        for (i=0; i<TARGET_ANGLES.length; i++) {
+            _errors[i] = Math.abs(TARGET_ANGLES[i] - _currentAngle);
 
             if (_errors[i] < minimum) {
                 minimum = _errors[i];
@@ -46,14 +52,14 @@ public class FollowOneTarget extends Command {
         
         gyroAngle = IMU.getInstance().getFusedHeading();
 
-        xSpeed = OI.getInstance().applyPID(OI.VISION_X_SYSTEM, 
+        xSpeed = 0;/*OI.getInstance().applyPID(OI.VISION_X_SYSTEM, 
             Vision.getInstance().oneTargetCenter(), 
             0.0, 
             Variables.getInstance().getVisionKP(), 
             Variables.getInstance().getVisionKI(), 
             Variables.getInstance().getVisionKD(),
             0.6,
-            -0.6);
+            -0.6);*/
 
         ySpeed = OI.getInstance().getLeftYInputJoystick();
 
@@ -82,14 +88,12 @@ public class FollowOneTarget extends Command {
 
     @Override
     public synchronized void cancel() {
-        super.cancel();
         DriveTrain.getInstance().cartDrive(OI.getInstance().stopArray);
         Spike.getInstance().setRelay(false);
     }
 
     @Override
     protected void end() {
-        super.end();
         DriveTrain.getInstance().cartDrive(OI.getInstance().stopArray);
         Spike.getInstance().setRelay(false);
     }
