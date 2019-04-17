@@ -24,7 +24,7 @@ public class Variables {
 
     // PID
 
-    private static final double kP_ELEVATOR = 0.0004, kI_ELEVATOR_UP = .00000045, kI_ELEVATOR = 0.00000002, kD_ELEVATOR = 0.0009;
+    private static final double kP_ELEVATOR_DOWN = 0.00075, kP_ELEVATOR_UP = 0.0009, kI_ELEVATOR = 0.00000003, kD_ELEVATOR = 0.001;
 
     private static final double kP_MAST = 0.00004, kI_MAST = 0.0, kD_MAST = 0.00003;
 
@@ -70,10 +70,10 @@ public class Variables {
     public static final int HATCH_ONE_PRACTICE = 2591;
     public static final int[] HATCH_ONE = {HATCH_ONE_COMP, HATCH_ONE_PRACTICE};
     public static final int HATCH_TWO_COMP = 9900 + 600;
-    public static final int HATCH_TWO_PRACTICE = 9900;
+    public static final int HATCH_TWO_PRACTICE = 9597;
     public static final int[] HATCH_TWO = {HATCH_TWO_COMP, HATCH_TWO_PRACTICE};
     public static final int HATCH_THREE_COMP = 17900 + 600;
-    public static final int HATCH_THREE_PRACTICE = 17900;
+    public static final int HATCH_THREE_PRACTICE = 16213;
     public static final int[] HATCH_THREE = {HATCH_THREE_COMP, HATCH_THREE_PRACTICE};
 
     public static final int HATCH_FLOOR_COMP = 1210;
@@ -84,7 +84,7 @@ public class Variables {
     public static final int[] HATCH_STATION = {HATCH_STATION_COMP, HATCH_STATION_PRACTICE};
     
     public static final int CARGO_ONE_COMP = 6932;
-    public static final int CARGO_ONE_PRACTICE = 5851;
+    public static final int CARGO_ONE_PRACTICE = 6233;
     public static final int[] CARGO_ONE = {CARGO_ONE_COMP, CARGO_ONE_PRACTICE};
     public static final int CARGO_TWO_COMP = 13486;
     public static final int CARGO_TWO_PRACTICE = 14752;
@@ -155,33 +155,33 @@ public class Variables {
     // WRIST
 
     // Wrist positions
-    public static final int WRIST_0 = -53714;
-    public static final int WRIST_30 = -333333;
-    public static final int WRIST_45 = -500000;
-    public static final int WRIST_60 = -666666;
-    public static final int WRIST_90 = -908000;
+    public static final int WRIST_0 = -53714 / 3;
+    public static final int WRIST_90 = -333000;
+    public static final int WRIST_30 = WRIST_90 / 5;
+    public static final int WRIST_45 = WRIST_90 / 2;
+    public static final int WRIST_60 = WRIST_30 * 2;
 
-    public static final int WRIST_CARGO_HIGH_COMP = -750860;
-    public static final int WRIST_CARGO_HIGH_PRACTICE = -750860;
+    public static final int WRIST_CARGO_HIGH_COMP = -750860 / 3;
+    public static final int WRIST_CARGO_HIGH_PRACTICE = -750860 / 3;
     public static final int[] WRIST_CARGO_HIGH = {WRIST_CARGO_HIGH_COMP, WRIST_CARGO_HIGH_PRACTICE};
-    public static final int WRIST_CARGO_COMP = -767000;
-    public static final int WRIST_CARGO_PRACTICE = -767000;
+    public static final int WRIST_CARGO_COMP = -767000 / 3;
+    public static final int WRIST_CARGO_PRACTICE = -767000 / 3;
     public static final int[] WRIST_CARGO = {WRIST_CARGO_COMP, WRIST_CARGO_PRACTICE};
-    public static final int WRIST_CARGO_ONE_COMP = -768170;
-    public static final int WRIST_CARGO_ONE_PRACTICE = -768170;
+    public static final int WRIST_CARGO_ONE_COMP = -768170 / 3;
+    public static final int WRIST_CARGO_ONE_PRACTICE = -768170 / 3;
     public static final int[] WRIST_CARGO_ONE = {WRIST_CARGO_ONE_COMP, WRIST_CARGO_ONE_PRACTICE};
-    public static final int WRIST_CARGO_SHIP_COMP = -900000;
-    public static final int WRIST_CARGO_SHIP_PRACTICE = -975850;
+    public static final int WRIST_CARGO_SHIP_COMP = -900000 / 3;
+    public static final int WRIST_CARGO_SHIP_PRACTICE = -975850 / 3;
     public static final int[] WRIST_CARGO_SHIP = {WRIST_CARGO_SHIP_COMP, WRIST_CARGO_SHIP_PRACTICE};
-    public static final int WRIST_CARGO_FLOOR_COMP = -1142068;
-    public static final int WRIST_CARGO_FLOOR_PRACTICE = -1142068 + 50000;
+    public static final int WRIST_CARGO_FLOOR_COMP = -1142068 / 3;
+    public static final int WRIST_CARGO_FLOOR_PRACTICE = -(1142068 + 50000) / 3;
     public static final int[] WRIST_CARGO_FLOOR = {WRIST_CARGO_FLOOR_COMP, WRIST_CARGO_FLOOR_PRACTICE};
 
-    public static final int WRIST_HATCH_STATION_COMP = -392327;
-    public static final int WRIST_HATCH_STATION_PRACTICE = -392327;
+    public static final int WRIST_HATCH_STATION_COMP = -392327 / 3;
+    public static final int WRIST_HATCH_STATION_PRACTICE = -392327 / 3;
     public static final int[] WRIST_HATCH_STATION = {WRIST_HATCH_STATION_COMP, WRIST_HATCH_STATION_PRACTICE};
-    public static final int WRIST_HATCH_FLOOR_COMP = -1140762;
-    public static final int WRIST_HATCH_FLOOR_PRACTICE = -1140762;
+    public static final int WRIST_HATCH_FLOOR_COMP = -1140762 / 3;
+    public static final int WRIST_HATCH_FLOOR_PRACTICE = -1140762 / 3;
     public static final int[] WRIST_HATCH_FLOOR = {WRIST_HATCH_FLOOR_COMP, WRIST_HATCH_FLOOR_PRACTICE};
 
     public static final int WRIST_CURR_POSITION = 1;
@@ -193,8 +193,8 @@ public class Variables {
     public static final int WRIST_MIN_POS = -1170000;
 
     // Wrist speed limits
-    public static final double WRIST_MAX_SPEED_UP = 1.0;
-    public static final double WRIST_MAX_SPEED_DOWN = -1.0;
+    public static final double WRIST_MAX_SPEED_UP = 0.8;
+    public static final double WRIST_MAX_SPEED_DOWN = -0.8;
 
     // CLIMB
     public static final double CLIMB_LEFT_LEVEL_THREE_COMP = 82.05069732666016;
@@ -244,8 +244,8 @@ public class Variables {
      * Put variables here that should be changeable on the fly.
      */
     private Variables() {
-        SmartDashboard.putNumber("kP_VLIFT", kP_ELEVATOR);
-        SmartDashboard.putNumber("kI_VLIFT_UP", kI_ELEVATOR_UP);
+        SmartDashboard.putNumber("kP_VLIFT_DOWN", kP_ELEVATOR_DOWN);
+        SmartDashboard.putNumber("kP_VLIFT_UP", kP_ELEVATOR_UP);
         SmartDashboard.putNumber("kI_VLIFT", kI_ELEVATOR);
         SmartDashboard.putNumber("kD_VLIFT", kD_ELEVATOR);
 
@@ -307,7 +307,7 @@ public class Variables {
         SmartDashboard.putBoolean("Run Diagnostics?", true);
         SmartDashboard.putBoolean("Close Diagnostics?", true);
 
-        SmartDashboard.putBoolean("Practice Bot?", false);
+        SmartDashboard.putBoolean("Practice Bot?", true);
 
         SmartDashboard.putBoolean("Relay?", false);
     }
@@ -321,12 +321,12 @@ public class Variables {
 
     // ELEVATOR
 
-    public double getElevatorKP() {
-        return SmartDashboard.getNumber("kP_VLIFT", kP_ELEVATOR); // these are gonna have to be small af
+    public double getElevatorDownKP() {
+        return SmartDashboard.getNumber("kP_VLIFT_DOWN", kP_ELEVATOR_DOWN); // these are gonna have to be small af
     }
 
-    public double getElevatorKIUp() {
-        return SmartDashboard.getNumber("kI_VLIFT_UP", kI_ELEVATOR_UP);
+    public double getElevatorUpKP() {
+        return SmartDashboard.getNumber("kP_VLIFT_UP", kP_ELEVATOR_UP);
     }
 
     public double getElevatorKI() {

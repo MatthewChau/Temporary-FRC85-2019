@@ -127,9 +127,12 @@ public class Robot extends TimedRobot {
 
         if (Elevator.getInstance().getAdjustingBool() || OI.getInstance().getElevatorJoystickButton()) {
             Elevator.getInstance().setServo(Variables.getInstance().getElevatorUnlocked());
+            Elevator.getInstance().resetTimer2();
         } else {
             Elevator.getInstance().setServo(Variables.getInstance().getElevatorLocked());
             Elevator.getInstance().resetTimer();
+            if (Elevator.getInstance().getTimer2() < 2.0)
+                Elevator.getInstance().verticalShift(0);
         }
 
         if (SmartDashboard.getBoolean("Run Diagnostics?", false)) {
