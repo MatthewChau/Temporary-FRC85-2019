@@ -31,7 +31,7 @@ public class Elevator extends Subsystem {
 
     private Servo _liftServo;
 
-    private Timer _timer;
+    private Timer _timer, _timer2;
 
     private double targetPos, _servoAngle;
 
@@ -45,6 +45,7 @@ public class Elevator extends Subsystem {
         _liftRightMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
 
         _timer = new Timer();
+        _timer2 = new Timer();
 
         _liftServo = new Servo(Addresses.LIFT_SERVO);
     }
@@ -67,20 +68,20 @@ public class Elevator extends Subsystem {
             speed = OI.getInstance().applyPID(OI.ELEVATOR_SYSTEM, 
                                               getElevatorPosition(), 
                                               targetPos, 
-                                              Variables.getInstance().getElevatorKP(), 
+                                              0, 
                                               Variables.getInstance().getElevatorKI(),
                                               Variables.getInstance().getElevatorKD(), 
-                                              0.85, 
-                                              -0.45);
+                                              0.7, 
+                                              -0.35);
         } else if (speed > 0) {
-            speed *= 0.85;
+            speed *= 0.7;
             targetPos = getElevatorPosition();
         } else if (speed < 0) {
-            speed *= 0.45;
+            speed *= 0.35;
             targetPos = getElevatorPosition();
         }
 
-        if (getElevatorPosition() < 1000) {
+        if (getElevatorPosition() < 1000 && speed < 0) {
             speed *= 0.5;
         }
 
@@ -93,11 +94,13 @@ public class Elevator extends Subsystem {
 
         if ((Sensors.getInstance().getLiftTopLimit() && speed > 0.0)
              || (Sensors.getInstance().getLiftBottomLimit() && speed < 0.0)
-             || (_timer.get() < Variables.ELEVATOR_TIMER)) {
+             || (_timer.get() < Variables.ELEVATOR_TIMER && _servoAngle == Variables.getInstance().getElevatorUnlocked())) {
             speed = 0.0;
         }
 
-        if (getServo() == Variables.getInstance().getElevatorLocked()) {
+        if (getServo() == Variables.getInstance().getElevatorLocked()
+            //&& _timer2.get() > Variables.ELEVATOR_TIMER
+            ) {
             speed = 0.0;
         }
 
@@ -227,6 +230,22 @@ public class Elevator extends Subsystem {
 
     public void stopTimer() {
         _timer.stop();
+    }
+
+    public void startTimer2() {
+        _timer2.start();
+    }
+
+    public void resetTimer2() {
+        _timer2.reset();
+    }
+
+    public void stopTimer2() {
+        _timer2.stop();
+    }    
+
+    public double getTimer2() {
+        return _timer2.get();
     }
 
     public TalonSRX getIMUTalon() {

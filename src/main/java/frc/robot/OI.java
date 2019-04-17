@@ -106,18 +106,18 @@ public class OI {
 
         // blue
         _operatorBlueOne = new JoystickButton(_operatorControllerBlue, Addresses.OPERATOR_BLUE_ONE);
-        _operatorBlueOne.whenPressed(new Place(Variables.HATCH_THREE[Variables.getInstance().isPracticeBot()], Variables.WRIST_0, Variables.MAST_FORWARD_FOR_HATCH));
+        _operatorBlueOne.whenPressed(new Place(Variables.HATCH_THREE[Variables.getInstance().isPracticeBot()], 0, Variables.MAST_FORWARD_FOR_HATCH));
         _operatorBlueTwo = new JoystickButton(_operatorControllerBlue, Addresses.OPERATOR_BLUE_TWO);
         _operatorBlueTwo.whenPressed(new Place(Variables.HATCH_STATION[Variables.getInstance().isPracticeBot()], Variables.WRIST_HATCH_STATION[Variables.getInstance().isPracticeBot()], Variables.MAST_MIN_POS));
         _operatorBlueTwo.whenReleased(new Place(Variables.HATCH_STATION[Variables.getInstance().isPracticeBot()], Variables.WRIST_MAX_POS, Variables.MAST_MIN_POS));
         _operatorBlueThree = new JoystickButton(_operatorControllerBlue, Addresses.OPERATOR_BLUE_THREE);
         _operatorBlueThree.whenPressed(new Place(Variables.ELEVATOR_CURRENT_POS, Variables.WRIST_30, Variables.MAST_CURRENT_POS));
         _operatorBlueFour = new JoystickButton(_operatorControllerBlue, Addresses.OPERATOR_BLUE_FOUR);
-        _operatorBlueFour.whenPressed(new Place(Variables.HATCH_TWO[Variables.getInstance().isPracticeBot()], Variables.WRIST_0, Variables.MAST_FORWARD_FOR_HATCH));
+        _operatorBlueFour.whenPressed(new Place(Variables.HATCH_TWO[Variables.getInstance().isPracticeBot()], 0, Variables.MAST_FORWARD_FOR_HATCH));
         _operatorBlueFive = new JoystickButton(_operatorControllerBlue, Addresses.OPERATOR_BLUE_FIVE);
-        _operatorBlueFive.whenPressed(new Place(Variables.HATCH_ONE[Variables.getInstance().isPracticeBot()], Variables.WRIST_0, Variables.MAST_FORWARD_FOR_HATCH));
+        _operatorBlueFive.whenPressed(new Place(Variables.HATCH_ONE[Variables.getInstance().isPracticeBot()], 0, Variables.MAST_FORWARD_FOR_HATCH));
         _operatorBlueSix = new JoystickButton(_operatorControllerBlue, Addresses.OPERATOR_BLUE_SIX);
-        _operatorBlueSix.whenPressed(new Place(Variables.HATCH_ONE[Variables.getInstance().isPracticeBot()], Variables.WRIST_0, Variables.MAST_CARGO_SHIP));
+        _operatorBlueSix.whenPressed(new Place(Variables.HATCH_ONE[Variables.getInstance().isPracticeBot()], 0, Variables.MAST_CARGO_SHIP));
         _operatorBlueSeven = new JoystickButton(_operatorControllerBlue, Addresses.OPERATOR_BLUE_SEVEN);
         _operatorBlueSeven.whenPressed(new HatchGroundOne());
         _operatorBlueSeven.whenReleased(new HatchGroundTwo());
@@ -604,7 +604,7 @@ public class OI {
                 }
                 return true;
             case ELEVATOR_SYSTEM:
-                if (Math.abs(error) < 150) {
+                if (Math.abs(error) < 100) {
                     Elevator.getInstance().changeAdjustingBool(false);
                     return false;
                 }
@@ -674,6 +674,13 @@ public class OI {
         double termP, termI, termD;
         double error = target - current;
 
+        if (system == ELEVATOR_SYSTEM) {
+            if (error > 0) 
+                kP = Variables.getInstance().getElevatorUpKP();
+            else 
+                kP = Variables.getInstance().getElevatorDownKP();
+        }
+
         // the proportional stuff just kinda exists, the initial correction
         termP = kP * error;
 
@@ -688,12 +695,6 @@ public class OI {
             return 0.0;
         }
 
-        if (system == ELEVATOR_SYSTEM
-            && ((errorSum[system] > 0 && error < 0)
-                || (errorSum[system] < 0 && error > 0))) {
-            errorSum[system] = 0; // reset the errorsum if it overshoots
-        }
-
         // slow down correction if it's doing the right thing (in an effort to prevent major overshooting)
         // formula: -kD * change in read, "change in read" being the instant derivative at that point in time
         termD = -kD * (current - lastActual[system]);
@@ -705,6 +706,10 @@ public class OI {
         termI = kI * errorSum[system];
 
         if (system == ELEVATOR_SYSTEM) {
+            if (OI.getInstance().getElevatorJoystickButton()) {
+                termI = 0;
+                termD = 0;
+            }
             SmartDashboard.putNumber("I term for Elevator", termI);
         }
 
