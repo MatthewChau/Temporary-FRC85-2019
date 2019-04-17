@@ -32,7 +32,7 @@ public class Variables {
 
     private static final double kP_DRIVE = 0.01, kI_DRIVE = 0.0, kD_DRIVE = 0.0;
 
-    private static final double kP_VISION = 0.05, kI_VISION = 0.0, kD_VISION = 0.0;
+    private static final double kP_VISION = 0.01, kI_VISION = 0.0, kD_VISION = 0.001;
 
     private static final double kP_VISION_ROT = 0.05, kI_VISION_ROT = 0.0, kD_VISION_ROT = 0.0;
 
