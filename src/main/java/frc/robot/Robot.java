@@ -117,26 +117,37 @@ public class Robot extends TimedRobot {
         
         Sensors.getInstance().checkSensorsForEncoderReset();
 
-        if (ClimbRear.getInstance().getAdjustingBool() || ClimbRear.getInstance().getBothAdjustingBool() || OI.getInstance().getClimbRearJoystickButton()) {
-            ClimbRear.getInstance().setServo(SmartDashboard.getNumber("CLIMB_UNLOCKED", 0));
+        if ((ClimbRear.getInstance().getAdjustingBool() || ClimbRear.getInstance().getBothAdjustingBool() || OI.getInstance().getClimbRearJoystickButton())
+            && (DriverStation.getInstance().getMatchTime() > 0.5 || DriverStation.getInstance().getMatchTime() < 0)) {
+            ClimbRear.getInstance().setServo(Variables.getInstance().getClimbUnlocked());
         } else {
-            ClimbRear.getInstance().setServo(SmartDashboard.getNumber("CLIMB_LOCKED", 0));
+            ClimbRear.getInstance().setServo(Variables.getInstance().getClimbLocked());
+            ClimbRear.getInstance().resetTimer();
         }
 
         if (Elevator.getInstance().getAdjustingBool() || OI.getInstance().getElevatorJoystickButton()) {
-            Elevator.getInstance().setServo(SmartDashboard.getNumber("ELEVATOR_UNLOCKED", 0.0));
+            Elevator.getInstance().setServo(Variables.getInstance().getElevatorUnlocked());
+            Elevator.getInstance().resetTimer2();
         } else {
-            Elevator.getInstance().setServo(SmartDashboard.getNumber("ELEVATOR_LOCKED", 0.0));
+            Elevator.getInstance().setServo(Variables.getInstance().getElevatorLocked());
             Elevator.getInstance().resetTimer();
+            if (Elevator.getInstance().getTimer2() < 2.0)
+                Elevator.getInstance().verticalShift(0);
         }
 
         if (SmartDashboard.getBoolean("Run Diagnostics?", false)) {
             _diagnostics.log();
         }
 
-        if (DriverStation.getInstance().getMatchTime() > 134.5) {
+        if (DriverStation.getInstance().getMatchTime() < 0.3) {
             _diagnostics.close();
         }
+
+        /*if (SmartDashboard.getBoolean("Relay?", false)) {
+            Spike.getInstance().setRelay(true);
+        } else {
+            Spike.getInstance().setRelay(false);
+        }*/
     }
 
     @Override
@@ -158,6 +169,7 @@ public class Robot extends TimedRobot {
         Intake.getInstance().setTargetPos(Intake.getInstance().getWristPosition());
         Sensors.getInstance().stopTimers();
         IMU.getInstance().setInitialYPR();
+        IMU.getInstance().setFusedHeading(0);
 
         Scheduler.getInstance().removeAll();
 

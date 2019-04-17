@@ -28,6 +28,7 @@ public class WristPosition extends Command {
             _run = false;
         } else {
             _target = _initial;
+            _run = true;
         }
     }
 

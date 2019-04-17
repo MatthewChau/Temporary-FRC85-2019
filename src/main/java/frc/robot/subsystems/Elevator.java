@@ -31,7 +31,7 @@ public class Elevator extends Subsystem {
 
     private Servo _liftServo;
 
-    private Timer _timer;
+    private Timer _timer, _timer2;
 
     private double targetPos, _servoAngle;
 
@@ -45,6 +45,7 @@ public class Elevator extends Subsystem {
         _liftRightMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
 
         _timer = new Timer();
+        _timer2 = new Timer();
 
         _liftServo = new Servo(Addresses.LIFT_SERVO);
     }
@@ -67,8 +68,8 @@ public class Elevator extends Subsystem {
             speed = OI.getInstance().applyPID(OI.ELEVATOR_SYSTEM, 
                                               getElevatorPosition(), 
                                               targetPos, 
-                                              Variables.getInstance().getElevatorKP(), 
-                                              Variables.getInstance().getElevatorKI(), 
+                                              0, 
+                                              Variables.getInstance().getElevatorKI(),
                                               Variables.getInstance().getElevatorKD(), 
                                               0.7, 
                                               -0.35);
@@ -80,20 +81,26 @@ public class Elevator extends Subsystem {
             targetPos = getElevatorPosition();
         }
 
-        if ((adjusting && speed > 0 && speed < 0.3) // there is a better fix for this, will work on that later
-            || (adjusting && speed > -0.1 && speed < 0)) {
-            adjusting = false;
+        if (getElevatorPosition() < 1000 && speed < 0) {
+            speed *= 0.5;
         }
+
+        //if ((adjusting && speed > 0 && speed < 0.22) // there is a better fix for this probably based on acceleration, will work on that later
+        //    || (adjusting && speed > -0.1 && speed < 0)) {
+        //    adjusting = false;
+        //}
 
         SmartDashboard.putBoolean("Lift Soft Limits Activated", softLimits(speed));
 
         if ((Sensors.getInstance().getLiftTopLimit() && speed > 0.0)
              || (Sensors.getInstance().getLiftBottomLimit() && speed < 0.0)
-             || (_timer.get() < Variables.ELEVATOR_TIMER)) {
+             || (_timer.get() < Variables.ELEVATOR_TIMER && _servoAngle == Variables.getInstance().getElevatorUnlocked())) {
             speed = 0.0;
         }
 
-        if (getServo() == Variables.getInstance().getElevatorLocked()) {
+        if (getServo() == Variables.getInstance().getElevatorLocked()
+            && _timer2.get() > Variables.ELEVATOR_TIMER
+            ) {
             speed = 0.0;
         }
 
@@ -109,7 +116,7 @@ public class Elevator extends Subsystem {
         // lift needs a top limit, a bottom limit,
         // if the wrist is down and the mast is back
         // if the wrist is down and the mast is forward
-        if (verticalPosition > Variables.ELEVATOR_MAX_POS // top limit
+        if (verticalPosition > Variables.ELEVATOR_MAX_POS[Variables.getInstance().isPracticeBot()] // top limit
             && speed > 0) {
             return true;
             } /*else if (mastPosition < Variables.MAST_BREAKPOINT // mast is back & wrist is down
@@ -223,6 +230,22 @@ public class Elevator extends Subsystem {
 
     public void stopTimer() {
         _timer.stop();
+    }
+
+    public void startTimer2() {
+        _timer2.start();
+    }
+
+    public void resetTimer2() {
+        _timer2.reset();
+    }
+
+    public void stopTimer2() {
+        _timer2.stop();
+    }    
+
+    public double getTimer2() {
+        return _timer2.get();
     }
 
     public TalonSRX getIMUTalon() {

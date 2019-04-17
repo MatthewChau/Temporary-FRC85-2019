@@ -1,7 +1,8 @@
 package frc.robot.sensors;
 
 import frc.robot.Addresses;
-
+import frc.robot.Variables;
+import frc.robot.subsystems.Mast;
 import edu.wpi.first.wpilibj.I2C;
 
 public class RangeFinder {
@@ -67,6 +68,14 @@ public class RangeFinder {
 
 	public double getDistance() {
 		return  range * feetPerCentimeter;
+	}
+
+    public boolean canPlaceHatch() {
+        return (Math.abs(Variables.getInstance().getRangeFinderBasedOnMast(Mast.getInstance().getMastPosition()) - getDistance()) < 0.2);
+	}
+	
+	public boolean canPlaceCargo() {
+        return (Math.abs(Variables.getInstance().getRangeFinderBasedOnMast(Mast.getInstance().getMastPosition()) - getDistance()) < 2.0);
 	}
 
 }

@@ -9,10 +9,14 @@ package frc.robot.commands.climb;
 
 import frc.robot.OI;
 import frc.robot.subsystems.ClimbFront;
+import frc.robot.sensors.IMU;
 
 import edu.wpi.first.wpilibj.command.Command;
 
 public class ClimbFrontWithJoystick extends Command {
+
+    private double _speed;
+    private double _multiplier;
 
     public ClimbFrontWithJoystick() {
         requires(ClimbFront.getInstance());
@@ -21,12 +25,20 @@ public class ClimbFrontWithJoystick extends Command {
     // Called just before this Command runs the first time
     @Override
     protected void initialize() {
+        IMU.getInstance().setInitialYPR();
     }
 
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
-        ClimbFront.getInstance().moveClimbFront(OI.getInstance().getOperatorJoystickY() / 2);
+        _speed = OI.getInstance().getOperatorJoystickY();
+
+        if (_speed > 0) {
+            _multiplier = 0.9;
+        } else {
+            _multiplier = 0.9; // because ryan is a well-to-do individual.
+        }
+        ClimbFront.getInstance().moveClimbFront(_speed * _multiplier);
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -47,3 +59,46 @@ public class ClimbFrontWithJoystick extends Command {
     }
 
 }
+
+/*
+
+josiah, the slowboy:
+                    .--,
+     .-.    __,,,__/    |
+    /   \-'`        `-./_
+    |    |               `)
+     \   `             `\ ;
+    /       ,        ,    |
+    |      /         : O /_
+    |          O  .--;__   '.
+    |                (  )`.  |
+    \                 `-` /  |
+     \          ,_  _.-./`  /        apparently this is supposed to be bored
+      \          \``-.(    /
+      |           `---'   /--.
+    ,--\___..__        _.'   /--.
+    \          `-._  _`/    '    '.
+    .' ` ' .       ``    '        .
+
+RYAN, who likes his things fast:
+
+            _____----''''       
+   ----''''             |
+  |                      |
+  |                      |
+  .                      .
+   |                      |
+   |                  ____|--                     
+   |      ____----''''    ;
+  --'''''      _     ,-'  |
+    |       .'   '.  : O /_
+    |       '. _ .'-;__    '.
+    |                (  )`.  |
+    \                 `-` /  |
+     \         -,_  _.-./`  /        help i can't make a smirk
+      \          '         /
+      |                   /--.
+    ,--\___..__        _.'   /--.
+    \          `-._  _`/    '    '.
+    .' ` ' .       ``    '        .
+*/

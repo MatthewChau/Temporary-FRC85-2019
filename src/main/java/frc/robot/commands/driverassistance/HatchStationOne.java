@@ -9,7 +9,7 @@ public class HatchStationOne extends CommandGroup {
     public HatchStationOne() {
         addSequential(new Interrupt());
 
-        addSequential(new Place(Variables.HATCH_ONE, Variables.WRIST_30, Variables.MAST_FORWARD_FOR_HATCH));
+        addSequential(new Place(Variables.HATCH_ONE[Variables.getInstance().isPracticeBot()], Variables.WRIST_30, Variables.MAST_FORWARD_FOR_HATCH));
     }
 
 }

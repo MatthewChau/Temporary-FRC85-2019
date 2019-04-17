@@ -50,8 +50,8 @@ public class ClimbFront extends Subsystem {
                                                       Variables.getInstance().getClimbkP(), 
                                                       Variables.getInstance().getClimbkI(), 
                                                       Variables.getInstance().getClimbkD(),
-                                                      Variables.getInstance().getClimbMaxSpeedUp() / 2,
-                                                      Variables.getInstance().getClimbMaxSpeedDown() / 2);
+                                                      Variables.getInstance().getClimbMaxSpeedUp(),
+                                                      Variables.getInstance().getClimbMaxSpeedDown());
         double modifyPitch = OI.getInstance().applyPID(OI.CLIMB_PITCH_SYSTEM, 
                                                        IMU.getInstance().getPitch(), 
                                                        0.0, 
@@ -76,7 +76,7 @@ public class ClimbFront extends Subsystem {
                                               Variables.getInstance().getClimbMaxSpeedDown());
         } else if (adjusting) {
             speed = OI.getInstance().applyPID(OI.CLIMB_POS_SYSTEM,
-                                              getClimbLeftPosition(),
+                                              getClimbRightPosition(),
                                               targetPosition,
                                               Variables.getInstance().getClimbPoskP(),
                                               Variables.getInstance().getClimbPoskI(),
@@ -85,24 +85,24 @@ public class ClimbFront extends Subsystem {
                                               Variables.getInstance().getClimbMaxSpeedDown());
         }
 
-        if ((OI.getInstance().getOperatorClimbFront() && OI.getInstance().getOperatorClimbRear()) || ClimbRear.getInstance().getBothAdjustingBool()) {
+        if ((OI.getInstance().getClimbFrontJoystickButton() && OI.getInstance().getClimbRearJoystickButton()) || ClimbRear.getInstance().getBothAdjustingBool()) {
             speed -= modifyPitch;
         }
 
-        if (modifyRoll > 0) {
-            speedLeft = speed;
-            speedRight = speed - modifyRoll;
-        } else {
+        //if (modifyRoll > 0) {
+        //    speedLeft = speed;
+        //    speedRight = speed - modifyRoll;
+        //} else {
             speedLeft = speed + modifyRoll;
             speedRight = speed;
-        }
+        //}
 
-        if ((getClimbLeftPosition() > Variables.CLIMB_LEFT_SLOW_DOWN_MAX && speedLeft > 0)
+        if ((getClimbLeftPosition() > Variables.CLIMB_LEFT_SLOW_DOWN_MAX[Variables.getInstance().isPracticeBot()] && speedLeft > 0)
             || (getClimbLeftPosition() < Variables.CLIMB_LEFT_SLOW_DOWN_MIN && speedLeft < 0)) {
             speedLeft *= 0.1;
         }
 
-        if ((getClimbRightPosition() > Variables.CLIMB_RIGHT_SLOW_DOWN_MAX && speedRight > 0)
+        if ((getClimbRightPosition() > Variables.CLIMB_RIGHT_SLOW_DOWN_MAX[Variables.getInstance().isPracticeBot()] && speedRight > 0)
             || (getClimbRightPosition() < Variables.CLIMB_RIGHT_SLOW_DOWN_MIN && speedRight < 0)) {
             speedRight *= 0.1;
         }
@@ -125,9 +125,9 @@ public class ClimbFront extends Subsystem {
         if (getClimbLeftPosition() > Variables.CLIMB_LEFT_MAX && speed > 0) {
             return true;
         }
-        if (getClimbLeftPosition() < 0 && speed < 0) {
+        /*if (getClimbLeftPosition() < 0 && speed < 0) {
             return true;
-        }
+        }*/
         return false;
     }
 
@@ -153,12 +153,12 @@ public class ClimbFront extends Subsystem {
         double speedLeft = speed;
         double speedRight = speed;
 
-        if ((getClimbLeftPosition() > Variables.CLIMB_LEFT_SLOW_DOWN_MAX && speedLeft > 0)
+        if ((getClimbLeftPosition() > Variables.CLIMB_LEFT_SLOW_DOWN_MAX[Variables.getInstance().isPracticeBot()] && speedLeft > 0)
             || (getClimbLeftPosition() < Variables.CLIMB_LEFT_SLOW_DOWN_MIN && speedLeft < 0)) {
             speedLeft *= 0.1;
         }
 
-        if ((getClimbRightPosition() > Variables.CLIMB_RIGHT_SLOW_DOWN_MAX && speedRight > 0)
+        if ((getClimbRightPosition() > Variables.CLIMB_RIGHT_SLOW_DOWN_MAX[Variables.getInstance().isPracticeBot()] && speedRight > 0)
             || (getClimbRightPosition() < Variables.CLIMB_RIGHT_SLOW_DOWN_MIN && speedRight < 0)) {
             speedRight *= 0.1;
         }

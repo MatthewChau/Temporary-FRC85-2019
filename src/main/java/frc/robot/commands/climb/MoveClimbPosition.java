@@ -7,6 +7,7 @@
 
 package frc.robot.commands.climb;
 
+import frc.robot.sensors.IMU;
 import frc.robot.subsystems.ClimbFront;
 import frc.robot.subsystems.ClimbRear;
 import frc.robot.OI;
@@ -28,6 +29,7 @@ public class MoveClimbPosition extends Command {
     protected void initialize() {
         _target = _initial;
         ClimbRear.getInstance().setServo(Variables.getInstance().getClimbUnlocked());
+        IMU.getInstance().setInitialYPR();
     }
 
     @Override
@@ -40,7 +42,9 @@ public class MoveClimbPosition extends Command {
 
     @Override
     protected boolean isFinished() {
-        return (!ClimbRear.getInstance().getBothAdjustingBool() || !OI.getInstance().getOperatorClimbAuto());
+        return (!ClimbRear.getInstance().getBothAdjustingBool() 
+            //|| (!OI.getInstance().getOperatorClimbTwo() && !OI.getInstance().getOperatorClimbThree() 
+            /*    && !OI.getInstance().getOperatorClimbTwoAuto() && !OI.getInstance().getOperatorClimbThreeAuto())*/);
     }
 
     @Override

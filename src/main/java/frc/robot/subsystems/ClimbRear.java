@@ -7,6 +7,7 @@ import frc.robot.sensors.Sensors;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.Servo;
+import edu.wpi.first.wpilibj.Timer;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel;
@@ -20,6 +21,8 @@ public class ClimbRear extends Subsystem {
 
     private Servo _climbServo;
 
+    private Timer _timer;
+
     private double _servoAngle;
 
     private double targetPosition;
@@ -32,6 +35,8 @@ public class ClimbRear extends Subsystem {
         //_climbRearMotor.setSmartCurrentLimit(0, 5700, 3000);
 
         _climbServo = new Servo(Addresses.CLIMB_SERVO);
+
+        _timer = new Timer();
     }
 
     public static ClimbRear getInstance() {
@@ -82,7 +87,8 @@ public class ClimbRear extends Subsystem {
 
         if (getServo() == Variables.getInstance().getClimbLocked()
             || Sensors.getInstance().getClimbRearLimit() && speed < 0
-            || softLimits(speed)) {
+            || softLimits(speed)
+            || _timer.get() < 0.5) {
             speed = 0;
         }
         
@@ -93,9 +99,9 @@ public class ClimbRear extends Subsystem {
         if (getClimbRearPosition() > Variables.CLIMB_REAR_MAX && speed > 0) {
             return true;
         }
-        if (getClimbRearPosition() < 0 && speed < 0) {
+        /*if (getClimbRearPosition() < 0 && speed < 0) {
             return true;
-        }
+        }*/
         return false;
     }
 
@@ -141,11 +147,23 @@ public class ClimbRear extends Subsystem {
     }
 
     public boolean getClimbInProgress() {
-        if (getClimbRearPosition() < Variables.CLIMB_REAR_SLOW_DOWN_MIN) {
+        //if (getClimbRearPosition() < Variables.CLIMB_REAR_SLOW_DOWN_MIN) {
             return false;
-        } else {
-            return true;
-        }
+        //} else {
+        //    return true;
+        //}
+    }
+
+    public void startTimer() {
+        _timer.start();
+    }
+
+    public void resetTimer() {
+        _timer.reset();
+    }
+
+    public void stopTimer() {
+        _timer.stop();
     }
 
 }

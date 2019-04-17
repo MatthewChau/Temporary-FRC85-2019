@@ -78,32 +78,63 @@ public class DriveTrain extends Subsystem {
     public void cartDrive(double[] inputs) {
         int i;
 
-        if (OI.getInstance().getLeftJoystickFaceLeft()) {
-            setTurn90TargetAngle(true, inputs[3]); // turn left
-        } else if (OI.getInstance().getLeftJoystickFaceRight()) {
-            setTurn90TargetAngle(false, inputs[3]); // turn right
-        } else if (OI.getInstance().getLeftJoystickFaceBottom()) {
-            setTurn180TargetAngle(inputs[3]);
-        } else if (Math.abs(inputs[0]) > Variables.DEADBAND_DRIVERSTICK
+        if (OI.getInstance().getLeftJoystickFaceLeft()) { // turn left
+            setTargetAngle(90);
+            fixTargetAngle(inputs[3]);
+        } else if (OI.getInstance().getLeftJoystickFaceRight()) { // turn right
+            setTargetAngle(-90);
+            fixTargetAngle(inputs[3]);
+        } else if (OI.getInstance().getLeftJoystickFaceBottom()) { // 180
+            setTargetAngle(180);
+            fixTargetAngle(inputs[3]);
+        } else if (OI.getInstance().getLeftJoystickFaceCenter()) { // 0
+            setTargetAngle(0);
+            fixTargetAngle(inputs[3]);
+        } else if (OI.getInstance().getRightStickNine()) { // back left rocket alignment
+            setTargetAngle(150);
+            fixTargetAngle(inputs[3]);
+        } else if (OI.getInstance().getRightStickTen()) { // back right rocket alignment
+            setTargetAngle(-150);
+            fixTargetAngle(inputs[3]);
+        } else if (OI.getInstance().getRightStickEleven()) { // front left rocket alignment
+            setTargetAngle(30);
+            fixTargetAngle(inputs[3]);
+        } else if (OI.getInstance().getRightStickTwelve()) { // front right rocket alignment
+            setTargetAngle(-30);
+            fixTargetAngle(inputs[3]);
+        }
+        
+        if (Math.abs(inputs[0]) > Variables.DEADBAND_DRIVERSTICK
             || Math.abs(inputs[1]) > Variables.DEADBAND_DRIVERSTICK
             || Math.abs(inputs[2]) > Variables.DEADBAND_Z_DRIVERSTICK
             || turnInProgress) {
-            for (i = 0; i < 2; i++) { // normalize axis inputs (just in case)
+            for (i = 0; i <= 2; i++) { // normalize axis inputs (just in case)
                 if (inputs[i] > 1.0) {
                     inputs[i] = 1.0;
                 } else if (inputs[i] < -1.0) {
                     inputs[i] = -1.0; 
+                } else if (i < 2 && Math.abs(inputs[i]) < Variables.DEADBAND_DRIVERSTICK) {
+                    inputs[i] = 0;
+                } else {
+                    if (Math.abs(inputs[2]) < Variables.DEADBAND_Z_DRIVERSTICK) {
+                        inputs[2] = 0;
+                    }
                 }
             }
 
-            /*if (Math.abs(inputs[2]) > Variables.getInstance().DEADBAND_Z_DRIVERSTICK) { // scale z input
-                inputs[2] -= Variables.getInstance().DEADBAND_Z_DRIVERSTICK;
-                inputs[2] /= Variables.getInstance().DEADBAND_Z_DRIVERSTICK;
-            }*/
+            if (Math.abs(inputs[2]) > Variables.DEADBAND_Z_DRIVERSTICK) { // scale z input
+                if (inputs[2] > 0) {
+                    inputs[2] -= Variables.DEADBAND_Z_DRIVERSTICK;
+                    inputs[2] /= Variables.DEADBAND_Z_DRIVERSTICK;
+                } else {
+                    inputs[2] += Variables.DEADBAND_Z_DRIVERSTICK;
+                    inputs[2] /= Variables.DEADBAND_Z_DRIVERSTICK;
+                }
+            }
             
-            /*for (i = 0; i < 2; i++) { // scale everything using a polynomial
+            for (i = 0; i < 2; i++) { // scale everything but z input using a polynomial
                 inputs[i] = ((Variables.A_POLYNOMIAL * Math.pow(inputs[i], 3)) + (Variables.B_POLYNOMIAL * Math.pow(inputs[i], 2)) + (Variables.C_POLYNOMIAL * inputs[i]) + (Variables.D_POLYNOMIAL));
-            }*/
+            }
 
             if (OI.getInstance().getRightStickTrigger()) {
                 inputs[0] = 0.0;
@@ -113,12 +144,16 @@ public class DriveTrain extends Subsystem {
             if (OI.getInstance().getLeftStickTrigger()) { // trigger for lowering speed
                 inputs[0] *= 0.6;
                 inputs[1] *= 0.33;
-                inputs[2] *= 0.45;
+                inputs[2] *= 0.38;
             }
 
             Vector2d vector = new Vector2d(-inputs[1], inputs[0]);
             if (OI.getInstance().isHeadless() || OI.getInstance().isForwardOnlyMode()) { // if headless/forward only, account for it
                 vector.rotate(inputs[3]);
+            }
+
+            if (Math.abs(inputs[2]) > (Variables.DEADBAND_Z_DRIVERSTICK * 0.45)) {
+                turnInProgress = false;
             }
             
             if (turnInProgress) { // note that this block exists for the sole purpose of overriding things when they are in progress
@@ -133,6 +168,8 @@ public class DriveTrain extends Subsystem {
                     inputs[2] = OI.getInstance().applyPID(OI.ROT_SYSTEM, inputs[3], targetAngle, Variables.getInstance().getDriveKP(), Variables.getInstance().getDriveKI(), Variables.getInstance().getDriveKD(), kMaxOuputRot, kMinOuputRot);
                 }
             }
+
+            inputs[2] *= (.90); // josiah has semi-CHADified (limit his turning speed further)
 
             wheelSpeeds[0] = (vector.x + vector.y - inputs[2]);
             wheelSpeeds[1] = (vector.x - vector.y + inputs[2]);
@@ -154,7 +191,8 @@ public class DriveTrain extends Subsystem {
     }
 
     private void setTargetAngleMoving(double gyroAngle) { // if necessary, change the target angle
-        if (Math.abs(Math.abs(gyroAngle) - Math.abs(targetAngle)) > Variables.TOLERANCE_ANGLE) {
+        if (Math.abs(Math.abs(gyroAngle) - Math.abs(targetAngle)) > Variables.TOLERANCE_ANGLE
+            && !turnInProgress) { // fuck me this is the dumbest fix i have ever had to elaborate on god fuck
             targetAngle = gyroAngle;
         }
     }

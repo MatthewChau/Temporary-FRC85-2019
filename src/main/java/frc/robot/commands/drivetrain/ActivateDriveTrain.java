@@ -9,24 +9,29 @@ package frc.robot.commands.drivetrain;
 
 import frc.robot.sensors.IMU;
 import frc.robot.subsystems.DriveTrain;
+import frc.robot.Variables;
 
 import edu.wpi.first.wpilibj.command.Command;
 
 public class ActivateDriveTrain extends Command {
 
     private double _xSpeed, _ySpeed, _zRotation;
+    private boolean _state;
+
     public ActivateDriveTrain(double xSpeed) {
         requires(DriveTrain.getInstance());
         _xSpeed = xSpeed;
         _ySpeed = 0.0;
         _zRotation = 0.0;
+        _state = false;
     }
 
-    public ActivateDriveTrain(double xSpeed, double ySpeed) {
+    public ActivateDriveTrain(double xSpeed, double ySpeed, boolean state) {
         requires(DriveTrain.getInstance());           
         _xSpeed = xSpeed;
         _ySpeed = ySpeed;
         _zRotation = 0.0;
+        _state = state;
     }
 
     public ActivateDriveTrain(double xSpeed, double ySpeed, double zRotation) {
@@ -34,6 +39,7 @@ public class ActivateDriveTrain extends Command {
         _xSpeed = xSpeed;
         _ySpeed = ySpeed;
         _zRotation = zRotation;
+        _state = false;
     }
 
     @Override
@@ -47,7 +53,10 @@ public class ActivateDriveTrain extends Command {
 
     @Override
     protected boolean isFinished() {
-        return false;
+        if (_state)
+            return (Math.abs(Variables.getInstance().getDistanceFromWall()) < 0.25);
+        else 
+            return false;
     }
 
     @Override

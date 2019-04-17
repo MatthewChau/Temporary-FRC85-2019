@@ -8,33 +8,57 @@
 package frc.robot.commands.climb;
 
 import frc.robot.subsystems.ClimbRearDrive;
+import frc.robot.sensors.Sensors;
 
 import edu.wpi.first.wpilibj.command.Command;
 
 public class ActivateClimbRearDrive extends Command {
-
     private double _speed;
+    private int _state;
 
-    public ActivateClimbRearDrive(double speed) {
+    public ActivateClimbRearDrive(double speed, int state) {
         requires(ClimbRearDrive.getInstance());
         _speed = speed;
+        _state = state;
     }
 
     // Called just before this Command runs the first time
     @Override
     protected void initialize() {
+    }
+    
+    @Override
+    protected void execute() {
         ClimbRearDrive.getInstance().setClimbRearDriveMotor(_speed);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     @Override
     protected boolean isFinished() {
-        return true;
+        switch (_state) {
+            case 0:
+                return (Sensors.getInstance().getClimbFrontLeftPhotoeye() && Sensors.getInstance().getClimbFrontRightPhotoeye());
+            case 1:
+                return Sensors.getInstance().getClimbRearPhotoeye();
+            default:
+                return false;
+        }
     }
 
     @Override
     protected void interrupted() {
         ClimbRearDrive.getInstance().setClimbRearDriveMotor(0.0);
+    }
+
+    @Override
+    protected void end() {
+        switch (_state) {
+            case 0:
+            case 1:
+                ClimbRearDrive.getInstance().setClimbRearDriveMotor(0.0);
+            default:
+                break;
+        }
     }
 
 }

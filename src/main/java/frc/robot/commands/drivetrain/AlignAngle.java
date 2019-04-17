@@ -5,49 +5,48 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.climb;
+package frc.robot.commands.drivetrain;
 
-import frc.robot.subsystems.ClimbFront;
+import frc.robot.Variables;
 import frc.robot.sensors.IMU;
-
+import frc.robot.subsystems.DriveTrain;
 import edu.wpi.first.wpilibj.command.Command;
 
-public class MoveClimbFrontPosition extends Command {
+public class AlignAngle extends Command {
 
-    private double _initial, _target;
-
-    public MoveClimbFrontPosition(double target) {
-        requires(ClimbFront.getInstance());
-        _initial = target;
+    double _angle, _timeout;
+    
+    public AlignAngle(double angle, double timeout) {
+        requires(DriveTrain.getInstance());
+        _angle = angle;
+        _timeout = timeout;
     }
 
     @Override
     protected void initialize() {
-        _target = _initial;
-        IMU.getInstance().setInitialYPR();
+        setTimeout(_timeout);
+        DriveTrain.getInstance().setTurnInProgress(true);
     }
 
     @Override
     protected void execute() {
-        ClimbFront.getInstance().setAdjustingBool(true);
-        ClimbFront.getInstance().setTargetPosition(_target);
-        ClimbFront.getInstance().moveClimbFront(0.0);
+        DriveTrain.getInstance().cartDrive(0, 0, 0, IMU.getInstance().getFusedHeading());
     }
 
     @Override
     protected boolean isFinished() {
-        return !ClimbFront.getInstance().getAdjustingBool();
+        return (isTimedOut() || !DriveTrain.getInstance().getTurnInProgress());
     }
 
     @Override
     protected void end() {
-        ClimbFront.getInstance().setClimbFrontMotors(0.0);
-        ClimbFront.getInstance().setAdjustingBool(false);
+        DriveTrain.getInstance().setTurnInProgress(false);
+        DriveTrain.getInstance().cartDrive(0, 0, 0, 0);
     }
 
     @Override
     protected void interrupted() {
         end();
     }
-
+    
 }

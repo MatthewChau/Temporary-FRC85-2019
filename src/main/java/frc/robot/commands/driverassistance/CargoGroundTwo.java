@@ -13,10 +13,9 @@ public class CargoGroundTwo extends CommandGroup {
     public CargoGroundTwo() {
         addSequential(new Interrupt());
         
-        addSequential(new ActivateIntake(0.0));
-        addParallel(new WristPosition(Variables.WRIST_CARGO + 100000)); // move the wrist
+        addParallel(new WristPosition(Variables.WRIST_CARGO[Variables.getInstance().isPracticeBot()])); // move the wrist
         addParallel(new MastPosition(Variables.MAST_FORWARD_FOR_CARGO)); // move the mast out to the pos
-        addSequential(new ElevatorPosition(Variables.CARGO_ONE)); // move the elevator
+        addSequential(new ElevatorPosition(Variables.CARGO_ONE[Variables.getInstance().isPracticeBot()])); // move the elevator
     }
     
 }

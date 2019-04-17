@@ -10,7 +10,7 @@ public class CargoStationOne extends CommandGroup {
     public CargoStationOne() {
         addSequential(new Interrupt());
 
-        addSequential(new Place(Variables.CARGO_ONE, Variables.WRIST_0, Variables.MAST_CURRENT_POS));
+        addSequential(new Place(Variables.CARGO_STATION[Variables.getInstance().isPracticeBot()], Variables.WRIST_90 /*?*/, Variables.MAST_FORWARD_FOR_CARGO));
         addSequential(new ActivateIntake(Variables.ROLLER_IN));
     }
     
