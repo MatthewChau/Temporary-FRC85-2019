@@ -143,11 +143,11 @@ public class Robot extends TimedRobot {
             _diagnostics.close();
         }
 
-        if (SmartDashboard.getBoolean("Relay?", false)) {
+        /*if (SmartDashboard.getBoolean("Relay?", false)) {
             Spike.getInstance().setRelay(true);
         } else {
             Spike.getInstance().setRelay(false);
-        }
+        }*/
     }
 
     @Override

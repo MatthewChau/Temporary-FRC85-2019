@@ -168,8 +168,8 @@ public class OI {
 
         _rightJoystickTrigger = new JoystickButton(_driverJoystickRight, Addresses.EXTREME_TRIGGER);
         _rightJoystickThumbButton = new JoystickButton(_driverJoystickRight, Addresses.EXTREME_THUMB_BUTTON);
-        //_rightJoystickThumbButton.whenPressed(new Interrupt());
-        //_rightJoystickThumbButton.whenPressed(new FollowOneTarget());
+        _rightJoystickThumbButton.whenPressed(new Interrupt());
+        _rightJoystickThumbButton.whenPressed(new FollowOneTarget());
         _rightJoystickFaceBottomLeft = new JoystickButton(_driverJoystickRight, Addresses.EXTREME_FACE_BOTTOM_LEFT);
         _rightJoystickFaceBottomLeft.whenPressed(new ActivateIntake(Variables.ROLLER_IN));
         _rightJoystickFaceBottomLeft.whenReleased(new ActivateIntake(0.0));
