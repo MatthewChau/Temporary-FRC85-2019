@@ -219,7 +219,7 @@ public class DriveTrain extends Subsystem {
         }
     }
 
-    private void fixTargetAngle(double gyroAngle) {
+    public void fixTargetAngle(double gyroAngle) {
         double minDiff = 180.0;
         double newTargetAngle = 0.0;
         int i;
