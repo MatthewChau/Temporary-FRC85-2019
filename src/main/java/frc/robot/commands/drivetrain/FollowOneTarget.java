@@ -1,7 +1,7 @@
 package frc.robot.commands.drivetrain;
 
 import edu.wpi.first.wpilibj.command.Command;
-
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.OI;
 import frc.robot.Variables;
 import frc.robot.Vision;
@@ -28,18 +28,29 @@ public class FollowOneTarget extends Command {
         
         gyroAngle = IMU.getInstance().getFusedHeading();
 
-        xSpeed = OI.getInstance().getLeftXInputJoystick();
+        double targetCenter = 160.0;
+
+        xSpeed = -OI.getInstance().applyPID(OI.VISION_X_SYSTEM,
+                                           Vision.getInstance().oneTargetCenter(), 
+                                           targetCenter, 
+                                           Variables.getInstance().getVisionKP(), 
+                                           Variables.getInstance().getVisionKI(), 
+                                           Variables.getInstance().getVisionKD(), 
+                                           Variables.getInstance().getVisionMaxSpeed(), 
+                                           -Variables.getInstance().getVisionMaxSpeed());
 
         ySpeed = OI.getInstance().getLeftYInputJoystick();
 
-        zRotation = OI.getInstance().applyPID(OI.VISION_ROT_SYSTEM,
+        SmartDashboard.putNumber("xSpeed Vision", xSpeed);
+
+        zRotation = 0; /*OI.getInstance().applyPID(OI.VISION_ROT_SYSTEM,
                                               Vision.getInstance().oneTargetAngle(), 
                                               0.0,
                                               Variables.getInstance().getVisionRotKP(),
                                               Variables.getInstance().getVisionRotKI(),
                                               Variables.getInstance().getVisionRotKD(),
-                                              .6,
-                                              -.6);
+                                              Variables.getInstance().getVisionMaxSpeed(),
+                                              -Variables.getInstance().getVisionMaxSpeed());*/
 
         double[] _speedArray = {xSpeed, ySpeed, zRotation, gyroAngle};
         DriveTrain.getInstance().cartDrive(_speedArray);

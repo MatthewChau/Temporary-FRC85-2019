@@ -41,6 +41,8 @@ public class Variables {
     private static final double kP_CLIMB_POS = 0.1, kI_CLIMB_POS = 0.0, kD_CLIMB_POS = 0.0;
 
     private static final double kP_CLIMB_PITCH = 0.034, kI_CLIMB_PITCH = 0.0, kD_CLIMB_PITCH = 0.0;
+
+    private static final double VISION_MAX_SPEED = 1;
     
     // OI
 
@@ -269,6 +271,8 @@ public class Variables {
         SmartDashboard.putNumber("kI_VISION_ROT", kI_VISION_ROT);
         SmartDashboard.putNumber("kD_VISION_ROT", kD_VISION_ROT);
 
+        SmartDashboard.putNumber("Vision Max Speed", VISION_MAX_SPEED);
+
         SmartDashboard.putNumber("kP_CLIMB", kP_CLIMB);
         SmartDashboard.putNumber("kI_CLIMB", kI_CLIMB);
         SmartDashboard.putNumber("kD_CLIMB", kD_CLIMB);
@@ -409,6 +413,10 @@ public class Variables {
 
     public double getVisionKD() {
         return SmartDashboard.getNumber("kD_VISION", kD_VISION);
+    }
+
+    public double getVisionMaxSpeed() {
+        return SmartDashboard.getNumber("Vision Max Speed", VISION_MAX_SPEED);
     }
 
     // VISION ROT
