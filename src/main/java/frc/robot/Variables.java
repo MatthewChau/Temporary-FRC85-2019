@@ -82,7 +82,7 @@ public class Variables {
     public static final int HATCH_FLOOR_PRACTICE = 1991;
     public static final int[] HATCH_FLOOR = {HATCH_FLOOR_COMP, HATCH_FLOOR_PRACTICE};
     public static final int HATCH_STATION_COMP = 1991;
-    public static final int HATCH_STATION_PRACTICE = 1965;
+    public static final int HATCH_STATION_PRACTICE = 1833;
     public static final int[] HATCH_STATION = {HATCH_STATION_COMP, HATCH_STATION_PRACTICE};
     
     public static final int CARGO_ONE_COMP = 6932;
@@ -180,7 +180,7 @@ public class Variables {
     public static final int[] WRIST_CARGO_FLOOR = {WRIST_CARGO_FLOOR_COMP, WRIST_CARGO_FLOOR_PRACTICE};
 
     public static final int WRIST_HATCH_STATION_COMP = -392327 / 3;
-    public static final int WRIST_HATCH_STATION_PRACTICE = -392327 / 3;
+    public static final int WRIST_HATCH_STATION_PRACTICE = -120076;
     public static final int[] WRIST_HATCH_STATION = {WRIST_HATCH_STATION_COMP, WRIST_HATCH_STATION_PRACTICE};
     public static final int WRIST_HATCH_FLOOR_COMP = -1140762 / 3;
     public static final int WRIST_HATCH_FLOOR_PRACTICE = -1140762 / 3;
@@ -307,6 +307,7 @@ public class Variables {
         SmartDashboard.putBoolean("Disable Elevator Soft Limits", false);
 
         SmartDashboard.putBoolean("Reset Wrist Encoder", false);
+        SmartDashboard.putBoolean("Reset Elevator Encoder", false);
 
         SmartDashboard.putBoolean("Run Diagnostics?", true);
         SmartDashboard.putBoolean("Close Diagnostics?", true);

@@ -112,7 +112,7 @@ public class OI {
         _operatorBlueOne.whenPressed(new Place(Variables.HATCH_THREE[Variables.getInstance().isPracticeBot()], 0, Variables.MAST_FORWARD_FOR_HATCH));
         _operatorBlueTwo = new JoystickButton(_operatorControllerBlue, Addresses.OPERATOR_BLUE_TWO);
         _operatorBlueTwo.whenPressed(new Place(Variables.HATCH_STATION[Variables.getInstance().isPracticeBot()], Variables.WRIST_HATCH_STATION[Variables.getInstance().isPracticeBot()], Variables.MAST_MIN_POS));
-        _operatorBlueTwo.whenReleased(new Place(Variables.HATCH_STATION[Variables.getInstance().isPracticeBot()], Variables.WRIST_MAX_POS, Variables.MAST_MIN_POS));
+        _operatorBlueTwo.whenReleased(new Place(Variables.HATCH_STATION[Variables.getInstance().isPracticeBot()], Variables.WRIST_MAX_POS, Variables.MAST_CURRENT_POS));
         _operatorBlueThree = new JoystickButton(_operatorControllerBlue, Addresses.OPERATOR_BLUE_THREE);
         _operatorBlueThree.whenPressed(new Place(Variables.ELEVATOR_CURRENT_POS, Variables.WRIST_30, Variables.MAST_CURRENT_POS));
         _operatorBlueFour = new JoystickButton(_operatorControllerBlue, Addresses.OPERATOR_BLUE_FOUR);
