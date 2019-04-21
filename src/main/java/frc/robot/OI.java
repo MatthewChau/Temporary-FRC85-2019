@@ -112,7 +112,7 @@ public class OI {
         _operatorBlueOne.whenPressed(new Place(Variables.HATCH_THREE[Variables.getInstance().isPracticeBot()], 0, Variables.MAST_FORWARD_FOR_HATCH));
         _operatorBlueTwo = new JoystickButton(_operatorControllerBlue, Addresses.OPERATOR_BLUE_TWO);
         _operatorBlueTwo.whenPressed(new Place(Variables.HATCH_STATION[Variables.getInstance().isPracticeBot()], Variables.WRIST_HATCH_STATION[Variables.getInstance().isPracticeBot()], Variables.MAST_MIN_POS));
-        _operatorBlueTwo.whenReleased(new Place(Variables.HATCH_STATION[Variables.getInstance().isPracticeBot()], Variables.WRIST_MAX_POS, Variables.MAST_CURRENT_POS));
+        _operatorBlueTwo.whenReleased(new Place(Variables.ELEVATOR_CURRENT_POS, Variables.WRIST_MAX_POS, Variables.MAST_CURRENT_POS));
         _operatorBlueThree = new JoystickButton(_operatorControllerBlue, Addresses.OPERATOR_BLUE_THREE);
         _operatorBlueThree.whenPressed(new Place(Variables.ELEVATOR_CURRENT_POS, Variables.WRIST_30, Variables.MAST_CURRENT_POS));
         _operatorBlueFour = new JoystickButton(_operatorControllerBlue, Addresses.OPERATOR_BLUE_FOUR);
@@ -608,8 +608,8 @@ public class OI {
     public boolean checkIfNeedBeRun(int system, double error, double speed) {
         switch (system) {
             case ROT_SYSTEM:
-                if (DriveTrain.getInstance().getTurnInProgress() && Math.abs(error) < 3.0 
-                    && speed < 0.1
+                if (DriveTrain.getInstance().getTurnInProgress() && Math.abs(error) < 1.0 
+                    && speed < 0.05
                     /*&& !ClimbRear.getInstance().getClimbInProgress()*/) {
                     DriveTrain.getInstance().setTurnInProgress(false);
                     return false;
@@ -662,7 +662,7 @@ public class OI {
                 }
                 return true;
             case INTAKE_SYSTEM:
-                if (Math.abs(error) < 10000) {
+                if (Math.abs(error) < 1000) {
                     Intake.getInstance().changeAdjustingBool(false);
                     return false;
                 }
@@ -718,10 +718,6 @@ public class OI {
         termI = kI * errorSum[system];
 
         if (system == ELEVATOR_SYSTEM) {
-            if (OI.getInstance().getElevatorJoystickButton()) {
-                termI = 0;
-                termD = 0;
-            }
             SmartDashboard.putNumber("I term for Elevator", termI);
         }
 

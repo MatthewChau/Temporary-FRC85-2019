@@ -165,7 +165,6 @@ public class Robot extends TimedRobot {
     @Override
     public void disabledPeriodic() {
         Elevator.getInstance().setTargetPosition(Elevator.getInstance().getElevatorPosition());
-        Elevator.getInstance().setVerticalPosition(0);
         Mast.getInstance().setTargetPosition(Mast.getInstance().getMastPosition());
         Intake.getInstance().setTargetPos(Intake.getInstance().getWristPosition());
         Sensors.getInstance().stopTimers();

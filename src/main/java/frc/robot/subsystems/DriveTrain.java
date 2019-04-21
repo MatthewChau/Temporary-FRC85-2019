@@ -122,6 +122,8 @@ public class DriveTrain extends Subsystem {
                 }
             }
 
+            inputs[2] = Math.pow(inputs[2], 3);
+
             if (Math.abs(inputs[2]) > Variables.DEADBAND_Z_DRIVERSTICK) { // scale z input
                 if (inputs[2] > 0) {
                     inputs[2] -= Variables.DEADBAND_Z_DRIVERSTICK;
@@ -257,10 +259,8 @@ public class DriveTrain extends Subsystem {
     }
 
     public void setTargetAngle(double angle) { // make sure to call fixAngles afterward
-        if (!turnInProgress) {
-            targetAngle = angle;
-            turnInProgress = true;
-        }
+        targetAngle = angle;
+        turnInProgress = true;
     }
 
     public double getTargetAngle() {

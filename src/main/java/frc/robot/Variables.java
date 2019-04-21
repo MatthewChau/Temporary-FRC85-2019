@@ -24,11 +24,11 @@ public class Variables {
 
     // PID
 
-    private static final double kP_ELEVATOR_DOWN = 0.00075, kP_ELEVATOR_UP = 0.0009, kI_ELEVATOR = 0.00000003, kD_ELEVATOR = 0.001;
+    private static final double kP_ELEVATOR_DOWN = 0.00075, kP_ELEVATOR_UP = 0.00095, kI_ELEVATOR = 0.00000003, kD_ELEVATOR = 0.001;
 
     private static final double kP_MAST = 0.00004, kI_MAST = 0.0, kD_MAST = 0.00003;
 
-    private static final double kP_INTAKE = 0.001, kI_INTAKE = 0.0, kD_INTAKE = 0.0;
+    private static final double kP_INTAKE = 0.000025, kI_INTAKE = 0.0, kD_INTAKE = 0.000015;
 
     private static final double kP_DRIVE = 0.01, kI_DRIVE = 0.0, kD_DRIVE = 0.0;
 
@@ -69,20 +69,20 @@ public class Variables {
 
     // Elevator positionsX
     public static final int HATCH_ONE_COMP = 1991;
-    public static final int HATCH_ONE_PRACTICE = 2591;
+    public static final int HATCH_ONE_PRACTICE = 1331;
     public static final int[] HATCH_ONE = {HATCH_ONE_COMP, HATCH_ONE_PRACTICE};
     public static final int HATCH_TWO_COMP = 9900 + 600;
     public static final int HATCH_TWO_PRACTICE = 9597;
     public static final int[] HATCH_TWO = {HATCH_TWO_COMP, HATCH_TWO_PRACTICE};
     public static final int HATCH_THREE_COMP = 17900 + 600;
-    public static final int HATCH_THREE_PRACTICE = 16213;
+    public static final int HATCH_THREE_PRACTICE = 17862;
     public static final int[] HATCH_THREE = {HATCH_THREE_COMP, HATCH_THREE_PRACTICE};
 
     public static final int HATCH_FLOOR_COMP = 1210;
     public static final int HATCH_FLOOR_PRACTICE = 1991;
     public static final int[] HATCH_FLOOR = {HATCH_FLOOR_COMP, HATCH_FLOOR_PRACTICE};
     public static final int HATCH_STATION_COMP = 1991;
-    public static final int HATCH_STATION_PRACTICE = 1833;
+    public static final int HATCH_STATION_PRACTICE = 2200;
     public static final int[] HATCH_STATION = {HATCH_STATION_COMP, HATCH_STATION_PRACTICE};
     
     public static final int CARGO_ONE_COMP = 6932;
@@ -179,8 +179,8 @@ public class Variables {
     public static final int WRIST_CARGO_FLOOR_PRACTICE = -(1142068 + 50000) / 3;
     public static final int[] WRIST_CARGO_FLOOR = {WRIST_CARGO_FLOOR_COMP, WRIST_CARGO_FLOOR_PRACTICE};
 
-    public static final int WRIST_HATCH_STATION_COMP = -392327 / 3;
-    public static final int WRIST_HATCH_STATION_PRACTICE = -120076;
+    public static final int WRIST_HATCH_STATION_COMP = -93487;
+    public static final int WRIST_HATCH_STATION_PRACTICE = -120067;
     public static final int[] WRIST_HATCH_STATION = {WRIST_HATCH_STATION_COMP, WRIST_HATCH_STATION_PRACTICE};
     public static final int WRIST_HATCH_FLOOR_COMP = -1140762 / 3;
     public static final int WRIST_HATCH_FLOOR_PRACTICE = -1140762 / 3;
