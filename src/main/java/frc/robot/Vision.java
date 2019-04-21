@@ -143,10 +143,13 @@ public class Vision {
 			SmartDashboard.putNumber("x4 for vis", x2Array[1]);
 			return ((x1Array[0] + x1Array[1] + x2Array[0] + x2Array[1]) / 4);
 		}
-		else {
+		else if (x1Array.length + x2Array.length > 0) {
 			SmartDashboard.putNumber("x1 and x2 conglomerated for vis1", x1Array[0]);
-			SmartDashboard.putNumber("x1 and x2 conglomerated for vis2", x2Array[1]);
-			return ((x1Array[0] + x1Array[1]) / 2.0);
+			SmartDashboard.putNumber("x1 and x2 conglomerated for vis2", x2Array[0]);
+			return ((x1Array[0] + x2Array[0]) / 2.0);
+		}
+		else {
+			return 160.0;
 		}
 	}
 	

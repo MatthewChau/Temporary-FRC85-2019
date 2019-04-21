@@ -26,6 +26,9 @@ import frc.robot.commands.lift.ElevatorWithJoystick;
 import frc.robot.commands.climb.ClimbFrontWithJoystick;
 import frc.robot.commands.climb.ClimbRearWithJoystick;
 import frc.robot.commands.climb.MoveClimbPosition;
+import frc.robot.commands.climb.MoveClimbFrontPosition;
+import frc.robot.commands.climb.MoveClimbRearPosition;
+import frc.robot.commands.climb.ActivateClimbRearDrive;
 import frc.robot.commands.driverassistance.Place;
 import frc.robot.commands.driverassistance.CargoStationOne;
 import frc.robot.commands.driverassistance.CargoStationTwo;
@@ -109,7 +112,7 @@ public class OI {
         _operatorBlueOne.whenPressed(new Place(Variables.HATCH_THREE[Variables.getInstance().isPracticeBot()], 0, Variables.MAST_FORWARD_FOR_HATCH));
         _operatorBlueTwo = new JoystickButton(_operatorControllerBlue, Addresses.OPERATOR_BLUE_TWO);
         _operatorBlueTwo.whenPressed(new Place(Variables.HATCH_STATION[Variables.getInstance().isPracticeBot()], Variables.WRIST_HATCH_STATION[Variables.getInstance().isPracticeBot()], Variables.MAST_MIN_POS));
-        _operatorBlueTwo.whenReleased(new Place(Variables.HATCH_STATION[Variables.getInstance().isPracticeBot()], Variables.WRIST_MAX_POS, Variables.MAST_MIN_POS));
+        _operatorBlueTwo.whenReleased(new Place(Variables.ELEVATOR_CURRENT_POS, Variables.WRIST_MAX_POS, Variables.MAST_CURRENT_POS));
         _operatorBlueThree = new JoystickButton(_operatorControllerBlue, Addresses.OPERATOR_BLUE_THREE);
         _operatorBlueThree.whenPressed(new Place(Variables.ELEVATOR_CURRENT_POS, Variables.WRIST_30, Variables.MAST_CURRENT_POS));
         _operatorBlueFour = new JoystickButton(_operatorControllerBlue, Addresses.OPERATOR_BLUE_FOUR);
@@ -121,6 +124,14 @@ public class OI {
         _operatorBlueSeven = new JoystickButton(_operatorControllerBlue, Addresses.OPERATOR_BLUE_SEVEN);
         _operatorBlueSeven.whenPressed(new HatchGroundOne());
         _operatorBlueSeven.whenReleased(new HatchGroundTwo());
+
+        /*
+            HATCH THREE - climb rear level two
+            HATCH TWO - drive forward until front photoeyes
+            HATCH ONE - retract front wheels
+            CARGO THREE - move forward a bit until rear photoeye
+            CARGO TWO - retract rear wheels
+        */
 
         // red
         _operatorRedOne = new JoystickButton(_operatorControllerRed, Addresses.OPERATOR_RED_ONE);
@@ -157,8 +168,8 @@ public class OI {
 
         _rightJoystickTrigger = new JoystickButton(_driverJoystickRight, Addresses.EXTREME_TRIGGER);
         _rightJoystickThumbButton = new JoystickButton(_driverJoystickRight, Addresses.EXTREME_THUMB_BUTTON);
-        //_rightJoystickThumbButton.whenPressed(new Interrupt());
-        //_rightJoystickThumbButton.whenPressed(new FollowOneTarget());
+        _rightJoystickThumbButton.whenPressed(new Interrupt());
+        _rightJoystickThumbButton.whenPressed(new FollowOneTarget());
         _rightJoystickFaceBottomLeft = new JoystickButton(_driverJoystickRight, Addresses.EXTREME_FACE_BOTTOM_LEFT);
         _rightJoystickFaceBottomLeft.whenPressed(new ActivateIntake(Variables.ROLLER_IN));
         _rightJoystickFaceBottomLeft.whenReleased(new ActivateIntake(0.0));
@@ -189,9 +200,11 @@ public class OI {
         _opJoystickFaceTopRight.whenPressed(new Interrupt());
         _opJoystickFaceTopRight.whenPressed(new MastWithJoystick());
         _opJoystickSeven = new JoystickButton(_operatorJoystick, Addresses.EXTREME_BASE_SEVEN);
+        _opJoystickSeven.whenPressed(new Climb(Variables.CLIMB_REAR_LEVEL_THREE));
         _opJoystickEight = new JoystickButton(_operatorJoystick, Addresses.EXTREME_BASE_EIGHT);
         _opJoystickEight.whenPressed(new MoveClimbPosition(Variables.CLIMB_REAR_LEVEL_THREE));
         _opJoystickNine = new JoystickButton(_operatorJoystick, Addresses.EXTREME_BASE_NINE);
+        _opJoystickNine.whenPressed(new Climb(Variables.CLIMB_REAR_LEVEL_TWO));
         _opJoystickTen = new JoystickButton(_operatorJoystick, Addresses.EXTREME_BASE_TEN);
         _opJoystickTen.whenPressed(new MoveClimbPosition(Variables.CLIMB_REAR_LEVEL_TWO));
         _opJoystickEleven = new JoystickButton(_operatorJoystick, Addresses.EXTREME_BASE_ELEVEN);
@@ -346,10 +359,9 @@ public class OI {
     public double getRightYInputJoystick() {
         double axis = _driverJoystickRight.getRawAxis(Addresses.EXTREME_Y_AXIS);
 
-        if (Math.abs(axis) < Variables.DEADBAND_DRIVERSTICK) {
+        if (Math.abs(axis) < 0.25) { // higher deadband to account for neutral position being gay
             axis = 0;
         }
-
         return axis;
     }
 
@@ -596,8 +608,8 @@ public class OI {
     public boolean checkIfNeedBeRun(int system, double error, double speed) {
         switch (system) {
             case ROT_SYSTEM:
-                if (DriveTrain.getInstance().getTurnInProgress() && Math.abs(error) < 3.0 
-                    && speed < 0.1
+                if (DriveTrain.getInstance().getTurnInProgress() && Math.abs(error) < 1.0 
+                    && speed < 0.05
                     /*&& !ClimbRear.getInstance().getClimbInProgress()*/) {
                     DriveTrain.getInstance().setTurnInProgress(false);
                     return false;
@@ -632,9 +644,9 @@ public class OI {
                 }
                 return true;
             case CLIMB_POS_SYSTEM:
-                if (Math.abs(error) < 1.0) {
+                if (Math.abs(error) < 0.5) {
                     if (ClimbRear.getInstance().getBothAdjustingBool()) { // bothadjusting takes priority
-                        ClimbRear.getInstance().setAdjustingBool(false);
+                        ClimbRear.getInstance().setBothAdjustingBool(false);
                     } else if (ClimbFront.getInstance().getAdjustingBool()) { // then front
                         ClimbFront.getInstance().setAdjustingBool(false);
                     } else if (ClimbRear.getInstance().getAdjustingBool()) { // then rear
@@ -650,7 +662,7 @@ public class OI {
                 }
                 return true;
             case INTAKE_SYSTEM:
-                if (Math.abs(error) < 10000) {
+                if (Math.abs(error) < 1000) {
                     Intake.getInstance().changeAdjustingBool(false);
                     return false;
                 }

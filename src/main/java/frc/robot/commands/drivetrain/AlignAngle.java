@@ -7,60 +7,40 @@
 
 package frc.robot.commands.drivetrain;
 
+import frc.robot.Variables;
 import frc.robot.sensors.IMU;
 import frc.robot.subsystems.DriveTrain;
-import frc.robot.Variables;
-
 import edu.wpi.first.wpilibj.command.Command;
 
-public class ActivateDriveTrain extends Command {
+public class AlignAngle extends Command {
 
-    private double _xSpeed, _ySpeed, _zRotation;
-    private boolean _state;
-
-    public ActivateDriveTrain(double xSpeed) {
+    double _angle, _timeout;
+    
+    public AlignAngle(double angle, double timeout) {
         requires(DriveTrain.getInstance());
-        _xSpeed = xSpeed;
-        _ySpeed = 0.0;
-        _zRotation = 0.0;
-        _state = false;
-    }
-
-    public ActivateDriveTrain(double xSpeed, double ySpeed, boolean state) {
-        requires(DriveTrain.getInstance());           
-        _xSpeed = xSpeed;
-        _ySpeed = ySpeed;
-        _zRotation = 0.0;
-        _state = state;
-    }
-
-    public ActivateDriveTrain(double xSpeed, double ySpeed, double zRotation) {
-        requires(DriveTrain.getInstance());
-        _xSpeed = xSpeed;
-        _ySpeed = ySpeed;
-        _zRotation = zRotation;
-        _state = false;
+        _angle = angle;
+        _timeout = timeout;
     }
 
     @Override
     protected void initialize() {
+        setTimeout(_timeout);
+        DriveTrain.getInstance().setTurnInProgress(true);
     }
 
     @Override
     protected void execute() {
-        DriveTrain.getInstance().cartDrive(_xSpeed, _ySpeed, _zRotation, IMU.getInstance().getFusedHeading());
+        DriveTrain.getInstance().cartDrive(0, 0, 0, IMU.getInstance().getFusedHeading());
     }
 
     @Override
     protected boolean isFinished() {
-        if (_state)
-            return (Math.abs(Variables.getInstance().getDistanceFromWall()) < 0.25);
-        else 
-            return false;
+        return (isTimedOut() || !DriveTrain.getInstance().getTurnInProgress());
     }
 
     @Override
     protected void end() {
+        DriveTrain.getInstance().setTurnInProgress(false);
         DriveTrain.getInstance().cartDrive(0, 0, 0, 0);
     }
 
