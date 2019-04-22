@@ -1,7 +1,7 @@
 package frc.robot.commands.drivetrain;
 
 import edu.wpi.first.wpilibj.command.Command;
-
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.OI;
 import frc.robot.Variables;
 import frc.robot.Vision;
@@ -52,30 +52,29 @@ public class FollowOneTarget extends Command {
         
         gyroAngle = IMU.getInstance().getFusedHeading();
 
-        xSpeed = 0;/*OI.getInstance().applyPID(OI.VISION_X_SYSTEM, 
-            Vision.getInstance().oneTargetCenter(), 
-            0.0, 
-            Variables.getInstance().getVisionKP(), 
-            Variables.getInstance().getVisionKI(), 
-            Variables.getInstance().getVisionKD(),
-            0.6,
-            -0.6);*/
+        double targetCenter = 160.0;
+
+        xSpeed = -OI.getInstance().applyPID(OI.VISION_X_SYSTEM,
+                                           Vision.getInstance().oneTargetCenter(), 
+                                           targetCenter, 
+                                           Variables.getInstance().getVisionKP(), 
+                                           Variables.getInstance().getVisionKI(), 
+                                           Variables.getInstance().getVisionKD(), 
+                                           Variables.getInstance().getVisionMaxSpeed(), 
+                                           -Variables.getInstance().getVisionMaxSpeed());
 
         ySpeed = OI.getInstance().getLeftYInputJoystick();
 
-        zRotation = 0;
+        SmartDashboard.putNumber("xSpeed Vision", xSpeed);
 
-        DriveTrain.getInstance().setTargetAngle(_targetAngle);
-        DriveTrain.getInstance().fixTargetAngle(gyroAngle);
-        
-        /*zRotation = OI.getInstance().applyPID(OI.ROT_SYSTEM,
-            IMU.getInstance().getFusedHeading(),
-            _targetAngle,
-            Variables.getInstance().getVisionRotKP(),
-            Variables.getInstance().getVisionRotKI(),
-            Variables.getInstance().getVisionRotKD(),
-            0.6,
-            -0.6);*/
+        zRotation = 0; /*OI.getInstance().applyPID(OI.VISION_ROT_SYSTEM,
+                                              Vision.getInstance().oneTargetAngle(), 
+                                              0.0,
+                                              Variables.getInstance().getVisionRotKP(),
+                                              Variables.getInstance().getVisionRotKI(),
+                                              Variables.getInstance().getVisionRotKD(),
+                                              Variables.getInstance().getVisionMaxSpeed(),
+                                              -Variables.getInstance().getVisionMaxSpeed());*/
 
         double[] _speedArray = {xSpeed, ySpeed, zRotation, gyroAngle};
         DriveTrain.getInstance().cartDrive(_speedArray);

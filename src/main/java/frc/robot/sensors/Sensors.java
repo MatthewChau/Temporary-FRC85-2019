@@ -157,7 +157,7 @@ public class Sensors extends Subsystem {
     }
 
     public void checkSensorsForEncoderReset() {
-        if (getLiftBottomLimit()) {
+        if (getLiftBottomLimit() || SmartDashboard.getBoolean("Reset Elevator Encoder", false)) {
             Elevator.getInstance().setVerticalPosition(0);
         }
 

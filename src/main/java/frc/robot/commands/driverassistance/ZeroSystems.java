@@ -1,8 +1,8 @@
 package frc.robot.commands.driverassistance;
 
-import frc.robot.commands.intake.WristPosition;
-import frc.robot.commands.lift.MastPosition;
-import frc.robot.commands.lift.ElevatorPosition;
+import frc.robot.commands.lift.ActivateMast;
+import frc.robot.commands.intake.ActivateWrist;
+import frc.robot.commands.lift.ActivateElevator;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
@@ -16,9 +16,9 @@ public class ZeroSystems extends CommandGroup {
     public ZeroSystems() {
         addSequential(new Interrupt());
 
-        addSequential(new WristPosition(0));
-        addParallel(new MastPosition(0)); // move the mast out to the pos
-        addSequential(new ElevatorPosition(0)); // move the elevator
+        addSequential(new ActivateWrist(0.7)); // run wrist up until limit
+        addParallel(new ActivateMast(-0.8)); // run back until limit
+        addSequential(new ActivateElevator(-0.4)); // run elevator down until limit
     }
 
 }

@@ -44,6 +44,9 @@ public class Elevator extends Subsystem {
         _liftRightMotor.setNeutralMode(NeutralMode.Brake);
         _liftRightMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
 
+        _liftLeftMotor.configOpenloopRamp(0.5);
+        _liftRightMotor.configOpenloopRamp(0.5);
+
         _timer = new Timer();
         _timer2 = new Timer();
 
@@ -99,7 +102,7 @@ public class Elevator extends Subsystem {
         }
 
         if (getServo() == Variables.getInstance().getElevatorLocked()
-            && _timer2.get() > Variables.ELEVATOR_TIMER
+            //&& _timer2.get() > Variables.ELEVATOR_TIMER
             ) {
             speed = 0.0;
         }
@@ -138,6 +141,8 @@ public class Elevator extends Subsystem {
     }
 
     public void setElevatorMotors(double speed) {
+        if (getElevatorPosition() < 1000 && speed < 0)
+            speed *= 0.5;
         _liftLeftMotor.set(ControlMode.PercentOutput, speed);
         _liftRightMotor.set(ControlMode.PercentOutput, speed);
     }

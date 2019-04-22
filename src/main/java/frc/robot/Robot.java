@@ -131,8 +131,8 @@ public class Robot extends TimedRobot {
         } else {
             Elevator.getInstance().setServo(Variables.getInstance().getElevatorLocked());
             Elevator.getInstance().resetTimer();
-            if (Elevator.getInstance().getTimer2() < 2.0)
-                Elevator.getInstance().verticalShift(0);
+            //if (Elevator.getInstance().getTimer2() < 2.0)
+            //    Elevator.getInstance().verticalShift(0);
         }
 
         if (SmartDashboard.getBoolean("Run Diagnostics?", false)) {

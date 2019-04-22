@@ -33,6 +33,7 @@ public class Intake extends Subsystem {
         _wrist = new TalonSRX(Addresses.INTAKE_WRIST);
         _wrist.setNeutralMode(NeutralMode.Brake);
         _wrist.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
+        _wrist.configOpenloopRamp(0.5);
         _roller = new TalonSRX(Addresses.INTAKE_ROLLER);
         _roller.setNeutralMode(NeutralMode.Brake);
     }
@@ -105,6 +106,8 @@ public class Intake extends Subsystem {
     }
 
     public void setWristMotor(double speed) {
+        if (getWristPosition() > -1000 && speed > 0)
+            speed *= 0.5;
         _wrist.set(ControlMode.PercentOutput, speed);
     }
 

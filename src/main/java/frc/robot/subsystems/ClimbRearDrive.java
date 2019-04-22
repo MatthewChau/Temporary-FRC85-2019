@@ -19,6 +19,8 @@ public class ClimbRearDrive extends Subsystem {
     private ClimbRearDrive() {
         _climbRearDriveMotor = new TalonSRX(Addresses.CLIMB_REAR_DRIVE);
         _climbRearDriveMotor.setNeutralMode(NeutralMode.Brake);
+
+        _climbRearDriveMotor.configOpenloopRamp(0.5);
     }
 
     public static ClimbRearDrive getInstance() {
