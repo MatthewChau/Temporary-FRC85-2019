@@ -25,7 +25,7 @@ public class Place extends CommandGroup {
             addParallel(new MastPosition(mastPosition)); // move mast to position
 
         if (elevatorPos == 0) // if zeroing the elevator
-            addSequential(new ActivateElevator (-0.5)); // run down until limit
+            addSequential(new ActivateElevator (-0.4)); // run down until limit
         else
             addSequential(new ElevatorPosition(elevatorPos)); // move the elevator to position
 
