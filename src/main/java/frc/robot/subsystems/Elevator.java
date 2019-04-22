@@ -141,6 +141,8 @@ public class Elevator extends Subsystem {
     }
 
     public void setElevatorMotors(double speed) {
+        if (getElevatorPosition() < 1000 && speed < 0)
+            speed *= 0.5;
         _liftLeftMotor.set(ControlMode.PercentOutput, speed);
         _liftRightMotor.set(ControlMode.PercentOutput, speed);
     }

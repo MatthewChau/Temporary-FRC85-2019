@@ -106,6 +106,8 @@ public class Intake extends Subsystem {
     }
 
     public void setWristMotor(double speed) {
+        if (getWristPosition() > -1000 && speed > 0)
+            speed *= 0.5;
         _wrist.set(ControlMode.PercentOutput, speed);
     }
 

@@ -81,6 +81,8 @@ public class Mast extends Subsystem {
     }
 
     public void setMastMotor(double speed) {
+        if (getMastPosition() < 1000 && speed < 0)
+            speed *= 0.5;
         _mastMotor.set(ControlMode.PercentOutput, speed);
         setTargetPosition(getMastPosition());
     }
