@@ -34,7 +34,7 @@ public class ClimbRear extends Subsystem {
         _climbRearMotor.setIdleMode(IdleMode.kBrake);
         //_climbRearMotor.setSmartCurrentLimit(0, 5700, 3000);
 
-        _climbServo = new Servo(Addresses.CLIMB_SERVO);
+        _climbServo = new Servo(Addresses.CLIMB_SERVO_REAR);
 
         _timer = new Timer();
     }

@@ -236,6 +236,20 @@ public class Variables {
     public static final double CLIMB_UNLOCKED_PRACTICE = 25;
     public static final double[] CLIMB_UNLOCKED = {CLIMB_UNLOCKED_COMP, CLIMB_UNLOCKED_PRACTICE};
 
+    // servo angles for the drop
+    public static final double CLIMB_LEFT_UP_COMP = 0;
+    public static final double CLIMB_LEFT_UP_PRACTICE = 0;
+    public static final double[] CLIMB_LEFT_UP = {CLIMB_LEFT_UP_COMP, CLIMB_LEFT_UP_PRACTICE};
+    public static final double CLIMB_LEFT_DOWN_COMP = 90;
+    public static final double CLIMB_LEFT_DOWN_PRACTICE = 90;
+    public static final double[] CLIMB_LEFT_DOWN = {CLIMB_LEFT_DOWN_COMP, CLIMB_LEFT_DOWN_PRACTICE};
+    public static final double CLIMB_RIGHT_UP_COMP = 0;
+    public static final double CLIMB_RIGHT_UP_PRACTICE = 0;
+    public static final double[] CLIMB_RIGHT_UP = {CLIMB_RIGHT_UP_COMP, CLIMB_RIGHT_UP_PRACTICE};
+    public static final double CLIMB_RIGHT_DOWN_COMP = 90;
+    public static final double CLIMB_RIGHT_DOWN_PRACTICE = 90;
+    public static final double[] CLIMB_RIGHT_DOWN = {CLIMB_RIGHT_DOWN_COMP, CLIMB_RIGHT_DOWN_PRACTICE};
+
     // ROLLER
 
     // Roller speeds
@@ -295,6 +309,11 @@ public class Variables {
 
         SmartDashboard.putNumber("CLIMB_UNLOCKED", CLIMB_UNLOCKED[isPracticeBot()]);
         SmartDashboard.putNumber("CLIMB_LOCKED", CLIMB_LOCKED[isPracticeBot()]);
+
+        SmartDashboard.putNumber("CLIMB_LEFT_UP", CLIMB_LEFT_UP[isPracticeBot()]);
+        SmartDashboard.putNumber("CLIMB_LEFT_DOWN", CLIMB_LEFT_DOWN[isPracticeBot()]);
+        SmartDashboard.putNumber("CLIMB_RIGHT_UP", CLIMB_RIGHT_UP[isPracticeBot()]);
+        SmartDashboard.putNumber("CLIMB_RIGHT_DOWN", CLIMB_RIGHT_DOWN[isPracticeBot()]);
 
         SmartDashboard.putNumber("CLIMB_MAX_SPEED_UP", CLIMB_MAX_SPEED_UP);
         SmartDashboard.putNumber("CLIMB_MAX_SPEED_DOWN", CLIMB_MAX_SPEED_DOWN);
@@ -488,6 +507,22 @@ public class Variables {
 
     public double getClimbLocked() {
         return SmartDashboard.getNumber("CLIMB_LOCKED", CLIMB_LOCKED[isPracticeBot()]);
+    }
+
+    public double getClimbLeftUp() {
+        return SmartDashboard.getNumber("CLIMB_LEFT_UP", CLIMB_LEFT_UP[isPracticeBot()]);
+    }
+
+    public double getClimbLeftDown() {
+        return SmartDashboard.getNumber("CLIMB_LEFT_DOWN", CLIMB_LEFT_DOWN[isPracticeBot()]);
+    }
+
+    public double getClimbRightUp() {
+        return SmartDashboard.getNumber("CLIMB_RIGHT_UP", CLIMB_RIGHT_UP[isPracticeBot()]);
+    }
+
+    public double getClimbRightDown() {
+        return SmartDashboard.getNumber("CLIMB_RIGHT_DOWN", CLIMB_RIGHT_DOWN[isPracticeBot()]);
     }
 
     public double getRangeFinderBasedOnMast(double mastPos) { // rangefinder from the front bumpers of the robot
