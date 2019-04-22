@@ -33,6 +33,8 @@ public class Mast extends Subsystem {
         _mastMotor = new TalonSRX(Addresses.LIFT_CIM_MOTOR);
         _mastMotor.setNeutralMode(NeutralMode.Brake);
         _mastMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
+
+        _mastMotor.configOpenloopRamp(0.5);
     }
 
     public static Mast getInstance() {

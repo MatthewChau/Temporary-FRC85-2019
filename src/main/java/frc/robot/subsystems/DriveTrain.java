@@ -44,6 +44,11 @@ public class DriveTrain extends Subsystem {
         _rightBackMotor = new TalonSRX(Addresses.DRIVETRAIN_RIGHT_BACK_MOTOR);
         _rightBackMotor.setNeutralMode(NeutralMode.Coast);
         _rightBackMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
+        
+        _leftFrontMotor.configOpenloopRamp(0.5);
+        _leftBackMotor.configOpenloopRamp(0.5);
+        _rightFrontMotor.configOpenloopRamp(0.5);
+        _rightBackMotor.configOpenloopRamp(0.5);
     }
 
     public static DriveTrain getInstance() {
