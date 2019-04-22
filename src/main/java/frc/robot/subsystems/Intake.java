@@ -69,6 +69,10 @@ public class Intake extends Subsystem {
             speed = 0.0;
         }
 
+        
+        if (getWristPosition() > -1000 && speed > 0)
+            speed *= 0.5;
+
         if ((Sensors.getInstance().getIntakeTopLimit() && !SmartDashboard.getBoolean("Disable Intake Prox Limit", true) && speed > 0) // if we trying to exceed top limit
             || (!OI.getInstance().getWristJoystickButton() && !adjusting) // if the button isn't pressed and we are not adjusting
             || (softLimits(speed) && !SmartDashboard.getBoolean("Disable Intake Soft Limits", false))) {

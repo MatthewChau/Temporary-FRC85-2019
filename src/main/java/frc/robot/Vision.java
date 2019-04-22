@@ -138,7 +138,7 @@ public class Vision {
 
 		if (centerXArray.length > 0) {
 			return centerXArray[0];*/
-		table = NetworkTable.getTable("GRIP/myLinesReport")
+		table = NetworkTable.getTable("GRIP/myLinesReport");
 		x1Array = table.getNumberArray("x1", x1Array);
 		x2Array = table.getNumberArray("x2", x2Array);
 
