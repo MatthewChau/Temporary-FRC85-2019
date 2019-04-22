@@ -18,7 +18,7 @@ public class FollowOneTarget extends Command {
     @Override
     protected void initialize() {
         super.initialize();
-        Spike.getInstance().setRelay(true);
+        //Spike.getInstance().setRelay(true);
     }
 
     @Override
@@ -54,14 +54,14 @@ public class FollowOneTarget extends Command {
     public synchronized void cancel() {
         super.cancel();
         DriveTrain.getInstance().cartDrive(OI.getInstance().stopArray);
-        Spike.getInstance().setRelay(false);
+        //Spike.getInstance().setRelay(false);
     }
 
     @Override
     protected void end() {
         super.end();
         DriveTrain.getInstance().cartDrive(OI.getInstance().stopArray);
-        Spike.getInstance().setRelay(false);
+        //Spike.getInstance().setRelay(false);
     }
     
 }

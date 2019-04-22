@@ -79,20 +79,24 @@ public class Variables {
     public static final int[] HATCH_THREE = {HATCH_THREE_COMP, HATCH_THREE_PRACTICE};
 
     public static final int HATCH_FLOOR_COMP = 1210;
-    public static final int HATCH_FLOOR_PRACTICE = 1991;
+    public static final int HATCH_FLOOR_PRACTICE = 2232;
     public static final int[] HATCH_FLOOR = {HATCH_FLOOR_COMP, HATCH_FLOOR_PRACTICE};
     public static final int HATCH_STATION_COMP = 1991;
     public static final int HATCH_STATION_PRACTICE = 2200;
     public static final int[] HATCH_STATION = {HATCH_STATION_COMP, HATCH_STATION_PRACTICE};
     
     public static final int CARGO_ONE_COMP = 6932;
-    public static final int CARGO_ONE_PRACTICE = 6233;
+    public static final int CARGO_ONE_PRACTICE = 6387;
     public static final int[] CARGO_ONE = {CARGO_ONE_COMP, CARGO_ONE_PRACTICE};
+
+    // 56 5/8" - 
     public static final int CARGO_TWO_COMP = 13486;
-    public static final int CARGO_TWO_PRACTICE = 14752;
+    public static final int CARGO_TWO_PRACTICE = 13740;
     public static final int[] CARGO_TWO = {CARGO_TWO_COMP, CARGO_TWO_PRACTICE};
+
+    // 88 5/8"
     public static final int CARGO_THREE_COMP = 22600;
-    public static final int CARGO_THREE_PRACTICE = 22212;
+    public static final int CARGO_THREE_PRACTICE = 23055;
     public static final int[] CARGO_THREE = {CARGO_THREE_COMP, CARGO_THREE_PRACTICE};
 
     public static final int CARGO_SHIP_COMP = 11740;
@@ -175,8 +179,10 @@ public class Variables {
     public static final int WRIST_CARGO_SHIP_COMP = -900000 / 3;
     public static final int WRIST_CARGO_SHIP_PRACTICE = -975850 / 3;
     public static final int[] WRIST_CARGO_SHIP = {WRIST_CARGO_SHIP_COMP, WRIST_CARGO_SHIP_PRACTICE};
+
+    // 77.5 degrees
     public static final int WRIST_CARGO_FLOOR_COMP = -1142068 / 3;
-    public static final int WRIST_CARGO_FLOOR_PRACTICE = -(1142068 + 50000) / 3;
+    public static final int WRIST_CARGO_FLOOR_PRACTICE = -399919;
     public static final int[] WRIST_CARGO_FLOOR = {WRIST_CARGO_FLOOR_COMP, WRIST_CARGO_FLOOR_PRACTICE};
 
     public static final int WRIST_HATCH_STATION_COMP = -93487;
