@@ -6,6 +6,7 @@ import frc.robot.Variables;
 import frc.robot.subsystems.ClimbRear;
 import frc.robot.sensors.IMU;
 import frc.robot.sensors.Sensors;
+import edu.wpi.first.wpilibj.Servo;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 
@@ -19,6 +20,8 @@ public class ClimbFront extends Subsystem {
 
     private CANSparkMax _climbFrontMotorLeft, _climbFrontMotorRight;
 
+    private Servo _climbServoLeft, _climbServoRight;
+
     private double targetPosition;
     private boolean adjusting = false;
 
@@ -30,6 +33,9 @@ public class ClimbFront extends Subsystem {
         _climbFrontMotorRight.setInverted(true);
         _climbFrontMotorRight.setIdleMode(IdleMode.kBrake);
         //_climbFrontMotorRight.setSmartCurrentLimit(0, 5700, 3000);
+
+        _climbServoLeft = new Servo(Addresses.CLIMB_SERVO_LEFT);
+        _climbServoRight = new Servo(Addresses.CLIMB_SERVO_RIGHT);
     }
 
     public static ClimbFront getInstance() {
@@ -214,4 +220,16 @@ public class ClimbFront extends Subsystem {
         return adjusting;
     }
 
+    public void setServoLeft(double angle) {
+        _climbServoLeft.setAngle(angle);
+    }
+
+    public void setServoRight(double angle) {
+        _climbServoRight.setAngle(angle);
+    }
+
+    public void setServos(double angle) {
+        setServoLeft(angle);
+        setServoRight(angle);
+    }
 }

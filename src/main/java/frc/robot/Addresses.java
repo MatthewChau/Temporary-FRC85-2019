@@ -153,7 +153,9 @@ public class Addresses {
     public static final int LIGHT_RELAY = 0;
 
     // Climb
-    public static final int CLIMB_SERVO = 1;
+    public static final int CLIMB_SERVO_REAR = 1;
+    public static final int CLIMB_SERVO_LEFT = 2;
+    public static final int CLIMB_SERVO_RIGHT = 3;
 
     public static final int CLIMB_REAR_MOTOR = 51;
     public static final int CLIMB_REAR_DRIVE = 52;
