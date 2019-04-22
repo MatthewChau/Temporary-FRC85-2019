@@ -242,6 +242,8 @@ public class Variables {
     public static final double ROLLER_IN = 0.80;
     public static final double ROLLER_OUT = -0.80;
 
+    public static final double CAMERA_CENTER = 160.0;
+
     /**
      * Put variables here that should be changeable on the fly.
      */

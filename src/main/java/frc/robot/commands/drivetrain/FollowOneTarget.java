@@ -24,35 +24,24 @@ public class FollowOneTarget extends Command {
     @Override
     protected void execute() {
         super.execute();
-        double xSpeed, ySpeed, zRotation, gyroAngle; // the angle only added in order to stay straight while strafing
+        double xSpeed, ySpeed, gyroAngle; // the angle only added in order to stay straight while strafing
         
         gyroAngle = IMU.getInstance().getFusedHeading();
 
-        double targetCenter = 160.0;
-
         xSpeed = -OI.getInstance().applyPID(OI.VISION_X_SYSTEM,
-                                           Vision.getInstance().oneTargetCenter(), 
-                                           targetCenter, 
-                                           Variables.getInstance().getVisionKP(), 
-                                           Variables.getInstance().getVisionKI(), 
-                                           Variables.getInstance().getVisionKD(), 
-                                           Variables.getInstance().getVisionMaxSpeed(), 
-                                           -Variables.getInstance().getVisionMaxSpeed());
+                                            Vision.getInstance().oneTargetCenter(), 
+                                            Variables.CAMERA_CENTER, 
+                                            Variables.getInstance().getVisionKP(), 
+                                            Variables.getInstance().getVisionKI(), 
+                                            Variables.getInstance().getVisionKD(), 
+                                            Variables.getInstance().getVisionMaxSpeed(), 
+                                            -Variables.getInstance().getVisionMaxSpeed());
 
         ySpeed = OI.getInstance().getLeftYInputJoystick();
 
         SmartDashboard.putNumber("xSpeed Vision", xSpeed);
 
-        zRotation = 0; /*OI.getInstance().applyPID(OI.VISION_ROT_SYSTEM,
-                                              Vision.getInstance().oneTargetAngle(), 
-                                              0.0,
-                                              Variables.getInstance().getVisionRotKP(),
-                                              Variables.getInstance().getVisionRotKI(),
-                                              Variables.getInstance().getVisionRotKD(),
-                                              Variables.getInstance().getVisionMaxSpeed(),
-                                              -Variables.getInstance().getVisionMaxSpeed());*/
-
-        double[] _speedArray = {xSpeed, ySpeed, zRotation, gyroAngle};
+        double[] _speedArray = {xSpeed, ySpeed, 0.0, gyroAngle};
         DriveTrain.getInstance().cartDrive(_speedArray);
     }
 

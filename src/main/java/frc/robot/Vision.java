@@ -130,9 +130,15 @@ public class Vision {
 
 	public double oneTargetCenter() {
 		NetworkTable table;
+		//double[] centerXArray = null;
 		double[] x1Array = {0.0, 0.0}, x2Array = {0.0, 0.0};
 
-		table = NetworkTable.getTable("GRIP/myLinesReport");
+		/*table = NetworkTable.getTable("GRIP/myContoursReport");
+		centerXArray = table.getNumberArray("centerX", centerXArray);
+
+		if (centerXArray.length > 0) {
+			return centerXArray[0];*/
+		table = NetworkTable.getTable("GRIP/myLinesReport")
 		x1Array = table.getNumberArray("x1", x1Array);
 		x2Array = table.getNumberArray("x2", x2Array);
 
@@ -149,7 +155,7 @@ public class Vision {
 			return ((x1Array[0] + x2Array[0]) / 2.0);
 		}
 		else {
-			return 160.0;
+			return Variables.CAMERA_CENTER;
 		}
 	}
 	
