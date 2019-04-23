@@ -34,7 +34,8 @@ public class Mast extends Subsystem {
         _mastMotor.setNeutralMode(NeutralMode.Brake);
         _mastMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
 
-        _mastMotor.configOpenloopRamp(0.5);
+        //_mastMotor.configOpenloopRamp(0);
+        _mastMotor.configOpenloopRamp(0.1);
     }
 
     public static Mast getInstance() {

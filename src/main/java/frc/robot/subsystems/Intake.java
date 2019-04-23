@@ -33,7 +33,10 @@ public class Intake extends Subsystem {
         _wrist = new TalonSRX(Addresses.INTAKE_WRIST);
         _wrist.setNeutralMode(NeutralMode.Brake);
         _wrist.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
-        _wrist.configOpenloopRamp(0.5);
+        
+        //_wrist.configOpenloopRamp(0);
+        _wrist.configOpenloopRamp(0.1);
+
         _roller = new TalonSRX(Addresses.INTAKE_ROLLER);
         _roller.setNeutralMode(NeutralMode.Brake);
     }
@@ -57,13 +60,13 @@ public class Intake extends Subsystem {
                                               Variables.getInstance().getWristKP(), 
                                               Variables.getInstance().getWristKI(), 
                                               Variables.getInstance().getWristKD(), 
-                                              Variables.getInstance().getMaxSpeedUpIntake(), 
-                                              Variables.getInstance().getMaxSpeedDownIntake());
+                                              0.5, 
+                                              -0.5);
         } else if (speed > 0.0) {
-            speed *= 0.7;
+            speed *= 0.5;
             targetPos = getWristPosition();
         } else if (speed < 0.0) {
-            speed *= 0.7;
+            speed *= 0.5;
             targetPos = getWristPosition();
         } else {
             speed = 0.0;
