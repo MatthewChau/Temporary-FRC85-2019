@@ -60,13 +60,13 @@ public class Intake extends Subsystem {
                                               Variables.getInstance().getWristKP(), 
                                               Variables.getInstance().getWristKI(), 
                                               Variables.getInstance().getWristKD(), 
-                                              0.5, 
-                                              -0.5);
+                                              0.9, 
+                                              -0.9);
         } else if (speed > 0.0) {
-            speed *= 0.5;
+            speed *= 0.9;
             targetPos = getWristPosition();
         } else if (speed < 0.0) {
-            speed *= 0.5;
+            speed *= 0.9;
             targetPos = getWristPosition();
         } else {
             speed = 0.0;

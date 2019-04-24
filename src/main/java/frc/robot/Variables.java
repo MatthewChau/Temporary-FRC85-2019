@@ -169,40 +169,34 @@ public class Variables {
 
     // WRIST
 
-    public static final double MULTIPLIER = 2 / 3; // used for gear ratio calculations
-
     // Wrist positions
-    public static final int WRIST_0 = (int)(-53714 * MULTIPLIER);
-    public static final int WRIST_90 = -666000;
-    public static final int WRIST_30 = -226400; // wrist_90 / 2.5
-    public static final int WRIST_45 = WRIST_90 / 2;
-    public static final int WRIST_60 = WRIST_30 * 2;
+    public static final int WRIST_0 = -53714;
+    public static final int WRIST_30 = -333333;
+    public static final int WRIST_45 = -500000;
+    public static final int WRIST_60 = -666666;
+    public static final int WRIST_90 = -908000;
 
-    public static final int WRIST_CARGO_HIGH_COMP = (int)(-750860 * MULTIPLIER);
-    public static final int WRIST_CARGO_HIGH_PRACTICE = (int)(-750860 * MULTIPLIER);
+    public static final int WRIST_CARGO_HIGH_COMP = -750860;
+    public static final int WRIST_CARGO_HIGH_PRACTICE = -750860;
     public static final int[] WRIST_CARGO_HIGH = {WRIST_CARGO_HIGH_COMP, WRIST_CARGO_HIGH_PRACTICE};
-    public static final int WRIST_CARGO_COMP = (int)(-767000 * MULTIPLIER);
-    public static final int WRIST_CARGO_PRACTICE = (int)(-767000 * MULTIPLIER);
+    public static final int WRIST_CARGO_COMP = -767000;
+    public static final int WRIST_CARGO_PRACTICE = -767000;
     public static final int[] WRIST_CARGO = {WRIST_CARGO_COMP, WRIST_CARGO_PRACTICE};
-    public static final int WRIST_CARGO_ONE_COMP = (int)(-768170 * MULTIPLIER);
-    public static final int WRIST_CARGO_ONE_PRACTICE = (int)(-768170 * MULTIPLIER);
+    public static final int WRIST_CARGO_ONE_COMP = -768170;
+    public static final int WRIST_CARGO_ONE_PRACTICE = -768170;
     public static final int[] WRIST_CARGO_ONE = {WRIST_CARGO_ONE_COMP, WRIST_CARGO_ONE_PRACTICE};
-
-    public static final int WRIST_CARGO_SHIP_COMP = (int)(-900000 * MULTIPLIER);
-    public static final int WRIST_CARGO_SHIP_PRACTICE = (int)(-344786 * 2);
+    public static final int WRIST_CARGO_SHIP_COMP = -900000;
+    public static final int WRIST_CARGO_SHIP_PRACTICE = -975850;
     public static final int[] WRIST_CARGO_SHIP = {WRIST_CARGO_SHIP_COMP, WRIST_CARGO_SHIP_PRACTICE};
-
-    // 77.5 degrees
-    public static final int WRIST_CARGO_FLOOR_COMP = (int)(-1142068 * MULTIPLIER);
-    public static final int WRIST_CARGO_FLOOR_PRACTICE = (int)(-399919 * 2);
+    public static final int WRIST_CARGO_FLOOR_COMP = -1142068;
+    public static final int WRIST_CARGO_FLOOR_PRACTICE = -1142068 + 50000;
     public static final int[] WRIST_CARGO_FLOOR = {WRIST_CARGO_FLOOR_COMP, WRIST_CARGO_FLOOR_PRACTICE};
 
-    // 40 degrees
-    public static final int WRIST_HATCH_STATION_COMP = (int)(-93487 * 2);
-    public static final int WRIST_HATCH_STATION_PRACTICE = (int)(-120067 * 2);
+    public static final int WRIST_HATCH_STATION_COMP = -392327;
+    public static final int WRIST_HATCH_STATION_PRACTICE = -392327;
     public static final int[] WRIST_HATCH_STATION = {WRIST_HATCH_STATION_COMP, WRIST_HATCH_STATION_PRACTICE};
-    public static final int WRIST_HATCH_FLOOR_COMP = (int)(-1140762 * MULTIPLIER);
-    public static final int WRIST_HATCH_FLOOR_PRACTICE = (int)(-1140762 * MULTIPLIER);
+    public static final int WRIST_HATCH_FLOOR_COMP = -1140762;
+    public static final int WRIST_HATCH_FLOOR_PRACTICE = -1140762;
     public static final int[] WRIST_HATCH_FLOOR = {WRIST_HATCH_FLOOR_COMP, WRIST_HATCH_FLOOR_PRACTICE};
 
     public static final int WRIST_CURR_POSITION = 1;
@@ -211,7 +205,7 @@ public class Variables {
     public static final int WRIST_MAX_POS = 0;
     public static final int WRIST_MIN_POS_MAST_BACK = -200000;
     public static final int WRIST_MIN_POS_LIFT_UP = WRIST_90;
-    public static final int WRIST_MIN_POS = (int)(-1170000 * MULTIPLIER);
+    public static final int WRIST_MIN_POS = -1170000;
 
     // Wrist speed limits
     public static final double WRIST_MAX_SPEED_UP = 0.8;
