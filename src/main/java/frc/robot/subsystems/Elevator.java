@@ -44,10 +44,10 @@ public class Elevator extends Subsystem {
         _liftRightMotor.setNeutralMode(NeutralMode.Brake);
         _liftRightMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
 
-        //_liftLeftMotor.configOpenloopRamp(0);
-        //_liftRightMotor.configOpenloopRamp(0);
-        _liftLeftMotor.configOpenloopRamp(0.1);
-        _liftRightMotor.configOpenloopRamp(0.1);
+        _liftLeftMotor.configOpenloopRamp(0);
+        _liftRightMotor.configOpenloopRamp(0);
+        //_liftLeftMotor.configOpenloopRamp(0.1);
+        //_liftRightMotor.configOpenloopRamp(0.1);
 
         _timer = new Timer();
         _timer2 = new Timer();

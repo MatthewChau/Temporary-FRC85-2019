@@ -34,8 +34,8 @@ public class Intake extends Subsystem {
         _wrist.setNeutralMode(NeutralMode.Brake);
         _wrist.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
         
-        //_wrist.configOpenloopRamp(0);
-        _wrist.configOpenloopRamp(0.1);
+        _wrist.configOpenloopRamp(0);
+        //_wrist.configOpenloopRamp(0.1);
 
         _roller = new TalonSRX(Addresses.INTAKE_ROLLER);
         _roller.setNeutralMode(NeutralMode.Brake);

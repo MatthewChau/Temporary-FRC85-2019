@@ -107,6 +107,7 @@ public class Variables {
     public static final int CARGO_THREE_PRACTICE = 23055;
     public static final int[] CARGO_THREE = {CARGO_THREE_COMP, CARGO_THREE_PRACTICE};
 
+    // 44"
     public static final int CARGO_SHIP_COMP = 11740;
     public static final int CARGO_SHIP_PRACTICE = 11958;
     public static final int[] CARGO_SHIP = {CARGO_SHIP_COMP, CARGO_SHIP_PRACTICE};
@@ -187,7 +188,6 @@ public class Variables {
     public static final int WRIST_CARGO_ONE_PRACTICE = (int)(-768170 * MULTIPLIER);
     public static final int[] WRIST_CARGO_ONE = {WRIST_CARGO_ONE_COMP, WRIST_CARGO_ONE_PRACTICE};
 
-    // 44"
     public static final int WRIST_CARGO_SHIP_COMP = (int)(-900000 * MULTIPLIER);
     public static final int WRIST_CARGO_SHIP_PRACTICE = (int)(-344786 * 2);
     public static final int[] WRIST_CARGO_SHIP = {WRIST_CARGO_SHIP_COMP, WRIST_CARGO_SHIP_PRACTICE};
@@ -352,7 +352,7 @@ public class Variables {
         SmartDashboard.putBoolean("Run Diagnostics?", false);
         SmartDashboard.putBoolean("Close Diagnostics?", true);
 
-        SmartDashboard.putBoolean("Practice Bot?", true);
+        SmartDashboard.putBoolean("Practice Bot?", false);
 
         SmartDashboard.putBoolean("Relay?", false);
     }
