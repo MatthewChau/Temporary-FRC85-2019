@@ -662,7 +662,7 @@ public class OI {
                 }
                 return true;
             case INTAKE_SYSTEM:
-                if (Math.abs(error) < 1000) {
+                if (Math.abs(error) < 3000) {
                     Intake.getInstance().changeAdjustingBool(false);
                     return false;
                 }

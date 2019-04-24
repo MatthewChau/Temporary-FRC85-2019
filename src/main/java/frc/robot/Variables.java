@@ -24,7 +24,7 @@ public class Variables {
 
     // PID
 
-    private static final double kP_ELEVATOR_DOWN = 0.00075, kP_ELEVATOR_UP = 0.00095, kI_ELEVATOR = 0.00000003, kD_ELEVATOR = 0.001;
+    private static final double kP_ELEVATOR_DOWN = 0.00075, kP_ELEVATOR_UP = 0.000923, kI_ELEVATOR = 0.00000003, kD_ELEVATOR = 0.001;
 
     private static final double kP_MAST = 0.00004, kI_MAST = 0.0, kD_MAST = 0.00003;
 
@@ -67,20 +67,20 @@ public class Variables {
 
     // ELEVATOR
 
-    // Elevator positionsX
+    // Elevator positions
 
     // 12"
-    public static final int HATCH_ONE_COMP = 1991;
+    public static final int HATCH_ONE_COMP = 1144;
     public static final int HATCH_ONE_PRACTICE = 1331;
     public static final int[] HATCH_ONE = {HATCH_ONE_COMP, HATCH_ONE_PRACTICE};
 
     // 43.5"
-    public static final int HATCH_TWO_COMP = 9900 + 600;
+    public static final int HATCH_TWO_COMP = 9923;
     public static final int HATCH_TWO_PRACTICE = 10226;
     public static final int[] HATCH_TWO = {HATCH_TWO_COMP, HATCH_TWO_PRACTICE};
 
     // 70"
-    public static final int HATCH_THREE_COMP = 17900 + 600;
+    public static final int HATCH_THREE_COMP = 17623;
     public static final int HATCH_THREE_PRACTICE = 17862;
     public static final int[] HATCH_THREE = {HATCH_THREE_COMP, HATCH_THREE_PRACTICE};
 
@@ -89,16 +89,16 @@ public class Variables {
     public static final int[] HATCH_FLOOR = {HATCH_FLOOR_COMP, HATCH_FLOOR_PRACTICE};
 
     // 18"
-    public static final int HATCH_STATION_COMP = 1991;
+    public static final int HATCH_STATION_COMP = 2539;
     public static final int HATCH_STATION_PRACTICE = 2200;
     public static final int[] HATCH_STATION = {HATCH_STATION_COMP, HATCH_STATION_PRACTICE};
     
-    public static final int CARGO_ONE_COMP = 6932;
+    public static final int CARGO_ONE_COMP = 6552;
     public static final int CARGO_ONE_PRACTICE = 6387;
     public static final int[] CARGO_ONE = {CARGO_ONE_COMP, CARGO_ONE_PRACTICE};
 
     // 56 5/8"
-    public static final int CARGO_TWO_COMP = 13486;
+    public static final int CARGO_TWO_COMP = 13854;
     public static final int CARGO_TWO_PRACTICE = 13740;
     public static final int[] CARGO_TWO = {CARGO_TWO_COMP, CARGO_TWO_PRACTICE};
 
@@ -108,7 +108,7 @@ public class Variables {
     public static final int[] CARGO_THREE = {CARGO_THREE_COMP, CARGO_THREE_PRACTICE};
 
     // 44"
-    public static final int CARGO_SHIP_COMP = 11740;
+    public static final int CARGO_SHIP_COMP = 10193;
     public static final int CARGO_SHIP_PRACTICE = 11958;
     public static final int[] CARGO_SHIP = {CARGO_SHIP_COMP, CARGO_SHIP_PRACTICE};
 
@@ -176,7 +176,7 @@ public class Variables {
     public static final int WRIST_60 = -666666;
     public static final int WRIST_90 = -908000;
 
-    public static final int WRIST_CARGO_HIGH_COMP = -750860;
+    public static final int WRIST_CARGO_HIGH_COMP = -675615;
     public static final int WRIST_CARGO_HIGH_PRACTICE = -750860;
     public static final int[] WRIST_CARGO_HIGH = {WRIST_CARGO_HIGH_COMP, WRIST_CARGO_HIGH_PRACTICE};
     public static final int WRIST_CARGO_COMP = -767000;
@@ -188,7 +188,7 @@ public class Variables {
     public static final int WRIST_CARGO_SHIP_COMP = -900000;
     public static final int WRIST_CARGO_SHIP_PRACTICE = -975850;
     public static final int[] WRIST_CARGO_SHIP = {WRIST_CARGO_SHIP_COMP, WRIST_CARGO_SHIP_PRACTICE};
-    public static final int WRIST_CARGO_FLOOR_COMP = -1142068;
+    public static final int WRIST_CARGO_FLOOR_COMP = -998737;
     public static final int WRIST_CARGO_FLOOR_PRACTICE = -1142068 + 50000;
     public static final int[] WRIST_CARGO_FLOOR = {WRIST_CARGO_FLOOR_COMP, WRIST_CARGO_FLOOR_PRACTICE};
 
