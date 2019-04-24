@@ -73,16 +73,16 @@ public class Elevator extends Subsystem {
             speed = OI.getInstance().applyPID(OI.ELEVATOR_SYSTEM, 
                                               getElevatorPosition(), 
                                               targetPos, 
-                                              0, 
+                                              Variables.getInstance().getElevatorKP(), 
                                               Variables.getInstance().getElevatorKI(),
-                                              Variables.getInstance().getElevatorKD(), 
-                                              0.7, 
-                                              -0.35);
+                                              0.0, 
+                                              0.6, 
+                                              -0.3);
         } else if (speed > 0) {
-            speed *= 0.7;
+            speed *= 0.6;
             targetPos = getElevatorPosition();
         } else if (speed < 0) {
-            speed *= 0.35;
+            speed *= 0.3;
             targetPos = getElevatorPosition();
         }
 

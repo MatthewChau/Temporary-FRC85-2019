@@ -24,7 +24,7 @@ public class Variables {
 
     // PID
 
-    private static final double kP_ELEVATOR_DOWN = 0.00075, kP_ELEVATOR_UP = 0.000923, kI_ELEVATOR = 0.00000003, kD_ELEVATOR = 0.001;
+    private static final double kP_ELEVATOR = 0.0008, kI_ELEVATOR = 0.00000003, kD_ELEVATOR_UP = 0.001, kD_ELEVATOR_DOWN = 0.002;
 
     private static final double kP_MAST = 0.00004, kI_MAST = 0.0, kD_MAST = 0.00003;
 
@@ -256,7 +256,7 @@ public class Variables {
     public static final double CLIMB_LEFT_DOWN_COMP = 90;
     public static final double CLIMB_LEFT_DOWN_PRACTICE = 90;
     public static final double[] CLIMB_LEFT_DOWN = {CLIMB_LEFT_DOWN_COMP, CLIMB_LEFT_DOWN_PRACTICE};
-    public static final double CLIMB_RIGHT_UP_COMP = 0;
+    public static final double CLIMB_RIGHT_UP_COMP = 180;
     public static final double CLIMB_RIGHT_UP_PRACTICE = 0;
     public static final double[] CLIMB_RIGHT_UP = {CLIMB_RIGHT_UP_COMP, CLIMB_RIGHT_UP_PRACTICE};
     public static final double CLIMB_RIGHT_DOWN_COMP = 90;
@@ -275,10 +275,10 @@ public class Variables {
      * Put variables here that should be changeable on the fly.
      */
     private Variables() {
-        SmartDashboard.putNumber("kP_VLIFT_DOWN", kP_ELEVATOR_DOWN);
-        SmartDashboard.putNumber("kP_VLIFT_UP", kP_ELEVATOR_UP);
+        SmartDashboard.putNumber("kP_VLIFT", kP_ELEVATOR);
         SmartDashboard.putNumber("kI_VLIFT", kI_ELEVATOR);
-        SmartDashboard.putNumber("kD_VLIFT", kD_ELEVATOR);
+        SmartDashboard.putNumber("kD_VLIFT_DOWN", kD_ELEVATOR_DOWN);
+        SmartDashboard.putNumber("kD_VLIFT_UP", kD_ELEVATOR_UP);
 
         SmartDashboard.putNumber("kP_HLIFT", kP_MAST);
         SmartDashboard.putNumber("kI_HLIFT", kI_MAST);
@@ -360,20 +360,20 @@ public class Variables {
 
     // ELEVATOR
 
-    public double getElevatorDownKP() {
-        return SmartDashboard.getNumber("kP_VLIFT_DOWN", kP_ELEVATOR_DOWN); // these are gonna have to be small af
-    }
-
-    public double getElevatorUpKP() {
-        return SmartDashboard.getNumber("kP_VLIFT_UP", kP_ELEVATOR_UP);
+    public double getElevatorKP() {
+        return SmartDashboard.getNumber("kP_VLIFT", kP_ELEVATOR); // these are gonna have to be small af
     }
 
     public double getElevatorKI() {
         return SmartDashboard.getNumber("kI_VLIFT", kI_ELEVATOR);
     }
 
-    public double getElevatorKD() {
-        return SmartDashboard.getNumber("kD_VLIFT", kD_ELEVATOR);
+    public double getElevatorUpKD() {
+        return SmartDashboard.getNumber("kD_VLIFT_UP", kD_ELEVATOR_UP);
+    }
+
+    public double getElevatorDownKD() {
+        return SmartDashboard.getNumber("kD_VLIFT_DOWN", kD_ELEVATOR_DOWN);
     }
 
     // SERVO
