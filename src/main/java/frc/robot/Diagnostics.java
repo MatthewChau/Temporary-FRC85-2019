@@ -71,10 +71,10 @@ public class Diagnostics {
                     + "Range Finder Distance,"
                     + "Hatch 3,Hatch Station,Hatch Release,Hatch 2,Hatch 1,Hatch Ship,Hatch Ground,"
                     + "Cargo Station,Roller Out,Cargo 3,Cargo 2,Roller In,Cargo 1, Cargo Ship, Cargo Floor,"
-                    + "DriverLeftTrigger,DriverLeftFaceBottom,DriverLeftFaceCenter,DriverLeftFaceLeft,DriverLeftFaceRight,DriverLeftBaseLeftTop,DriverLeftBaseLeftBottom,DriverLeftBaseBottomLeft,DriverLeftBaseBottomRight,DriverLeftBaseRightBottom,DriverLeftBaseRightTop"
-                    + "DriverRightTrigger,DriverRightThumbButton,DriverRightFaceBottomLeft,DriverRightFaceBottomRight,DriverRightFaceTopLeft,DriverRightFaceTopRight,DriverRight7,DriverRight8,DriverRight9,DriverRight10,DriverRight11,DriverRight12"
-                    + "OpJoystickTrigger,OpJoystickThumbButton,OpJoystickFaceBottomLeft,OpJoystickFaceBottomRight,OpJoystickFaceTopLeft,OpJoystickFaceTopRight,OpJoystick,OpJoystick7,OpJoystick8,OpJoystick9,OpJoystick10,OpJoystick11,OpJoystick12"
-                    + ",");
+                    + "DriverLeftTrigger,DriverLeftFaceBottom,DriverLeftFaceCenter,DriverLeftFaceLeft,DriverLeftFaceRight,DriverLeftBaseLeftTop,DriverLeftBaseLeftBottom,DriverLeftBaseBottomLeft,DriverLeftBaseBottomRight,DriverLeftBaseRightBottom,DriverLeftBaseRightTop,"
+                    + "DriverRightTrigger,DriverRightThumbButton,DriverRightFaceBottomLeft,DriverRightFaceBottomRight,DriverRightFaceTopLeft,DriverRightFaceTopRight,DriverRight7,DriverRight8,DriverRight9,DriverRight10,DriverRight11,DriverRight12,"
+                    + "OpJoystickTrigger,OpJoystickThumbButton,OpJoystickFaceBottomLeft,OpJoystickFaceBottomRight,OpJoystickFaceTopLeft,OpJoystickFaceTopRight,OpJoystick,OpJoystick7,OpJoystick8,OpJoystick9,OpJoystick10,OpJoystick11,OpJoystick12,"
+                    );
             SmartDashboard.putString("Diagnostics Error Creating File", "OK");
             out.newLine();
         } catch (Exception ex) {
@@ -174,7 +174,7 @@ public class Diagnostics {
                     + bools[3][0] + "," + bools[3][1] + "," + bools[3][2] + "," + bools[3][3] + "," + bools[3][4] + "," + bools[3][5] + "," + bools[3][6] + "," + bools[3][7] + "," + bools[3][8] + "," + bools[3][9] + "," + bools[3][10] + "," + bools[3][11] + ","
                     + bools[4][0] + "," + bools[4][1] + "," + bools[4][2] + "," + bools[4][3] + "," + bools[4][4] + "," + bools[4][5] + "," + bools[4][6] + "," + bools[4][7] + "," + bools[4][8] + "," + bools[4][9] + "," + bools[4][10] + "," + bools[4][11] + ","
                     + brownedOut + ","
-                    + ",");
+                    );
             SmartDashboard.putString("Diagnostics Error Writing", "OK");
             out.newLine();
         } catch (Exception ex) {
