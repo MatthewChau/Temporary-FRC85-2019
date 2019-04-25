@@ -72,7 +72,6 @@ public class Intake extends Subsystem {
             speed = 0.0;
         }
 
-        
         if (getWristPosition() > -1000 && speed > 0)
             speed *= 0.5;
 
