@@ -51,7 +51,7 @@ public class ClimbFront extends Subsystem {
 
     public void moveClimbFront(double speed) { // everything correctional is done here now
         double modifyRoll = OI.getInstance().applyPID(OI.CLIMB_SYSTEM, 
-                                                      IMU.getInstance().getRoll(), 
+                                                      IMU.getInstance().getClimbRoll(), 
                                                       0.0, 
                                                       Variables.getInstance().getClimbkP(), 
                                                       Variables.getInstance().getClimbkI(), 
@@ -59,7 +59,7 @@ public class ClimbFront extends Subsystem {
                                                       Variables.getInstance().getClimbMaxSpeedUp(),
                                                       Variables.getInstance().getClimbMaxSpeedDown());
         double modifyPitch = OI.getInstance().applyPID(OI.CLIMB_PITCH_SYSTEM, 
-                                                       IMU.getInstance().getPitch(), 
+                                                       IMU.getInstance().getClimbPitch(), 
                                                        0.0, 
                                                        Variables.getInstance().getClimbPitchkP(), 
                                                        Variables.getInstance().getClimbPitchkI(), 

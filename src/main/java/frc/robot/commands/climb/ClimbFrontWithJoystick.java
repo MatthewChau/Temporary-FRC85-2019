@@ -25,7 +25,7 @@ public class ClimbFrontWithJoystick extends Command {
     // Called just before this Command runs the first time
     @Override
     protected void initialize() {
-        IMU.getInstance().setInitialYPR();
+        IMU.getInstance().setClimbYPR();
     }
 
     // Called repeatedly when this Command is scheduled to run

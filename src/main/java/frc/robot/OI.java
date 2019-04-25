@@ -119,11 +119,11 @@ public class OI {
         _operatorBlueThree.whenPressed(new Place(Variables.ELEVATOR_CURRENT_POS, Variables.WRIST_30, Variables.MAST_CURRENT_POS));
         _operatorBlueFour = new JoystickButton(_operatorControllerBlue, Addresses.OPERATOR_BLUE_FOUR);
         _operatorBlueFour.whenPressed(new Place(Variables.HATCH_TWO[Variables.getInstance().isPracticeBot()], 0, Variables.MAST_FORWARD_FOR_HATCH));
-        _operatorBlueFive = new JoystickButton(_operatorControllerBlue, Addresses.OPERATOR_BLUE_FIVE);
+        _operatorBlueFive = new JoystickButton(_operatorControllerBlue, Addresses.OPERATOR_BLUE_SIX);
         _operatorBlueFive.whenPressed(new Place(Variables.HATCH_ONE[Variables.getInstance().isPracticeBot()], 0, Variables.MAST_FORWARD_FOR_HATCH));
-        _operatorBlueSix = new JoystickButton(_operatorControllerBlue, Addresses.OPERATOR_BLUE_SIX);
+        _operatorBlueSix = new JoystickButton(_operatorControllerBlue, Addresses.OPERATOR_BLUE_SEVEN);
         _operatorBlueSix.whenPressed(new Place(Variables.HATCH_ONE[Variables.getInstance().isPracticeBot()], 0, Variables.MAST_CARGO_SHIP));
-        _operatorBlueSeven = new JoystickButton(_operatorControllerBlue, Addresses.OPERATOR_BLUE_SEVEN);
+        _operatorBlueSeven = new JoystickButton(_operatorControllerBlue, Addresses.OPERATOR_BLUE_FIVE);
         _operatorBlueSeven.whenPressed(new HatchGroundOne());
         _operatorBlueSeven.whenReleased(new HatchGroundTwo());
 
@@ -136,27 +136,27 @@ public class OI {
         */
 
         // red
-        _operatorRedOne = new JoystickButton(_operatorControllerRed, Addresses.OPERATOR_RED_ONE);
+        _operatorRedOne = new JoystickButton(_operatorControllerRed, Addresses.OPERATOR_RED_TWO);
         _operatorRedOne.whenPressed(new Place(Variables.CARGO_STATION[Variables.getInstance().isPracticeBot()], Variables.WRIST_90 /*?*/, Variables.MAST_FORWARD_FOR_CARGO));
-        _operatorRedTwo = new JoystickButton(_operatorControllerRed, Addresses.OPERATOR_RED_TWO);
+        _operatorRedTwo = new JoystickButton(_operatorControllerRed, Addresses.OPERATOR_RED_ONE);
         _operatorRedTwo.whenPressed(new ActivateIntake(Variables.ROLLER_OUT));
         _operatorRedTwo.whenReleased(new ActivateIntake(0));
         _operatorRedThree = new JoystickButton(_operatorControllerRed, Addresses.OPERATOR_RED_THREE);
-        //_operatorRedThree.whenPressed(new MoveClimbLeftServo(Variables.getInstance().getClimbLeftDown()));
-        //_operatorRedThree.whenReleased(new MoveClimbLeftServo(Variables.getInstance().getClimbLeftUp()));
-        _operatorRedThree.whenPressed(new Place(Variables.CARGO_THREE[Variables.getInstance().isPracticeBot()], Variables.WRIST_CARGO_HIGH[Variables.getInstance().isPracticeBot()], Variables.MAST_FORWARD_FOR_CARGO));
+        _operatorRedThree.whenPressed(new MoveClimbLeftServo(Variables.getInstance().getClimbLeftDown()));
+        _operatorRedThree.whenReleased(new MoveClimbLeftServo(Variables.getInstance().getClimbLeftUp()));
+        //_operatorRedThree.whenPressed(new Place(Variables.CARGO_THREE[Variables.getInstance().isPracticeBot()], Variables.WRIST_CARGO_HIGH[Variables.getInstance().isPracticeBot()], Variables.MAST_FORWARD_FOR_CARGO));
         _operatorRedFour = new JoystickButton(_operatorControllerRed, Addresses.OPERATOR_RED_FOUR);
-        //_operatorRedFour.whenPressed(new MoveClimbRightServo(Variables.getInstance().getClimbRightDown()));
-        //_operatorRedFour.whenReleased(new MoveClimbRightServo(Variables.getInstance().getClimbRightUp()));
-        _operatorRedFour.whenPressed(new Place(Variables.CARGO_TWO[Variables.getInstance().isPracticeBot()], Variables.WRIST_CARGO[Variables.getInstance().isPracticeBot()], Variables.MAST_FORWARD_FOR_CARGO));
+        _operatorRedFour.whenPressed(new MoveClimbRightServo(Variables.getInstance().getClimbRightDown()));
+        _operatorRedFour.whenReleased(new MoveClimbRightServo(Variables.getInstance().getClimbRightUp()));
+        //_operatorRedFour.whenPressed(new Place(Variables.CARGO_TWO[Variables.getInstance().isPracticeBot()], Variables.WRIST_CARGO[Variables.getInstance().isPracticeBot()], Variables.MAST_FORWARD_FOR_CARGO));
         _operatorRedFive = new JoystickButton(_operatorControllerRed, Addresses.OPERATOR_RED_FIVE);
         _operatorRedFive.whenPressed(new ActivateIntake(Variables.ROLLER_IN));
         _operatorRedFive.whenReleased(new ActivateIntake(0));
         _operatorRedSix = new JoystickButton(_operatorControllerRed, Addresses.OPERATOR_RED_SIX);
         _operatorRedSix.whenPressed(new Place(Variables.CARGO_ONE[Variables.getInstance().isPracticeBot()], Variables.WRIST_CARGO_ONE[Variables.getInstance().isPracticeBot()], Variables.MAST_FORWARD_FOR_CARGO));
-        _operatorRedSeven = new JoystickButton(_operatorControllerRed, Addresses.OPERATOR_RED_SEVEN);
+        _operatorRedSeven = new JoystickButton(_operatorControllerRed, Addresses.OPERATOR_RED_EIGHT);
         _operatorRedSeven.whenPressed(new Place(Variables.CARGO_SHIP[Variables.getInstance().isPracticeBot()], Variables.WRIST_90, Variables.MAST_FORWARD_FOR_CARGO));
-        _operatorRedEight = new JoystickButton(_operatorControllerRed, Addresses.OPERATOR_RED_EIGHT);
+        _operatorRedEight = new JoystickButton(_operatorControllerRed, Addresses.OPERATOR_RED_SEVEN);
         _operatorRedEight.whenPressed(new Place(Variables.CARGO_FLOOR[Variables.getInstance().isPracticeBot()], Variables.WRIST_CARGO_FLOOR[Variables.getInstance().isPracticeBot()], Variables.MAST_FORWARD_POS));
         _operatorRedEight.whenReleased(new CargoGroundTwo());
 

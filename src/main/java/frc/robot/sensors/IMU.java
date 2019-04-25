@@ -25,6 +25,7 @@ public class IMU {
 
     //private double _initialHeading = 0;
     private double[] _initialYPR = new double[3];
+    private double[] _climbYPR = new double[3];
 
     private IMU() {
         _pigeon = new PigeonIMU(Elevator.getInstance().getIMUTalon());
@@ -64,16 +65,30 @@ public class IMU {
         _initialYPR = getYPR();
     }
 
+    public void setClimbYPR() {
+        _climbYPR = getYPR();
+    }
+
+    public double getClimbPitch() {
+        double[] _ypr = getYPR();
+        return _climbYPR[2] - _ypr[2];
+    }
+
+    public double getClimbRoll() {
+        double[] _ypr = getYPR();
+        return _climbYPR[1] - _ypr[1];
+    }
+
     public double getInitialYaw() {
         return _initialYPR[0];
     }
 
     public double getInitialPitch() {
-        return _initialYPR[1];
+        return _initialYPR[2];
     }
 
     public double getInitialRoll() {
-        return _initialYPR[2];
+        return _initialYPR[1];
     }
 
     public double getYaw() {

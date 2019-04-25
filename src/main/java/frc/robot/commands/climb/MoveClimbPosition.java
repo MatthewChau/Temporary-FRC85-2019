@@ -29,7 +29,7 @@ public class MoveClimbPosition extends Command {
     protected void initialize() {
         _target = _initial;
         ClimbRear.getInstance().setServo(Variables.getInstance().getClimbUnlocked());
-        IMU.getInstance().setInitialYPR();
+        IMU.getInstance().setClimbYPR();
     }
 
     @Override

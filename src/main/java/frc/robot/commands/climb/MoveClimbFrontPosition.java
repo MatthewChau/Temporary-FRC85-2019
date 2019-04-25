@@ -24,7 +24,7 @@ public class MoveClimbFrontPosition extends Command {
     @Override
     protected void initialize() {
         _target = _initial;
-        IMU.getInstance().setInitialYPR();
+        IMU.getInstance().setClimbYPR();
     }
 
     @Override
