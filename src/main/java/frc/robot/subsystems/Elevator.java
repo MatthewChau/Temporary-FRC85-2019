@@ -145,6 +145,9 @@ public class Elevator extends Subsystem {
     public void setElevatorMotors(double speed) {
         if (getElevatorPosition() < 1000 && speed < 0)
             speed *= 0.5;
+        if (_timer.get() < Variables.ELEVATOR_TIMER && _servoAngle == Variables.getInstance().getElevatorUnlocked())
+            speed = 0;
+
         _liftLeftMotor.set(ControlMode.PercentOutput, speed);
         _liftRightMotor.set(ControlMode.PercentOutput, speed);
     }

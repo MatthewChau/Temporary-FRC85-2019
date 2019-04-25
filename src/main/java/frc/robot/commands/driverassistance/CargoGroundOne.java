@@ -11,7 +11,7 @@ public class CargoGroundOne extends CommandGroup {
         addSequential(new Interrupt());
 
         addSequential(new Place(Variables.CARGO_FLOOR[Variables.getInstance().isPracticeBot()], Variables.WRIST_CARGO_FLOOR[Variables.getInstance().isPracticeBot()], Variables.MAST_FORWARD_POS));
-        addSequential(new ActivateIntake(Variables.ROLLER_IN));
+        //addSequential(new ActivateIntake(Variables.ROLLER_IN));
     }
 
 }

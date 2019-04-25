@@ -93,7 +93,7 @@ public class Variables {
     public static final int HATCH_STATION_PRACTICE = 2200;
     public static final int[] HATCH_STATION = {HATCH_STATION_COMP, HATCH_STATION_PRACTICE};
     
-    public static final int CARGO_ONE_COMP = 6552;
+    public static final int CARGO_ONE_COMP = 6552 - 200;
     public static final int CARGO_ONE_PRACTICE = 6387;
     public static final int[] CARGO_ONE = {CARGO_ONE_COMP, CARGO_ONE_PRACTICE};
 

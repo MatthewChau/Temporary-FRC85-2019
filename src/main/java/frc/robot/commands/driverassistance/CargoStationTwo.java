@@ -10,7 +10,7 @@ public class CargoStationTwo extends CommandGroup {
     public CargoStationTwo() {
         addSequential(new Interrupt());
         
-        addSequential(new ActivateIntake(0));
+        //addSequential(new ActivateIntake(0));
     }
 
 }

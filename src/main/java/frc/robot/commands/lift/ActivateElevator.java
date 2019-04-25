@@ -25,6 +25,7 @@ public class ActivateElevator extends Command {
     @Override
     protected void initialize() {
         Elevator.getInstance().setElevatorMotors(_speed);
+        Elevator.getInstance().changeAdjustingBool(true);
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -36,6 +37,7 @@ public class ActivateElevator extends Command {
     @Override
     protected void interrupted() {
         Elevator.getInstance().setElevatorMotors(0.0);
+        Elevator.getInstance().changeAdjustingBool(false);
     }
 
     @Override
