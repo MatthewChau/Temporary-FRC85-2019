@@ -231,11 +231,13 @@ public class DriveTrain extends Subsystem {
         double newTargetAngle = 0.0;
         int i;
 
-        for (i = -Variables.MAX_TURNS; i < Variables.MAX_TURNS; i++) {
-            if (Math.abs(targetAngle + 360 * i - gyroAngle) < minDiff) { // if the new diff is less than the recorded minimum thus far
-                minDiff = (targetAngle + 360 * i - gyroAngle);
-                newTargetAngle = targetAngle + 360 * i; // note that we can't edit targetAngle directly while the loop is happening
+        i = -Variables.MAX_TURNS;
+        while (i < Variables.MAX_TURNS) {
+            if (Math.abs(targetAngle + (360 * i) - gyroAngle) < minDiff) { // if the new diff is less than the recorded minimum thus far
+                minDiff = (targetAngle + (360 * i) - gyroAngle);
+                newTargetAngle = targetAngle + (360 * i); // note that we can't edit targetAngle directly while the loop is happening
             }
+            i++;
         }
 
         targetAngle = newTargetAngle;

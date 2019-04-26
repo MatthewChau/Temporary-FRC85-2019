@@ -97,10 +97,12 @@ public class Elevator extends Subsystem {
 
         SmartDashboard.putBoolean("Lift Soft Limits Activated", softLimits(speed));
 
-        if ((Sensors.getInstance().getLiftTopLimit() && speed > 0.0)
-             || (Sensors.getInstance().getLiftBottomLimit() && speed < 0.0)
+        if (/*(Sensors.getInstance().getLiftTopLimit() && speed > 0.0)
+             || */(Sensors.getInstance().getLiftBottomLimit() && speed < 0.0)
              || (_timer.get() < Variables.ELEVATOR_TIMER && _servoAngle == Variables.getInstance().getElevatorUnlocked())) {
             speed = 0.0;
+            //if (Sensors.getInstance().getLiftTopLimit())
+            //    adjusting = false;
         }
 
         if (getServo() == Variables.getInstance().getElevatorLocked()
