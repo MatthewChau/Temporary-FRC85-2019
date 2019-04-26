@@ -27,7 +27,7 @@ import frc.robot.commands.climb.ClimbFrontWithJoystick;
 import frc.robot.commands.climb.ClimbRearWithJoystick;
 import frc.robot.commands.climb.MoveClimbPosition;
 import frc.robot.commands.climb.MoveClimbFrontPosition;
-import frc.robot.commands.climb.MoveClimbLeftServo;
+import frc.robot.commands.climb.MoveClimbServos;
 import frc.robot.commands.climb.MoveClimbRightServo;
 import frc.robot.commands.climb.MoveClimbRearPosition;
 import frc.robot.commands.climb.ActivateClimbRearDrive;
@@ -142,13 +142,9 @@ public class OI {
         _operatorRedTwo.whenPressed(new ActivateIntake(Variables.ROLLER_OUT));
         _operatorRedTwo.whenReleased(new ActivateIntake(0));
         _operatorRedThree = new JoystickButton(_operatorControllerRed, Addresses.OPERATOR_RED_THREE);
-        _operatorRedThree.whenPressed(new MoveClimbLeftServo(Variables.getInstance().getClimbLeftDown()));
-        _operatorRedThree.whenReleased(new MoveClimbLeftServo(Variables.getInstance().getClimbLeftUp()));
-        //_operatorRedThree.whenPressed(new Place(Variables.CARGO_THREE[Variables.getInstance().isPracticeBot()], Variables.WRIST_CARGO_HIGH[Variables.getInstance().isPracticeBot()], Variables.MAST_FORWARD_FOR_CARGO));
+        _operatorRedThree.whenPressed(new Place(Variables.CARGO_THREE[Variables.getInstance().isPracticeBot()], Variables.WRIST_CARGO_HIGH[Variables.getInstance().isPracticeBot()], Variables.MAST_FORWARD_FOR_CARGO));
         _operatorRedFour = new JoystickButton(_operatorControllerRed, Addresses.OPERATOR_RED_FOUR);
-        _operatorRedFour.whenPressed(new MoveClimbRightServo(Variables.getInstance().getClimbRightDown()));
-        _operatorRedFour.whenReleased(new MoveClimbRightServo(Variables.getInstance().getClimbRightUp()));
-        //_operatorRedFour.whenPressed(new Place(Variables.CARGO_TWO[Variables.getInstance().isPracticeBot()], Variables.WRIST_CARGO[Variables.getInstance().isPracticeBot()], Variables.MAST_FORWARD_FOR_CARGO));
+        _operatorRedFour.whenPressed(new Place(Variables.CARGO_TWO[Variables.getInstance().isPracticeBot()], Variables.WRIST_CARGO[Variables.getInstance().isPracticeBot()], Variables.MAST_FORWARD_FOR_CARGO));
         _operatorRedFive = new JoystickButton(_operatorControllerRed, Addresses.OPERATOR_RED_FIVE);
         _operatorRedFive.whenPressed(new ActivateIntake(Variables.ROLLER_IN));
         _operatorRedFive.whenReleased(new ActivateIntake(0));
@@ -192,6 +188,8 @@ public class OI {
         _rightJoystickTwelve = new JoystickButton(_driverJoystickRight, Addresses.EXTREME_BASE_TWELVE);
 
         _opJoystickTrigger = new JoystickButton(_operatorJoystick, Addresses.EXTREME_TRIGGER);
+        _opJoystickTrigger.whenPressed(new MoveClimbServos(Variables.getInstance().getClimbLeftDown(), Variables.getInstance().getClimbRightDown()));
+        //_opJoystickTrigger.whenReleased(new MoveClimbServos(Variables.getInstance().getClimbLeftUp(), Variables.getInstance().getClimbRightUp()));
         _opJoystickThumbButton = new JoystickButton(_operatorJoystick, Addresses.EXTREME_THUMB_BUTTON);
         _opJoystickThumbButton.whenPressed(new ZeroSystems());
         _opJoystickThumbButton.whenReleased(new Interrupt());

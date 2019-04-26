@@ -13,18 +13,20 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class MoveClimbServos extends Command {
 
-    private double _initial, _target;
+    private double _initialL, _initialR, _targetL, _targetR;
 
-    public MoveClimbServos(double angle) {
+    public MoveClimbServos(double leftAngle, double rightAngle) {
         requires(ClimbFront.getInstance());
-        _initial = angle;
+        _initialL = leftAngle;
+        _initialR = rightAngle;
     }
 
     @Override
     protected void initialize() {
-        _target = _initial;
-        ClimbFront.getInstance().setServoLeft(_target);
-        ClimbFront.getInstance().setServoRight(_target);
+        _targetL = _initialL;
+        _targetR = _initialR;
+        ClimbFront.getInstance().setServoLeft(_targetL);
+        ClimbFront.getInstance().setServoRight(_targetR);
     }
 
     @Override
