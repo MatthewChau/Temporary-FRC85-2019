@@ -14,6 +14,7 @@ import frc.robot.Variables;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.Vector2d;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
@@ -87,7 +88,7 @@ public class DriveTrain extends Subsystem {
             setTargetAngle(90);
             fixTargetAngle(inputs[3]);
         } else if (OI.getInstance().getLeftJoystickFaceRight()) { // turn right
-            setTargetAngle(-90);
+            setTargetAngle(270);
             fixTargetAngle(inputs[3]);
         } else if (OI.getInstance().getLeftJoystickFaceBottom()) { // 180
             setTargetAngle(180);
@@ -99,15 +100,17 @@ public class DriveTrain extends Subsystem {
             setTargetAngle(150);
             fixTargetAngle(inputs[3]);
         } else if (OI.getInstance().getRightStickTen()) { // back right rocket alignment
-            setTargetAngle(-150);
+            setTargetAngle(210);
             fixTargetAngle(inputs[3]);
         } else if (OI.getInstance().getRightStickEleven()) { // front left rocket alignment
             setTargetAngle(30);
             fixTargetAngle(inputs[3]);
         } else if (OI.getInstance().getRightStickTwelve()) { // front right rocket alignment
-            setTargetAngle(-30);
+            setTargetAngle(330);
             fixTargetAngle(inputs[3]);
         }
+
+        SmartDashboard.putNumber("Target Angle Drive", targetAngle);
         
         if (Math.abs(inputs[0]) > Variables.DEADBAND_DRIVERSTICK
             || Math.abs(inputs[1]) > Variables.DEADBAND_DRIVERSTICK
@@ -165,7 +168,7 @@ public class DriveTrain extends Subsystem {
             
             if (turnInProgress) { // note that this block exists for the sole purpose of overriding things when they are in progress
                 inputs[2] = OI.getInstance().applyPID(OI.ROT_SYSTEM, inputs[3], targetAngle, Variables.getInstance().getDriveKP(), Variables.getInstance().getDriveKI(), Variables.getInstance().getDriveKD());
-            } else if (Math.abs(inputs[2]) < Variables.DEADBAND_DRIVERSTICK && !OI.getInstance().isHeadless()) { // we will deal with headless later ahaha
+            } else if (!turnInProgress && Math.abs(inputs[2]) < Variables.DEADBAND_DRIVERSTICK && !OI.getInstance().isHeadless()) { // we will deal with headless later ahaha
                 if (OI.getInstance().isForwardOnlyMode()) { // finally we check if we are in that specific mode
                     setForwardOnlyTargetAngle();
                     fixTargetAngle(inputs[3]);
@@ -199,7 +202,7 @@ public class DriveTrain extends Subsystem {
 
     private void setTargetAngleMoving(double gyroAngle) { // if necessary, change the target angle
         if (Math.abs(Math.abs(gyroAngle) - Math.abs(targetAngle)) > Variables.TOLERANCE_ANGLE
-            && !turnInProgress) { // fuck me this is the dumbest fix i have ever had to elaborate on god fuck
+            && !turnInProgress) {
             targetAngle = gyroAngle;
         }
     }
@@ -226,13 +229,36 @@ public class DriveTrain extends Subsystem {
         }
     }
 
+    // target angle was all made to be within the same turn, 0-360
+    // so we take that, & get the amount of turns that we have gone in either direction
+    // get the theoretical new target
+    // if said target is further away from the currangle so that it would be a significant turn, it adjusts the turn counts accordingly
+
+    private void fixTargetAngleNew(double gyroAngle) {
+        int turns = (int)(gyroAngle / 360); // how many turns have been done
+        double newTargetAngle = 0;
+
+        newTargetAngle = targetAngle + (360 * turns);
+
+        if (Math.abs(newTargetAngle - gyroAngle) > 180) { // if it would be shorter to turn the other way
+            if (newTargetAngle > gyroAngle) // if the target angle is way above the curr
+                turns--;
+            else // if the target angle is way below the curr
+                turns++;
+        }
+
+        newTargetAngle = targetAngle + (360 * turns); // recalculate the target
+
+        targetAngle = newTargetAngle;
+    }
+
     private void fixTargetAngle(double gyroAngle) {
         double minDiff = 180.0;
         double newTargetAngle = 0.0;
         int i;
-
+        
         i = -Variables.MAX_TURNS;
-        while (i < Variables.MAX_TURNS) {
+        while (i <= Variables.MAX_TURNS) {
             if (Math.abs(targetAngle + (360 * i) - gyroAngle) < minDiff) { // if the new diff is less than the recorded minimum thus far
                 minDiff = (targetAngle + (360 * i) - gyroAngle);
                 newTargetAngle = targetAngle + (360 * i); // note that we can't edit targetAngle directly while the loop is happening

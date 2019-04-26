@@ -122,7 +122,7 @@ public class OI {
         _operatorBlueFive = new JoystickButton(_operatorControllerBlue, Addresses.OPERATOR_BLUE_SIX);
         _operatorBlueFive.whenPressed(new Place(Variables.HATCH_ONE[Variables.getInstance().isPracticeBot()], 0, Variables.MAST_FORWARD_FOR_HATCH));
         _operatorBlueSix = new JoystickButton(_operatorControllerBlue, Addresses.OPERATOR_BLUE_SEVEN);
-        _operatorBlueSix.whenPressed(new Place(Variables.HATCH_ONE[Variables.getInstance().isPracticeBot()], 0, Variables.MAST_CARGO_SHIP));
+        _operatorBlueSix.whenPressed(new Place(Variables.HATCH_ONE[Variables.getInstance().isPracticeBot()], 0, (Variables.MAST_FORWARD_FOR_HATCH - 100000)));
         _operatorBlueSeven = new JoystickButton(_operatorControllerBlue, Addresses.OPERATOR_BLUE_FIVE);
         _operatorBlueSeven.whenPressed(new HatchGroundOne());
         _operatorBlueSeven.whenReleased(new HatchGroundTwo());
@@ -612,8 +612,8 @@ public class OI {
     public boolean checkIfNeedBeRun(int system, double error, double speed) {
         switch (system) {
             case ROT_SYSTEM:
-                if (DriveTrain.getInstance().getTurnInProgress() && Math.abs(error) < 1.0 
-                    && speed < 0.05
+                if (DriveTrain.getInstance().getTurnInProgress() && Math.abs(error) < 0.5 
+                    //&& speed < 0.05
                     /*&& !ClimbRear.getInstance().getClimbInProgress()*/) {
                     DriveTrain.getInstance().setTurnInProgress(false);
                     return false;

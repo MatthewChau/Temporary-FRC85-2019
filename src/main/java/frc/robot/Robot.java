@@ -106,6 +106,8 @@ public class Robot extends TimedRobot {
     @Override
     public void teleopInit() {
         Sensors.getInstance().startTimers();
+        ClimbFront.getInstance().setServoLeft(Variables.getInstance().getClimbLeftUp());
+        ClimbFront.getInstance().setServoRight(Variables.getInstance().getClimbRightUp());
     }
 
     /**
