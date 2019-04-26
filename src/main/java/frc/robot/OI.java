@@ -189,7 +189,7 @@ public class OI {
 
         _opJoystickTrigger = new JoystickButton(_operatorJoystick, Addresses.EXTREME_TRIGGER);
         _opJoystickTrigger.whenPressed(new MoveClimbServos(Variables.getInstance().getClimbLeftDown(), Variables.getInstance().getClimbRightDown()));
-        //_opJoystickTrigger.whenReleased(new MoveClimbServos(Variables.getInstance().getClimbLeftUp(), Variables.getInstance().getClimbRightUp()));
+        _opJoystickTrigger.whenReleased(new MoveClimbServos(Variables.getInstance().getClimbLeftUp(), Variables.getInstance().getClimbRightUp()));
         _opJoystickThumbButton = new JoystickButton(_operatorJoystick, Addresses.EXTREME_THUMB_BUTTON);
         _opJoystickThumbButton.whenPressed(new ZeroSystems());
         _opJoystickThumbButton.whenReleased(new Interrupt());
