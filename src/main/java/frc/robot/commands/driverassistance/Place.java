@@ -29,9 +29,9 @@ public class Place extends CommandGroup {
         else*/
             addSequential(new ElevatorPosition(elevatorPos)); // move the elevator to position
 
-        /*if (wristPosition == 0) // if zeroing the wrist
-            addSequential(new ActivateWrist(0.7)); // run up until limit
-        else*/
+        if (wristPosition == 0) // if zeroing the wrist
+            addSequential(new ActivateWrist(1.0)); // run up until limit
+        else
             addSequential(new WristPosition(wristPosition)); // move the wrist to position
     }
 

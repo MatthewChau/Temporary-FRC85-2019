@@ -8,7 +8,9 @@
 package frc.robot.commands.climb;
 
 import frc.robot.OI;
+import frc.robot.Variables;
 import frc.robot.subsystems.ClimbRear;
+import frc.robot.subsystems.ClimbFront;
 
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -35,6 +37,11 @@ public class ClimbRearWithJoystick extends Command {
             _multiplier = 0.9;
         } else {
             _multiplier = 0.9;
+        }
+
+        if (OI.getInstance().getOpStickTrigger()) {
+            ClimbFront.getInstance().setServoLeft(Variables.getInstance().getClimbLeftDown());
+            ClimbFront.getInstance().setServoRight(Variables.getInstance().getClimbRightDown());
         }
 
         ClimbRear.getInstance().moveClimbRear(_speed * _multiplier);

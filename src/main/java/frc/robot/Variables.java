@@ -84,7 +84,7 @@ public class Variables {
     public static final int HATCH_THREE_PRACTICE = 17862;
     public static final int[] HATCH_THREE = {HATCH_THREE_COMP, HATCH_THREE_PRACTICE};
 
-    public static final int HATCH_FLOOR_COMP = 1210;
+    public static final int HATCH_FLOOR_COMP = 1230;
     public static final int HATCH_FLOOR_PRACTICE = 2232;
     public static final int[] HATCH_FLOOR = {HATCH_FLOOR_COMP, HATCH_FLOOR_PRACTICE};
 
@@ -151,6 +151,7 @@ public class Variables {
     public static final int MAST_FORWARD_FOR_HATCH = 429798;
     public static final int MAST_FORWARD_FOR_CARGO = 131659;
     public static final int MAST_PROTECTED = 100000; // behind bumpers
+    public static final int MAST_FOR_HATCH_SHIP = 82390;
 
     public static final int MAST_CURRENT_POS = -1;
 
@@ -195,7 +196,7 @@ public class Variables {
     public static final int WRIST_HATCH_STATION_COMP = -392327;
     public static final int WRIST_HATCH_STATION_PRACTICE = -392327;
     public static final int[] WRIST_HATCH_STATION = {WRIST_HATCH_STATION_COMP, WRIST_HATCH_STATION_PRACTICE};
-    public static final int WRIST_HATCH_FLOOR_COMP = -1140762;
+    public static final int WRIST_HATCH_FLOOR_COMP = -988993;
     public static final int WRIST_HATCH_FLOOR_PRACTICE = -1140762;
     public static final int[] WRIST_HATCH_FLOOR = {WRIST_HATCH_FLOOR_COMP, WRIST_HATCH_FLOOR_PRACTICE};
 

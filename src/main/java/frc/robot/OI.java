@@ -122,7 +122,7 @@ public class OI {
         _operatorBlueFive = new JoystickButton(_operatorControllerBlue, Addresses.OPERATOR_BLUE_SIX);
         _operatorBlueFive.whenPressed(new Place(Variables.HATCH_ONE[Variables.getInstance().isPracticeBot()], 0, Variables.MAST_FORWARD_FOR_HATCH));
         _operatorBlueSix = new JoystickButton(_operatorControllerBlue, Addresses.OPERATOR_BLUE_SEVEN);
-        _operatorBlueSix.whenPressed(new Place(Variables.HATCH_ONE[Variables.getInstance().isPracticeBot()], 0, (Variables.MAST_FORWARD_FOR_HATCH - 100000)));
+        _operatorBlueSix.whenPressed(new Place(Variables.HATCH_ONE[Variables.getInstance().isPracticeBot()], 0, Variables.MAST_FOR_HATCH_SHIP));
         _operatorBlueSeven = new JoystickButton(_operatorControllerBlue, Addresses.OPERATOR_BLUE_FIVE);
         _operatorBlueSeven.whenPressed(new HatchGroundOne());
         _operatorBlueSeven.whenReleased(new HatchGroundTwo());
@@ -188,8 +188,6 @@ public class OI {
         _rightJoystickTwelve = new JoystickButton(_driverJoystickRight, Addresses.EXTREME_BASE_TWELVE);
 
         _opJoystickTrigger = new JoystickButton(_operatorJoystick, Addresses.EXTREME_TRIGGER);
-        _opJoystickTrigger.whenPressed(new MoveClimbServos(Variables.getInstance().getClimbLeftDown(), Variables.getInstance().getClimbRightDown()));
-        _opJoystickTrigger.whenReleased(new MoveClimbServos(Variables.getInstance().getClimbLeftUp(), Variables.getInstance().getClimbRightUp()));
         _opJoystickThumbButton = new JoystickButton(_operatorJoystick, Addresses.EXTREME_THUMB_BUTTON);
         _opJoystickThumbButton.whenPressed(new ZeroSystems());
         _opJoystickThumbButton.whenReleased(new Interrupt());
@@ -217,6 +215,7 @@ public class OI {
         _opJoystickTwelve = new JoystickButton(_operatorJoystick, Addresses.EXTREME_BASE_TWELVE);
         _opJoystickTwelve.whenPressed(new Interrupt());
         _opJoystickTwelve.whenPressed(new ClimbRearWithJoystick());
+        //_opJoystickTwelve.whenReleased(new MoveClimbServos(Variables.getInstance().getClimbLeftDown(), Variables.getInstance().getClimbRightDown()));
         
         Arrays.fill(stopArray, 0.0);
     }
