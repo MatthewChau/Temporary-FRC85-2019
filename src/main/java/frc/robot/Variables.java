@@ -85,7 +85,7 @@ public class Variables {
     public static final int[] HATCH_THREE = {HATCH_THREE_COMP, HATCH_THREE_PRACTICE};
 
     public static final int HATCH_FLOOR_COMP = 1230;
-    public static final int HATCH_FLOOR_PRACTICE = 2232;
+    public static final int HATCH_FLOOR_PRACTICE = 1500;
     public static final int[] HATCH_FLOOR = {HATCH_FLOOR_COMP, HATCH_FLOOR_PRACTICE};
 
     // 18"
@@ -113,7 +113,7 @@ public class Variables {
     public static final int[] CARGO_SHIP = {CARGO_SHIP_COMP, CARGO_SHIP_PRACTICE};
 
     public static final int CARGO_FLOOR_COMP = 1991;
-    public static final int CARGO_FLOOR_PRACTICE = 2662;
+    public static final int CARGO_FLOOR_PRACTICE = 1300;
     public static final int[] CARGO_FLOOR = {CARGO_FLOOR_COMP, CARGO_FLOOR_PRACTICE};
 
     public static final int CARGO_STATION_COMP = 10677;
@@ -171,42 +171,42 @@ public class Variables {
     // WRIST
 
     // Wrist positions
-    public static final int WRIST_0 = -53714;
-    public static final int WRIST_30 = -333333;
-    public static final int WRIST_45 = -500000;
-    public static final int WRIST_60 = -666666;
-    public static final int WRIST_90 = -908000;
+    public static final int WRIST_0 = -53714 / 3;
+    public static final int WRIST_30 = -333333 / 3;
+    public static final int WRIST_45 = -500000 / 3;
+    public static final int WRIST_60 = -666666 / 3;
+    public static final int WRIST_90 = -908000 / 3;
 
     public static final int WRIST_CARGO_HIGH_COMP = -675615;
-    public static final int WRIST_CARGO_HIGH_PRACTICE = -750860;
+    public static final int WRIST_CARGO_HIGH_PRACTICE = -750860 / 3;
     public static final int[] WRIST_CARGO_HIGH = {WRIST_CARGO_HIGH_COMP, WRIST_CARGO_HIGH_PRACTICE};
     public static final int WRIST_CARGO_COMP = -767000;
-    public static final int WRIST_CARGO_PRACTICE = -767000;
+    public static final int WRIST_CARGO_PRACTICE = -767000 / 3;
     public static final int[] WRIST_CARGO = {WRIST_CARGO_COMP, WRIST_CARGO_PRACTICE};
     public static final int WRIST_CARGO_ONE_COMP = -768170;
-    public static final int WRIST_CARGO_ONE_PRACTICE = -768170;
+    public static final int WRIST_CARGO_ONE_PRACTICE = -768170 / 3;
     public static final int[] WRIST_CARGO_ONE = {WRIST_CARGO_ONE_COMP, WRIST_CARGO_ONE_PRACTICE};
     public static final int WRIST_CARGO_SHIP_COMP = -900000;
-    public static final int WRIST_CARGO_SHIP_PRACTICE = -975850;
+    public static final int WRIST_CARGO_SHIP_PRACTICE = -975850 / 3;
     public static final int[] WRIST_CARGO_SHIP = {WRIST_CARGO_SHIP_COMP, WRIST_CARGO_SHIP_PRACTICE};
     public static final int WRIST_CARGO_FLOOR_COMP = -1060346;
-    public static final int WRIST_CARGO_FLOOR_PRACTICE = -1142068 + 50000;
+    public static final int WRIST_CARGO_FLOOR_PRACTICE = -390199;
     public static final int[] WRIST_CARGO_FLOOR = {WRIST_CARGO_FLOOR_COMP, WRIST_CARGO_FLOOR_PRACTICE};
 
     public static final int WRIST_HATCH_STATION_COMP = -392327;
-    public static final int WRIST_HATCH_STATION_PRACTICE = -392327;
+    public static final int WRIST_HATCH_STATION_PRACTICE = -392327 / 3;
     public static final int[] WRIST_HATCH_STATION = {WRIST_HATCH_STATION_COMP, WRIST_HATCH_STATION_PRACTICE};
     public static final int WRIST_HATCH_FLOOR_COMP = -988993;
-    public static final int WRIST_HATCH_FLOOR_PRACTICE = -1140762;
+    public static final int WRIST_HATCH_FLOOR_PRACTICE = -1140762 / 3;
     public static final int[] WRIST_HATCH_FLOOR = {WRIST_HATCH_FLOOR_COMP, WRIST_HATCH_FLOOR_PRACTICE};
 
     public static final int WRIST_CURR_POSITION = 1;
 
     // Wrist position limits
     public static final int WRIST_MAX_POS = 0;
-    public static final int WRIST_MIN_POS_MAST_BACK = -200000;
+    public static final int WRIST_MIN_POS_MAST_BACK = -200000 / 3;
     public static final int WRIST_MIN_POS_LIFT_UP = WRIST_90;
-    public static final int WRIST_MIN_POS = -1170000;
+    public static final int WRIST_MIN_POS = -350184;
 
     // Wrist speed limits
     public static final double WRIST_MAX_SPEED_UP = 0.8;
@@ -347,7 +347,7 @@ public class Variables {
         SmartDashboard.putBoolean("Run Diagnostics?", false);
         SmartDashboard.putBoolean("Close Diagnostics?", true);
 
-        SmartDashboard.putBoolean("Practice Bot?", false);
+        SmartDashboard.putBoolean("Practice Bot?", true);
 
         SmartDashboard.putBoolean("Relay?", false);
     }

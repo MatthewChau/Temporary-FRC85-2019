@@ -83,7 +83,7 @@ public class DriveTrain extends Subsystem {
      */
     public void cartDrive(double[] inputs) {
         int i;
-
+/*
         if (OI.getInstance().getLeftJoystickFaceLeft()) { // turn left
             setTargetAngle(90);
             fixTargetAngle(inputs[3]);
@@ -109,7 +109,7 @@ public class DriveTrain extends Subsystem {
             setTargetAngle(330);
             fixTargetAngle(inputs[3]);
         }
-
+*/
         SmartDashboard.putNumber("Target Angle Drive", targetAngle);
         
         if (Math.abs(inputs[0]) > Variables.DEADBAND_DRIVERSTICK
@@ -151,11 +151,11 @@ public class DriveTrain extends Subsystem {
                 inputs[2] = 0.0;
             }
 
-            if (OI.getInstance().getLeftStickTrigger()) { // trigger for lowering speed
-                inputs[0] *= 0.6;
-                inputs[1] *= 0.33;
-                inputs[2] *= 0.38;
-            }
+            //if (OI.getInstance().getLeftStickTrigger()) { // trigger for lowering speed
+                inputs[0] *= 0.75;
+                inputs[1] *= 0.45;
+                inputs[2] *= 0.45;
+            //}
 
             Vector2d vector = new Vector2d(-inputs[1], inputs[0]);
             if (OI.getInstance().isHeadless() || OI.getInstance().isForwardOnlyMode()) { // if headless/forward only, account for it
@@ -179,7 +179,7 @@ public class DriveTrain extends Subsystem {
                 }
             }
 
-            inputs[2] *= (.90); // josiah has semi-CHADified (limit his turning speed further)
+            inputs[2] *= (.6); // josiah has semi-CHADified (limit his turning speed further)
 
             wheelSpeeds[0] = (vector.x + vector.y - inputs[2]);
             wheelSpeeds[1] = (vector.x - vector.y + inputs[2]);
